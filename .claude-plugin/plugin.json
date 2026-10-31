@@ -1,0 +1,7 @@
+{
+  "name": "agent804",
+  "version": "0.2.0",
+  "description": "Build the harness before the app: skills that set up, assess and grow an agent-ready project (instructions, checks, guardrails, specs, decisions, review, measurement).",
+  "author": { "name": "Node 804" },
+  "license": "MIT"
+}
