@@ -72,13 +72,3 @@ unverified. A green subset cannot validate an entire architecture decision.
 A project may run a shorter lifecycle (Proposed, Accepted, Superseded) with evidence gathered
 while Proposed; follow the project's own rule. If it keeps an index of ADRs, regenerate it.
 Report what you recorded and what is still not tested.
-
-## Moving to separate evidence files (optional)
-
-An append-only Evidence section already meets DC-2; move only if the project wants files.
-For a frozen ADR with inline evidence or no evidence link, create its separate record with a
-backlink to the ADR. Preserve any earlier evidence verbatim with its source revision; do not
-invent missing results. Add the ADR-to-record mapping to `docs/evidence/index.md` without
-editing the frozen ADR. Later results append to the record. New ADRs link their records
-before acceptance; migrated ADRs are located through the index.
-

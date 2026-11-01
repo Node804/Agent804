@@ -80,7 +80,7 @@ or a fixture adapter pass with active project permissions or a working completio
    business rules and boundaries (AR-2, AR-3); retirement evidence (MT-3). A reviewed baseline
    can retain specific debt, but cannot waive controls or permit worsening findings. Do not
    call documentation "met" from presence alone. Treat unused-code and duplication reports as
-   leads needing confirmation. Record MS-4 exercises separately as a practice, never a gate.
+   leads needing confirmation.
    Report MT-4 refactoring separately as a practice: problem, consumers/contracts, baseline
    and final preservation evidence, improvement and compatibility gaps. A green suite does
    not prove complete equivalence; absence of a standalone refactor skill is not a failure.

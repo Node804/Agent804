@@ -25,7 +25,7 @@ It is here so that anyone changing a rule, person or agent, can see what it rest
 | Git, [worktree](https://git-scm.com/docs/git-worktree) and [rev-parse](https://git-scm.com/docs/git-rev-parse) documentation | Separate working files, index and HEAD with shared history; linked checkouts use a `.git` file. Discover private metadata through Git; keep check state separate and retain branch/removal safeguards (WK-6, GR-4) | Worktrees isolate files, not credentials, databases or processes. Agent804 requires separate mutable resources and an explicit handoff and integration check |
 | Python, [PEP 8 comments](https://peps.python.org/pep-0008/#comments) | Useful current documentation, restrained inline comments and documented public interfaces (MT-1) | Contract scope follows each stack and project; no comment quota or requirement to restate obvious code |
 | Ruff, [complexity](https://docs.astral.sh/ruff/rules/complex-structure/), [settings](https://docs.astral.sh/ruff/settings/#lint_mccabe_max-complexity) and [public-function documentation](https://docs.astral.sh/ruff/rules/undocumented-public-function/) | Deterministic Python complexity and documentation-presence mechanisms (MT-1, MT-2) | Presence cannot prove accuracy; metrics cannot prove cohesion. Project thresholds and exceptions need review; new Django mappings remain draft |
-| GitClear, [The Maintainability Gap](https://www.gitclear.com/the_ai_code_quality_maintainability_gap) | Investigating duplication, declining reuse, error masking and churn supports authoritative rules, retirement review and structural trends (AR-2, MT-3, MS-1, MS-2) | Vendor observational analysis, not proof of causality or universal thresholds. Reports prompt investigation; fresh-maintainer exercises (MS-4) test actual maintenance |
+| GitClear, [The Maintainability Gap](https://www.gitclear.com/the_ai_code_quality_maintainability_gap) | Investigating duplication, declining reuse, error masking and churn supports authoritative rules, retirement review and structural trends (AR-2, MT-3, MS-1, MS-2) | Vendor observational analysis, not proof of causality or universal thresholds. Reports prompt investigation; MT-2's duplication limit and review act on them |
 
 ## Local regression evidence
 
@@ -43,8 +43,8 @@ yet been trialled end to end in a production application.
 MT-2 now gates rung 2, MT-1 gates rung 4, and MT-3 joins rung 6; there is no ninth rung.
 The existing rules now address navigation, current references, authoritative business rules,
 cohesive boundaries, dependency choices and red/green/refactor. Existing projects may retain
-specific reviewed debt without allowing new unapproved or worsening findings. MS-4 remains
-a practice pending trial. These scoring changes and new profile mechanisms have not yet been
+specific reviewed debt without allowing new unapproved or worsening findings. Maintenance
+exercises with an unfamiliar maintainer were dropped in 0.4 until a project trials them. These scoring changes and new profile mechanisms have not yet been
 reassessed against the reference projects; neither documentation nor repository checks prove
 the adoption workflow works. The next trial must record scores under the revised gates and
 dispositions from an unfamiliar human and a fresh agent context.
@@ -169,6 +169,6 @@ evaluations were performed, and no automatic orchestrator or account adapter was
 ## Context management and debt
 
 [Research and validation limits](validation/context.md) record consulted sources and the
-proposed IN-8/WK-8 practices. Context-effectiveness/recovery trials remain pending under MS-4;
+proposed IN-8/WK-8 practices. Context-effectiveness/recovery trials remain pending;
 repository integrity checks do not establish attention, retrieval recall or complete evidence.
 [Debt research](validation/debt.md) and [Grok Build evidence](validation/grok-build.md) record their scopes and pending trials.

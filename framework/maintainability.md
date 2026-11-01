@@ -5,7 +5,7 @@ modify it within clear boundaries and verify the result using repository-held in
 This applies to experienced developers and agents. It is not a limit on total repository size,
 but each file or module stays small enough to be read whole (MT-2).
 
-The rules are MT-1 to MT-5, supported by IN-4, IN-5, AR-2, AR-3, SK-3, TS-2 and MS-1 to MS-4
+The rules are MT-1 to MT-5, supported by IN-4, IN-5, AR-2, AR-3, SK-3, TS-2, MS-1 and MS-2
 in [rules.md](rules.md). Limits and mechanisms belong in the [stack profiles](profiles/README.md).
 
 ## Find the relevant context
@@ -149,11 +149,6 @@ reliability. Record tool versions, scope and baseline changes so numbers are int
 change in a metric is a signal to investigate, not proof of a cause or a developer ranking.
 MS-2 reviews structural drift and retention decisions during gardening.
 
-MS-4 is a practice pending trial, not a rung gate. Periodically have someone who did not author
-an area perform a representative maintenance task; include experienced humans and fresh agent
-contexts over time. Agree the task and record the revision, maintainer type, information used,
-undocumented knowledge needed, unrelated code inspected, obstacles, verification and follow-up.
-
 For example, change one validation rule using the area's public interfaces and local tests.
 Success means the behavior is understood, modified and verified without unexplained coupling.
 Choose suitable expectations for the task; do not impose a universal time or context budget.
@@ -167,4 +162,4 @@ does not authorize implementation changes as part of an exercise.
 
 The first informs accurate, useful comments; the second is vendor observational research
 supporting investigation of duplication, reuse and churn, not proof that a particular agent
-caused a defect. The maintainability gates and MS-4 exercise remain to be trialled on projects.
+caused a defect. The maintainability gates remain to be trialled on projects.

@@ -11,7 +11,7 @@ the user asks; otherwise it reports.
 Read the project's records where they exist: `docs/maintainability.md`
 and `docs/security.md` (finding decisions follow SE-6; security evidence goes stale).
 
-Review flaky failures, retry rates, quarantine owners/expiry, skipped suites, unexpected
+Review flaky failures (each with an owner), retry rates, quarantine owners/expiry, skipped suites, unexpected
 discovery changes and obsolete fixtures (MS-2, TS-10, TS-12). Propose reviewed corrections;
 never silently skip a failure or change acceptance outcomes without affected criteria review.
 
@@ -37,18 +37,15 @@ never silently skip a failure or change acceptance outcomes without affected cri
    for the user to try removing (MS-3); do not remove them yourself.
 7. **Contracts and references** (MT-1, IN-5): review changed public behavior against docs and
    examples, run safe reference/example checks, and distinguish current guidance from history.
-8. **Maintenance exercises** (MS-4): report recorded obstacles and unresolved follow-up. Suggest
-   a representative task if none has been trialled; do not run implementation work without
-   authorization. This is a practice, not a score gate.
-9. **Security drift**: review advisories/support status, config changes, current scanner
+8. **Security drift**: review advisories/support status, config changes, current scanner
    coverage and failed/stale reports, due remediation and expiring risk acceptances. Propose
    fixes or accountable human decisions; never silently renew exceptions or treat existing
    findings as permitted exposure. Do not read secrets or inspect live systems without authorization.
 
-10. **Style drift** (ST-1): a new language with no formatter, editor and CI versions that
+9. **Style drift** (ST-1): a new language with no formatter, editor and CI versions that
     disagree, or broad suppressions. Propose scoped fixes; never run a bulk reformat unasked.
 
-11. **Agreement drift** (GR-7): specs whose criteria changed after agreement with no sign the
+10. **Agreement drift** (GR-7): specs whose criteria changed after agreement with no sign the
     person saw them again, and statuses an agent set. Agents cannot renew a person's decision.
 
 ## Report

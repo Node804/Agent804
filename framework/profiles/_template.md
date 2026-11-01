@@ -84,8 +84,8 @@ Keep the project's existing choices; otherwise use the ecosystem's standard tool
 
 Record actual thresholds and commands in `docs/maintainability.md`. New projects start clean;
 existing projects can retain a reviewed, scoped baseline but introduce no unapproved or
-worsening violations. Map generated exclusions, exception records, structural trend reports
-and MS-4 exercise evidence. Presence checks and static unused-code reports still need review.
+worsening violations. Map generated exclusions, exception records, and structural trend
+reports. Presence checks and static unused-code reports still need review.
 
 ## Skeleton
 

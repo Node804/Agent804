@@ -1,6 +1,6 @@
 # Context-management research and validation limits
 
-These primary sources were read to inform proposed IN-8/WK-8 guidance and MS-4 trials.
+These primary sources were read to inform proposed IN-8/WK-8 guidance and recovery trials.
 Research task/model conditions differ from actual repository maintenance; no universal
 context limit, architectural diagnosis or guaranteed improvement is inferred.
 
@@ -20,7 +20,7 @@ rather than a mandatory new document. No vector/index service, model-specific co
 attention adapter is shipped. Repository checks cover references, metadata and line budgets;
 they do not measure retrieval recall, attention, context completeness or recovery accuracy.
 
-MS-4 trials remain pending: stale-versus-current authority, omitted cross-file constraints,
+Recovery trials remain pending: stale-versus-current authority, omitted cross-file constraints,
 superseding decisions, truncation/summarization loss, dirty-worktree index drift and correct
 recognition of insufficient evidence. Equivalent maintenance tasks must record expected
 contracts/outcomes, actual host/model/effort/inputs, observed coverage, defects/interventions,

@@ -59,7 +59,7 @@ remain failures or explicit gaps, never silently omitted checks.
 | GR-2 | `git commit`, `git push`, `manage.py migrate` in the `ask` list; force-push denied |
 | GR-4 | † Stop hook (`start` templates) runs the check when the tree changed since its last green run |
 | GR-6 | A base management command adds `--commit`; without it the command reports what it would do |
-| SK-1 | `just bootstrap` writes `.env`, creates the database, migrates, creates an admin; `just doctor` reports problems with one fix each |
+| SK-1 | `just bootstrap` writes `.env`, creates the database, migrates and creates an admin; safe to rerun |
 | SK-2 | † One Playwright test: sign in, open the landing page, see the module list |
 | TS-4 | `AGENTS.md` rule, plus review flags new `skip`/`xfail` markers |
 | TS-7 | The test-writing step runs `ruff` and `mypy` on its new tests; then `pytest` shows only the new acceptance tests failing |
@@ -97,12 +97,12 @@ Report skips/retries and unavailable database/backend/platform coverage explicit
 
 `start` generates: `pyproject.toml` (uv, ruff, mypy, pytest, import-linter config),
 `config/settings/{base,dev,test,prod}.py` reading the environment, a `core` app with one view
-behind login, `justfile` (`bootstrap`, `doctor`, `check`, `test`, `fmt`, `run`), CI workflow,
+behind login, `justfile` (`bootstrap`, `check`, `test`, `fmt`, `run`), CI workflow,
 pre-commit config, `changelog.d/`, the access test, one Playwright test, and the agent files.
 
 ## Worktree resources
 
-Run `just bootstrap`, `just doctor` and `just check` inside each checkout. Set its ignored
+Run `just bootstrap` and `just check` inside each checkout. Set its ignored
 `DATABASE_URL` to the unique development database; do not point two checkouts at the same
 database or override Django's test database name with a shared value. Run the development
 server with `manage.py runserver 127.0.0.1:<allocated-port>`.
@@ -128,8 +128,7 @@ forbidden import to show the check fails, then remove them. Static unused-code r
 prove a dynamically registered view or model unused; investigate instead of auto-removing.
 
 During gardening, compare complexity, duplication and aging exceptions with the same scope
-and tool versions. Plan an MS-4 maintenance exercise for an unfamiliar human or fresh agent;
-record obstacles and verification rather than claiming this draft mechanism is validated.
+and tool versions; do not claim this draft mechanism is validated until it has run.
 
 ## Security verification (draft)
 

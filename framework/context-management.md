@@ -112,7 +112,7 @@ security/data policies; context preparation grants no new network, account or di
 
 ## Measure effectiveness before promoting mechanisms
 
-Run representative maintenance/recovery trials under MS-4, comparing equivalent tasks,
+Run representative maintenance and recovery trials, comparing equivalent tasks,
 starting artifacts, host/model/effort and permissions. Include a stale document versus current
 code, a rule outside the initial file, a superseding decision, truncated evidence, a dirty
 change missing from an index, and a genuinely insufficient-evidence case. Correct behavior

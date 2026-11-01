@@ -26,7 +26,6 @@ and environments. Missing data stays missing; retries alone do not turn failure 
 | Harness growth | Checks added by `sensor` in the period | Whether mistakes become checks |
 | Structural trends | Comparable complexity, duplication and dependency reports | Whether maintenance costs need investigation, not proof of their cause |
 | Aging exceptions | Scoped baseline and retention records in `docs/maintainability.md` | Debt awaiting its agreed review condition |
-| Maintenance exercises | `docs/metrics/maintenance-exercises.md` | What unfamiliar humans or fresh agent contexts needed to make and verify a change (MS-4, a practice) |
 | Security follow-up | `docs/security.md` and restricted report references | Overdue findings, expired acceptances, verification gaps/freshness and response exercise follow-up (SE-2, SE-6); counts are not proof of security |
 
 If the project has no interventions log, create `docs/metrics/interventions.md` with the
@@ -42,11 +41,7 @@ columns: date, what the agent did, what was corrected, rule or check that now pr
    `AGENTS.md` change.
 4. For structural trends, record tool version, scope, baseline changes and dispositions for
    threshold findings. Do not compare incompatible reports or rank developers by these metrics.
-5. Summarize maintenance exercises: task, revision, maintainer type, required context,
-   undocumented knowledge, obstacles, verification and follow-up. Include humans and agents
-   over time; absent exercises are an untrialled practice, not a rung failure. A metrics
-   request alone does not authorize modifying the application to conduct an exercise.
-6. Use the security record's risk categories and deadlines when comparing security follow-up.
+5. Use the security record's risk categories and deadlines when comparing security follow-up.
    State missing data and changed scan scope; do not rank teams by raw finding count or label
    unavailable scans clean. Metrics do not authorize accepting risk or renewing exceptions.
 
@@ -57,7 +52,7 @@ repayment with comparable scope. Separate estimated clean-code effort from measu
 raw ticket totals/closures prove no benefit. No universal score/capacity percentage is required,
 and measurements do not authorize deferral, risk acceptance or automatic issue creation.
 
-For context and recovery trials (MS-4), compare equivalent tasks/model/host/effort and
+For context and recovery trials, compare equivalent tasks/model/host/effort and
 expected evidence: missed contracts, retrieval gaps, unnecessary reads, recovery accuracy,
 defects/interventions, task completion and measured overhead. Token reduction or a single
 successful lookup alone proves no improvement. Missing trials are practices pending evidence.

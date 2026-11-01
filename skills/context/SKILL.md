@@ -70,5 +70,4 @@ checkouts/resources.
 Give the task objective, relevant authority/source map, freshness/coverage, unresolved
 contradictions or missing evidence, known verification state and next action. Mark a prepared
 handoff as prepared, not implemented/tested. Do not promise attention reliability or diagnose
-sparse-attention internals from missed facts. Suggest scoped MS-4 recovery trials when useful;
-this request alone does not authorize extra model sessions, paid evaluations or app changes.
+sparse-attention internals from missed facts. This request alone does not authorize extra model sessions, paid evaluations or app changes.

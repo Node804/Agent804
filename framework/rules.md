@@ -62,7 +62,7 @@ IN-8 is in the Context module.
 
 | ID | Rule | Check |
 |---|---|---|
-| SK-1 | One rerunnable command takes a fresh clone to a running app; a second reports what is wrong and how to fix it. | Run it on a clean clone |
+| SK-1 | One rerunnable command takes a fresh clone to a running app. | Run it on a clean clone |
 | SK-2 | One end-to-end test exists from the first commit and runs in CI. | Find it |
 | SK-3 | Prefer established stack capabilities and existing project implementations. New dependencies and custom replacements serve a demonstrated requirement with a maintenance justification; neither hand-written code nor a dependency is automatically preferable. | Inspect new capabilities, alternatives considered and maintenance costs in the plan or review; use an ADR only for a hard-to-reverse choice |
 | SK-4 | Configuration comes from the environment; no hard-coded paths or hosts. | Grep for absolute paths and hosts |
@@ -74,7 +74,7 @@ Interpretation, evidence and staged handoffs are in [testing.md](testing.md).
 | ID | Rule | Check |
 |---|---|---|
 | TS-1 | A feature's criteria are agreed before code by the person directing the work, sized to the change. | Specs or small-change plan/PR criteria predate code and show the person's agreement; pre-adoption features do not count against it |
-| TS-2 | New or changed behavior follows witnessed red/green/refactor: tests fail for the intended gap before implementation, pass afterward, then structure is inspected and refactored where justified without changing behavior. | Retain command, pre-change revision or preserved patch, failure diagnostic and green result; record refactor disposition. Commit order alone proves no execution |
+| TS-2 | New or changed behavior: tests fail for the intended reason before the code, pass afterwards, then structure is improved where it helps without changing behavior. | The red and green output (command and result) is in the plan or PR, with the refactor done or "none needed". Commit order alone proves nothing ran |
 | TS-3 | Acceptance tests are derived from agreed criteria in a context separate from implementation. Implementers may add supporting unit tests. | Handoff identifies criteria, tests and red evidence; no separate context is required for every helper test |
 | TS-4 | Failures remain visible and are fixed or reported, never hidden by weakening, skipping or deleting tests to get green. A changed test keeps the protection it gave; a changed expected outcome goes back to the person who agreed the criteria (GR-7). | History and diffs: new skips, deleted or loosened assertions each have a stated reason and, for acceptance tests, the person's agreement. Instructions alone with no contrary history is met |
 | TS-5 | Representative user journeys are checked end to end; lower-level tests cover detailed cases at effective boundaries. Done includes execution evidence and appropriate UI evidence. | Trace journeys and edge cases to tests; screenshots supplement rather than replace automated behavioral assertions |
@@ -82,9 +82,9 @@ Interpretation, evidence and staged handoffs are in [testing.md](testing.md).
 | TS-7 | Test handoff passes applicable independent validity checks; remaining failures identify the intended missing behavior or planned public interface. | Preserve lint, fixture and setup results; a specific expected missing-interface compiler diagnostic can be red, unrelated syntax, dependency or environment failures cannot |
 | TS-8 | Tests assert observable outcomes, public contracts and relevant effects using requirements or an independent oracle, rather than copying implementation logic. | Inspect expected values and boundaries; internal refactors should preserve acceptance outcomes. Interaction assertions require a real protocol contract |
 | TS-9 | Bug fixes retain regression protection that reproduces the affected pre-fix behavior before the fix. | Record pre-fix failure and post-fix pass; explain reproduction limits. Applies to bug fixes after adoption, not invented historical evidence |
-| TS-10 | Tests isolate mutable resources and control relevant nondeterminism. Flaky failures remain visible with owned remediation. | Exercise isolation, clocks/seeds/order and cleanup as applicable; report retries and time-limited reviewed quarantine without silently redefining failures as success |
+| TS-10 | Tests isolate the data they change and control time, randomness and order where it matters. A flaky test is reported, never retried silently into a pass. | Two runs give the same result; retries and quarantined tests are visible in the output |
 | TS-11 | Verification covers important component contracts and real integration at the lowest effective level, plus representative end-to-end journeys. | Name simulated and actual boundaries; mocks alone do not prove compatibility. Use safe external substitutes with contract evidence where live access is unsuitable |
-| TS-12 | Execution evidence identifies revision, command, environment, discovered/executed scope, failures, skips and exclusions. Missing or unexpectedly reduced discovery is not a clean pass. | Inspect actual exit/results and selected targets, features and platforms; explain counts and scope changes, including intentional empty scopes |
+| TS-12 | The check prints how many tests it found and ran, lists skips and exclusions, and fails when it finds none where tests are expected. | Run it: the counts appear; an emptied test directory makes it fail |
 | TS-13 | Selected critical behavior is checked for test sensitivity by deliberate wrong behavior in isolation. This is a practice pending trials, not a rung gate. | Record detected faults, survivors, limits and justified exclusions; invalid compilation is not behavioral detection. No universal mutation or coverage quota |
 
 ## AR: Architecture (rung 6)
@@ -144,7 +144,7 @@ WK-6 is in the Parallel work module, WK-7 in Routing and WK-8 in Context.
 | ID | Rule | Check |
 |---|---|---|
 | DC-1 | ADRs record hard-to-reverse decisions only; detailed designs are specs. | ADR sizes and count |
-| DC-2 | Status is Proposed, Validated (exercised, with evidence), Accepted, Rejected, or Superseded by NNNN. Each ADR has an append-only evidence record before acceptance: a separate file it links, or a final Evidence section of the ADR that only grows. Validated or Rejected requires evidence there. | The record exists for each ADR; entries identify tests or reasoning, revision, results and limits; history shows entries are added, never rewritten. Either form meets the rule |
+| DC-2 | Each ADR's status shows where the decision stands: at least Proposed, Accepted and Superseded by NNNN (Validated and Rejected if the project uses them). Each ADR has an append-only evidence record before acceptance: a separate file it links, or a final Evidence section of the ADR that only grows. | The record exists for each ADR; entries identify tests or reasoning, revision and results; history shows entries are added, never rewritten. Either form meets the rule |
 | DC-3 | An Accepted ADR's decision text is frozen; only its Status, Topics and evidence record change. A later ADR amends or supersedes it. Later evidence never downgrades it to Validated. Contradictions trigger owner review. | History of accepted ADRs: the decision text unchanged since acceptance |
 
 ## RV: Review (RV-1 at rung 4)
@@ -166,7 +166,6 @@ MS-5 is in the Routing module.
 | MS-1 | Track whether agent work holds: first-pass check rate, human corrections, rework, escaped defects and reverts, test reliability (flakes, quarantine age, skips, duration) and maintainability trends. Never count lines generated. | A periodic report from git, CI and a corrections log; missing data stays missing |
 | MS-2 | A scheduled pass reviews stale docs, structural drift, obsolete paths, new advisories, unsupported dependencies, configuration drift, test discovery drift, flaky/quarantined tests and expiring exceptions; it proposes reviewed fixes or explicit decisions. | Routine produces dispositions; security findings follow SE-6 rather than an automatic debt waiver; uncertain unused-code reports never authorize deletion |
 | MS-3 | Instructions are re-checked when models change; rules a newer model no longer needs are removed. | Last review date |
-| MS-4 | Periodically exercise a representative maintenance task with a maintainer who did not author it. Record information needed, obstacles, verification and improvements; include experienced humans and fresh agent contexts over time. | Task, revision, maintainer type, needed context, result and follow-up recorded. A practice pending trial, not a rung gate |
 | MS-5 | Routes are compared on accepted outcomes and defects first, then total cost including retries, rework and review, in each provider's own units. | Comparable tasks and stated sample size; no converted totals across providers, no claimed cause from a small sample |
 
 ## OP: Operate (Operate module, levels O1 to O3)

@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- Lighter where the goals need less. TS-12 asks the check to print test counts and fail on an
+  empty suite; TS-10 asks for isolated, repeatable tests with flakes reported (owning them is
+  `garden`'s job); TS-2 asks for red and green output in the plan or PR. TS-11 stops gating
+  rung 4. SK-1 drops the second "doctor" command. DC-2 requires only Proposed, Accepted and
+  Superseded; Validated and Rejected are optional. MS-4 (maintenance exercises) is removed
+  until a project trials it, and so is `decide`'s procedure for moving evidence to files. The
+  plan template goes from 89 lines to 34 and the pull request template from 54 to 34.
+
 - Close gaps against the framework's goals. TS-4 (never weaken, skip or delete a test to get
   green) gates rung 5, and a changed expected outcome goes back to the person who agreed it.
   AR-6 (parse input at the boundary, encode output for each destination) gates rung 6.

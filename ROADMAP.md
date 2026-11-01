@@ -33,7 +33,7 @@ trial shows is unclear before moving on.
 - [ ] Trial scoped context and recovery on equivalent maintenance tasks: stale/current
       authority, cross-file constraints, superseding decisions, truncated evidence, dirty
       work missing from an index and insufficient evidence. Predefine expected outcomes;
-      record missed contracts, actual recovery, unnecessary reads and overhead under MS-4.
+      record missed contracts, actual recovery, unnecessary reads and overhead.
       IN-8/WK-8 remain practices; no extra model sessions are authorized by this checklist.
 - [ ] Trial optional routing with one model/separate contexts, multiple classes in one family,
       and multiple providers where access/data/spend policy permits. Record native effort,
@@ -60,9 +60,7 @@ trial shows is unclear before moving on.
       handoff, combined-change verification and cleanup; exercise the strengthened retry
       contract and append evidence without editing an Accepted ADR.
 - [ ] Reassess reference projects against the revised maintainability gates; trial the Django
-      complexity and contract checks, gradual adoption baseline and retirement review. Record
-      an MS-4 maintenance exercise with an unfamiliar human and a fresh agent context before
-      considering it as a gate.
+      complexity and contract checks, gradual adoption baseline and retirement review.
 - [ ] Trial SE-1 to SE-6 and revised reference-project scores: versioned requirement mapping,
       scanner detection/error/staleness, dependency trust and isolated builds, secure skeleton,
       abuse tests and expiry-aware human decisions.

@@ -152,7 +152,7 @@ Each step ends with something you can run.
   verify each one's hook, isolated databases and other resources, and independent check state.
 - Introduce a small violation of each MT-2 limit, confirm the check fails for that reason,
   then remove it. Review the skeleton's contracts and run maintained example checks. Report unmapped
-  mechanisms and untrialled maintenance exercises as gaps, never as working protection.
+  mechanisms as gaps, never as working protection.
 - Exercise a representative security detection with a safe fixture (SE-2) and restore the
   real configuration.
 - Add a formatting violation: the check fails without changing the file, the fix command
