@@ -60,7 +60,7 @@ Keep the project's existing choices; otherwise use the ecosystem's standard tool
 | CK-1 | |
 | CK-6 | |
 | ST-1 | See Style above |
-| AP-1 to AP-4, RV-1 | Record schema/native adapter, preserved subjects, trusted original-source/authority verification, required-stage IDs, freshness/conditions and actual requirement trace |
+| RV-1 | |
 | GR-1, GR-2, GR-4 | |
 | SK-1 | |
 | SK-2 | |

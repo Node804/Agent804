@@ -8,8 +8,8 @@ description: Find instruction files, docs, plans and decisions that no longer ma
 Docs go stale the moment code changes, and agents copy whatever patterns exist, good or bad
 (OAI). This pass finds drift and proposes small fixes (MS-2, MS-3). It changes files only when
 the user asks; otherwise it reports.
-Read the project's records where they exist: `docs/maintainability.md`, `docs/security.md`
-(finding decisions follow SE-6; security evidence goes stale) and `docs/approvals/README.md`.
+Read the project's records where they exist: `docs/maintainability.md`
+and `docs/security.md` (finding decisions follow SE-6; security evidence goes stale).
 
 Review flaky failures, retry rates, quarantine owners/expiry, skipped suites, unexpected
 discovery changes and obsolete fixtures (MS-2, TS-10, TS-12). Propose reviewed corrections;
@@ -49,11 +49,8 @@ never silently skip a failure or change acceptance outcomes without affected cri
 10. **Style drift** (ST-1): a new language with no formatter, editor and CI versions that
     disagree, or broad suppressions. Propose scoped fixes; never run a bulk reformat unasked.
 
-11. **Approval drift** (AP-1 to AP-4): original sources missing, changed subjects/dependencies,
-    stale implementation reviews, pending conditions, revocation/expiry and broken traces.
-    Preserve old decisions; distinguish permitted administrative changes from material scope.
-    Report original-source/adapter gaps without inventing consent or asking again merely to
-    populate metadata. Agents cannot renew human decisions or perform risk acceptance.
+11. **Agreement drift** (GR-7): specs whose criteria changed after agreement with no sign the
+    person saw them again, and statuses an agent set. Agents cannot renew a person's decision.
 
 ## Report
 

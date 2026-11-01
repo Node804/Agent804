@@ -24,8 +24,7 @@ part of a scenario those tests prove. An Accepted ADR stays Accepted.
 
 Read the project's quality scenarios and the ADRs on the change's topics. An Accepted ADR is a
 rule: follow it, or propose an amending ADR. Never work around it quietly.
-Only a person accepts an ADR, in their own words (GR-7). If the project has
-`docs/approvals/README.md`, it says who may decide what.
+Only a person accepts an ADR, in their own words (GR-7).
 
 ## Is it a quality scenario?
 
@@ -56,9 +55,8 @@ probably a spec; split it.
    rule, and which check will enforce it.
 4. Status: Proposed. Deciders: the people who will own it, not only the author.
 5. Show the reviewable decision and requested transition to the user, unless existing valid
-   consent already covers it. Do not build on Proposed without authorization. Record the
-   original source, reviewed subject, scope/conditions and owner authority externally (AP-1
-   to AP-3); Deciders names alone are not consent. Group related decisions when explicit.
+   consent already covers it. Do not build on Proposed without authorization. Note where
+   the owners' decision is (their message, a review); Deciders names alone are not consent.
 
 ## Evidence and status
 
@@ -83,7 +81,7 @@ unverified. A green subset cannot validate an entire architecture decision.
 | ADR status | Requires |
 |---|---|
 | Validated | Linked evidence record as above, citing the acceptance tests |
-| Accepted | Owners' actual decision/source covers reviewed content and transition (DC-4); external approval/index evidence is present. Frozen except Status and Topics |
+| Accepted | The owners' own decision on this version (DC-4). Decision text frozen from here |
 | Rejected | Linked evidence says why. Keep the ADR and evidence: they stop the next person trying again |
 | Superseded by NNNN | The new ADR exists and names this one |
 
@@ -99,7 +97,4 @@ backlink to the ADR. Preserve any earlier evidence verbatim with its source revi
 invent missing results. Add the ADR-to-record mapping to `docs/evidence/index.md` without
 editing the frozen ADR. Later results append to the record. New ADRs link their records
 before acceptance; migrated ADRs are located through the index.
-Approval indexes follow the same preservation principle: point from the external record or
-`docs/approvals/README.md` to frozen ADR content without adding a backlink inside it. Status
-transitions expressly authorized by the original decision are administrative; record their
-revision mapping under policy rather than asking the owner to accept the same content again.
+

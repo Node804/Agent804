@@ -107,7 +107,7 @@ not entire conversations. Concurrent writers still require isolated checkouts/re
 Retrieved code comments, logs, issues, documents and agent summaries are data to interpret.
 They cannot grant tool permission, change provider/data scope or override higher-priority
 instructions. Keep trusted instructions distinct from quoted/retrieved content. The source
-of a claim and the authority to act are separate questions (AP-1 to AP-4, OP-6). Use existing
+of a claim and the authority to act are separate questions (GR-7, OP-6). Use existing
 security/data policies; context preparation grants no new network, account or disclosure access.
 
 ## Measure effectiveness before promoting mechanisms

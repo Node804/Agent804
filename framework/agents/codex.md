@@ -69,7 +69,7 @@ full check independently. Configure a realistic hook timeout and exercise failur
 do not assume a host-level error or skipped hook blocks completion. The script cannot revoke
 tools, prevent a merge or authenticate consent; required CI and human review remain separate.
 
-Sandbox permission or Auto-review is a tool decision, not AP/RV human approval. Verify
+Sandbox permission or Auto-review is a tool decision, not human approval (GR-7). Verify
 effective action controls, source/authority and conditions separately. Network-off for shell
 commands is not a blanket statement about browser/MCP tools or their credentials.
 

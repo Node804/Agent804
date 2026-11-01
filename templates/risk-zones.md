@@ -23,5 +23,4 @@ hard it is to undo, never how confident the agent is.
 An agreed scope authorizes covered work; do not repeatedly ask for the same approved change.
 Material changes to risk or scope need renewed review. Record review through the project's
 normal mechanism; a zone map alone cannot enforce host permissions or protected CI gates.
-Index the original decision and reviewed revision in `docs/approvals/README.md`; preserve
-history. Do not infer new commit/push/deployment authority from a feature or zone approval.
+Do not infer commit, push or deployment authority from agreement on a feature or a zone.

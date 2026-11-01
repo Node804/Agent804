@@ -86,7 +86,7 @@ ports or credentials. Context compaction/forking alone is not independent accept
 ## Permissions, routing and privacy
 
 Separate action consent, tool permissions and actual OS/network isolation. An automatic
-permission classifier is not AP/RV human approval. Supported sandbox enforcement is platform
+permission classifier is not human approval (GR-7). Supported sandbox enforcement is platform
 dependent; current public docs distinguish child-process from in-process network access.
 Verify Windows/Linux/macOS behavior rather than promising the same boundary everywhere.
 Keep production credentials/data unavailable to the agent; native rules are supplementary.

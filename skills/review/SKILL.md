@@ -18,8 +18,7 @@ say so in the report: it limits the review.
    acceptance criteria, say so first: the review can only check rules, not correctness.
 3. **Get the zones** from `docs/risk-zones.md`. Spend most of the effort on red, then yellow.
 4. **Read the rules**: the root `AGENTS.md`, the `AGENTS.md` of every directory touched, and
-   where they exist `docs/maintainability.md`, `docs/security.md` and
-   `docs/approvals/README.md`.
+   where they exist `docs/maintainability.md` and `docs/security.md`.
 5. **Run the check** if it only reads and tests. Use its real result; never the author's report
    of it.
 6. **Check, in this order**:
@@ -41,8 +40,8 @@ say so in the report: it limits the review.
    - **Security**: object and tenant access, input parsed and output encoded (AR-6), what agent tools can do,
      abuse paths tested (SE-5), dependencies from intended sources (SE-3). A weakened security
      check, test or approval policy without a person's review is a finding (GR-2).
-   - **Approvals** (if the module applies, AP-1 to AP-4): the required people agreed to this
-     version, and material changes since then were agreed again.
+   - **Agreement** (GR-7): the person agreed to the criteria this change meets, and material
+     changes since then were shown to them again.
    - **Debt**: a new shortcut was agreed by a person; a debt ticket never waives a failed check
      or an unmet criterion.
    - **Style** (ST-1): unexplained formatter config changes, broad exclusions, and

@@ -46,17 +46,6 @@ IN-8 is in the Context module.
 |---|---|---|
 | ST-1 | Each language the project maintains has one formatter and linter, with committed configuration and pinned versions. The check reports violations without rewriting files; a separate command fixes them. The project's existing choices govern; a new project uses its ecosystem's standard tools. | Add a deliberate violation: the check fails and the file is unchanged; the fix command repairs it; a second run changes nothing. Configured but not in the check or CI is partly met |
 
-## AP: Traceable human approval (Approvals module)
-
-Evidence, validity and proportionality are in [approvals.md](approvals.md).
-
-| ID | Rule | Check |
-|---|---|---|
-| AP-1 | Required approval identifies the subject and reviewed revision, human reviewer/authority, decision/time, scope, conditions and original source evidence. Mutable paths or status labels alone are insufficient. | Resolve the reviewed subject and original decision; preserve snapshots or immutable host revisions outside the subject |
-| AP-2 | Reviewer authority and decision provenance are verified through trusted sources: the host's review record, the person's own message, a signed decision. Agents may prepare and index records (GR-7). | Compare the record with its human source and reviewer policy; missing or unverifiable provenance stays explicit, never inferred from filled fields |
-| AP-3 | Reuse valid approval within its authorized scope until revoked, superseded or invalidated by relevant changes. Material changes renew affected approvals; unrelated changes do not. Conditions and expiry still apply. | Check subject/dependency freshness, required review policy and conditions before dependent work; preserve historical decisions and record permitted nonmaterial transitions |
-| AP-4 | Approved requirements trace to criteria, tests, implementation and verification evidence. Missing coverage and out-of-scope behavior are resolved before acceptance; records are sized to the change. | Follow stable requirement/criterion IDs through actual tests, reviewed revision and results; a small fix can use its issue/plan/PR rather than new documents |
-
 ## GR: Guardrails (rung 3)
 
 | ID | Rule | Check |
@@ -67,7 +56,7 @@ Evidence, validity and proportionality are in [approvals.md](approvals.md).
 | GR-4 | Completion controls require the applicable check before a success claim and expose failures. A bounded escape permits honest failure reporting, not a success claim. | Exercise effective host loading, trust and failure continuation/blocking; configuration or instructions alone are insufficient. Reporting escape after one block is met; skipped/unsupported controls are gaps. CI merge gating is separate |
 | GR-5 | An unattended run answers five questions first: what done looks like, how it checks itself, what it may touch, what stops it, who signs off. It runs sandboxed. | Look at scheduled or headless runs |
 | GR-6 | Scripts that change data are dry-run unless told to apply. | Read data scripts |
-| GR-7 | Agents cannot supply consent. Approval comes from a person, for the specific action or content, in their own words. An approved plan, a tool permission prompt, a passing check or a record an agent filled in is not approval; an agent never marks a decision Accepted or a review done itself. | Instructions say so; history shows no agent-set Accepted status, agent-written approval or commit that followed only a plan approval. Instructions alone with no contrary history is met |
+| GR-7 | Agents cannot supply consent. Approval comes from the person directing the work, for the specific action or content, in their own words. An approved plan, a tool permission prompt, a passing check or a record an agent filled in is not approval. Agreement covers what the person saw: when the agent's work changes it materially, the agent asks again. An agent never marks a decision Accepted or a review done itself. | Instructions say so; history shows no agent-set Accepted status, agent-written approval, commit that followed only a plan approval, or agreed criteria changed without the person seeing them again. Instructions alone with no contrary history is met |
 
 ## SK: Walking skeleton (rung 4)
 
@@ -84,7 +73,7 @@ Interpretation, evidence and staged handoffs are in [testing.md](testing.md).
 
 | ID | Rule | Check |
 |---|---|---|
-| TS-1 | A feature's criteria are agreed before code, sized to the change; their approval identifies scope and reviewed content. | Specs or small-change plan/PR criteria predate code and resolve to valid human approval; pre-adoption features do not count against it |
+| TS-1 | A feature's criteria are agreed before code by the person directing the work, sized to the change. | Specs or small-change plan/PR criteria predate code and show the person's agreement; pre-adoption features do not count against it |
 | TS-2 | New or changed behavior follows witnessed red/green/refactor: tests fail for the intended gap before implementation, pass afterward, then structure is inspected and refactored where justified without changing behavior. | Retain command, pre-change revision or preserved patch, failure diagnostic and green result; record refactor disposition. Commit order alone proves no execution |
 | TS-3 | Acceptance tests are derived from agreed criteria in a context separate from implementation. Implementers may add supporting unit tests. | Handoff identifies criteria, tests and red evidence; no separate context is required for every helper test |
 | TS-4 | Failures remain visible and are fixed or reported, never hidden by weakening, skipping or deleting tests to get green. Legitimate test corrections preserve intended protection and receive appropriate review. | Explain changed assertions/fixtures; changed acceptance outcomes require criteria review and affected approval, not matching tests to faulty code |
@@ -158,7 +147,7 @@ WK-6 is in the Parallel work module, WK-7 in Routing and WK-8 in Context.
 | DC-1 | ADRs record hard-to-reverse decisions only; detailed designs are specs. | ADR sizes and count |
 | DC-2 | Status is Proposed, Validated (exercised, with evidence), Accepted, Rejected, or Superseded by NNNN. Each ADR has an append-only evidence record before acceptance: a separate file it links, or a final Evidence section of the ADR that only grows. Validated or Rejected requires evidence there. | The record exists for each ADR; entries identify tests or reasoning, revision, results and limits; history shows entries are added, never rewritten. Either form meets the rule |
 | DC-3 | An Accepted ADR's decision text is frozen; only its Status, Topics and evidence record change. A later ADR amends or supersedes it. Later evidence never downgrades it to Validated. Contradictions trigger owner review. | History of accepted ADRs: the decision text unchanged since acceptance |
-| DC-4 | The people who will own the system accept its ADRs, not only their author. Acceptance references their actual decision for the reviewed content; a Deciders line alone is not consent. | Verify the owner approval source, authority, revision and requested transition; use external records/indexes without rewriting frozen ADRs |
+| DC-4 | The people who will own the system accept its ADRs, not only their author. Acceptance points to their own decision on the reviewed version; a Deciders line or a status an agent set is not acceptance. | Find the owner's decision (a message, a review, meeting notes) for the version accepted; never rewrite a frozen ADR to add it |
 | DC-5 | System-wide quality requirements are recorded as measurable scenarios with stable IDs (`QS-n`). ADRs cite the scenarios they serve; specs cite the ones they touch and exercise each with a criterion. A scenario's measure names the spec whose tests prove it, and its status changes only when those tests pass. | A scenario list exists; ADR Contexts and specs cite it; every "Met" points at passing tests |
 
 ## RV: Review (RV-1 at rung 4)

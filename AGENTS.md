@@ -14,7 +14,7 @@ python scripts/check.py        # Python 3.11+ and Git; must pass before calling 
 
 It checks: skill frontmatter, links and `${CLAUDE_PLUGIN_ROOT}` paths, rule IDs, rule
 alignment (below), line and character budgets, private names, JSON and TOML, the two plugin
-manifests, the stop hooks in disposable Git repositories and the approval validator. It
+manifests and the stop hooks in disposable Git repositories. It
 proves the kit is consistent, not that it works in a real project.
 
 ## Two readers, one home per statement
@@ -42,6 +42,10 @@ Skills link only the framework tables and playbooks the check allows, within siz
   For an engineering problem agents do not change (incident response, debt tracking, a
   security programme), state the agent-specific point in a sentence or two and link the
   established standard; do not rewrite the standard here.
+- Agent804 governs development in GenAI projects: how agents build software for the developer
+  directing them, and how the AI-facing parts of a product are built (MCP servers, APIs for
+  agents, embedded AI features: the Operate module). Project governance (who signs off,
+  audit, compliance) is that developer's responsibility; the framework does not score it.
 - A rule states a property, never a tool. Stack mechanisms belong in
   `framework/profiles/<stack>.md`, added only after a real project has used it. Host
   behaviour belongs in `framework/agents/`; record what was exercised on the real host.

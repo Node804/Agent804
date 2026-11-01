@@ -7,7 +7,7 @@
 - **Base:** <commit ID, or "no first commit yet">
 - **Resources:** <checkout ID; database, port, queue, storage prefix as applicable>
 - **Handoff:** <exact commit or preserved patch with its base; identify uncommitted work>
-- **Valid approvals:** <IDs/source, reviewed subjects, scope/conditions and stage requirements>
+- **Agreed:** <what the person agreed, where, and on which version of the criteria>
 - **Host/context:** <client/version or unavailable; capability record; exact context inputs>
 
 The next session resumes from this file and the git log, not from chat. Keep it current.

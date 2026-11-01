@@ -28,7 +28,7 @@ an unavailable version. Distinguish configured, fixture-tested and exercised in 
 | Guardrails | Inspect effective permissions, project trust and required hook/command controls; exercise safe refusal/continuation fixtures | GR-2/GR-4 remain gaps if applicable mechanisms are absent/unexercised |
 | Worktrees | Use the [lifecycle](../worktrees.md); verify installed paths, private state and isolated mutable resources in each checkout | A separate chat or branch alone is not concurrent isolation |
 | Independent contexts | Supply criteria/contracts and exact artifacts to a separate test/review context; record its input boundary | Compaction or inherited implementation reasoning alone does not establish independence |
-| Human approval | Resolve real source/authority, scope, subjects and validity under [approval policy](../approvals.md) | Tool permission and automatic approval are not architecture/feature/review consent |
+| Human approval | Approval comes from the person directing the work, in their own words (GR-7) | Tool permission and automatic approval are not consent to a design, a feature or a review |
 
 `start` generates the host-specific setup and exercises it; `assess` inspects existing
 evidence read-only. Neither may change user/global/admin policy, grant network access, install

@@ -2,7 +2,7 @@
 
 The eight rungs are the **core**: every project built with agents needs them. Modules cover
 problems a project has only in some situations: agents calling the system, sensitive data,
-sign-off by people other than the author, several agents writing at once. A module applies
+several agents writing at once. A module applies
 when its trigger is true. Then it is scored, and a missing protection is a real finding. When
 its trigger is false it costs nothing and the report shows `–`.
 
@@ -15,7 +15,6 @@ its interview.
 |---|---|---|---|
 | [Operate](#operate) | Agents, scripts or AI assistants call the system: an API, MCP tools, automation acting for a user | OP-1 to OP-8 | Scored, levels O1 to O3 |
 | [Security](#security) | The system holds personal, customer or business-sensitive data; handles money or safety; writes to another system of record; or people outside the development team can reach it | SE-1, SE-4, SE-5, SE-6 | Scored |
-| [Approvals](#approvals) | Someone other than the author must sign off: owners who are not the developers, a regulated process, a customer or a contract | AP-1 to AP-4 | Scored |
 | [Parallel work](#parallel-work) | More than one agent or person writes to the repository at the same time | WK-6 | Scored |
 | [Maintenance](#maintenance) | The framework is adopted onto existing code, or the project carries known debt | MT-4, MT-5 | Trial |
 | [Context](#context) | Work regularly spans several sessions or more than one context window | IN-8, WK-8 | Trial |
@@ -36,7 +35,7 @@ to them; it never replaces them.
 One line after the core score, triggered modules first:
 
 ```
-Modules: Operate O1✓ O2✓* O3◐ · Security ◐ · Approvals ✗ · Parallel ✓ · Maintenance (trial) · Routing –
+Modules: Operate O1✓ O2✓* O3◐ · Security ◐ · Parallel ✓ · Maintenance (trial) · Routing –
 ```
 
 A triggered module applies whatever the project's target. For a prototype that will be thrown
@@ -74,15 +73,6 @@ production, review all applicable SE-1 to SE-6 requirements against the deployed
 environment, and report readiness as **pending**, **blocked** or **verified for the stated
 scope**, with open risks and any explicit human acceptance. Undeployed controls stay pending;
 documented settings alone cannot verify a deployment.
-
-## Approvals
-
-The core already says agents cannot supply consent (GR-7), requires a human to read every
-change before merge (RV-1) and owners to accept ADRs (DC-4). This module is for projects where that sign-off must be traceable to
-someone with authority: which revision they reviewed, what they decided, under what
-conditions, and from what original source (AP-1 to AP-3), with approved requirements traced
-through tests to results (AP-4). An agent can prepare the record; it can never supply the
-consent. Guide: [approvals.md](approvals.md).
 
 ## Parallel work
 

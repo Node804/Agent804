@@ -42,9 +42,8 @@ Ask, wait, then ask the next. Accept short answers; offer a default for each.
 6. **Will agents, scripts or AI assistants use this system?** An API, MCP tools,
    automation. If yes, the Operate module applies, and the skeleton's first action is built
    through one contract (`operate`).
-7. **Who must sign off, and how many write at once?** If someone other than the author must
-   approve (owners, a regulated process, a customer), the Approvals module applies. If several
-   agents or people will write at the same time, Parallel work applies.
+7. **How many write at once?** If several agents or people will write at the same time,
+   Parallel work applies.
 
 Set the **target** from the table in `framework/rungs.md`, and list the modules whose
 triggers in `framework/modules.md` are true; question 2 also decides Security. Tell the user
@@ -67,9 +66,7 @@ For style, use the ecosystem's standard formatter and linter (for example Ruff, 
 ESLint, gofmt, rustfmt, `dotnet format`, Pint) unless the user prefers others, and record them
 in the profile's Style table. Offer `templates/editorconfig` and `templates/gitattributes` for
 line endings and encoding.
-If the Approvals module applies, agree who has authority to approve what and where those
-decisions are recorded. Never invent approval evidence or infer
-commit, push or deployment permission from agreement on a feature.
+Never infer commit, push or deployment permission from agreement on a feature (GR-7).
 
 ## 4. Build the harness, in this order
 
@@ -111,8 +108,7 @@ Each step ends with something you can run.
    otherwise get wrong, in plain statements with no shouting (IN-6); repeated procedures
    are skills, not paragraphs (IN-7). The check enforces its line budget (IN-3). Keep the
    template's lines on dry-run scripts (GR-6) and the definition of done (WK-5). Add one line per module that applies, naming its record:
-   Security (`docs/security.md`), Approvals (`docs/approvals/README.md`), Parallel work
-   (`docs/worktrees.md`), and model routing if opted in (`docs/model-routing.md`). Tell the
+   Security (`docs/security.md`), Parallel work (`docs/worktrees.md`), and model routing if opted in (`docs/model-routing.md`). Tell the
    user how it grows: a correction given twice becomes a line; a line the check can enforce
    moves into the check and is deleted. Area rules go in nested files where that area lives.
    For Claude Code add `CLAUDE.md` containing `@AGENTS.md`; verify selected hosts' discovery.
@@ -142,12 +138,8 @@ Each step ends with something you can run.
    mapping, actual verification policy, dependency trust, owner/deadlines and response steps.
    Record separate development evidence and production-readiness status; undeployed controls
    stay pending. Keep secrets and sensitive incident details outside this document.
-   Create `docs/approvals/README.md` from `templates/approvals.md` and arrange retained review
-   subjects/source references. Offer `templates/approval.json` and `templates/check_approvals.py`
-   or a native equivalent; choose required IDs through trusted stage policy. Pending templates
-   grant no authority. Do not fabricate live approval records or rewrite current consent.
 8. **README and instructions**: what it is, prototype or production, bootstrap/check commands
-   and navigation to project maintainability, security, style and approval policies plus test
+   and navigation to project maintainability, security and style policies plus test
    commands/evidence locations. Keep `AGENTS.md` concise; tool-specific files point to it.
    Include independent acceptance contexts, honest red handoffs and human review before merge.
 
@@ -169,8 +161,6 @@ Each step ends with something you can run.
   without accessing production or sending messages.
 - Add a formatting violation: the check fails without changing the file, the fix command
   repairs it, and a second run changes nothing (ST-1).
-- If the Approvals module applies, exercise the approval record checks and document where
-  the real human decisions live (AP-1 to AP-3); a metadata check never proves review (RV-1).
 
 - Exercise test discovery and failure propagation, including an unexpectedly empty suite;
   show isolated fixtures and actual integration at the skeleton boundary (TS-10 to TS-12).

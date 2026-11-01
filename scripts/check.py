@@ -3,7 +3,6 @@
 import json
 import py_compile
 import re
-import runpy
 import sys
 import tomllib
 import unittest
@@ -15,7 +14,7 @@ ROOT = Path(__file__).resolve().parent.parent
 PORTABLE_KEYS = {"name", "description", "license", "compatibility", "metadata", "allowed-tools"}
 BUDGETS = {"SKILL.md": 200, "AGENTS.md": 100}
 FRAMEWORK_BUDGET = 200
-RULE_ID = re.compile(r"\b(IN|CK|ST|AP|GR|SK|TS|AR|SE|MT|WK|DC|RV|MS|OP)-\d+\b")
+RULE_ID = re.compile(r"\b(IN|CK|ST|GR|SK|TS|AR|SE|MT|WK|DC|RV|MS|OP)-\d+\b")
 LINK = re.compile(r"\[[^\]]*\]\(([^)#\s]+)(?:#[^)]*)?\)")
 PLUGIN_PATH = re.compile(r"\$\{CLAUDE_PLUGIN_ROOT\}/([\w./-]+)")
 # framework/ is written for people. Skills may send agents only to the tables and playbooks
@@ -212,14 +211,12 @@ def main() -> int:
         except tomllib.TOMLDecodeError as exc:
             errors.append(f"templates/{name}: {exc}")
 
-    for name in ("stop_check.py", "codex_stop_check.py", "grok_stop_check.py", "check_approvals.py"):
+    for name in ("stop_check.py", "codex_stop_check.py", "grok_stop_check.py"):
         try:
             py_compile.compile(str(ROOT / "templates" / name), doraise=True)
         except py_compile.PyCompileError as exc:
             errors.append(f"templates/{name}: {exc.msg}")
 
-    approval_validator = runpy.run_path(str(ROOT / "templates" / "check_approvals.py"))["validate"]
-    errors.extend(approval_validator(ROOT / "templates" / "approval.json", ROOT))
 
     suite = unittest.defaultTestLoader.discover(str(ROOT / "scripts"), pattern="test_*.py")
     if not unittest.TextTestRunner(verbosity=1).run(suite).wasSuccessful():

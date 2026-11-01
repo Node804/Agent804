@@ -75,19 +75,20 @@ trialled on a reference project, and production readiness stays separate from ev
 Stack profiles other than Django were removed in 0.4 for the same reason: none had been run
 on a real project. `start` now writes a Draft profile per project from `profiles/_template.md`.
 
-## Traceable approval references and adoption
+## Approval references and adoption
 
 | Reference consulted | Reinforced | Limits and choices |
 |---|---|---|
-| [GitHub protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches) | Required human reviews, reviewed-change freshness and independent latest-push approval support AP-1 to AP-3 and RV-1 | Host controls and bypasses must be inspected, not inferred from repo prose; other hosts need equivalent verified mechanisms |
-| [SLSA attestation model v1.2](https://slsa.dev/spec/v1.2/attestation-model) | Distinguishing artifact identity, statement meaning and authenticated issuer supports explicit subject/scope/source records | A hash or agent-written reviewer name does not authenticate consent. Ordinary projects need not adopt signed attestations; no SLSA conformance is claimed |
+| [GitHub protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches) | Required human reviews and reviews dismissed on new pushes support RV-1 and GR-7 | Host controls and bypasses must be inspected, not inferred from repository prose |
 
-AP-1 to AP-4 form the Approvals module since 0.4, and RV-1 gates rung 4; DC-4 requires actual owner-source
-evidence. The portable validator and twelve synthetic regression cases verify mechanical
-structure, preserved snapshots, selected scope/dependency freshness, conditions/expiry and
-non-authorizing output. No fixture is a real human approval. Original-source authentication,
-reviewer authority, materiality/administrative-transition adapters, actual host enforcement
-and cross-session adoption remain untrialled; revised reference scores are not established.
+0.3 had an Approvals module of four rules with a record format, a validator and twelve
+synthetic tests, never run on a real project. 0.4 removed it. Agent804 governs development:
+agents building for the developer directing them, and the AI-facing parts of a product. Who
+must sign off on a project, and how that is shown to
+an auditor or customer, is that developer's governance, which agents do not change. The
+agent-specific part moved into GR-7: only the person approves, in their own words, and a
+material change after agreement needs them again. SLSA's attestation model was consulted for
+the record format and is no longer relied on.
 
 ## Testing references and adoption
 

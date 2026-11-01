@@ -36,7 +36,6 @@ costs nothing ([modules.md](framework/modules.md)).
 |---|---|
 | **Operate** | Agents, scripts or AI assistants call the system. One contract for people and agents; read-only until a person grants write; every write attributed; repeats harmless; untrusted text and outside load bounded. Most guidance stops at agents *building* software; once an assistant can call your system, this matters as much |
 | **Security** | The system holds sensitive data, handles money or safety, writes to other systems of record, or is reachable beyond the team. Threat model, safe defaults, abuse tests, owned findings, and production readiness reported separately |
-| **Approvals** | Someone other than the author must sign off. Who approved which revision, from what source, traced to tests and results |
 | **Parallel work** | Several agents or people write at once. A checkout, database and port each, and a check of the combined result |
 | **Maintenance** (trial) | Adopting the harness onto existing code. Verified refactoring and a debt record that never waives a failing check |
 | **Context** (trial) | Work spans many sessions. Evidence with a known source and age; state recoverable from the repository, not from chat |
@@ -62,7 +61,7 @@ high-impact changes get deeper review.
 | [framework/profiles/](framework/profiles/) | Both | The Django profile, and the template `start` fills in for any other stack |
 | [framework/agents/](framework/agents/) | Both | Host recipes: Claude Code, Codex, Grok Build CLI, ChatGPT and custom hosts |
 | [framework/worktrees.md](framework/worktrees.md) | Both | Separate checkouts for agents or people writing at the same time |
-| [testing](framework/testing.md), [maintainability](framework/maintainability.md), [security](framework/security.md), [approvals](framework/approvals.md), [debt](framework/technical-debt.md), [context](framework/context-management.md), [routing](framework/model-routing.md) | People | Why the rules on each topic exist, and their trade-offs |
+| [testing](framework/testing.md), [maintainability](framework/maintainability.md), [security](framework/security.md), [debt](framework/technical-debt.md), [context](framework/context-management.md), [routing](framework/model-routing.md) | People | Why the rules on each topic exist, and their trade-offs |
 | [framework/validation.md](framework/validation.md) | People | The published work the framework was checked against, and where it chose differently |
 | [templates/](templates/) | Agents | `AGENTS.md`, specs, plans, pull requests, ADRs and evidence, project records, host settings and stop hooks |
 | [skills/](skills/) | Agents | The twelve skills below |
@@ -120,7 +119,7 @@ permission settings differ per host; `start` installs the right ones from the
 
 **New project:** run `start` in an empty folder. It asks seven questions, one at a time
 (what it is, what happens if it breaks, prototype or production, stack, who reviews, whether
-agents will call it, who signs off). Then it builds a running skeleton with one check command,
+agents will call it, how many write at once). Then it builds a running skeleton with one check command,
 guardrails, CI, risk zones and a first ADR, and proves each control by making it fail once.
 It asks before the first commit.
 
@@ -180,7 +179,7 @@ Not tried yet:
 - `start` on an empty repository, and the `refactor`, `sensor`, `garden` and `measure` skills.
 - The small-change path of `spec`.
 - The 0.4 skills, which now carry their own instructions, on a real feature.
-- The Security, Approvals and Parallel work modules on a project where they apply.
+- The Security and Parallel work modules on a project where they apply.
 - The trial modules (Maintenance, Context, Routing); `assess` reports them without a score.
 - The full flow under Codex or Grok Build, and live hook enforcement in either. Grok's
   offline inspection found all twelve skills; that is discovery, not enforcement.
@@ -192,8 +191,8 @@ The kit's own check (Python 3.11+ and Git):
 python scripts/check.py
 ```
 
-It runs 62 regression tests (stop hooks for each host in disposable Git repositories,
-approval records, skill paths, private names, read budgets and rule alignment) and checks
+It runs 50 regression tests (stop hooks for each host in disposable Git repositories, skill
+paths, private names, read budgets and rule alignment) and checks
 links, rule IDs, budgets and configuration syntax. It proves the kit is consistent, not that
 it works in your project: run it on real repositories and change the rules that do not survive.
 

@@ -6,7 +6,7 @@
 - **ADRs:** <numbers this applies or exercises, or "none">
 - **Security requirements:** <versioned IDs from docs/security.md, or reasoned "no impact">
 - **Status:** Draft | Agreed | Built | Dropped
-- **Approval evidence:** <IDs/source and reviewed content; status alone is not agreement>
+- **Agreed by:** <who, where (their own message or review), on which version>
 
 ## Why
 
@@ -40,7 +40,7 @@ Small changes can record this in the plan/PR instead of adding another document.
 
 <!-- Stable requirement/criterion IDs, proportionate to the change. Actual tests, reviewed
 implementation revision and results can be linked later from the plan/PR; do not invent future
-evidence or rewrite an earlier decision. Material criteria changes renew affected approval. -->
+evidence or rewrite an earlier decision. Material criteria changes need agreement again. -->
 
 | Requirement | Criterion | Tests | Implementation revision | Verification evidence |
 |---|---|---|---|---|

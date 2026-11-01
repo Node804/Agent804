@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- Remove the Approvals module (AP-1 to AP-4), its guide, record format, validator and twelve
+  tests. Agent804 governs development, by agents and of a product's AI-facing parts; who
+  signs off on a project, and how that is shown to others, is that developer's governance, which agents do
+  not change. The agent-specific part moves into GR-7: approval comes from the person
+  directing the work, and a material change after agreement needs them again. TS-1 and DC-4
+  no longer require approval records; they point to the person's own agreement.
+
 - Assessment fixes from the 0.4 round. `assess` scores only after every rule is graded. DC-2
   and DC-3 state the property (an append-only evidence record; decision text frozen once
   Accepted) instead of requiring `docs/evidence/`: an Evidence section that only grows meets

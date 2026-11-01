@@ -4,7 +4,6 @@
 - **Date:** YYYY-MM-DD
 - **Deciders:** <names>
 - **Topics:** <one or more>
-- **Approval index:** <external policy/index location; populate before acceptance>
 
 <!-- Status is one of:
   Proposed     an idea, not yet exercised; may be edited
@@ -14,8 +13,8 @@
   Superseded by NNNN
 An Accepted record changes only its Status and Topics lines. -->
 
-<!-- Owner names are not consent. The external approval record/source identifies the reviewed
-decision and requested status transition. Do not reopen frozen content merely to add a link. -->
+<!-- Owner names are not consent. Acceptance points to the owners' own decision on this
+version: a message, a review, meeting notes. -->
 
 ## Context
 

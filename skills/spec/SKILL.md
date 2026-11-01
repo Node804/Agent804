@@ -17,8 +17,8 @@ what it built (TS-1, TS-3).
 - Quality scenarios and the ADRs on the change's topics (`decide`). A spec applies them; it
   never re-decides them. A new hard-to-reverse decision is a Proposed ADR first, and a stop.
 - `docs/risk-zones.md`.
-- If they exist: `docs/security.md` (update the threats this change affects, SE-1),
-  `docs/approvals/README.md` (who must agree to what), and the project's debt record.
+- If they exist: `docs/security.md` (update the threats this change affects, SE-1) and the
+  project's debt record.
 
 ## 1. Size it
 
@@ -54,8 +54,8 @@ Mark anything unanswered `[NEEDS CLARIFICATION]` (TS-6). Do not plan until every
 - Security: include the abuse and bypass paths that apply (another tenant's object, a direct
   API call, bad input), each asserting nothing forbidden happens (SE-5). "No security impact"
   needs a reason.
-- Show the criteria to the user and get agreement in their own words (GR-7). If the Approvals
-  module applies, record who agreed, to which version, and any conditions (AP-1 to AP-3).
+- Show the criteria to the user and get agreement in their own words (GR-7). If the criteria
+  change materially later, show them again.
 
 ## 4. Plan
 

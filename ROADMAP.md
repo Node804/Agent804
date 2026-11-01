@@ -67,10 +67,6 @@ trial shows is unclear before moving on.
       scanner detection/error/staleness, dependency trust and isolated builds, secure skeleton,
       abuse tests, expiry-aware human decisions and a safe response exercise. Verify one
       authorized release/environment readiness record independently of its Build score.
-- [ ] Trial AP-1 to AP-4 and RV-1 at the revised gates: original human sources/authority,
-      scoped cross-session reuse, material changes, permitted status transitions, requirement
-      trace and actual host stale-review enforcement. Validate native/source adapters; byte
-      freshness and synthetic records alone do not establish human approval.
 
 ## Known gaps
 
@@ -112,7 +108,11 @@ trial shows is unclear before moving on.
   is read-only, non-sensitive, rate-limited and separate from production's own; the
   alternative failed a project whose only data was production. Non-sensitive production
   data is a threat-model entry, not a failure. An example file's empty slot proves nothing.
-- **Quality scenarios above decisions and specs (DC-5).** Status changes only when tests pass;
+- **No Approvals module.** Agent804 governs development: agents building for the developer
+  directing them, and the AI-facing parts of a product (Operate). Project sign-off and audit
+  are that developer's governance. Only the agent-specific part
+  stays, in GR-7: approval is the person's own, and a material change needs them again.
+- **Quality scenarios above decisions and specs (DC-5). Status changes only when tests pass;
   evidence flows back from specs to ADRs to scenarios.
 
 ## Changing the framework

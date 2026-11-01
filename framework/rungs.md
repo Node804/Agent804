@@ -2,9 +2,9 @@
 
 Agent804 has a **core** and **modules**. The core is eight rungs, below: what every project
 built with agents needs. [Modules](modules.md) cover problems a project has only in some
-situations (agents calling the system, sensitive data, outside sign-off, several writers at
-once) and are scored only when their trigger applies. The largest is **Operate**: how agents
-use the software once it runs.
+situations (agents calling the system, sensitive data, several writers at once) and are
+scored only when their trigger applies. The largest is **Operate**: how the AI-facing parts of
+a product are built, such as MCP servers and APIs for agents.
 
 ## The eight rungs
 

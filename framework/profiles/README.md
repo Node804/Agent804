@@ -41,7 +41,7 @@ Use this table when filling in `_template.md`. Each row needs a mechanism or a l
 | IN-1, IN-3 to IN-5, CK-2 | Agent instructions, plus checks for line budgets, paths and links |
 | CK-1, CK-4, CK-6, CK-8 | One check command with useful messages, editor or pre-commit feedback, CI from committed state, merge protection |
 | ST-1 | The ecosystem's standard formatter and linter, configured and pinned, run by the check without rewriting files |
-| AP-1 to AP-4, RV-1 | Where human approvals live and how a reviewed revision is identified; mechanical checks are not consent |
+| RV-1 | How a person's review before merge is required and recorded |
 | GR-1 to GR-4, GR-7 | Test credentials and data, a task branch per change, human approval for commit/push/deploy, a completion check the agent cannot skip, and instructions that only a person approves |
 | GR-5, GR-6 | Sandboxed unattended runs; data scripts dry-run by default |
 | MT-1 to MT-3 | Interface documentation checks, complexity limits, unused-code reports |

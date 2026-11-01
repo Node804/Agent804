@@ -42,7 +42,7 @@ In this order, from the stack profile:
 
 Deterministic checks beat AI review (CK-3). Do not add a hook for a preference (CK-7).
 Respect the project's conventions (ST-1), maintainability limits/baselines (MT-2)
-and applicable approval scope (AP-1 to AP-3). Security checks, test protection, CI enforcement
+and what the person agreed (GR-7). Security checks, test protection, CI enforcement
 and approval mechanisms need explicit human review (RV-3); exceptions never silently accept
 security risk (SE-6). Mechanical checks cannot authenticate human consent.
 

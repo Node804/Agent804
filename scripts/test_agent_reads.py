@@ -29,10 +29,10 @@ class AgentReadsTest(unittest.TestCase):
         self.assertEqual(agent_read_problems(self.root), [])
 
     def test_people_pages_are_refused(self) -> None:
-        self.skill("spec", "Read `framework/approvals.md` first.\n")
+        self.skill("spec", "Read `framework/testing.md` first.\n")
         problems = agent_read_problems(self.root)
         self.assertEqual(len(problems), 1)
-        self.assertIn("framework/approvals.md", problems[0])
+        self.assertIn("framework/testing.md", problems[0])
 
     def test_tables_and_playbooks_are_allowed(self) -> None:
         self.skill(

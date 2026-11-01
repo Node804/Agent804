@@ -15,7 +15,7 @@
 | Hook load/trust, failure continuation and report escape | | | |
 | Worktree paths/private state and mutable resource isolation | | | |
 | Independent acceptance/review context and exact handoff | | | |
-| Original human approval source/authority and reuse | | | |
+| Approval only from the person, in their own words (GR-7) | | | |
 
 States: missing, configured, fixture-tested, exercised in actual host, unavailable.
 Record dates/commands/outputs or links, changed conditions and next verification; don't use

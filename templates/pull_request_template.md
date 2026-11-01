@@ -27,13 +27,10 @@ owners, deadlines and scoped human acceptances with expiry. No impact requires a
 Security policy/tests/CI/approval changes need explicit human review. Production readiness
 is separate: identify release/environment and actual evidence, or leave it pending/blocked. -->
 
-## Human decisions and trace
+## Agreement
 
-<!-- Link original human decisions/approval IDs and reviewed subjects, scope/conditions,
-required reviewer authority and current implementation review. Trace approved requirements
-to criteria, actual tests, implementation revision and results. Explain material deltas and
-freshness. An agent-generated record or mechanical checker pass is not human approval and
-does not authorize commit/push/deploy. Keep old decisions when recording replacement/revocation. -->
+<!-- Where the person agreed the criteria, and anything that changed materially since. An
+agent-written record or a passing check is not approval and does not authorize a merge. -->
 
 ## Evidence
 

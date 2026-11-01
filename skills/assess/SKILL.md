@@ -35,8 +35,8 @@ or a fixture adapter pass with active project permissions or a working completio
    With no profile for the stack, judge each rule by its property, using the table in
    `profiles/README.md`. When a profile covers only part of the stack (a Django backend
    with a separate frontend), use it for that part and judge the rest by property. A profile describes mechanisms; only running ones count as met.
-   Grade from the Check column in `rules.md`; inspect the project's own maintainability,
-   security and approval records, not the framework's explanations of them.
+   Grade from the Check column in `rules.md`; inspect the project's own maintainability
+   and security records, not the framework's explanations of them.
 2. **Read the repository's own instructions**: `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/`,
    `.github/copilot-instructions.md`, nested instruction files, agent settings and hooks.
    Read `.env.example` (or its equivalent) and its comments: it says which settings hold
@@ -56,7 +56,7 @@ or a fixture adapter pass with active project permissions or a working completio
    cannot run at all, report why: that is the first gap.
 4. **Decide which modules apply.** For each module in `modules.md`, state whether its
    trigger is true and the evidence: an API or MCP server (Operate), the data the system
-   holds and who can reach it (Security), who must sign off (Approvals), signs of several
+   holds and who can reach it (Security), signs of several
    concurrent writers (Parallel work), and so on. When the evidence is unclear, ask; when
    nobody can answer, assume and say so.
 5. **Go through the gating rules rung by rung** (the table in `rungs.md`), then the rules of
@@ -96,10 +96,9 @@ or a fixture adapter pass with active project permissions or a working completio
     qualify equally with standard ones; an editor config alone is not enforcement. Do not
     install tools or reformat files to gather evidence.
 
-11. **Human decisions**: grade RV-1 always, and AP-1 to AP-4 when the Approvals module
-    applies, using original reviewer/source authority,
-    subject revisions, validity/conditions and actual requirement trace. Metadata validation
-    cannot establish consent. Distinguish session evidence from retrievable authenticated
+11. **Human decisions**: grade RV-1 and GR-7 from history: who reviewed what before merge,
+    and whether approvals came from the person, in their own words. Metadata cannot establish
+    consent. Distinguish session evidence from retrievable authenticated
     reviews, missing host evidence and configured-but-unexercised enforcement. An empty merge
     history is not an exercised human review workflow; never invent evidence to fill it.
 
@@ -128,7 +127,7 @@ one model in separate contexts remains valid. Do not probe accounts or launch mo
    for this kind of project. Ask the two questions in `rungs.md` if you can; when nobody can
    answer (a subagent, an unattended run), assume from the brief and state the assumption.
    Then the modules line from `modules.md`, triggered modules first with the reason each
-   applies, for example `Modules: Operate O1✓ O2✓* O3◐ · Security ◐ · Approvals – · Parallel ✓`.
+   applies, for example `Modules: Operate O1✓ O2✓* O3◐ · Security ◐ · Parallel ✓`.
    Include security readiness: pending, blocked, or verified for the identified release and
    environment; evidence, expiry, open risks and explicit human decisions qualify the status.
 2. **Strengths**: rules met well, with evidence. Be specific; no praise without a file reference.
