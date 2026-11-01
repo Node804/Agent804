@@ -14,16 +14,18 @@ Three layers sit above the code, and each has one job:
 | **Spec** | What does this feature do, and how do we know it is done? | Retrying a label print with the same ID prints once | One per change (`spec`) |
 
 A scenario says *what*, an ADR says *how*, a spec *applies* both to one feature and makes them
-testable. Evidence flows back up: tests pass, the spec is Built, the ADR is Validated, the
-scenario is Met.
+testable. Tests passing make the spec Built, may validate a Proposed ADR, and update only the
+part of a scenario those tests prove. An Accepted ADR stays Accepted.
 
 **Framework files**: in Claude Code, `${CLAUDE_PLUGIN_ROOT}/templates/`; for other agents,
-`../../templates/` from this file (`adr.md`, `quality-scenarios.md`).
+`../../templates/` from this file (`adr.md`, `evidence.md`, `quality-scenarios.md`).
 
 ## Read before deciding
 
 Read the project's quality scenarios and the ADRs on the change's topics. An Accepted ADR is a
 rule: follow it, or propose an amending ADR. Never work around it quietly.
+Read approval guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/approvals.md`, otherwise
+`../../framework/approvals.md` from this file, and the project's authority/index policy.
 
 ## Is it a quality scenario?
 
@@ -47,29 +49,56 @@ probably a spec; split it.
 1. If an existing ADR covers the topic, this is an amendment: write a new ADR that amends or
    supersedes it.
 2. Copy `adr.md` with the next number. Title is the decision as a sentence.
-3. Context: facts and forces, the quality scenarios it serves (`QS-n`), and what went wrong
-   before. Decision: numbered, each checkable. Consequences: what becomes a rule, and which
-   check will enforce it.
+3. Create `docs/evidence/<adr-number>-<topic>.md` from `evidence.md`; link it from the ADR
+   before acceptance. Context: facts and forces, the quality scenarios it serves (`QS-n`), and
+   what went wrong before. Decision: numbered, each checkable. Consequences: what becomes a
+   rule, and which check will enforce it.
 4. Status: Proposed. Deciders: the people who will own it, not only the author.
-5. Stop and show the user. Do not build on a Proposed ADR until they say to.
+5. Show the reviewable decision and requested transition to the user, unless existing valid
+   consent already covers it. Do not build on Proposed without authorization. Record the
+   original source, reviewed subject, scope/conditions and owner authority externally (AP-1
+   to AP-3); Deciders names alone are not consent. Group related decisions when explicit.
 
 ## Evidence and status
 
 After a spec's tests pass:
-- **ADR:** add to its Evidence section what the tests showed, what **contradicted** the
-  decision, what was **learned**, and what was **not tested or not built**. Exercising means
+
+Use testing guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/testing.md`, otherwise
+`../../framework/testing.md` from this file. Record environment, discovered/executed scope,
+actual results and skips/exclusions (TS-12); unexecuted quality/security boundaries remain
+unverified. A green subset cannot validate an entire architecture decision.
+
+- **Evidence record:** append to `docs/evidence/<adr-number>-<topic>.md` what the tests showed,
+  what **contradicted** the decision, what was **learned**, and what was **not tested or built**. Exercising means
   testing how it could fail (the outside system is down, the user lacks access, the request is
-  repeated), not only that it was built.
+  repeated), not only that it was built. Include the spec, test paths, exact revision or
+  preserved patch, command and result. Keep prior entries; correct them with a later entry.
+- **ADR:** a Proposed record may become Validated when its decision has been exercised.
+  An Accepted record stays Accepted and frozen; later evidence changes only the separate
+  record. Contradictory evidence triggers owner review and an amending or superseding ADR
+  when needed, never an automatic downgrade or quiet rewrite.
 - **Scenario:** update "Now" only from passing tests, and say what part is met ("Met for API
   writes; web forms not yet"). Never mark one Met because code exists.
 
 | ADR status | Requires |
 |---|---|
-| Validated | Evidence as above, linked to the acceptance tests |
-| Accepted | The owners agreed. Frozen from here except Status and Topics |
-| Rejected | Evidence says why. Keep the file: the reason stops the next person trying again |
+| Validated | Linked evidence record as above, citing the acceptance tests |
+| Accepted | Owners' actual decision/source covers reviewed content and transition (DC-4); external approval/index evidence is present. Frozen except Status and Topics |
+| Rejected | Linked evidence says why. Keep the ADR and evidence: they stop the next person trying again |
 | Superseded by NNNN | The new ADR exists and names this one |
 
 A project may run a shorter lifecycle (Proposed, Accepted, Superseded) with evidence gathered
 while Proposed; follow the project's own rule. If it keeps an index of ADRs, regenerate it.
 Report what you recorded and what is still not tested.
+
+## Adopting separate evidence in an existing project
+
+For a frozen ADR with inline evidence or no evidence link, create its separate record with a
+backlink to the ADR. Preserve any earlier evidence verbatim with its source revision; do not
+invent missing results. Add the ADR-to-record mapping to `docs/evidence/index.md` without
+editing the frozen ADR. Later results append to the record. New ADRs link their records
+before acceptance; migrated ADRs are located through the index.
+Approval indexes follow the same preservation principle: point from the external record or
+`docs/approvals/README.md` to frozen ADR content without adding a backlink inside it. Status
+transitions expressly authorized by the original decision are administrative; record their
+revision mapping under policy rather than asking the owner to accept the same content again.

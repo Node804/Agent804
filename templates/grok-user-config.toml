@@ -1,0 +1,11 @@
+# Draft user-layer fragments for deliberate review/merge; never install globally by default.
+# Project config does not establish these settings. Verify effective mode and OS enforcement.
+[ui]
+permission_mode = "ask"
+
+[sandbox]
+profile = "strict"
+auto_allow_bash = false
+
+[session]
+load_envrc = false

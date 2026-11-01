@@ -8,6 +8,25 @@ description: Find instruction files, docs, plans and decisions that no longer ma
 Docs go stale the moment code changes, and agents copy whatever patterns exist, good or bad
 (OAI). This pass finds drift and proposes small fixes (MS-2, MS-3). It changes files only when
 the user asks; otherwise it reports.
+Read the project's maintainability record and guidance: Claude Code
+`${CLAUDE_PLUGIN_ROOT}/framework/maintainability.md`, otherwise
+`../../framework/maintainability.md` from this file.
+Read `docs/security.md` and security guidance: Claude Code
+`${CLAUDE_PLUGIN_ROOT}/framework/security.md`, otherwise `../../framework/security.md` from
+this file. Finding decisions follow SE-6; maintained security evidence has freshness limits.
+Read style guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/style.md`, otherwise
+`../../framework/style.md` from this file; use the project's chosen policy, not our defaults.
+
+Read approval policy/index and guidance: Claude Code
+`${CLAUDE_PLUGIN_ROOT}/framework/approvals.md`, otherwise `../../framework/approvals.md`.
+
+Review flaky failures, retry rates, quarantine owners/expiry, skipped suites, unexpected
+discovery changes and obsolete fixtures (MS-2, TS-10, TS-12). Propose reviewed corrections;
+never silently skip a failure or change acceptance outcomes without affected criteria review.
+
+Read testing guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/testing.md`, otherwise
+`../../framework/testing.md` from this file. Keep stage completion distinct from feature
+completion; no commit history or passing metadata substitutes for execution evidence.
 
 ## Steps
 
@@ -17,16 +36,58 @@ the user asks; otherwise it reports.
    - rules now enforced by a check can be shortened to a pointer;
    - line budgets hold; history or file-layout descriptions have not crept in (IN-2).
 2. **Decisions**: ADRs whose Consequences name a check that does not exist; Proposed ADRs older
-   than a month with nothing built; Validated ADRs with no evidence line.
+   than a month with nothing built; Validated or Rejected ADRs with no linked evidence in
+   `docs/evidence/` (direct or indexed for migrated ADRs); contradictory evidence awaiting
+   owner review. Never rewrite frozen ADRs.
 3. **Plans**: plans marked active with no commit on their branch for two weeks; done plans
    still marked active.
 4. **Specs**: specs marked Agreed whose feature shipped (set Built) or was dropped.
 5. **Drift in code**: patterns `AGENTS.md` forbids that appeared anyway (grep for them);
-   duplicated helpers where a shared one exists; new `skip` or `xfail` markers.
+   duplicated helpers where a shared one exists; new `skip` or `xfail` markers. Inspect
+   structural trends, changed dependency directions, obsolete paths and exceptions whose
+   review condition has arrived (MT-2, MT-3). Trace dynamic registration and external consumers
+   before proposing removal. Record retained items and why; never delete from a report alone.
 6. **Instructions vs models**: rules that exist to work around an old model's habits. List them
    for the user to try removing (MS-3); do not remove them yourself.
+7. **Contracts and references** (MT-1, IN-5): review changed public behavior against docs and
+   examples, run safe reference/example checks, and distinguish current guidance from history.
+8. **Maintenance exercises** (MS-4): report recorded obstacles and unresolved follow-up. Suggest
+   a representative task if none has been trialled; do not run implementation work without
+   authorization. This is a practice, not a score gate.
+9. **Security drift**: review advisories/support status, config changes, current scanner
+   coverage and failed/stale reports, due remediation and expiring risk acceptances. Propose
+   fixes or accountable human decisions; never silently renew exceptions or treat existing
+   findings as permitted exposure. Check response-exercise follow-up and readiness evidence
+   after material changes. Do not read secrets or inspect live systems without authorization.
+
+10. **Style drift** (ST-1 to ST-3): new languages/grammars, changed or competing nested configs,
+    local/editor/CI version mismatch, broad suppressions, migration backlog and generated-file
+    ownership. Propose scoped corrections; do not run bulk formatters or replace custom styles
+    unless authorized. Recheck pipeline convergence after deliberate tool/preset upgrades.
+
+11. **Approval drift** (AP-1 to AP-4): original sources missing, changed subjects/dependencies,
+    stale implementation reviews, pending conditions, revocation/expiry and broken traces.
+    Preserve old decisions; distinguish permitted administrative changes from material scope.
+    Report original-source/adapter gaps without inventing consent or asking again merely to
+    populate metadata. Agents cannot renew human decisions or perform risk acceptance.
 
 ## Report
+
+Review canonical debt under MT-5: Claude Code
+`${CLAUDE_PLUGIN_ROOT}/framework/technical-debt.md`, otherwise `../../framework/technical-debt.md`.
+Triage candidates, missing owners, due dates/events, changed exposure and stale closure evidence.
+Propose repayment or accountable deferral review; never silently renew exceptions or acquire
+authority by creating tickets. Urgent security/defect follow-up keeps its own response clock.
+
+Inspect context drift via Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/context-management.md`,
+otherwise `../../framework/context-management.md`: stale maps/indexes/working notes, lost
+constraints or summaries that promote hypotheses to decisions. Propose scoped fixes; do not
+generate a second code inventory or claim recall/recovery effectiveness without trial evidence.
+
+For restructuring candidates, identify concrete maintenance friction and affected scope;
+hand authorized implementation to the refactor playbook: Claude Code
+`${CLAUDE_PLUGIN_ROOT}/skills/refactor/SKILL.md`, otherwise `../refactor/SKILL.md` from here.
+This gardening pass does not itself authorize broader cleanup or behavior changes (MT-4).
 
 A short list of findings, each with the file and a proposed fix, grouped as **fix now** (stale
 facts, broken commands), **decide** (rules or ADRs that need an owner's call) and **sensor

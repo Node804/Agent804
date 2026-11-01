@@ -11,10 +11,41 @@ every claim. Read-only: never edit, commit or install anything.
 **Framework files**: in Claude Code, `${CLAUDE_PLUGIN_ROOT}/framework/`; for other agents,
 `../../framework/` from this file.
 
+Assess TS-2 using actual red/green results and revision/patch evidence, not commit order
+alone. Check TS-10/TS-12 at rung 2, TS-11 at rung 4 and TS-8/TS-9 where applicable at rung 5.
+Report isolation, discovery, retry/quarantine and unexecuted target gaps. TS-13 is a practice;
+no universal mutation score is required and historical TDD must not be invented.
+
+Read testing guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/testing.md`, otherwise
+`../../framework/testing.md` from this file. Keep stage completion distinct from feature
+completion; no commit history or passing metadata substitutes for execution evidence.
+
 ## Steps
+
+Read host guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/agents/README.md`, otherwise
+`../../framework/agents/README.md` from here. Inspect actual client/version, orchestration,
+instruction overrides/loading limits, installed skill resources, effective permissions and
+hook trust/load/failure evidence. Report configured vs fixture-tested vs actual-host evidence;
+do not install plugins, change trust/global policy or launch host sessions to fill gaps.
+For Grok Build, inspect native versus imported compatibility sources and version-specific
+Stop/trust evidence; public and upstream docs differ. Never equate native skill discovery
+or a fixture adapter pass with active project permissions or a working completion gate.
 
 1. **Read the framework**: `rungs.md`, `rules.md`, and the profile for the stack if one exists
    (`profiles/`). Identify the stack from the lock files and dependency manifests.
+   Use the support matrix and parent/extension selection in Claude Code
+   `${CLAUDE_PLUGIN_ROOT}/framework/profiles/README.md`, otherwise
+   `../../framework/profiles/README.md` from this file. Read inherited baselines and explicit
+   overrides; score the project once on the resolved mechanisms. A Draft profile, style
+   starter or reference label alone cannot establish that a mechanism is met.
+   Read maintainability guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/maintainability.md`,
+   otherwise `../../framework/maintainability.md` from this file.
+   Read security guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/security.md`, otherwise
+   `../../framework/security.md` from this file; inspect the project's security record.
+   Read style guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/style.md`, otherwise
+   `../../framework/style.md` from this file. Inventory the project's actual conventions.
+   Read approval guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/approvals.md`, otherwise
+   `../../framework/approvals.md` from this file; inspect actual policy, sources and subjects.
 2. **Read the repository's own instructions**: `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/`,
    `.github/copilot-instructions.md`, nested instruction files, agent settings and hooks.
    Read `.env.example` (or its equivalent) and its comments: it says which settings hold
@@ -39,19 +70,73 @@ every claim. Read-only: never edit, commit or install anything.
 6. **Score it** using "Scoring" in `rungs.md`: grade each gating rule, mark each rung, then
    the foundation and the coverage line. If agents, scripts or assistants use the built system,
    score the Operate levels the same way. List any not-verifiable rule as an assumption.
+7. **Parallel work and evidence**: inspect checkout/resource isolation and per-checkout hook
+   state using the worktree playbook (Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/worktrees.md`,
+   otherwise `../../framework/worktrees.md` from this file). Check ADR evidence links in
+   `docs/evidence/` (direct or indexed for migrated ADRs), including contradictions awaiting
+   owner review. Unmigrated inline evidence is a gap; do not edit frozen ADRs in this assessment.
+8. **Maintainability**: inspect public contracts and current examples (MT-1); exercised
+   complexity checks, review-trigger dispositions and scoped exceptions (MT-2); authoritative
+   business rules and boundaries (AR-2, AR-3); retirement evidence (MT-3). A reviewed baseline
+   can retain specific debt, but cannot waive controls or permit worsening findings. Do not
+   call documentation "met" from presence alone. Treat unused-code and duplication reports as
+   leads needing confirmation. Record MS-4 exercises separately as a practice, never a gate.
+   Report MT-4 refactoring separately as a practice: problem, consumers/contracts, baseline
+   and final preservation evidence, improvement and compatibility gaps. A green suite does
+   not prove complete equivalence; absence of a standalone refactor skill is not a failure.
+9. **Security**: grade SE-1 to SE-6 using actual requirements, safe detection evidence,
+   dependency trust, effective controls, abuse tests and response/expiry records. Missing,
+   incomplete, failed or stale checks are gaps, not clean results. A maintainability baseline
+   cannot accept security exposure. Report production readiness separately from Build/Operate;
+   assumed external controls or local settings do not verify deployment. Never read restricted
+   production secrets, scan live systems or acquire extra authority to fill an evidence gap.
+
+10. **Style**: grade ST-1 to ST-3 on declared project scope, real configs/pins, exercised
+    non-mutating checks, stable fix chains and justified exceptions/migrations. Include tests,
+    tooling, template and UI grammars; an editor config is not CLI enforcement. Custom styles
+    qualify equally. Staged or unsupported coverage stays partial/gapped; style-only defaults
+    do not establish an entire stack profile. Do not install/format merely to fill evidence.
+
+11. **Human decisions**: grade AP-1 to AP-4 and RV-1 using original reviewer/source authority,
+    subject revisions, validity/conditions and actual requirement trace. Metadata validation
+    cannot establish consent. Distinguish session evidence from retrievable authenticated
+    reviews, missing host evidence and configured-but-unexercised enforcement. An empty merge
+    history is not an exercised human review workflow; never invent evidence to fill it.
 
 ## Report
+
+Assess MT-5 as a practice using Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/technical-debt.md`,
+otherwise `../../framework/technical-debt.md`. Inspect confirmed consequences, owner,
+disposition/review condition, actual deferral authority, linked exceptions and closure evidence
+in the canonical record. Scanner candidates are not confirmed debt; a debt label neither
+waives a gate nor accepts security/test failures. A clean project needs no invented debt items.
+
+Inspect scoped retrieval/freshness and recoverable state under IN-8/WK-8 as practices:
+Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/context-management.md`, otherwise
+`../../framework/context-management.md` from here. Check missing/truncated evidence, stale
+indexes/dirty work and assumptions promoted by summaries. Missing context trials stay pending;
+do not run model sessions or modify the app to establish them during read-only assessment.
+
+For opted-in routing, inspect Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/model-routing.md`,
+otherwise `../../framework/model-routing.md`, and project records for WK-7/MS-5. Report role,
+native effort, access/budget evidence, bounds, fallbacks and actual context independence as
+conditional practices. Missing optional routing or multiple subscriptions never fails a rung;
+one model in separate contexts remains valid. Do not probe accounts or launch models to score it.
 
 1. **Score**: foundation, the coverage line, the holes in rungs marked `✓*`, and the target
    for this kind of project. Ask the two questions in `rungs.md` if you can; when nobody can
    answer (a subagent, an unattended run), assume from the brief and state the assumption.
    Then the Operate levels (`Operate O1✓ O2✓* O3◐`, or `Operate –`).
+   Include security readiness: pending, blocked, or verified for the identified release and
+   environment; evidence, expiry, open risks and explicit human decisions qualify the status.
 2. **Strengths**: rules met well, with evidence. Be specific; no praise without a file reference.
 3. **Gaps**, most serious first: rule ID, what is missing, what goes wrong because of it.
    Distinguish "designed but not running" (documented, never exercised) from "absent".
 4. **Next three steps**: the smallest changes that raise the foundation first, then close the
    gap to the target, each with the rule IDs it satisfies and a rough size (an hour, a day).
 5. **Not checked**: anything you could not verify and why.
+   Include host capability gaps: model name, file presence and automatic tool permission
+   review do not establish instruction loading, human consent or enforced completion checks.
 
 Put the score, the top three gaps and the next three steps in the first 15 lines, so a reader
 can stop there; evidence follows. Plain statements; do not soften findings, and do not invent

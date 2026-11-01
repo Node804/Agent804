@@ -4,14 +4,18 @@
 - **Date:** YYYY-MM-DD
 - **Deciders:** <names>
 - **Topics:** <one or more>
+- **Approval index:** <external policy/index location; populate before acceptance>
 
 <!-- Status is one of:
   Proposed     an idea, not yet exercised; may be edited
-  Validated    built and exercised; Evidence says how; may still be refined
+  Validated    built and exercised; linked evidence says how; may still be refined
   Accepted     adopted by the people who will own it; frozen from here
-  Rejected     tried or argued and dropped; Evidence says why
+  Rejected     tried or argued and dropped; linked evidence says why
   Superseded by NNNN
 An Accepted record changes only its Status and Topics lines. -->
+
+<!-- Owner names are not consent. The external approval record/source identifies the reviewed
+decision and requested status transition. Do not reopen frozen content merely to add a link. -->
 
 ## Context
 
@@ -30,9 +34,7 @@ What becomes easier, what becomes harder, what is now a rule (and which check en
 
 ## Evidence
 
-<!-- Required for Validated and Rejected. What exercised the decision, what confirmed it, what
-contradicted it, and what was never tested. Link the acceptance scenarios that cover it. -->
+<!-- Create and link the evidence record before acceptance. Later results append there;
+an Accepted ADR stays frozen and Accepted. Required evidence for Validated and Rejected. -->
 
-- Confirmed by:
-- Contradicted by:
-- Not tested:
+<Relative Markdown link to the matching record under docs/evidence/>

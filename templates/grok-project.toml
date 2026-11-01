@@ -1,0 +1,8 @@
+# Draft: merge into project .grok/config.toml. Other settings may be user-scoped only.
+# Supplementary direct Git prompts; not a complete action/credential boundary.
+# Review aliases, git options, shell wrappers, SDK/MCP paths and deploy/migrate commands.
+[permission]
+rules = [
+  { action = "ask", tool = "bash", pattern = "git commit*" },
+  { action = "ask", tool = "bash", pattern = "git push*" },
+]

@@ -1,0 +1,2 @@
+# Bash-only scope. Use separate policies for POSIX sh or other shell dialects.
+shell=bash

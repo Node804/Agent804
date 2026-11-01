@@ -1,0 +1,4 @@
+# Optional shared policy; merge existing rules and review platform-specific requirements.
+* text=auto eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf

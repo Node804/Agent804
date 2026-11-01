@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "APP-0001",
+  "kind": "spec",
+  "decision": "pending",
+  "subjects": [],
+  "scope": [],
+  "reviewer": null,
+  "decided_at": null,
+  "source": null,
+  "conditions": [],
+  "depends_on": [],
+  "supersedes": [],
+  "revokes": [],
+  "expires_at": null,
+  "trace": []
+}

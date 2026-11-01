@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"/ABSOLUTE/CHECKOUT/.grok/hooks/grok_stop_check.py\"",
+            "timeout": 600
+          }
+        ]
+      }
+    ]
+  }
+}

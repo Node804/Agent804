@@ -7,6 +7,17 @@ description: Report whether agent-built work is getting faster and better or jus
 
 Developers using AI often feel faster than they are. This skill replaces the feeling with a few
 numbers (MS-1). Never count lines generated.
+Read the project's maintainability record and guidance: Claude Code
+`${CLAUDE_PLUGIN_ROOT}/framework/maintainability.md`, otherwise
+`../../framework/maintainability.md` from this file.
+
+Track test flakes/retries, quarantine age, skips/exclusions, suite duration and escaped
+regressions (MS-1). Preserve original failures and scope/count changes; compare like targets
+and environments. Missing data stays missing; retries alone do not turn failure into success.
+
+Read testing guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/testing.md`, otherwise
+`../../framework/testing.md` from this file. Keep stage completion distinct from feature
+completion; no commit history or passing metadata substitutes for execution evidence.
 
 ## What to measure
 
@@ -20,6 +31,10 @@ numbers (MS-1). Never count lines generated.
 | Escaped defects | Bugs found after merge, from the issue tracker or the log | What review and tests missed |
 | Rollbacks and reverts | `git log --grep=Revert` | |
 | Harness growth | Checks added by `sensor` in the period | Whether mistakes become checks |
+| Structural trends | Comparable complexity, duplication and dependency reports | Whether maintenance costs need investigation, not proof of their cause |
+| Aging exceptions | Scoped baseline and retention records in `docs/maintainability.md` | Debt awaiting its agreed review condition |
+| Maintenance exercises | `docs/metrics/maintenance-exercises.md` | What unfamiliar humans or fresh agent contexts needed to make and verify a change (MS-4, a practice) |
+| Security follow-up | `docs/security.md` and restricted report references | Overdue findings, expired acceptances, verification gaps/freshness and response exercise follow-up (SE-2, SE-6); counts are not proof of security |
 
 If the project has no interventions log, create `docs/metrics/interventions.md` with the
 columns: date, what the agent did, what was corrected, rule or check that now prevents it
@@ -32,8 +47,39 @@ columns: date, what the agent did, what was corrected, rule or check that now pr
    say so; do not estimate.
 3. Read the interventions log and group it by cause. The largest group is the next `sensor` or
    `AGENTS.md` change.
+4. For structural trends, record tool version, scope, baseline changes and dispositions for
+   threshold findings. Do not compare incompatible reports or rank developers by these metrics.
+5. Summarize maintenance exercises: task, revision, maintainer type, required context,
+   undocumented knowledge, obstacles, verification and follow-up. Include humans and agents
+   over time; absent exercises are an untrialled practice, not a rung failure. A metrics
+   request alone does not authorize modifying the application to conduct an exercise.
+6. Use the security record's risk categories and deadlines when comparing security follow-up.
+   State missing data and changed scan scope; do not rank teams by raw finding count or label
+   unavailable scans clean. Metrics do not authorize accepting risk or renewing exceptions.
 
 ## Report
+
+For debt follow-up (MT-5, MS-1/MS-2), use Claude Code
+`${CLAUDE_PLUGIN_ROOT}/framework/technical-debt.md`, otherwise `../../framework/technical-debt.md`.
+Track observed consequences, ownership gaps, due/overdue reviews, recurrence and verified
+repayment with comparable scope. Separate estimated clean-code effort from measured friction;
+raw ticket totals/closures prove no benefit. No universal score/capacity percentage is required,
+and measurements do not authorize deferral, risk acceptance or automatic issue creation.
+
+For context/recovery MS-4 trials, use Claude Code
+`${CLAUDE_PLUGIN_ROOT}/framework/context-management.md`, otherwise
+`../../framework/context-management.md`. Compare equivalent tasks/model/host/effort and
+expected evidence: missed contracts, retrieval gaps, unnecessary reads, recovery accuracy,
+defects/interventions, task completion and measured overhead. Token reduction or a single
+successful lookup alone proves no improvement. Missing trials are practices pending evidence.
+
+If optional routing is evaluated, apply MS-5: Claude Code
+`${CLAUDE_PLUGIN_ROOT}/framework/model-routing.md`, otherwise `../../framework/model-routing.md`
+from this file. Compare equivalent task/quality scopes and actual model/host/native effort;
+include failures, transfers, retries, rework, interventions, defects and elapsed time. Keep
+measured/estimated/unknown usage distinct and subscription pools/native units separate from
+API spend. Do not infer savings from prompt length or rank models on incomparable tasks.
+Missing routing/telemetry is not a new gate. Metrics authorize no paid evaluations or calls.
 
 A small table of this period against the last, three observations, and one recommendation.
 Note any measure that could not be computed and what would make it computable.

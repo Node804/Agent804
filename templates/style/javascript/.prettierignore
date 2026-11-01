@@ -1,0 +1,8 @@
+node_modules/
+dist/
+coverage/
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+**/*.blade.php
+# Add generator-owned or vendored paths only after review; do not ignore authored tests.

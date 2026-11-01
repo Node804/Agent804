@@ -11,6 +11,19 @@ next session cannot repeat the mistake, and so nobody has to fix the same diff b
 
 **Framework files**: in Claude Code, `${CLAUDE_PLUGIN_ROOT}/framework/`; for other agents,
 `../../framework/` from this file. The stack's mechanisms are in `profiles/<stack>.md`.
+Select the actual profile via `profiles/README.md`, reading parents/shared baseline first:
+Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/profiles/README.md`, otherwise
+`../../framework/profiles/README.md` from this file. Use resolved project choices and explicit
+extension overrides. A Draft mechanism still needs implementation and failure evidence;
+shared recommendations do not prove a sensor exists.
+
+For test sensors, assert an independent expected outcome and show the intended violation
+fails (TS-8). Control resources and inspect discovery/exit handling (TS-10, TS-12). Optional
+TS-13 sensitivity trials use isolated disposable changes, never production or shared state.
+
+Read testing guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/testing.md`, otherwise
+`../../framework/testing.md` from this file. Keep stage completion distinct from feature
+completion; no commit history or passing metadata substitutes for execution evidence.
 
 ## 1. State the invariant
 
@@ -33,6 +46,10 @@ In this order, from the stack profile:
    touch, commands it must run).
 
 Deterministic checks beat AI review (CK-3). Do not add a hook for a preference (CK-7).
+Respect project-owned conventions (ST-1 to ST-3), maintainability limits/baselines (MT-2)
+and applicable approval scope (AP-1 to AP-3). Security checks, test protection, CI enforcement
+and approval mechanisms need explicit human review (RV-3); exceptions never silently accept
+security risk (SE-6). Mechanical checks cannot authenticate human consent.
 
 ## 3. Write the failure message for the agent
 

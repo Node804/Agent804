@@ -1,0 +1,10 @@
+# Draft supplementary prompts for direct Git commands outside the sandbox.
+# Review/load with the active Codex config layer. This is not a complete action boundary:
+# wrappers, git options, aliases, SDKs, other tools and in-sandbox actions need their own policy.
+prefix_rule(
+    pattern = ["git", ["commit", "push"]],
+    decision = "prompt",
+    justification = "Verify existing scoped human authorization before changing Git state.",
+    match = ["git commit -m example", "git push origin feature"],
+    not_match = ["git status", "git diff"],
+)

@@ -1,0 +1,10 @@
+# Draft: merge into the adopting project's .codex/config.toml; never overwrite host policy.
+# Verify effective settings, project trust, managed constraints and platform support.
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+
+[sandbox_workspace_write]
+network_access = false
+
+[features]
+hooks = true

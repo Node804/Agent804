@@ -15,6 +15,13 @@ hard it is to undo, never how confident the agent is.
 |---|---|---|
 | <auth, permissions, tokens> | Red | Mistakes expose data to the wrong people |
 | <anything that writes to an outside system, money, or equipment> | Red | Hard or impossible to undo |
+| <security policy/tests, CI gates, approval mechanisms, deployment controls> | Red | Changes can remove protection; explicit human review of scope and revision |
 | <database migrations> | Yellow | Reversible, but data loss is possible |
 | <feature modules> | Green | |
-| <docs, tests, tooling> | Green | |
+| <ordinary docs, tests, tooling with no security-enforcement impact> | Green | Reassess by consequences; security controls are not green because of their directory |
+
+An agreed scope authorizes covered work; do not repeatedly ask for the same approved change.
+Material changes to risk or scope need renewed review. Record review through the project's
+normal mechanism; a zone map alone cannot enforce host permissions or protected CI gates.
+Index the original decision and reviewed revision in `docs/approvals/README.md`; preserve
+history. Do not infer new commit/push/deployment authority from a feature or zone approval.

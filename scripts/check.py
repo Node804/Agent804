@@ -3,14 +3,20 @@
 import json
 import py_compile
 import re
+import runpy
 import sys
+import tomllib
+import unittest
+import xml.etree.ElementTree as ET
 from pathlib import Path
+
+from check_skill_resources import check_resources
 
 ROOT = Path(__file__).resolve().parent.parent
 PORTABLE_KEYS = {"name", "description", "license", "compatibility", "metadata", "allowed-tools"}
 BUDGETS = {"SKILL.md": 200, "AGENTS.md": 100}
 FRAMEWORK_BUDGET = 200
-RULE_ID = re.compile(r"\b(IN|CK|GR|SK|TS|AR|WK|DC|RV|MS|OP)-\d+\b")
+RULE_ID = re.compile(r"\b(IN|CK|ST|AP|GR|SK|TS|AR|SE|MT|WK|DC|RV|MS|OP)-\d+\b")
 LINK = re.compile(r"\[[^\]]*\]\(([^)#\s]+)(?:#[^)]*)?\)")
 PLUGIN_PATH = re.compile(r"\$\{CLAUDE_PLUGIN_ROOT\}/([\w./-]+)")
 
@@ -32,6 +38,7 @@ def frontmatter(text: str) -> dict[str, str] | None:
 
 def main() -> int:
     errors: list[str] = []
+    errors.extend(check_resources(ROOT))
     rules_text = (ROOT / "framework" / "rules.md").read_text(encoding="utf-8")
     defined = set(re.findall(r"^\| ((?:[A-Z]{2})-\d+) \|", rules_text, re.MULTILINE))
 
@@ -56,7 +63,7 @@ def main() -> int:
             if not (ROOT / target.rstrip(".")).exists():
                 errors.append(f"{rel}: ${{CLAUDE_PLUGIN_ROOT}}/{target} does not exist")
 
-        if rel.startswith("skills/") or rel.startswith("templates/"):
+        if rel.startswith(("skills/", "templates/", "framework/")):
             for match in RULE_ID.finditer(text):
                 if match.group(0) not in defined:
                     errors.append(f"{rel}: cites {match.group(0)}, not in framework/rules.md")
@@ -82,6 +89,20 @@ def main() -> int:
         except json.JSONDecodeError as exc:
             errors.append(f"{js.relative_to(ROOT).as_posix()}: invalid JSON ({exc})")
 
+    for config in sorted((ROOT / "templates" / "style").rglob("*")):
+        if not config.is_file():
+            continue
+        rel = config.relative_to(ROOT).as_posix()
+        try:
+            if config.suffix == ".toml":
+                tomllib.loads(config.read_text(encoding="utf-8"))
+            elif config.name == "Settings.XamlStyler":
+                json.loads(config.read_text(encoding="utf-8"))
+            elif config.suffix == ".props":
+                ET.parse(config)
+        except (tomllib.TOMLDecodeError, json.JSONDecodeError, ET.ParseError) as exc:
+            errors.append(f"{rel}: invalid style configuration ({exc})")
+
     # Claude Code reads .claude-plugin/plugin.json and Codex the root plugin.json: keep in step.
     claude = json.loads((ROOT / ".claude-plugin" / "plugin.json").read_text(encoding="utf-8"))
     codex = json.loads((ROOT / "plugin.json").read_text(encoding="utf-8"))
@@ -89,10 +110,24 @@ def main() -> int:
         if claude.get(field) != codex.get(field):
             errors.append(f"plugin.json: {field} differs from .claude-plugin/plugin.json")
 
-    try:
-        py_compile.compile(str(ROOT / "templates" / "stop_check.py"), doraise=True)
-    except py_compile.PyCompileError as exc:
-        errors.append(f"templates/stop_check.py: {exc.msg}")
+    for name in ("codex-config.toml", "grok-project.toml", "grok-user-config.toml"):
+        try:
+            tomllib.loads((ROOT / "templates" / name).read_text(encoding="utf-8"))
+        except tomllib.TOMLDecodeError as exc:
+            errors.append(f"templates/{name}: {exc}")
+
+    for name in ("stop_check.py", "codex_stop_check.py", "grok_stop_check.py", "check_approvals.py"):
+        try:
+            py_compile.compile(str(ROOT / "templates" / name), doraise=True)
+        except py_compile.PyCompileError as exc:
+            errors.append(f"templates/{name}: {exc.msg}")
+
+    approval_validator = runpy.run_path(str(ROOT / "templates" / "check_approvals.py"))["validate"]
+    errors.extend(approval_validator(ROOT / "templates" / "approval.json", ROOT))
+
+    suite = unittest.defaultTestLoader.discover(str(ROOT / "scripts"), pattern="test_*.py")
+    if not unittest.TextTestRunner(verbosity=1).run(suite).wasSuccessful():
+        errors.append("Behavioral regression tests failed; fix the cause rather than bypassing the tests")
 
     for error in errors:
         print(error)

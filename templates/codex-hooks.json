@@ -1,0 +1,17 @@
+{
+  "description": "Draft project Stop hook: replace absolute paths and Python executables per checkout before use; review and trust in Codex.",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"/ABSOLUTE/CHECKOUT/.codex/hooks/codex_stop_check.py\"",
+            "commandWindows": "python \"C:/ABSOLUTE/CHECKOUT/.codex/hooks/codex_stop_check.py\"",
+            "timeout": 600
+          }
+        ]
+      }
+    ]
+  }
+}

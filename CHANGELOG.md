@@ -1,10 +1,140 @@
 # Changelog
 
+## Unreleased
+
+## 0.3.0 - Unreleased preview
+
+Version prepared 2026-11-01; not published. This revision changes assessment gates as well
+as adding workflows; earlier project scores need reassessment under the current rules.
+Application trials and adoption limits remain documented in README and validation records.
+
+- Add Draft Grok Build CLI support: native host recipe, project/user config starters and a
+  camelCase Stop adapter using the shared check engine. Cover thirteen wire/Git/worktree
+  cases; isolated CLI inspection discovers twelve skills without a model call. Record public
+  versus upstream hook-doc differences, untrusted-project skips and pending live enforcement.
+
+- Rework README navigation around the five development goals and supporting workflows,
+  including host/stack distinctions, optional routing, context recovery, refactoring and
+  debt management. Add starting paths, complete template links and current regression-suite
+  evidence while preserving explicit application-trial limits.
+
+- Add technical-debt lifecycle guidance and a lightweight canonical-record template. MT-5
+  covers confirmed consequences, ownership, scoped deferral/review and verified closure as
+  a practice, not a rung gate. Link specialist exceptions/security/test records without waivers.
+- Update existing assessment, setup, spec, gardening, refactor, review and measurement skills,
+  plus instructions/plans/PRs. Preserve debt identity through moves/partial repayment; application
+  trials remain pending. No separate debt skill or tracker integration is added.
+
+- Add context-management guidance and optional `context` skill for scoped retrieval,
+  source/freshness, incomplete output, durable working state and post-compaction recovery.
+  Add IN-8/WK-8 as reported practices, clarify navigation/freshness and reuse MS-4 trials.
+- Update skills, plans, instructions and host/model handoffs. Record research/task/model
+  limits separately in `framework/validation/context.md`; retrieval/recovery trials remain
+  pending. No mandatory index, universal token threshold or attention-internals claim.
+
+- Add optional model-routing guidance, policy/inventory template and recommend-only `route`
+  skill. Support single-model contexts, multiple classes/families, native effort, verified
+  access and separate subscription/API budgets with bounded escalation and no silent spend.
+- Add WK-7/MS-5 as conditional practices, not rung gates; define independent adversarial
+  test/code/review roles and quality-adjusted usage evidence. Update planning, setup,
+  assessment, review, measurement and instructions. Real routing/savings trials remain pending.
+
+- Add host profiles separate from language profiles, a capability record/checklist and
+  explicit context handoffs. Setup selects Claude/Codex/other mechanisms; assessment reports
+  effective instruction/override, permission, trust and execution gaps. Qualify completion
+  claims and keep automatic tool permission distinct from human design/merge approval.
+- Add a Draft Codex Stop adapter using the shared check engine, config/hook/command-rule
+  starters, thirteen wire/Git/worktree regressions and two relocated-resource checks. Native
+  hook loading, trust, timeouts and full cross-host application trials remain pending.
+
+- Add the portable `refactor` skill and MT-4 verified refactoring as a reported practice,
+  not a rung gate. Require a concrete maintenance problem, consumer/contract analysis,
+  baseline/characterization evidence, small transformations and honest preservation limits.
+  Update assessment, gardening, specification, review, instructions and plan/PR guidance;
+  behavior changes retain existing TDD/approval requirements. Application trials remain pending.
+
+- Audit the five domains across documentation and agent entry points: complete README
+  testing navigation, root guidance, generated-project README/instructions, human merge
+  review and acceptance-context requirements; strengthen sensor/operate/decision handoffs.
+
+- Add testing guidance and TS-8 to TS-13: independent assertions, bug regressions, isolated
+  reliable tests, actual integration, complete discovery/results and optional sensitivity trials.
+  Gate TS-10/TS-12 at rung 2, TS-11 at rung 4 and TS-8/TS-9 where applicable at rung 5.
+- Require actual red/green execution evidence; supersede the historical tests-only-commit
+  claim below. Clarify expected missing-interface diagnostics, reviewed test corrections,
+  separate acceptance contexts and intentional red handoffs versus green feature completion.
+  Update plans/PRs, skills, Draft runner mappings and reliability measures; app trials pending.
+
+- Add AP-1 to AP-4 for identified human decisions, trusted-source/authority evidence, valid
+  scoped reuse and requirement trace. Gate AP-1 to AP-3 at rung 3, AP-4 at rung 5 and RV-1
+  at rung 4; strengthen owner ADR acceptance without reopening frozen decisions.
+- Add approval policy/record templates and a portable mechanical validator for snapshots,
+  selected-record freshness, dependencies, revocation, conditions and expiry. Structural
+  success explicitly does not authenticate humans or authorize actions; source/host adapters
+  and permitted administrative-transition handling still need project integration/trials.
+- Add twelve mechanical approval regression tests and AP reference recognition. Update setup,
+  specs, decisions, review, assessment, gardening, templates and shared profile mappings.
+
+- Separate optional shared recommendations from stack profiles; move the style catalog to
+  `framework/recommendations/` while leaving reusable assets in `templates/style/`.
+- Add eleven Draft profiles: Python, PHP, Laravel, JS/TS, .NET, WPF, WinForms, Go, Rust,
+  PowerShell and Bash. Laravel extends PHP; WPF/WinForms extend .NET. Shared baseline mappings
+  and explicit overrides avoid duplicating common requirements or implying inherited evidence.
+- Publish a support matrix distinguishing starter assets, draft guidance and actual reference
+  evidence; update setup/assessment/sensor selection and remove the stale Django-only claim.
+  No draft profile has been promoted or trialled on a complete application.
+
+- Add ST-1 to ST-3 at rung 2: project-owned conventions, stable non-mutating check/fix
+  enforcement and controlled exceptions/upgrades/migrations. Existing or custom styles take
+  precedence over framework defaults; no new rung or skill is introduced.
+- Add optional draft style recommendations and editable starters for Python, PHP, Laravel
+  (including Blade), JS/TS, PowerShell, C#, WPF XAML, WinForms, Go, Rust and Bash, plus shared
+  editor/text policies. Include explicit diagnostic-exit handling and generated-code caveats.
+- Update profiles, setup/review/assessment/gardening guidance and templates. Recognize ST rule
+  references and parse starter TOML, XML and XAML Styler JSON in the check (Python 3.11+).
+  Full application/designer and reference-score trials remain outstanding.
+
+- Add SE-1 to SE-6 for threats and versioned requirements, complete/current verification,
+  dependency/build trust, safe runtime defaults, abuse-test evidence and accountable response.
+  Gate rungs 2 to 5 and report production readiness separately from Build/Operate scores.
+- Add security guidance and a project record template, scoped expiring human risk acceptance,
+  safe response exercises and draft Django tooling mappings. Security debt is not accepted
+  through a maintainability baseline; missing/stale verification cannot be called clean.
+- Strengthen development data isolation, effective object/tenant authorization, safe input
+  interpretation/output and agent-tool authority evidence. Zone security tests, policy and
+  CI/approval controls by consequences, with explicit human review of changes.
+- Update setup/spec/review/assessment/operate/gardening/measurement guidance, templates and
+  reference validation. Check SE rule references; real-project security trials remain pending.
+
+- Add MT-1 (understandable contracts), MT-2 (controlled complexity) and MT-3 (complete
+  retirement), gating rungs 4, 2 and 6 respectively. Broaden rung 6 to architecture and
+  maintainability, strengthen navigation/references, reuse/boundaries, dependency choices and
+  red/green/refactor, and add MS-4 maintenance exercises as a practice pending trial.
+- Add maintainability guidance and a project record template for actual limits, review
+  triggers, scoped adoption baselines and exceptions. Update setup, assessment, review,
+  gardening and measurement playbooks and draft Django mappings; reference-project scoring
+  and end-to-end adoption trials remain outstanding.
+- Validate MT references in skills, templates and framework pages through the repository check.
+
+- Fix the stop hook for linked worktrees and subdirectories, keep cache state private to each
+  checkout, invalidate it when the check command changes, and block on discovery or execution
+  errors. Disable caching before the first commit so staged edits cannot bypass the check.
+- Run behavioral hook regressions in `python scripts/check.py`; compilation alone is insufficient.
+- Check the working branch independently of Git initialization during project setup.
+- Define retry safety for concurrent requests, changed input, authorization, expiry, crash
+  recovery and unknown external effects; machine request IDs are required in the Django profile.
+- Store append-only decision evidence in `docs/evidence/`; Accepted ADRs stay frozen and are
+  never automatically downgraded when later features exercise them.
+- Add a worktree lifecycle covering checkout creation, resource isolation, explicit handoffs,
+  integration checks and cleanup, with setup, plan and profile guidance.
+
 ## 0.2.0 - 2026-10-31
 
 From three assessment rounds on two repositories and one full-flow feature trial.
 
 ### Added
+- Tested: the plugin installs in Codex (ChatGPT desktop) from the same package, and `assess`
+  runs there as designed.
 - A Codex manifest (root `plugin.json`) beside the Claude Code one, so Codex shows Node 804 as
   the publisher; the check keeps the two in step.
 - **Validation** (`framework/validation.md`) replaces the sources page: how Agent804 was

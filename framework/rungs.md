@@ -20,16 +20,42 @@ first feature.
 |---|---|---|---|---|
 | 0 | Chat and paste | — | — | (where most people start) |
 | 1 | Instructions in the repo | The agent reinventing conventions every session | IN-1, IN-3, CK-2 | One instructions file every agent reads, within budget, naming the check command or saying there is none yet |
-| 2 | One check command | "Looks done" code that does not run | CK-1 | One command runs format, lint, types and tests; the agent runs it and it is green |
-| 3 | Guardrails | Irreversible actions, leaked production secrets | GR-1 to GR-4 | No production secret within the agent's reach; commit, push and deploy ask; work happens on branches; the agent cannot finish with the check red |
-| 4 | Walking skeleton and CI | Every session rediscovering how to run things; drift between machines | SK-1, SK-2, CK-8 | The app boots from one command, one end-to-end test passes, and the check has run independently of the author's working tree before a change merged |
-| 5 | Tests before code | Tests that only confirm what the agent built | TS-1 to TS-3 | Every feature since the workflow was adopted, at least two, starts from agreed acceptance criteria; tests are written by another context and seen failing first |
-| 6 | Architecture as checks | Slow drift; the same fact copied into many places | AR-1, AR-3, CK-4; AR-2, AR-4, AR-5 where they apply | Access, boundaries and the project's own invariants fail the build when broken, with messages that say how to fix it |
-| 7 | Decisions with evidence | Re-arguing settled choices; losing the reason | DC-1 to DC-5 | Quality scenarios with stable IDs; ADRs with Proposed / Validated / Accepted / Rejected, citing the scenarios they serve, with evidence lines, accepted by the owners |
-| 8 | Measure and garden | Believing you are faster when you are busier; stale docs | MS-1, MS-2 | Lead time, interventions, first-pass CI rate and escaped defects tracked; a scheduled pass fixes stale docs |
+| 2 | One check command | "Looks done" code; inconsistent style, complexity and unchecked security | CK-1, ST-1 to ST-3, MT-2, SE-2, TS-10, TS-12 | Declared project conventions have stable, exercised check/fix pipelines; isolated tests and complete execution/discovery evidence exist; one command and CI cover their intended scope and applicable checks; missing/stale results remain gaps and triggers have dispositions |
+| 3 | Guardrails | Irreversible actions, exposed secrets/data, untrusted inputs and invented consent | GR-1 to GR-4, AP-1 to AP-3, SE-1, SE-3 | Threats/requirements and dependency sources are reviewed; valid scoped human decisions are traceable and reused; safe task checkouts and blocking checks operate |
+| 4 | Walking skeleton and CI | Unsafe defaults, undocumented contracts, unreviewed merges and machine drift | SK-1, SK-2, CK-8, RV-1, MT-1, SE-4, SE-6, TS-11 | Skeleton exercises an actual product integration boundary and refusal checks pass independently; human review covers merged changes; contracts and response ownership work. Deployment readiness remains separate |
+| 5 | Tests before code | Tests that only confirm the implementation or miss approved requirements | TS-1 to TS-3, TS-8, TS-9 where bug fixes apply, AP-4, SE-5 | At least two features since adoption trace approved criteria to tests, implementation and results; a separate acceptance context preserves meaningful pre-change failure evidence; green is followed by justified refactoring |
+| 6 | Architecture and maintainability as checks | Slow drift; duplicated rules; obsolete implementations | AR-1, AR-3, CK-4, MT-3; AR-2, AR-4, AR-5 where they apply | Access, boundaries and project invariants fail the build with useful messages; duplicate and retirement findings have evidence-backed dispositions; TS-13 sensitivity trials reported as a practice |
+| 7 | Decisions with evidence | Re-arguing settled choices; losing the reason | DC-1 to DC-5 | Quality scenarios with stable IDs; ADRs with Proposed / Validated / Accepted / Rejected, citing the scenarios they serve and linking append-only records in `docs/evidence/`, accepted by the owners |
+| 8 | Measure and garden | Believing you are faster when you are busier; stale docs and structural decay | MS-1, MS-2 | Delivery, test reliability and maintainability trends tracked; a scheduled pass proposes reviewed fixes or retention decisions; maintenance exercises are reported as a practice |
 
 Every other rule in `rules.md` is a **practice**: reported in the assessment, but not gating a
 rung. The OP rules gate the Operate levels instead.
+Maintainability starts in the foundation; it does not wait for rung 6. MS-4 remains a practice
+pending real-project trials. See [maintainability.md](maintainability.md).
+MT-4 verified refactoring is also reported as a rung 6 practice, not a gate; existing
+maintainability and review gates still apply to structural changes.
+Security starts in the foundation too. The [security baseline](security.md) distinguishes
+development isolation, application controls and actual production-readiness evidence.
+Style is project-owned: [style.md](style.md) requires declared conventions and enforcement,
+not adoption of Agent804's optional defaults. ST-1 to ST-3 gate rung 2; no new rung is added.
+[Traceable approvals](approvals.md) gate rung 3; requirement traceability gates rung 5 and
+owner decision evidence strengthens rung 7. Review before merge (RV-1) now gates rung 4.
+Use the [host capability checklist](agents/README.md) as well as a stack profile: instructions,
+skills, check execution, trust/guardrails, worktrees and independent contexts need actual
+evidence. Documented configuration or a model name cannot establish these mechanisms.
+[Model routing](model-routing.md) is optional: WK-7 and MS-5 are conditional practices,
+reported when used, with no rung gate or penalty for one model or one family. Separate
+contexts, execution evidence and human review remain required where their rules apply.
+
+[Testing guidance](testing.md) starts in the foundation. TS-13 sensitivity trials remain a
+reported practice at rung 6, not a gate; no universal mutation or coverage score is required.
+
+[Context management](context-management.md) clarifies navigation, freshness and recoverable
+handoffs. IN-8/WK-8 are reported practices without new gates; MS-4 context trials stay pending.
+Neither context size, a summary nor retrieved snippets alone establish complete verification.
+
+[Technical debt](technical-debt.md) connects discovery, deferral and verified closure.
+MT-5 is reported as a practice, not a gate; existing exceptions/security/test rules still apply.
 
 ## Scoring
 
@@ -62,12 +88,25 @@ Counting rules:
   has never run. A mechanism that runs and has been shown to work counts even if it is uncommitted.
 - Score the working tree as it stands. Uncommitted work counts, and the report says which
   findings depend on it.
+- Existing projects may adopt a reviewed, scoped maintainability baseline: new work cannot
+  introduce unapproved violations or worsen existing ones. Specific reviewed debt does not
+  by itself fail a rung; blanket exclusions, missing checks and unreviewed triggers do.
+- Exclude a not-applicable rule from a rung only with a concrete reason (for example MT-3
+  before anything has been replaced). Record it explicitly; missing mechanisms for an
+  applicable rule are not "not applicable". The rung's other gates still apply.
 - Only the repository counts: git-ignored or user-level personal settings do not protect the
   next developer or the next agent. No committed agent settings means GR-2 is not met.
 - **Not verifiable** is only for facts that live outside the repository (host branch
   protection, who reviewed a pull request, the contents of a file the assessor may not read).
   It does not fail a rung; the report states it as an assumption, with the evidence used
   instead (docs, scripts, examples), for example "foundation 3, assuming branch protection".
+- Security findings are not automatically accepted through a maintainability baseline.
+  Record their risk decisions under SE-6. Assumed external controls may qualify a Build score,
+  but cannot establish production readiness; missing evidence remains pending or blocked.
+- Approval-record validation proves structure/content relationships, not human consent.
+  Unavailable original source or reviewer authority remains an explicit assumption/gap,
+  never an agent-created approval. If no changes have merged, RV-1 reports that history is
+  absent and distinguishes configured enforcement from an exercised human review workflow.
 
 ## How much a project needs
 
@@ -86,6 +125,17 @@ changing an order is.
 A prototype that will be thrown away still writes **acceptance scenarios and decisions**: they
 survive into the rebuild, and code is the cheap part. "Plus 5 and 7 for what carries forward"
 means TS-1, TS-6, DC-1 to DC-3 and DC-5, not the whole rungs.
+
+## Production security readiness
+
+A Build score is a development-workflow assessment, not a security certificate or deployment
+authorization. Before production use, regardless of the target rung, review all applicable
+SE-1 to SE-6 requirements and deployed-control evidence for the release and environment.
+Report readiness separately as **pending**, **blocked**, or **verified for the stated scope**,
+with open risks and any explicit human acceptance. Undeployed controls stay pending; documented
+settings alone cannot verify a deployment. Unaccepted blocking risks or expired acceptance
+block readiness. Local skeleton evidence can satisfy the development portion of SE-4 while
+production verification is still pending. See `security.md` for the evidence and decision rules.
 
 ## Operate: three levels
 

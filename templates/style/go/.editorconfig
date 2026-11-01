@@ -1,0 +1,5 @@
+# Merge into the shared policy. gofmt remains the authoritative formatter.
+[*.go]
+indent_style = tab
+end_of_line = lf
+insert_final_newline = true

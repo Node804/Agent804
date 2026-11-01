@@ -12,6 +12,15 @@ red test; it is a wrong write in production, made at machine speed. The levels a
 
 **Framework files**: in Claude Code, `${CLAUDE_PLUGIN_ROOT}/framework/`; for other agents,
 `../../framework/` from this file.
+Read the project's `docs/security.md` and security guidance: Claude Code
+`${CLAUDE_PLUGIN_ROOT}/framework/security.md`, otherwise `../../framework/security.md` from
+this file. Operate levels complement SE-1 to SE-6; they do not certify production readiness.
+For interface changes, follow the project's maintainability/style policies and approved
+criteria. Read approval guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/approvals.md`,
+otherwise `../../framework/approvals.md` from here. Design approval does not grant live write
+or publish authority. Use testing guidance: Claude Code
+`${CLAUDE_PLUGIN_ROOT}/framework/testing.md`, otherwise `../../framework/testing.md` from here;
+preserve meaningful red/green evidence, independent assertions and actual integration scope.
 
 ## O1: One contract
 
@@ -32,15 +41,25 @@ expensive path.
    write. Write is off by default and granted per credential by a person.
 4. **Attribution** (OP-3). Every write records the actor, the credential if any, and the channel
    (web, API, agent), so history shows what an agent did on whose behalf.
-5. **Repeats are harmless** (OP-4). Writes accept a request ID; a repeat returns the first
-   result and changes nothing. Agents retry after timeouts; design for it. A result that changed
-   nothing (a failed print) need not be remembered, so a retry can succeed.
+5. **Repeats are harmless** (OP-4). Require a request ID for each logical machine write;
+   retries reuse it. Scope IDs by tenant or owner and operation, bind them to validated input,
+   and reject reuse with different input. Authorize every attempt, including result replay.
+   Coordinate concurrent duplicates so only one executes. For database writes, commit the
+   change and deduplication outcome atomically; a retry returns the saved outcome.
+   State the retention window and behavior after expiry; never promise unlimited deduplication
+   from a record that expires. An in-progress request must not execute again.
+   External effects need downstream deduplication or durable coordination and reconciliation.
+   A timeout may hide success: retry automatically only when no effect is known to have
+   occurred or the downstream system guarantees deduplication. Unknown outcomes await
+   reconciliation; a local request record alone cannot guarantee one print or outside write.
 
 ## O3: Bounded
 
 6. **Untrusted text** (OP-6). Anything that came from data (comments, notes, tickets, outside
    systems) may carry instructions aimed at the agent reading it. Tools that act on such data
-   get narrower credentials, and the threat is recorded in an ADR.
+   get constrained credentials, destinations and write/publish authority. Record the threat
+   and test planted instructions against actual tool permissions and attempted operations;
+   an ADR or the agent's claimed refusal alone does not prove isolation.
 7. **Definitions, not code** (OP-7). Where people or agents build things (forms, screens,
    reports, labels), they produce definitions the system interprets, never code it runs. Agents
    may draft; a person publishes.
@@ -51,9 +70,14 @@ expensive path.
 ## Design (new system or new interface)
 
 Work through O1, then O2, then O3. Record the design as an ADR (`decide`), and add the
-structural tests that enforce it (`sensor`): every action declares access; a read-only
-credential is refused on every write action; the same request ID twice changes nothing; an
-outside source over budget is refused before the call is sent.
+checks that enforce it (`sensor`): every action declares access; a read-only credential is
+refused on every write action; sequential and concurrent duplicates produce one effect;
+changed payloads are refused; tenant scopes are separate; replay rechecks access; crash and
+timeout tests cover outcome recovery and reconciliation; expired IDs follow the documented
+policy; an outside source over budget is refused before the call is sent.
+Map applicable security requirements into tests for alternate adapters, object/tenant access,
+unsafe input/output and planted instructions. Use isolated resources; no production access or
+live exploitation is authorized by a design or review request.
 
 ## Review (existing system)
 
