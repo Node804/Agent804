@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- The check fails when a file names a private project, organisation or person listed in the
+  git-ignored `private-names.local.md`; the kit refers to "a reference project" instead.
+
 - Split the framework into a core and modules. The eight rungs are the core (69 rules, 39 of
   them gating). Modules apply only when their trigger is true and are listed in the new
   `framework/modules.md`: Operate (OP-1 to OP-8), Security (SE-1, SE-4 to SE-6), Approvals

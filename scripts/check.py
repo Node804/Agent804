@@ -35,9 +35,35 @@ def frontmatter(text: str) -> dict[str, str] | None:
     return fields
 
 
+def private_name_hits(root: Path, names: list[str]) -> list[str]:
+    """Files that mention a private project name; the names live only in a git-ignored list."""
+    if not names:
+        return []
+    pattern = re.compile(r"\b(" + "|".join(re.escape(n) for n in names) + r")\b", re.IGNORECASE)
+    hits = []
+    for path in sorted(root.rglob("*")):
+        if not path.is_file() or ".git" in path.parts or "__pycache__" in path.parts:
+            continue
+        if path.name.endswith(".local.md"):
+            continue
+        try:
+            text = path.read_text(encoding="utf-8")
+        except UnicodeDecodeError:
+            continue
+        for number, line in enumerate(text.splitlines(), 1):
+            if pattern.search(line):
+                rel = path.relative_to(root).as_posix()
+                hits.append(f"{rel}:{number}: names a private project; say 'a reference project'")
+    return hits
+
+
 def main() -> int:
     errors: list[str] = []
     errors.extend(check_resources(ROOT))
+    names_file = ROOT / "private-names.local.md"
+    if names_file.exists():
+        names = [n.strip() for n in names_file.read_text(encoding="utf-8").splitlines()]
+        errors.extend(private_name_hits(ROOT, [n for n in names if n and not n.startswith("#")]))
     rules_text = (ROOT / "framework" / "rules.md").read_text(encoding="utf-8")
     defined = set(re.findall(r"^\| ((?:[A-Z]{2})-\d+) \|", rules_text, re.MULTILINE))
 

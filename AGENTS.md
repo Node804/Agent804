@@ -54,7 +54,9 @@ not authenticate a human decision or grant action authority.
 - Skills refer to other files as `${CLAUDE_PLUGIN_ROOT}/...` for Claude Code and as a relative
   path for other agents; keep both.
 - `SKILL.md` stays under 200 lines; this file under 100; framework pages under 200.
-- No organisation, product or person names from Node 804's projects in examples.
+- Never name a project, organisation or person the framework was built or trialled on,
+  anywhere in the kit: say "a reference project" instead. The check fails on any name listed
+  in the git-ignored `private-names.local.md`, one per line.
 - Two plugin manifests: `.claude-plugin/plugin.json` (Claude Code) and the root `plugin.json`
   (Codex). Change both together; the check fails when they differ.
 - Never commit or push unless asked in chat.
