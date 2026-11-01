@@ -1,5 +1,7 @@
 # Agent804
 
+![Public Preview · 0.4.0 — Some features and workflows are still being tested across models and agent hosts. Behavior and rules may change.](assets/preview-banner.svg)
+
 **Build the harness before the app.** A framework and skill set for working with coding
 agents, from Node 804.
 
