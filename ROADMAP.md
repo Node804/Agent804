@@ -67,10 +67,6 @@ trial shows is unclear before moving on.
       scanner detection/error/staleness, dependency trust and isolated builds, secure skeleton,
       abuse tests, expiry-aware human decisions and a safe response exercise. Verify one
       authorized release/environment readiness record independently of its Build score.
-- [ ] Trial ST-1 to ST-3 with custom and default styles, staged adoption and tool upgrades.
-      Exercise all optional language starters, error/skip handling and repeated-pass stability;
-      include Laravel Blade, WPF XAML and WinForms designer/resource round-trips. Reassess
-      reference scores without treating style-only recommendations as complete stack profiles.
 - [ ] Trial AP-1 to AP-4 and RV-1 at the revised gates: original human sources/authority,
       scoped cross-session reuse, material changes, permitted status transitions, requirement
       trace and actual host stale-review enforcement. Validate native/source adapters; byte
@@ -82,8 +78,8 @@ trial shows is unclear before moving on.
 - Under Codex, skill names show without a prefix (`spec`, `start`), so they can clash with
   other skills.
 - Items marked † in `framework/profiles/django.md` have not run on a real project.
-- All other stack profiles are Draft, including Laravel's PHP and WPF/WinForms' .NET
-  inheritance. Their recipes still require project implementation and application trials.
+- Django is the only stack profile. Others are written per project by `start` and join the
+  kit after a real project has used them.
 - Not yet read, so not relied on: arc42 §10 and the SEI's quality attribute scenarios (the
   quality scenarios follow their form); StrongDM's "software factory" write-up; the DORA 2025 AI
   report; METR's 2025 developer productivity study.

@@ -1,7 +1,0 @@
-<Project>
-  <!-- Merge into existing build properties. Pin the SDK separately in global.json. -->
-  <PropertyGroup>
-    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-    <EnableNETAnalyzers>true</EnableNETAnalyzers>
-  </PropertyGroup>
-</Project>

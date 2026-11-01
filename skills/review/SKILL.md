@@ -24,9 +24,6 @@ in the one that wrote the change.
    Read `docs/security.md` and security guidance: Claude Code
    `${CLAUDE_PLUGIN_ROOT}/framework/security.md`, otherwise `../../framework/security.md` from
    this file. Check exposure changes, versioned requirements, blocking policy and expiry.
-   Read declared project conventions and style guidance: Claude Code
-   `${CLAUDE_PLUGIN_ROOT}/framework/style.md`, otherwise `../../framework/style.md` from this
-   file. Assess project choices, not whether they match the framework's optional defaults.
    Read approval policy/index and guidance: Claude Code
    `${CLAUDE_PLUGIN_ROOT}/framework/approvals.md`, otherwise `../../framework/approvals.md`
    from this file. Verify required subjects, human sources/authority, scope and freshness.
@@ -61,10 +58,8 @@ in the one that wrote the change.
      and tenant authorization, unsafe sinks and agent-tool authority where applicable.
      Security gates/tests or approval policy weakened without explicit human review are
      findings; a scanner baseline or suppressed exit code does not accept risk.
-   - **Style policy** (ST-1 to ST-3): unexpected config/version changes, conflicting tools,
-     missing language/grammar coverage, broad exclusions, unreviewed overrides and unrelated
-     formatting churn. Inspect migration scope and CI/editor agreement; authored code beside
-     generated UI output still needs coverage. Do not recommend replacing a valid custom style.
+   - **Style** (ST-1): unexplained formatter config or version changes, broad exclusions, and
+     reformatting of files the change did not need to touch.
    - **Red zones**: every line.
 6. **Confirm each finding** by reading the code around it. Drop anything you cannot confirm.
 

@@ -48,16 +48,11 @@ the project needs, and Operate levels if agents will use it). Tell the user the 
 
 ## 3. Load the stack profile
 
-Read the support matrix and selection guidance: Claude Code
-`${CLAUDE_PLUGIN_ROOT}/framework/profiles/README.md`, otherwise
-`../../framework/profiles/README.md` from this file. Select the actual framework profile and
-read its parents/shared baseline first: Laravel extends PHP; WPF/WinForms extend .NET.
-C# maps to `dotnet.md`, JS/TS to `node-typescript.md`. Resolve inherited and overridden
-mechanisms in the project's `docs/stack-profile.md` before generating recipes; do not run
-competing formatters or duplicate parent tasks. Draft guidance is not running protection.
-If none exists, copy `_template.md` as the project profile, fill it in with the user and mark
-it Draft. List unmapped rules, actual required versions and missing mechanisms as gaps.
-Never treat shared recommendations or a style starter as a complete stack profile.
+Read Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/profiles/README.md`, otherwise
+`../../framework/profiles/README.md` from this file. If the kit has a profile for the stack,
+use it. Otherwise copy `_template.md` to the project's `docs/stack-profile.md`, fill it in
+with the user using the table in the profiles README, and mark it Draft. List unmapped
+rules, actual versions and missing mechanisms as gaps.
 Read the maintainability guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/maintainability.md`,
 otherwise `../../framework/maintainability.md` from this file. Agree enforced complexity limits,
 review triggers, public-interface scope and exception handling before implementing the skeleton.
@@ -66,15 +61,10 @@ Read security guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/security.md
 identities, interfaces and trust boundaries; agree credible abuse cases, versioned security
 requirements, justified exclusions, safe development data and dependency/install policy.
 Record concrete finding deadlines, release-blocking policy and scoped human acceptance rules.
-Read style guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/style.md`, otherwise
-`../../framework/style.md` from this file. Inspect existing configurations before choosing.
-Preserve project choices, apply user preferences, or offer our optional defaults: Claude Code
-`${CLAUDE_PLUGIN_ROOT}/framework/recommendations/style-defaults.md`, otherwise
-`../../framework/recommendations/style-defaults.md`. Starter assets are in Claude Code
-`${CLAUDE_PLUGIN_ROOT}/templates/style/`, otherwise `../../templates/style/` from this file.
-Record the agreed language/grammar matrix in the project profile or style document, including
-versions, configs, check/fix commands, authored tests/scripts, UI/template scope and exclusions.
-Framework-specific starters supplement their base language; they are not full stack profiles.
+For style, use the ecosystem's standard formatter and linter (for example Ruff, Prettier and
+ESLint, gofmt, rustfmt, `dotnet format`, Pint) unless the user prefers others, and record them
+in the profile's Style table. Offer `templates/editorconfig` and `templates/gitattributes` for
+line endings and encoding.
 Read approvals guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/approvals.md`, otherwise
 `../../framework/approvals.md` from this file. Agree owner/reviewer authority, required stage
 decisions, independence and original-source verification. Reuse existing scoped consent;
@@ -103,9 +93,7 @@ Each step ends with something you can run.
    security checks (SE-2), with report freshness, safe detection fixtures and explicit
    error/skip handling. Review dependency sources, build execution and reproducible inputs
    before installing new packages (SE-3); an audit is not permission to run untrusted code.
-   Adopt selected style assets by merging existing files, not overwriting project conventions.
-   Separate non-mutating checks from fixes; align editor/local/CI and disable conflicting
-   layout rules. Pin reviewed tool/runtime versions before claiming ST-1 to ST-3 met.
+   The check runs the formatter and linter in report mode; a separate command fixes (ST-1).
 2. **The check command** (CK-1): one command that runs everything. Write it to `.agent-check`
    (one line) for the stop hook.
 3. **Walking skeleton** (SK-1, SK-2): the smallest app that boots, one page or endpoint behind
@@ -170,9 +158,8 @@ Each step ends with something you can run.
 - Exercise representative security detections and skeleton abuse/refusal tests with safe
   fixtures; restore the real configuration. Run a safe response tabletop/fixture (SE-6),
   recording outcomes and gaps without accessing production or sending messages on its own.
-- Prove each claimed formatting pipeline with a violation/check/fix/second-pass fixture
-  (ST-2), including exit handling and no source changes from check mode. Unsupported grammars
-  and pending designer round-trips remain explicit gaps, not completed adoption.
+- Add a formatting violation: the check fails without changing the file, the fix command
+  repairs it, and a second run changes nothing (ST-1).
 - Exercise mechanical approval structure/freshness cases and document the separate human-source
   and host enforcement path (AP-1 to AP-3). Plan valid cross-session reuse and material-change
   trials; a metadata check alone does not prove human review or satisfy RV-1.

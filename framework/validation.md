@@ -65,48 +65,14 @@ Operate scores remain separate from release/environment security readiness. The 
 dependency/build verification, response exercise and Django mappings remain untrialled on
 reference projects; repository validation checks document integrity, not deployed security.
 
-## Style references and adoption
+## Style
 
-| References consulted | Reinforced | Scope and limits |
+| References consulted | Reinforced | Where Agent804 chose differently, and why |
 |---|---|---|
-| [Ruff](https://docs.astral.sh/ruff/formatter/), [Black](https://black.readthedocs.io/en/stable/the_black_code_style/current_style.html), [Prettier integration](https://prettier.io/docs/integrating-with-linters), [typescript-eslint](https://typescript-eslint.io/getting-started/) and [EditorConfig](https://editorconfig.org/) | A single layout authority, compatible lint stages, committed configuration and editor/CLI agreement support ST-1/ST-2 | Project choices prevail; shared editor properties and copied configs alone do not establish enforcement |
-| [PHP-FIG PER](https://www.php-fig.org/per/coding-style/), [explicit fixer preset](https://cs.symfony.com/doc/ruleSets/PER-CS3x0.html), [Pint](https://laravel.com/docs/12.x/pint) and [blade-formatter](https://github.com/shufo/blade-formatter) | Explicit supported style revisions and separate PHP/Blade ownership | Pint's Laravel preset is a project choice, not exact PER conformance; pin packages and trial real Blade directives |
-| [.NET format](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-format), [.NET options](https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/code-style-rule-options) and [XAML Styler CLI/config](https://github.com/Xavalon/XamlStyler/wiki/Script-Integration) | C# EditorConfig and explicit diagnostic/check behavior; XAML is a separate grammar | Formatting can run build/analyzer code; UI/designer round-trips and generated-file ownership need project evidence |
-| [PSScriptAnalyzer](https://github.com/PowerShell/PSScriptAnalyzer), [Go](https://go.dev/doc/effective_go#formatting), [rustfmt](https://github.com/rust-lang/rustfmt), [shfmt manual](https://raw.githubusercontent.com/mvdan/sh/master/cmd/shfmt/shfmt.1.scd) and [ShellCheck manual](https://raw.githubusercontent.com/koalaman/shellcheck/master/shellcheck.1.md) | Toolchain editions, explicit dialects and reliable error handling matter | A file list or diagnostic stream may not fail a check; wrappers and complete pipeline convergence need exercise |
+| [Ruff](https://docs.astral.sh/ruff/formatter/), [Prettier integration](https://prettier.io/docs/integrating-with-linters) and [EditorConfig](https://editorconfig.org/) | One layout authority per language, committed configuration, and the check reporting rather than rewriting (ST-1) | 0.3 shipped style starters for eleven languages and three rules. 0.4 keeps one rule: every ecosystem already has a standard formatter that agents know, and an untried starter adds maintenance without evidence |
 
-ST-1 to ST-3 gate rung 2 without adding a rung or requiring these tool choices. Optional
-starters are style-only Draft recommendations; adopting projects choose/pin compatible
-versions and verify intended coverage. Parser/smoke checks do not validate full stacks,
-cross-platform behavior, WPF/WinForms designers or every template grammar. Reference-project
-scores and full application adoption under the new gates remain to be trialled.
-
-Local starter checks used the installed Go 1.24.5 and .NET SDK 9.0.320 on isolated fixtures.
-The Go wrapper rejected an unformatted file without changing it, passed after formatting,
-remained stable on a second pass, and rejected syntax errors and flag-like path input.
-The C# whitespace folder check likewise failed without changes, passed after formatting and
-converged; this does not exercise a solution's full analyzers or Windows UI designers.
-PHP config lint, JavaScript config syntax, PowerShell syntax/data parsing and standard-library
-TOML/XML/JSON parsing passed. Uninstalled formatters/analyzer modules and full pipelines are
-not validated by these syntax checks; no external style packages were installed for the trial.
-
-## Draft stack profile coverage
-
-The style catalog now lives under `framework/recommendations/`; it remains optional and
-separate from complete-stack guidance and copyable templates. Eleven new Draft profiles add
-proposed check/bootstrap/test, architecture, security and isolation mechanisms plus explicit
-gaps. Laravel extends PHP; WPF and WinForms extend the shared .NET profile. The support matrix
-distinguishes these drafts from Django's historical Reference baseline. No new application
-was generated or trialled to justify this documentation change, and none was promoted.
-
-Additional primary documentation consulted for those proposals:
-
-| References | Supports | Limits |
-|---|---|---|
-| [pytest](https://docs.pytest.org/en/stable/), [PHPStan](https://phpstan.org/user-guide/getting-started), [Composer](https://getcomposer.org/doc/03-cli.md) | Language-specific tests, static analysis and reviewed dependency commands | Tool availability does not define an app's access model, architecture or safe install authority |
-| [Laravel tests](https://laravel.com/docs/12.x/testing) and [authorization](https://laravel.com/docs/12.x/authorization) | Framework HTTP tests and policies/gates behind shared actions | Their existence does not prove every route/job uses them; discovery and bypass tests remain project work |
-| [Node tests](https://nodejs.org/api/test.html), [.NET tests](https://learn.microsoft.com/en-us/dotnet/core/testing/), [runner selection](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-test) and [ASP.NET authorization](https://learn.microsoft.com/en-us/aspnet/core/security/authorization/introduction) | Runtime/test-driver and effective authorization mechanisms | Actual runtime/framework, runner options, target scope and failure handling must be selected and exercised |
-| [WPF](https://learn.microsoft.com/en-us/dotnet/desktop/wpf/overview/), [WinForms](https://learn.microsoft.com/en-us/dotnet/desktop/winforms/overview/) and [FlaUI](https://github.com/FlaUI/FlaUI) | Shared .NET base with separate Windows UI/designer and automation obligations | A compatible desktop/runner and actual UI round-trips are unverified; headless unit tests do not replace them |
-| [Go tests](https://go.dev/doc/tutorial/add-a-test), [Go vulnerabilities](https://go.dev/doc/security/vuln/), [Cargo tests](https://doc.rust-lang.org/cargo/commands/cargo-test.html), [Pester](https://pester.dev/docs/quick-start) and [bats-core](https://bats-core.readthedocs.io/en/stable/) | Native test, advisory and isolated automation mechanisms | Feature/platform scope, dependency trust, failure propagation and actual command/refusal acceptance remain project-specific |
+Stack profiles other than Django were removed in 0.4 for the same reason: none had been run
+on a real project. `start` now writes a Draft profile per project from `profiles/_template.md`.
 
 ## Traceable approval references and adoption
 

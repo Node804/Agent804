@@ -33,17 +33,12 @@ or a fixture adapter pass with active project permissions or a working completio
 
 1. **Read the framework**: `rungs.md`, `rules.md`, and the profile for the stack if one exists
    (`profiles/`). Identify the stack from the lock files and dependency manifests.
-   Use the support matrix and parent/extension selection in Claude Code
-   `${CLAUDE_PLUGIN_ROOT}/framework/profiles/README.md`, otherwise
-   `../../framework/profiles/README.md` from this file. Read inherited baselines and explicit
-   overrides; score the project once on the resolved mechanisms. A Draft profile, style
-   starter or reference label alone cannot establish that a mechanism is met.
+   With no profile for the stack, judge each rule by its property, using the table in
+   `profiles/README.md`. A profile describes mechanisms; only running ones count as met.
    Read maintainability guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/maintainability.md`,
    otherwise `../../framework/maintainability.md` from this file.
    Read security guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/security.md`, otherwise
    `../../framework/security.md` from this file; inspect the project's security record.
-   Read style guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/style.md`, otherwise
-   `../../framework/style.md` from this file. Inventory the project's actual conventions.
    Read approval guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/approvals.md`, otherwise
    `../../framework/approvals.md` from this file; inspect actual policy, sources and subjects.
 2. **Read the repository's own instructions**: `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/`,
@@ -91,11 +86,9 @@ or a fixture adapter pass with active project permissions or a working completio
    assumed external controls or local settings do not verify deployment. Never read restricted
    production secrets, scan live systems or acquire extra authority to fill an evidence gap.
 
-10. **Style**: grade ST-1 to ST-3 on declared project scope, real configs/pins, exercised
-    non-mutating checks, stable fix chains and justified exceptions/migrations. Include tests,
-    tooling, template and UI grammars; an editor config is not CLI enforcement. Custom styles
-    qualify equally. Staged or unsupported coverage stays partial/gapped; style-only defaults
-    do not establish an entire stack profile. Do not install/format merely to fill evidence.
+10. **Style**: grade ST-1 per language the project maintains. The project's own choices
+    qualify equally with standard ones; an editor config alone is not enforcement. Do not
+    install tools or reformat files to gather evidence.
 
 11. **Human decisions**: grade AP-1 to AP-4 and RV-1 using original reviewer/source authority,
     subject revisions, validity/conditions and actual requirement trace. Metadata validation

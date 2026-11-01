@@ -2,12 +2,9 @@
 
 - **Status:** Draft
 - **Applies to:** <language and framework, versions>
-- **Inherits/extends:** <shared baseline and parent profile links, or none; read parents first>
 
-Resolve parent choices and explicit overrides in the adopting project's stack profile.
-Do not duplicate parent checks or inherit validation status. Shared recommendations and
-starter configurations do not satisfy the remaining stack mechanisms. Name project recipes
-to generate and verify; do not imply the framework already ships those applications.
+Fill this in against the real project, with its real versions. Every rule in the table in
+`profiles/README.md` gets a mechanism or a listed gap. It stays Draft until it has run.
 
 ## Baseline
 
@@ -37,18 +34,13 @@ Runs, in order: format check, lint and complexity, types, architecture, document
 checks, security verification, framework checks, tests. Identify reports whose dispositions
 need review before merge; missing/stale required security evidence cannot become green.
 
-## Project-owned style
+## Style
 
-Preserve existing choices, apply user preferences, or offer the optional style defaults.
-Config files govern after adoption; templates never override project policy (ST-1 to ST-3).
+| Language | Formatter and linter | Pinned version | Check command (reports only) | Fix command |
+|---|---|---|---|---|
+| | | | | |
 
-| Language/grammar and maintained paths | Adopted convention/config | Exact runtime/tool pins | Check command | Fix pipeline/order | Exclusions/manual review |
-|---|---|---|---|---|---|
-| <include tests/scripts/tooling and UI/template grammars> | <authoritative files> | <manifest/lock references> | <non-mutating, failing status> | <stable second pass> | <scoped reasons and migration plan> |
-
-Verify a violation fails without source edits, the fix passes and a second pass changes
-nothing. Include CI/editor agreement and parser-error handling. Independent monorepo
-applications may vary only with declared boundaries. Record unsupported coverage as a gap.
+Keep the project's existing choices; otherwise use the ecosystem's standard tools (ST-1).
 
 ## Rule mapping
 
@@ -67,9 +59,7 @@ applications may vary only with declared boundaries. Record unsupported coverage
 | SE-6 | Human owner, concrete deadlines, blocking/acceptance policy with expiry, safe response exercise |
 | CK-1 | |
 | CK-6 | |
-| ST-1 | Language matrix, project-selected configs and actual version pins |
-| ST-2 | Full check/fix commands and non-mutating failure/fix/convergence evidence |
-| ST-3 | Reviewed exclusions, preset/tool upgrades and formatting-only or staged migration scope |
+| ST-1 | See Style above |
 | AP-1 to AP-4, RV-1 | Record schema/native adapter, preserved subjects, trusted original-source/authority verification, required-stage IDs, freshness/conditions and actual requirement trace |
 | GR-1, GR-2, GR-4 | |
 | SK-1 | |

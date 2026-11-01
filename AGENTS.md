@@ -24,7 +24,7 @@ not authenticate a human decision or grant action authority.
 - Before changing a domain, read its guidance and update affected rules/rungs, skills,
   profiles, templates, README and validation limits together:
   [maintainability](framework/maintainability.md), [security](framework/security.md),
-  [project-owned style](framework/style.md), [human approvals](framework/approvals.md),
+  [human approvals](framework/approvals.md),
   [testing/TDD](framework/testing.md). Apply this proportionately; do not copy every policy
   into every skill. Framework integrity checks do not prove adoption in a real application.
 - For structural work, use MT-4 guidance in `framework/maintainability.md`: identify the
@@ -43,7 +43,7 @@ not authenticate a human decision or grant action authority.
   preserve real deferral/closure evidence, and never use a ticket to waive another requirement.
 
 - A rule states a property, never a tool. Stack mechanisms belong in
-  `framework/profiles/<stack>.md`; optional shared defaults in `framework/recommendations/`.
+  `framework/profiles/<stack>.md`, added only after a real project has used it.
 - `framework/validation.md` lists the published work the framework was checked against, what
   each reinforced, and why Agent804 chose differently where it did. Read it before changing
   a rule; add to it when a change rests on a reference. Never cite a source nobody has read.

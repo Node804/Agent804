@@ -1,4 +1,4 @@
-# Optional shared starting point. Merge with existing project configuration.
+# Copy into a project as .editorconfig and merge with any existing configuration.
 root = true
 
 [*]

@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- Remove the eleven Draft stack profiles (Python, PHP, Laravel, JS/TS, .NET, WPF, WinForms,
+  Go, Rust, PowerShell, Bash). None had run on a real project. Django stays as the one
+  profile; `start` writes a Draft profile per project from the template, and a profile joins
+  the kit only after a real project has used it.
+- Reduce style to one rule, ST-1: a pinned formatter and linter per language, run by the
+  check without rewriting files, with a separate fix command. ST-2's check folds into ST-1;
+  ST-3 is dropped. Remove `framework/style.md`, `framework/recommendations/` and the
+  per-language starters; keep `templates/editorconfig` and `templates/gitattributes`.
+
 ## 0.3.0 - Unreleased preview
 
 Version prepared 2026-11-01; not published. This revision changes assessment gates as well

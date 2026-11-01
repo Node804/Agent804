@@ -20,7 +20,7 @@ first feature.
 |---|---|---|---|---|
 | 0 | Chat and paste | — | — | (where most people start) |
 | 1 | Instructions in the repo | The agent reinventing conventions every session | IN-1, IN-3, CK-2 | One instructions file every agent reads, within budget, naming the check command or saying there is none yet |
-| 2 | One check command | "Looks done" code; inconsistent style, complexity and unchecked security | CK-1, ST-1 to ST-3, MT-2, SE-2, TS-10, TS-12 | Declared project conventions have stable, exercised check/fix pipelines; isolated tests and complete execution/discovery evidence exist; one command and CI cover their intended scope and applicable checks; missing/stale results remain gaps and triggers have dispositions |
+| 2 | One check command | "Looks done" code; inconsistent style, complexity and unchecked security | CK-1, ST-1, MT-2, SE-2, TS-10, TS-12 | Each language has a formatter and linter the check runs without rewriting files; isolated tests and complete execution/discovery evidence exist; one command and CI cover their intended scope and applicable checks; missing/stale results remain gaps and triggers have dispositions |
 | 3 | Guardrails | Irreversible actions, exposed secrets/data, untrusted inputs and invented consent | GR-1 to GR-4, AP-1 to AP-3, SE-1, SE-3 | Threats/requirements and dependency sources are reviewed; valid scoped human decisions are traceable and reused; safe task checkouts and blocking checks operate |
 | 4 | Walking skeleton and CI | Unsafe defaults, undocumented contracts, unreviewed merges and machine drift | SK-1, SK-2, CK-8, RV-1, MT-1, SE-4, SE-6, TS-11 | Skeleton exercises an actual product integration boundary and refusal checks pass independently; human review covers merged changes; contracts and response ownership work. Deployment readiness remains separate |
 | 5 | Tests before code | Tests that only confirm the implementation or miss approved requirements | TS-1 to TS-3, TS-8, TS-9 where bug fixes apply, AP-4, SE-5 | At least two features since adoption trace approved criteria to tests, implementation and results; a separate acceptance context preserves meaningful pre-change failure evidence; green is followed by justified refactoring |
@@ -36,8 +36,6 @@ MT-4 verified refactoring is also reported as a rung 6 practice, not a gate; exi
 maintainability and review gates still apply to structural changes.
 Security starts in the foundation too. The [security baseline](security.md) distinguishes
 development isolation, application controls and actual production-readiness evidence.
-Style is project-owned: [style.md](style.md) requires declared conventions and enforcement,
-not adoption of Agent804's optional defaults. ST-1 to ST-3 gate rung 2; no new rung is added.
 [Traceable approvals](approvals.md) gate rung 3; requirement traceability gates rung 5 and
 owner decision evidence strengthens rung 7. Review before merge (RV-1) now gates rung 4.
 Use the [host capability checklist](agents/README.md) as well as a stack profile: instructions,

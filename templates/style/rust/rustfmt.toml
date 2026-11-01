@@ -1,6 +1,0 @@
-# Optional new-project default; align parsing and style editions with the actual project.
-edition = "2024"
-style_edition = "2024"
-max_width = 100
-hard_tabs = false
-newline_style = "Unix"

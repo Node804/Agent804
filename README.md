@@ -25,7 +25,7 @@ are selected by the project; the framework defines the properties and evidence t
 |---|---|
 | [Maintainable code](framework/maintainability.md) | Useful public contracts, scoped navigation, controlled complexity, authoritative business rules and retirement of obsolete paths. Existing projects can adopt reviewed baselines without an immediate rewrite |
 | [Security from the foundation](framework/security.md) | Threats and versioned requirements, dependency/build trust, automated checks, effective access controls, abuse tests and accountable response. Actual production readiness is verified separately |
-| [One declared style per language/scope](framework/style.md) | Project-owned conventions, pinned configuration, stable check/fix pipelines and explicit grammar/exclusion coverage. Existing choices prevail; editable defaults are optional |
+| [One style per language](framework/rules.md#st-style-rung-2) | A pinned formatter and linter for each language, run by the check without rewriting files. The project's existing choices win; new projects use the ecosystem's standard tools |
 | [Traceable human approval](framework/approvals.md) | Original source/authority, reviewed subjects, scoped reuse, freshness and requirements-to-results traceability. Every merge needs human review; agent-written records and tool permission are not consent |
 | [Witnessed TDD](framework/testing.md) | Independent acceptance-test context, meaningful red/green/refactor evidence, bug regressions, reliable isolated tests and real integration boundaries. Commit order alone proves no execution |
 
@@ -87,21 +87,16 @@ is imposed. Model/host selection does not guarantee correct results.
 | [framework/maintainability.md](framework/maintainability.md) | Understandable contracts, complexity controls, retirement, baselines and maintenance exercises |
 | [framework/technical-debt.md](framework/technical-debt.md) | Confirmed debt, ownership, deferral, consequence-based priority and verified closure; lightweight record template and existing-skill workflow |
 | [framework/security.md](framework/security.md) | Security requirements, threats, verification, dependency trust, runtime protection, response and production readiness |
-| [framework/style.md](framework/style.md) | Project-selected conventions, stable check/fix pipelines, coverage, exceptions and controlled migration |
 | [framework/approvals.md](framework/approvals.md) | Scoped human decisions, original evidence, freshness, requirement trace and mechanical-check limits |
 | [framework/testing.md](framework/testing.md) | Witnessed red/green/refactor, independent assertions, regression protection, isolation, integration and complete execution evidence |
-| [framework/recommendations/style-defaults.md](framework/recommendations/style-defaults.md) | Optional language/framework recommendations and links to editable starter configurations |
-| [templates/](templates/) | Agent instructions; specs/plans/PRs; ADR/evidence and approval records/validator; maintainability/security/debt records; host/routing records; style assets and Claude/Codex/Grok starters |
+| [templates/](templates/) | Agent instructions; specs/plans/PRs; ADR/evidence and approval records/validator; maintainability/security/debt records; host/routing records; `.editorconfig` and `.gitattributes` starters; Claude/Codex/Grok starters |
 | [skills/](skills/) | The skills below, as plain playbooks any agent can follow |
 
-Language profiles cover Django, Python, PHP, Laravel, JavaScript/TypeScript, C#/.NET, WPF,
-WinForms, Go, Rust, PowerShell and Bash. Django has a historical Reference baseline; the
-other eleven profiles are Draft. New mappings do not inherit validation from an older label.
-See the [support matrix](framework/profiles/README.md#support-matrix) for exact limits.
-
-**Profiles** explain stack mechanisms; **host profiles** explain agent integration;
-**recommendations** offer optional defaults; **templates** are editable files to copy.
-Laravel extends PHP; WPF/WinForms extend .NET. Style starters alone are not full stack trials.
+The kit ships one language profile, Django, because it is the only stack it has been run
+on. For any other stack, `start` writes a Draft profile for the project from the template,
+against the real code. A profile joins the kit once it has been used on a real project; see
+[profiles](framework/profiles/README.md). **Host profiles** in `framework/agents/` cover agent
+integration separately.
 
 | Skill | Does |
 |---|---|
@@ -210,9 +205,6 @@ What has been tested:
 - Automated stop-hook regressions: linked worktrees, private caches, staged edits before the
   first commit, changed check commands, path discovery and failure reporting. The repository
   check runs them; fixture commits are confined to disposable test repositories.
-- Local isolated style smokes: Go wrapper and .NET C# whitespace check/fix/convergence;
-  PHP/JS/PowerShell starter syntax and TOML/XML/JSON parsing. These do not establish full
-  language-pipeline or designer compatibility; see the limits below.
 - Mechanical approval regression fixtures: schema/snapshots, scoped freshness, unrelated
   edits, revocation/supersession, dependencies, conditions/expiry, references and explicit
   provenance/authority disclaimers. These do not authenticate any real human decision.
@@ -242,9 +234,7 @@ What has not:
   `measure` and `operate` skills.
 - The full flow under Codex: only `assess` has been run there (installed as a plugin, in the
   ChatGPT desktop app). Codex shows the account that added a private plugin as its author.
-- Full application trials outside Django: Python, PHP/Laravel, JS/TS, C#/.NET with WPF or
-  WinForms extensions, Go, Rust, PowerShell and Bash now have Draft profiles. No new profile
-  is promoted to Reference by its style starter or syntax smoke. See the support matrix.
+- Any stack other than Django.
 - The revised worktree lifecycle, retry contract and separate `docs/evidence/` model on a full
   application feature. Hook regression tests alone do not validate those end-to-end workflows.
 - The new maintainability gates (MT-2 at rung 2, MT-1 at rung 4, MT-3 at rung 6), revised
@@ -253,9 +243,6 @@ What has not:
 - The six security baseline rules and revised gates, dependency/build verification, response
   workflow and new Django mappings on reference projects. The framework's own integrity check
   does not scan or certify the security of adopting applications or production environments.
-- Full application trials of the new ST gates and optional starters: Python, PHP/Laravel,
-  JS/TS, PowerShell, C#/WPF/WinForms, Go, Rust and Bash. Style recommendations do not establish
-  complete stack profiles; designer behavior and unsupported grammar coverage need trials.
 - The new approval gates, trusted-source/host adapters, permitted administrative transitions
   and cross-session human approval reuse on a real project. Portable byte checks alone do
   not establish consent, reviewer authority, semantic trace coverage or action permission.

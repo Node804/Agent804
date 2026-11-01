@@ -14,8 +14,6 @@ Read the project's maintainability record and guidance: Claude Code
 Read `docs/security.md` and security guidance: Claude Code
 `${CLAUDE_PLUGIN_ROOT}/framework/security.md`, otherwise `../../framework/security.md` from
 this file. Finding decisions follow SE-6; maintained security evidence has freshness limits.
-Read style guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/style.md`, otherwise
-`../../framework/style.md` from this file; use the project's chosen policy, not our defaults.
 
 Read approval policy/index and guidance: Claude Code
 `${CLAUDE_PLUGIN_ROOT}/framework/approvals.md`, otherwise `../../framework/approvals.md`.
@@ -60,10 +58,8 @@ completion; no commit history or passing metadata substitutes for execution evid
    findings as permitted exposure. Check response-exercise follow-up and readiness evidence
    after material changes. Do not read secrets or inspect live systems without authorization.
 
-10. **Style drift** (ST-1 to ST-3): new languages/grammars, changed or competing nested configs,
-    local/editor/CI version mismatch, broad suppressions, migration backlog and generated-file
-    ownership. Propose scoped corrections; do not run bulk formatters or replace custom styles
-    unless authorized. Recheck pipeline convergence after deliberate tool/preset upgrades.
+10. **Style drift** (ST-1): a new language with no formatter, editor and CI versions that
+    disagree, or broad suppressions. Propose scoped fixes; never run a bulk reformat unasked.
 
 11. **Approval drift** (AP-1 to AP-4): original sources missing, changed subjects/dependencies,
     stale implementation reviews, pending conditions, revocation/expiry and broken traces.

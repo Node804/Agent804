@@ -11,11 +11,8 @@ next session cannot repeat the mistake, and so nobody has to fix the same diff b
 
 **Framework files**: in Claude Code, `${CLAUDE_PLUGIN_ROOT}/framework/`; for other agents,
 `../../framework/` from this file. The stack's mechanisms are in `profiles/<stack>.md`.
-Select the actual profile via `profiles/README.md`, reading parents/shared baseline first:
-Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/profiles/README.md`, otherwise
-`../../framework/profiles/README.md` from this file. Use resolved project choices and explicit
-extension overrides. A Draft mechanism still needs implementation and failure evidence;
-shared recommendations do not prove a sensor exists.
+Without one, use the project's `docs/stack-profile.md`. A Draft mechanism still needs an
+implementation and a shown failure before it counts as a sensor.
 
 For test sensors, assert an independent expected outcome and show the intended violation
 fails (TS-8). Control resources and inspect discovery/exit handling (TS-10, TS-12). Optional
@@ -46,7 +43,7 @@ In this order, from the stack profile:
    touch, commands it must run).
 
 Deterministic checks beat AI review (CK-3). Do not add a hook for a preference (CK-7).
-Respect project-owned conventions (ST-1 to ST-3), maintainability limits/baselines (MT-2)
+Respect the project's conventions (ST-1), maintainability limits/baselines (MT-2)
 and applicable approval scope (AP-1 to AP-3). Security checks, test protection, CI enforcement
 and approval mechanisms need explicit human review (RV-3); exceptions never silently accept
 security risk (SE-6). Mechanical checks cannot authenticate human consent.

@@ -7,7 +7,6 @@ import runpy
 import sys
 import tomllib
 import unittest
-import xml.etree.ElementTree as ET
 from pathlib import Path
 
 from check_skill_resources import check_resources
@@ -88,20 +87,6 @@ def main() -> int:
             json.loads(js.read_text(encoding="utf-8"))
         except json.JSONDecodeError as exc:
             errors.append(f"{js.relative_to(ROOT).as_posix()}: invalid JSON ({exc})")
-
-    for config in sorted((ROOT / "templates" / "style").rglob("*")):
-        if not config.is_file():
-            continue
-        rel = config.relative_to(ROOT).as_posix()
-        try:
-            if config.suffix == ".toml":
-                tomllib.loads(config.read_text(encoding="utf-8"))
-            elif config.name == "Settings.XamlStyler":
-                json.loads(config.read_text(encoding="utf-8"))
-            elif config.suffix == ".props":
-                ET.parse(config)
-        except (tomllib.TOMLDecodeError, json.JSONDecodeError, ET.ParseError) as exc:
-            errors.append(f"{rel}: invalid style configuration ({exc})")
 
     # Claude Code reads .claude-plugin/plugin.json and Codex the root plugin.json: keep in step.
     claude = json.loads((ROOT / ".claude-plugin" / "plugin.json").read_text(encoding="utf-8"))

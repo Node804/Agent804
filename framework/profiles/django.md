@@ -40,7 +40,7 @@ remain failures or explicit gaps, never silently omitted checks.
 |---|---|
 | IN-3, IN-5 | `scripts/check_agent_docs.py`: line budgets, every nested `AGENTS.md` has a `CLAUDE.md` pointer; named paths exist † |
 | IN-4 | † README or local module guide links purpose, public services/selectors, dependency direction and test command; no full symbol inventory |
-| ST-1 to ST-3 | † Preserve project choices; Ruff is the offered Python default. Record config/pins, check/fix chain, justified exclusions and adoption scope. Prove failure/fix/convergence; Django templates and frontend languages need their own grammar-aware coverage |
+| ST-1 | Ruff for lint and format, pinned in the lock file; `ruff check .` and `ruff format --check .` in the check, `ruff format .` to fix. Django templates and any frontend code need their own tool or a listed gap |
 | AP-1 to AP-4, RV-1 | † Approval policy/index links reviewed subjects to actual human sources/authority. Use the portable validator or native adapter for mechanical checks, trusted stage/host review integration for consent, and requirement-to-test/revision/result traces; no metadata-only self-approval |
 | MT-1, IN-5 | † Select Ruff `D100,D101,D102,D103` for public module/class/method/function presence in the declared interface scope. Review meaningful constraints, failures and side effects; check maintained links and exercise examples through tests. Mark history and generated files explicitly |
 | MT-2 | † Ruff `C901` via `C90`, with `lint.mccabe.max-complexity = 10` initially. Review nesting over four blocks, authored files over 400 lines, new cross-module dependencies and duplicate-rule reports. These are initial Python profile choices, not universal limits; record project adjustments and scoped exceptions |
@@ -165,12 +165,6 @@ policy unless a change is agreed. Pin the actual formatter/linter version in the
 environment. `ruff check .` and `ruff format --check .` do not rewrite source; reviewed safe
 lint fixes precede `ruff format .`. A second full pass must make no changes.
 
-The [style starters](../../templates/style/README.md) supply editable configuration. Merge
-with the profile's stronger security, complexity and documentation checks rather than
-replacing them with a minimal style config. Python coverage alone does not cover Django
-templates, JS/TS, CSS or maintained structured text. Trial each added grammar with its chosen
-tool or record the gap; avoid unrelated repository-wide reformatting. These expanded ST
-mappings remain draft until exercised on an adopting project.
 
 ## Gotchas
 

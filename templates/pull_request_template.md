@@ -19,12 +19,6 @@ and other review triggers; refactor performed or not needed; obsolete paths remo
 with consumer, reason and review condition. Refer to the reviewed baseline; moving code does
 not erase a finding. Use "not applicable" with a reason when appropriate. -->
 
-## Style policy changes
-
-<!-- If style policy changed, link project convention/config/pin decisions, exclusions and
-check/fix/convergence evidence (ST-1 to ST-3). Explain formatting-only or staged migration
-scope. Ordinary feature work must not silently change conventions or reformat unrelated work. -->
-
 ## Security
 
 <!-- Link the security record: changed threats/versioned requirements, dependency/build-source

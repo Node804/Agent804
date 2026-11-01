@@ -35,15 +35,11 @@ project that departs from it says why in an ADR.
 | CK-7 | Keep enforcement small. A project-selected style may be enforced as one coherent pipeline; do not create separate hooks for individual preferences. Other preferences stay prose unless adopted as required properties. | Inspect hook purpose, overlapping checks and the project's declared conventions |
 | CK-8 | Before a change merges, the check runs independently of the author's working tree: from committed state, in a clean environment, with nothing from the author's machine but the address of a test database. This catches the forgotten file, the dependency missing from the lock file and the test that passes only on local data. CI with branch protection is the standard mechanism, and the only one that also gates the merge for every tool. | Met: CI runs the check on every change and a red run blocks the merge. Partly met: CI runs but does not block, or a clean-clone script runs the check from committed state but nothing makes it run before a merge. Not met: only the author's working tree is ever checked |
 
-## ST: Project-owned style (rung 2)
-
-Adoption and enforcement are in [style.md](style.md); defaults are optional recommendations.
+## ST: Style (rung 2)
 
 | ID | Rule | Check |
 |---|---|---|
-| ST-1 | Each maintained language/file type has a project-selected convention, authoritative committed configuration and compatible pinned tools. Projects may adopt, customize or replace framework recommendations. Existing choices govern until a change is agreed; overlapping tools do not impose conflicting layout. | Inspect language/grammar inventory, scope, versions and configuration, including independent application boundaries |
-| ST-2 | Humans, agents and CI use the declared policy. The full check detects violations without rewriting source; a separate command applies supported fixes. The complete pipeline reaches a stable result. | A deliberate violation fails; applying the pipeline passes; a second pass makes no changes. Verify exit status, intended coverage and local/CI agreement |
-| ST-3 | Overrides, exclusions and suppressions have explicit scope and justification. Convention, formatter and configuration changes are reviewed and separated from unrelated behavior changes; staged adoption has recorded coverage and a completion plan. | Inspect exceptions, migration/upgrade diffs and coverage; broad exclusions cannot make an unfinished adoption appear complete |
+| ST-1 | Each language the project maintains has one formatter and linter, with committed configuration and pinned versions. The check reports violations without rewriting files; a separate command fixes them. The project's existing choices govern; a new project uses its ecosystem's standard tools. | Add a deliberate violation: the check fails and the file is unchanged; the fix command repairs it; a second run changes nothing. Configured but not in the check or CI is partly met |
 
 ## AP: Traceable human approval (rungs 3, 5 and 7)
 

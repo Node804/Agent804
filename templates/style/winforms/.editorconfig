@@ -1,7 +1,0 @@
-# Merge into the project's shared/C# policy. This fragment does not exclude C# files.
-[*.resx]
-indent_style = space
-indent_size = 2
-insert_final_newline = true
-# Do not add generated_code=true for every *.Designer.cs without verifying ownership.
-# Author-written partial classes and event handlers remain in the normal C# checks.
