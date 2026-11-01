@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- Assessment fixes from the 0.4 round. `assess` scores only after every rule is graded. DC-2
+  and DC-3 state the property (an append-only evidence record; decision text frozen once
+  Accepted) instead of requiring `docs/evidence/`: an Evidence section that only grows meets
+  them. A rule naming several mechanisms is partly met when some run; a missing piece is
+  graded once, under its own rule, so CK-1 no longer double-counts. New guidance for tests
+  that cannot run, a project with no check command, a profile covering part of the stack,
+  and Operate levels above an unmet one.
+
 - README "Use it" is rewritten in the order people need it: install per host in one table,
   the first run of `start` or `assess`, the steps of every change, and the periodic skills.
   It replaces "The loop, once set up". Host details stay in the host recipes. Install is from

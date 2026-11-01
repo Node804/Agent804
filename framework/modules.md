@@ -55,7 +55,9 @@ mistake is a wrong write in production made at machine speed, not a red test. Pl
 | O2 | Safe by default | An agent with too much power, an unattributed change, a retry that doubles a record | OP-2 to OP-4 | Agent access is read-only until a person grants write, scoped to what it needs; every write records who acted and through which channel; a repeated request changes nothing |
 | O3 | Bounded | An agent acting on planted instructions, overloading a system you do not own, or shipping code nobody reviewed | OP-6 to OP-8 | Text from data is treated as untrusted where agents read it; load on outside systems has a budget; agents draft definitions and a person publishes them |
 
-Levels are climbed in order: O2 means little without O1. Start O1 with the first action: one
+Levels are climbed in order: O2 means little without O1. Grade and mark every level, but
+the level reached is the highest one with every level below it met or met with holes, as
+with the foundation: `O1◐ O2✓` has reached no level. Start O1 with the first action: one
 contract retrofitted over many hand-built endpoints is the expensive path.
 
 ## Security

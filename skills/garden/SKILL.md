@@ -23,8 +23,7 @@ never silently skip a failure or change acceptance outcomes without affected cri
    - rules now enforced by a check can be shortened to a pointer;
    - line budgets hold; history or file-layout descriptions have not crept in (IN-2).
 2. **Decisions**: ADRs whose Consequences name a check that does not exist; Proposed ADRs older
-   than a month with nothing built; Validated or Rejected ADRs with no linked evidence in
-   `docs/evidence/` (direct or indexed for migrated ADRs); contradictory evidence awaiting
+   than a month with nothing built; Validated or Rejected ADRs with no evidence record (DC-2); contradictory evidence awaiting
    owner review. Never rewrite frozen ADRs.
 3. **Plans**: plans marked active with no commit on their branch for two weeks; done plans
    still marked active.

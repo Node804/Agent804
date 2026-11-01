@@ -26,7 +26,7 @@ first feature.
 | 4 | Walking skeleton and CI | Unreviewed merges, undocumented contracts, works-on-my-machine | SK-1, SK-2, CK-8, RV-1, MT-1, TS-11 | A fresh clone boots with one command; an end-to-end test runs in CI from committed state and blocks a red merge; a person reads every change before merge; public interfaces say what they do |
 | 5 | Tests before code | Tests that only confirm the implementation | TS-1 to TS-3, TS-8, TS-9 where bug fixes apply | At least two features since adoption have agreed criteria, tests written in a separate context and shown failing first, then passing; bug fixes keep a test that failed before the fix |
 | 6 | Architecture and maintainability as checks | Slow drift; duplicated rules; obsolete code | AR-1, AR-3, CK-4, MT-3; AR-2, AR-4, AR-5 where they apply | Access, boundaries and project invariants fail the build with messages that say how to fix them; replaced code is removed or its retention is recorded |
-| 7 | Decisions with evidence | Re-arguing settled choices; losing the reason | DC-1 to DC-5 | Quality scenarios with stable IDs; ADRs with Proposed / Validated / Accepted / Rejected, citing the scenarios they serve and linking append-only records in `docs/evidence/`, accepted by the owners |
+| 7 | Decisions with evidence | Re-arguing settled choices; losing the reason | DC-1 to DC-5 | Quality scenarios with stable IDs; ADRs with Proposed / Validated / Accepted / Rejected, citing the scenarios they serve and each with an append-only evidence record, accepted by the owners |
 | 8 | Measure and garden | Believing you are faster when you are busier; stale docs and structural decay | MS-1, MS-2 | Delivery, test reliability and maintainability trends tracked; a scheduled pass proposes reviewed fixes |
 
 Every other core rule in `rules.md` is a **practice**: reported in the assessment, but not
@@ -74,6 +74,12 @@ Counting rules:
 - Exclude a not-applicable rule from a rung only with a concrete reason (for example MT-3
   before anything has been replaced). Record it explicitly; missing mechanisms for an
   applicable rule are not "not applicable". The rung's other gates still apply.
+- A rule that names several mechanisms (SE-2's three scanners) is met when all of them
+  run, partly met when at least one does, and not met when none does. Name the missing ones.
+- Grade a missing piece once, under its own rule: a check command without a complexity
+  step is an MT-2 gap, not a CK-1 gap as well.
+- Tests that exist but cannot run (a broken migration, a missing service) protect nothing:
+  every rule that needs a test run is not met, and the cause is the first gap reported.
 - Only the repository counts: git-ignored or user-level personal settings do not protect the
   next developer or the next agent. No committed agent settings means GR-2 is not met.
 - **Not verifiable** is only for facts that live outside the repository (host branch

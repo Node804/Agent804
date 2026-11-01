@@ -85,7 +85,7 @@ Mark anything unanswered `[NEEDS CLARIFICATION]` (TS-6). Do not plan until every
   each writer gets its own worktree and resources (`docs/worktrees.md`). Uncommitted tests do
   not appear in another checkout; hand over a commit or a patch.
 - **Evidence back up** (`decide`): once the tests pass, the spec is Built, each ADR it
-  exercised gets an entry in `docs/evidence/<adr-number>-<topic>.md`, and each scenario it
+  exercised gets an entry in its evidence record, and each scenario it
   proves updates its "Now". Accepted ADRs stay frozen and Accepted.
 
 Report: the size chosen and why, the criteria, open questions, and the next session to start.

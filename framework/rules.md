@@ -31,7 +31,7 @@ IN-8 is in the Context module.
 
 | ID | Rule | Check |
 |---|---|---|
-| CK-1 | One command runs every applicable check (format, lint, types, tests, architecture, maintainability and security). CI runs the same command. | Find it; run it; compare with CI. Missing steps on either side is partly met. Unavailable security checks stay visible as failures or gaps, never a clean result. Independent execution is CK-8 |
+| CK-1 | One command runs every applicable check (format, lint, types, tests, architecture, maintainability and security). CI runs the same command. | Find it; run it; compare with CI. Not met when there is no single command. Partly met when CI runs something different, or the command leaves out a check the project already has. A kind of check the project lacks entirely is graded once, under its own rule (MT-2, SE-2, ST-1), not again here. Unavailable security checks stay visible as failures or gaps, never a clean result. Independent execution is CK-8 |
 | CK-2 | The check command is in the first section of `AGENTS.md`, where an agent reads it before anything else. Until a check exists, that section says so. | Look. Named but later in the file is partly met |
 | CK-3 | Deterministic checks first; AI review is extra, never a substitute. | Count computational vs inferential checks |
 | CK-4 | Error messages say how to fix the problem, because the agent reads them. | Read custom check messages |
@@ -156,8 +156,8 @@ WK-6 is in the Parallel work module, WK-7 in Routing and WK-8 in Context.
 | ID | Rule | Check |
 |---|---|---|
 | DC-1 | ADRs record hard-to-reverse decisions only; detailed designs are specs. | ADR sizes and count |
-| DC-2 | Status is Proposed, Validated (exercised, with evidence), Accepted, Rejected, or Superseded by NNNN. Each new ADR links its append-only record in `docs/evidence/` before acceptance; migrated frozen ADRs use `docs/evidence/index.md`. Validated or Rejected requires evidence there. | Direct or indexed link resolves; entries identify tests or reasoning, revision, results and limits |
-| DC-3 | An Accepted ADR is frozen except Status and Topics; a later ADR amends or supersedes it. Later evidence appends to its separate record and never downgrades it to Validated. Contradictions trigger owner review. | History of accepted files and evidence records |
+| DC-2 | Status is Proposed, Validated (exercised, with evidence), Accepted, Rejected, or Superseded by NNNN. Each ADR has an append-only evidence record before acceptance: a separate file it links, or a final Evidence section of the ADR that only grows. Validated or Rejected requires evidence there. | The record exists for each ADR; entries identify tests or reasoning, revision, results and limits; history shows entries are added, never rewritten. Either form meets the rule |
+| DC-3 | An Accepted ADR's decision text is frozen; only its Status, Topics and evidence record change. A later ADR amends or supersedes it. Later evidence never downgrades it to Validated. Contradictions trigger owner review. | History of accepted ADRs: the decision text unchanged since acceptance |
 | DC-4 | The people who will own the system accept its ADRs, not only their author. Acceptance references their actual decision for the reviewed content; a Deciders line alone is not consent. | Verify the owner approval source, authority, revision and requested transition; use external records/indexes without rewriting frozen ADRs |
 | DC-5 | System-wide quality requirements are recorded as measurable scenarios with stable IDs (`QS-n`). ADRs cite the scenarios they serve; specs cite the ones they touch and exercise each with a criterion. A scenario's measure names the spec whose tests prove it, and its status changes only when those tests pass. | A scenario list exists; ADR Contexts and specs cite it; every "Met" points at passing tests |
 

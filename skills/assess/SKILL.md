@@ -33,7 +33,8 @@ or a fixture adapter pass with active project permissions or a working completio
 1. **Read the framework**: `rungs.md`, `modules.md`, `rules.md`, and the profile for the stack if one exists
    (`profiles/`). Identify the stack from the lock files and dependency manifests.
    With no profile for the stack, judge each rule by its property, using the table in
-   `profiles/README.md`. A profile describes mechanisms; only running ones count as met.
+   `profiles/README.md`. When a profile covers only part of the stack (a Django backend
+   with a separate frontend), use it for that part and judge the rest by property. A profile describes mechanisms; only running ones count as met.
    Grade from the Check column in `rules.md`; inspect the project's own maintainability,
    security and approval records, not the framework's explanations of them.
 2. **Read the repository's own instructions**: `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/`,
@@ -50,6 +51,9 @@ or a fixture adapter pass with active project permissions or a working completio
    to touch, run the steps that are safe, name the exact commands you would have run, and do
    not work around it. Test runners that use an in-memory or throwaway database are safe;
    anything that opens the project's own database file is not, when told read-only.
+   With no check command, CK-1 is not met; still run the safe pieces that exist (the test
+   runner, the linter) one by one to grade the other rules, and say you did. If the tests
+   cannot run at all, report why: that is the first gap.
 4. **Decide which modules apply.** For each module in `modules.md`, state whether its
    trigger is true and the evidence: an API or MCP server (Operate), the data the system
    holds and who can reach it (Security), who must sign off (Approvals), signs of several
@@ -62,19 +66,16 @@ or a fixture adapter pass with active project permissions or a working completio
    output that shows it. Do not mark a rule met because a document says it is done; find the
    mechanism. When a grade depends on something you cannot see (a restricted file, a host
    setting, who decided), mark it not verifiable, say what you saw and the question that
-   settles it, and ask the owner if you can. Never write a guess as a finding.
+   settles it, and ask the owner if you can. Never write a guess as a finding. Steps 7 to
+   11 say what to look for in areas where the Check column is not enough.
 6. **Look at history** for what documents cannot show: `git log` for change size, merge
    commits, branch use, whether tests arrive before or with code, whether there is a remote.
-7. **Score it** using "Scoring" in `rungs.md`: grade each gating rule, mark each rung, then
-   the foundation and the coverage line. Mark each triggered scored module the same way
-   (Operate by level); report trial modules without a mark. List any not-verifiable rule as an
-   assumption.
-8. **Parallel work and evidence**: when the Parallel work module applies, inspect
+7. **Parallel work and evidence**: when the Parallel work module applies, inspect
    checkout/resource isolation and per-checkout hook state using the worktree playbook (Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/worktrees.md`,
-   otherwise `../../framework/worktrees.md` from this file). Check ADR evidence links in
-   `docs/evidence/` (direct or indexed for migrated ADRs), including contradictions awaiting
-   owner review. Unmigrated inline evidence is a gap; do not edit frozen ADRs in this assessment.
-9. **Maintainability**: inspect public contracts and current examples (MT-1); exercised
+   otherwise `../../framework/worktrees.md` from this file). Check each ADR's evidence
+   record, a linked file or an append-only Evidence section (DC-2), including contradictions
+   awaiting owner review. Do not edit frozen ADRs in this assessment.
+8. **Maintainability**: inspect public contracts and current examples (MT-1); exercised
    complexity checks, review-trigger dispositions and scoped exceptions (MT-2); authoritative
    business rules and boundaries (AR-2, AR-3); retirement evidence (MT-3). A reviewed baseline
    can retain specific debt, but cannot waive controls or permit worsening findings. Do not
@@ -83,7 +84,7 @@ or a fixture adapter pass with active project permissions or a working completio
    Report MT-4 refactoring separately as a practice: problem, consumers/contracts, baseline
    and final preservation evidence, improvement and compatibility gaps. A green suite does
    not prove complete equivalence; absence of a standalone refactor skill is not a failure.
-10. **Security**: grade SE-2 and SE-3 always, and SE-1, SE-4 to SE-6 when the Security
+9. **Security**: grade SE-2 and SE-3 always, and SE-1, SE-4 to SE-6 when the Security
    module applies, using actual requirements, safe detection evidence,
    dependency trust, effective controls, abuse tests and response/expiry records. Missing,
    incomplete, failed or stale checks are gaps, not clean results. A maintainability baseline
@@ -91,16 +92,21 @@ or a fixture adapter pass with active project permissions or a working completio
    assumed external controls or local settings do not verify deployment. Never read restricted
    production secrets, scan live systems or acquire extra authority to fill an evidence gap.
 
-11. **Style**: grade ST-1 per language the project maintains. The project's own choices
+10. **Style**: grade ST-1 per language the project maintains. The project's own choices
     qualify equally with standard ones; an editor config alone is not enforcement. Do not
     install tools or reformat files to gather evidence.
 
-12. **Human decisions**: grade RV-1 always, and AP-1 to AP-4 when the Approvals module
+11. **Human decisions**: grade RV-1 always, and AP-1 to AP-4 when the Approvals module
     applies, using original reviewer/source authority,
     subject revisions, validity/conditions and actual requirement trace. Metadata validation
     cannot establish consent. Distinguish session evidence from retrievable authenticated
     reviews, missing host evidence and configured-but-unexercised enforcement. An empty merge
     history is not an exercised human review workflow; never invent evidence to fill it.
+
+12. **Score it**, only now that every rule is graded, using "Scoring" in `rungs.md`: mark
+    each rung, then the foundation and the coverage line. Mark each triggered scored module
+    the same way (Operate by level); report trial modules without a mark. List any
+    not-verifiable rule as an assumption.
 
 ## Report
 
