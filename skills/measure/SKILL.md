@@ -1,12 +1,12 @@
 ---
 name: measure
-description: Report whether agent-built work is getting faster and better or just busier - lead time, first-pass check rate, human interventions, rework, escaped defects and rollbacks - from git history, CI results and a simple log. Use when the user asks how the agent workflow is performing, or on a regular schedule.
+description: Report whether agent-built work holds - first-pass check rate, human corrections, rework, escaped defects, reverts, test reliability and maintainability trends - from git history, CI results and a simple log. Use when the user asks how the agent workflow is performing, or on a regular schedule.
 ---
 
-# Measure the factory
+# Measure whether agent work holds
 
-Developers using AI often feel faster than they are. This skill replaces the feeling with a few
-numbers (MS-1). Never count lines generated.
+Agent work can look done and not be. This skill shows, with a few numbers, whether the
+harness is catching that (MS-1). Never count lines generated.
 Read the project's `docs/maintainability.md` if it exists.
 
 Track test flakes/retries, quarantine age, skips/exclusions, suite duration and escaped
@@ -17,7 +17,6 @@ and environments. Missing data stays missing; retries alone do not turn failure 
 
 | Measure | Source | Means |
 |---|---|---|
-| Lead time | Branch first commit to merge, from git | How long a change takes end to end |
 | Change size | Lines and files per merge | Large changes are rarely reviewed well (WK-1) |
 | First-pass check rate | CI runs per pull request; share green on first run | How often the agent's "done" is really done |
 | Interventions | `docs/metrics/interventions.md`: one line each time a person had to correct the agent | Where the harness is weak |

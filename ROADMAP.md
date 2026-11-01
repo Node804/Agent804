@@ -65,8 +65,7 @@ trial shows is unclear before moving on.
       considering it as a gate.
 - [ ] Trial SE-1 to SE-6 and revised reference-project scores: versioned requirement mapping,
       scanner detection/error/staleness, dependency trust and isolated builds, secure skeleton,
-      abuse tests, expiry-aware human decisions and a safe response exercise. Verify one
-      authorized release/environment readiness record independently of its Build score.
+      abuse tests and expiry-aware human decisions.
 
 ## Known gaps
 
@@ -112,8 +111,14 @@ trial shows is unclear before moving on.
   directing them, and the AI-facing parts of a product (Operate). Project sign-off and audit
   are that developer's governance. Only the agent-specific part
   stays, in GR-7: approval is the person's own, and a material change needs them again.
-- **Quality scenarios above decisions and specs (DC-5). Status changes only when tests pass;
-  evidence flows back from specs to ADRs to scenarios.
+- **Decisions, not one project's process.** ADRs record hard-to-reverse choices, accepted by
+  a person, with evidence that only grows. Quality scenarios, delivery metrics, audit history
+  in the write layer and a production-readiness status were one reference project's process
+  or governance, and were dropped in 0.4.
+- **Operate grows in phase 2.** Building MCP servers, APIs for agents and embedded AI features.
+  OP-1, OP-4, OP-7 and OP-8 still read as one project's design and need generalising; the
+  former AR-5 (outside systems reached from one place, never waited on during a request) is
+  a candidate to return there.
 
 ## Changing the framework
 

@@ -45,9 +45,3 @@ A check that errored, was skipped or used stale data is a gap, not a pass.
 
 Only a person accepts a risk, with a scope and an expiry. Suppressions link here.
 
-## Production readiness
-
-- **Status:** Pending | Blocked | Verified for the stated scope
-- **Release and environment:** <identities>
-- **Verified by, and when:** <person or deployment check; evidence>
-- **Open risks:** <finding IDs>

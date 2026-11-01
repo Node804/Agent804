@@ -94,13 +94,12 @@ Interpretation, evidence and staged handoffs are in [testing.md](testing.md).
 | AR-1 | Default deny: every entry point (page, API, tool, job) declares access and the build fails when one does not. Effective authorization enforces applicable object and tenant boundaries on every path, not merely login or a declaration. | Add an undeclared entry point; test direct requests, alternate adapters and cross-object/tenant attempts for refusal without prohibited effects or disclosure |
 | AR-2 | Each concept and business rule has an authoritative declaration or implementation; dependent representations derive from it where practical. Independent copies need an explicit reason. Similar code is not automatically the same concept. | Trace a changed rule to its authority; inspect duplicate findings and dispositions, including whether copies must change together |
 | AR-3 | Cohesive modules communicate through declared public interfaces and permitted dependency directions. The check enforces boundaries and rejects undeclared cycles; any consistent structure qualifies. | Architecture contract in the check; review responsibilities and public interfaces. A consistent convention with no check is partly met |
-| AR-4 | Every write goes through one layer that validates, records who did it, and keeps history. The layer's name and shape are the project's choice. | Look for writes outside that layer |
-| AR-5 | Outside systems are reached from one place, read-only unless a decision says otherwise, and never waited on during a request. | Grep for outside clients outside that place |
+| AR-4 | Every write is validated in one place before it is stored. The layer's name and shape are the project's choice. | Look for writes that skip it |
 | AR-6 | Data is parsed and validated at boundaries and safely interpreted or encoded for each destination. Validation alone never makes data safe as a query, command, path or rendered output. | Inspect input-to-sink paths and test applicable injection, traversal and unsafe-output cases |
 
 ## SE: Security (SE-2 at rung 2, SE-3 at rung 3; the rest in the Security module)
 
-Scope, exceptions and production readiness are in [security.md](security.md).
+Scope and exceptions are in [security.md](security.md).
 
 | ID | Rule | Check |
 |---|---|---|
@@ -109,7 +108,7 @@ Scope, exceptions and production readiness are in [security.md](security.md).
 | SE-3 | New dependencies are verified before installation: publisher, package identity, install and build behaviour. Versions are locked with integrity data and the project builds cleanly without production credentials. | Lock file with hashes; a review step for new packages, including transitive and build-time ones; a clean build |
 | SE-4 | The application uses its framework's security mechanisms and safe defaults, enforces access server-side on every path, and fails safe when production configuration is missing. Production controls are verified in the real environment by an authorized person or deployment check. | Test refusals on alternate paths; inspect defaults and production settings; local checks are not deployed evidence |
 | SE-5 | Security-affecting changes have refusal criteria and tests written first, showing an unauthorized attempt fails with no write, disclosure or outside effect. | Trace the criteria to tests and results; for agent tools, a planted-instruction test against the tool's real permissions |
-| SE-6 | Findings have an owner, a deadline and a recorded outcome. Only a person accepts a risk, with a scope and an expiry; a suppression is not an acceptance. Leaked secrets are rotated, not just deleted, and the response procedure has been exercised safely. | Findings list, risk decisions with expiry, one safe exercise of the response procedure |
+| SE-6 | Findings have an owner, a deadline and a recorded outcome. Only a person accepts a risk, with a scope and an expiry; a suppression is not an acceptance. Leaked secrets are rotated, not just deleted. | Findings list and risk decisions with expiry |
 
 ## MT: Maintainability (rungs 2, 4 and 6)
 
@@ -147,8 +146,6 @@ WK-6 is in the Parallel work module, WK-7 in Routing and WK-8 in Context.
 | DC-1 | ADRs record hard-to-reverse decisions only; detailed designs are specs. | ADR sizes and count |
 | DC-2 | Status is Proposed, Validated (exercised, with evidence), Accepted, Rejected, or Superseded by NNNN. Each ADR has an append-only evidence record before acceptance: a separate file it links, or a final Evidence section of the ADR that only grows. Validated or Rejected requires evidence there. | The record exists for each ADR; entries identify tests or reasoning, revision, results and limits; history shows entries are added, never rewritten. Either form meets the rule |
 | DC-3 | An Accepted ADR's decision text is frozen; only its Status, Topics and evidence record change. A later ADR amends or supersedes it. Later evidence never downgrades it to Validated. Contradictions trigger owner review. | History of accepted ADRs: the decision text unchanged since acceptance |
-| DC-4 | The people who will own the system accept its ADRs, not only their author. Acceptance points to their own decision on the reviewed version; a Deciders line or a status an agent set is not acceptance. | Find the owner's decision (a message, a review, meeting notes) for the version accepted; never rewrite a frozen ADR to add it |
-| DC-5 | System-wide quality requirements are recorded as measurable scenarios with stable IDs (`QS-n`). ADRs cite the scenarios they serve; specs cite the ones they touch and exercise each with a criterion. A scenario's measure names the spec whose tests prove it, and its status changes only when those tests pass. | A scenario list exists; ADR Contexts and specs cite it; every "Met" points at passing tests |
 
 ## RV: Review (RV-1 at rung 4)
 
@@ -166,7 +163,7 @@ MS-5 is in the Routing module.
 
 | ID | Rule | Check |
 |---|---|---|
-| MS-1 | Track lead time, human interventions, first-pass CI rate, rework, escaped defects and rollbacks, plus test reliability (flakes, quarantine age, skips, duration and escaped regressions) and maintainability trends: complexity, duplication and aging exceptions. Never lines generated. | Comparable measurements and limitations in a log or dashboard; distinguish measured trends from inferred causes |
+| MS-1 | Track whether agent work holds: first-pass check rate, human corrections, rework, escaped defects and reverts, test reliability (flakes, quarantine age, skips, duration) and maintainability trends. Never count lines generated. | A periodic report from git, CI and a corrections log; missing data stays missing |
 | MS-2 | A scheduled pass reviews stale docs, structural drift, obsolete paths, new advisories, unsupported dependencies, configuration drift, test discovery drift, flaky/quarantined tests and expiring exceptions; it proposes reviewed fixes or explicit decisions. | Routine produces dispositions; security findings follow SE-6 rather than an automatic debt waiver; uncertain unused-code reports never authorize deletion |
 | MS-3 | Instructions are re-checked when models change; rules a newer model no longer needs are removed. | Last review date |
 | MS-4 | Periodically exercise a representative maintenance task with a maintainer who did not author it. Record information needed, obstacles, verification and improvements; include experienced humans and fresh agent contexts over time. | Task, revision, maintainer type, needed context, result and follow-up recorded. A practice pending trial, not a rung gate |

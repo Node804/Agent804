@@ -25,9 +25,9 @@ first feature.
 | 3 | Guardrails | Irreversible actions, exposed secrets, untrusted dependencies | GR-1 to GR-4, GR-7, SE-3 | No production secret within the agent's reach beyond a recorded read-only exception; commit, push, deploy and migrate need a person, and only a person gives approval; every change on a branch; the agent cannot finish with the check red; new dependencies are reviewed |
 | 4 | Walking skeleton and CI | Unreviewed merges, undocumented contracts, works-on-my-machine | SK-1, SK-2, CK-8, RV-1, MT-1, TS-11 | A fresh clone boots with one command; an end-to-end test runs in CI from committed state and blocks a red merge; a person reads every change before merge; public interfaces say what they do |
 | 5 | Tests before code | Tests that only confirm the implementation | TS-1 to TS-3, TS-8, TS-9 where bug fixes apply | At least two features since adoption have agreed criteria, tests written in a separate context and shown failing first, then passing; bug fixes keep a test that failed before the fix |
-| 6 | Architecture and maintainability as checks | Slow drift; duplicated rules; obsolete code | AR-1, AR-3, CK-4, MT-3; AR-2, AR-4, AR-5 where they apply | Access, boundaries and project invariants fail the build with messages that say how to fix them; replaced code is removed or its retention is recorded |
-| 7 | Decisions with evidence | Re-arguing settled choices; losing the reason | DC-1 to DC-5 | Quality scenarios with stable IDs; ADRs with Proposed / Validated / Accepted / Rejected, citing the scenarios they serve and each with an append-only evidence record, accepted by the owners |
-| 8 | Measure and garden | Believing you are faster when you are busier; stale docs and structural decay | MS-1, MS-2 | Delivery, test reliability and maintainability trends tracked; a scheduled pass proposes reviewed fixes |
+| 6 | Architecture and maintainability as checks | Slow drift; duplicated rules; obsolete code | AR-1, AR-3, CK-4, MT-3; AR-2, AR-4 where they apply | Access, boundaries and project invariants fail the build with messages that say how to fix them; replaced code is removed or its retention is recorded |
+| 7 | Decisions with evidence | Re-arguing settled choices; losing the reason | DC-1 to DC-3 | ADRs with Proposed / Validated / Accepted / Rejected, each with an append-only evidence record, accepted by a person (GR-7) |
+| 8 | Measure and garden | Agent work that does not hold; stale docs and structural decay | MS-1, MS-2 | Corrections, rework, escaped defects, test reliability and maintainability trends tracked; a scheduled pass proposes reviewed fixes |
 
 Every other core rule in `rules.md` is a **practice**: reported in the assessment, but not
 gating a rung. Rules that belong to a module gate that module, never a rung; `modules.md`
@@ -100,16 +100,16 @@ Counting rules:
 | Customer data, money, safety, or writes into other systems of record | Foundation 4, plus 5 and 7 | Foundation 4, plus 5–8, and red-zone review (RV-3) |
 
 "Writes into other systems of record" means anything hard to undo outside the project: an ERP,
-a ticketing system, a machine or controller, a regulated document. Printing a label is not;
+a ticketing system, a machine or controller, a regulated document. Generating a report is not;
 changing an order is.
 
 A prototype that will be thrown away still writes **acceptance scenarios and decisions**: they
 survive into the rebuild, and code is the cheap part. "Plus 5 and 7 for what carries forward"
-means TS-1, TS-6, DC-1 to DC-3 and DC-5, not the whole rungs.
+means TS-1, TS-6 and DC-1 to DC-3, not the whole rungs.
 
 Modules come from their triggers, not from this table: the bottom row, for example, also
-triggers the Security module. A Build score is never a security certificate; production
-readiness is reported separately (see [modules.md](modules.md#security)).
+triggers the Security module. A Build score is never a security certificate or permission
+to deploy.
 
 ## Scaling to the change
 

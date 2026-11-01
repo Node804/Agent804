@@ -62,20 +62,7 @@ ignored the text proves nothing.
 **SE-6: owned findings, and decisions only a person makes.** Every finding has an owner, a
 deadline and a recorded outcome. An agent may propose accepting a risk but cannot accept it
 (GR-7); a suppression comment is not an accepted risk, and a risk acceptance has a scope and
-an expiry. Removing a leaked secret from the source does not revoke it: rotate it. Follow the
-organisation's response procedure for suspected exposure, and exercise it safely (a tabletop
-or an isolated fixture) before claiming it works. A security record never authorizes an agent
+an expiry. Removing a leaked secret from the source does not revoke it: rotate it. Responding to an
+incident follows the organisation's own procedure. A security record never authorizes an agent
 to access production or send messages.
 
-## Production readiness
-
-Reported separately from every score, for a named release and environment:
-
-| Status | Means |
-|---|---|
-| Pending | Evidence or a human decision is missing, including controls not yet deployed |
-| Blocked | A finding blocks release, a verification failed, or a risk acceptance expired |
-| Verified for the stated scope | Applicable controls have current evidence in that environment, with open risks and acceptances listed |
-
-Documented settings and local checks are not deployed evidence. Readiness is never
-deployment permission or a certification.

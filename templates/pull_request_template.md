@@ -24,8 +24,7 @@ not erase a finding. Use "not applicable" with a reason when appropriate. -->
 <!-- Link the security record: changed threats/versioned requirements, dependency/build-source
 review, abuse tests and effective authorization. Name missing/stale/failed checks, findings,
 owners, deadlines and scoped human acceptances with expiry. No impact requires a reason.
-Security policy/tests/CI/approval changes need explicit human review. Production readiness
-is separate: identify release/environment and actual evidence, or leave it pending/blocked. -->
+Security policy/tests/CI/approval changes need explicit human review. -->
 
 ## Agreement
 

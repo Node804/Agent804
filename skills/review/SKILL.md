@@ -31,8 +31,7 @@ say so in the report: it limits the review.
    - **Scope**: features nobody asked for; changes outside the plan.
    - **Rules**: each rule in `AGENTS.md` that the change could break.
    - **Maintainability**: public contracts documented (MT-1); complexity limits and new
-     exceptions (MT-2); business rules kept in one place (AR-2); boundaries and cycles (AR-3); writes through the one write layer (AR-4) and outside
-     systems through the one place (AR-5);
+     exceptions (MT-2); business rules kept in one place (AR-2); boundaries and cycles (AR-3); writes validated in one place (AR-4);
      an existing capability reused before a new one or a new dependency (SK-3); retired paths
      removed (MT-3). Moving a violation does not make it new or make it go away. "No refactor
      needed" is a valid result. For a restructuring, check the stated problem, the preserved

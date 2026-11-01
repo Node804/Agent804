@@ -49,8 +49,8 @@ Mark anything unanswered `[NEEDS CLARIFICATION]` (TS-6). Do not plan until every
   not "filter the queryset").
 - Each criterion becomes at least one test.
 - Include who must **not** be able to do it, when the project has access control.
-- For each quality scenario the change touches, at least one criterion exercises it and cites
-  it ("QS-5: submitted twice with the same ID, one record") (DC-5).
+- If the project states system-wide quality scenarios, cite the ones the change touches, with
+  a criterion that exercises each.
 - Security: include the abuse and bypass paths that apply (another tenant's object, a direct
   API call, bad input), each asserting nothing forbidden happens (SE-5). "No security impact"
   needs a reason.

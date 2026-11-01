@@ -27,7 +27,7 @@ project has used it and the result is recorded in [validation](validation.md).
 
 The core still applies inside every module. SE-2 and SE-3 (security checks in the check
 command, reviewed dependencies) are core, and so are RV-1 (a human reads every change before
-merge), GR-7 (agents cannot supply consent) and DC-4 (owners accept ADRs). A module adds
+merge) and GR-7 (agents cannot supply consent; only a person accepts an ADR). A module adds
 to them; it never replaces them.
 
 ## Reporting
@@ -65,14 +65,10 @@ The core keeps every project's checks honest: scanners in the check (SE-2) and r
 dependencies (SE-3). This module is for systems where a breach would hurt someone other than
 the developer. It adds a threat model with versioned requirements (SE-1), safe runtime
 defaults (SE-4), abuse tests for security-affecting changes (SE-5), and owned findings with
-deadlines and a response procedure (SE-6). Guide: [security.md](security.md).
+deadlines (SE-6). Guide: [security.md](security.md).
 
-**Production readiness** is reported separately from every score. A rung or module mark is a
-development-workflow assessment, not a security certificate or permission to deploy. Before
-production, review all applicable SE-1 to SE-6 requirements against the deployed release and
-environment, and report readiness as **pending**, **blocked** or **verified for the stated
-scope**, with open risks and any explicit human acceptance. Undeployed controls stay pending;
-documented settings alone cannot verify a deployment.
+A rung or module mark assesses how the project is developed. It is not a security certificate
+or permission to deploy, and settings checked locally say nothing about a deployed system.
 
 ## Parallel work
 

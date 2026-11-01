@@ -94,9 +94,8 @@ Each step ends with something you can run.
    test of a real user journey (TS-5). Configuration comes from the environment, with no
    hard-coded paths or hosts (SK-4). If the target includes AR-1, add the check that fails
    on an entry point with no access rule; every check message says how to fix it (CK-4).
-   Writes go through one layer that validates and records who did it (AR-4); outside
-   systems are reached from one place, read-only unless decided otherwise (AR-5); input is
-   parsed at the boundary and encoded for each destination (AR-6). If agents will use the system (O1, O2), the skeleton's one action is declared once and
+   Writes are validated in one place before they are stored (AR-4); input is parsed at
+   the boundary and encoded for each destination (AR-6). If agents will use the system (O1, O2), the skeleton's one action is declared once and
    served to the page and to the API or agent tools with the same access rule, read-only for
    machine credentials.
    Document the public contracts, failures and side effects the declarations cannot explain
@@ -126,9 +125,8 @@ Each step ends with something you can run.
    the interview answers, stack and target (Status: Proposed). `docs/specs/`,
    `docs/plans/`, `docs/evidence/` with `templates/evidence.md` as `0000-template.md` and a
    record for ADR 0001 linked from that ADR,
-   `docs/risk-zones.md` from the template with the first zones drawn with the
-   user, and `docs/quality-scenarios.md` from the template with two or three scenarios drawn
-   from the interview's "what happens if it breaks" answer (DC-5). A changelog mechanism
+   and `docs/risk-zones.md` from the template with the first zones drawn with the
+   user. A changelog mechanism
    from the profile, one entry per change (WK-4). If the Parallel work module applies, copy `framework/worktrees.md` to
    `docs/worktrees.md` and fill in the actual bootstrap, resource and cleanup commands.
    Create `docs/maintainability.md` from `templates/maintainability.md` with actual checks,
@@ -136,8 +134,7 @@ Each step ends with something you can run.
    legacy findings; do not invent a baseline or bulk exclusions.
    Create `docs/security.md` from `templates/security.md`: threats, requirement/control/test
    mapping, actual verification policy, dependency trust, owner/deadlines and response steps.
-   Record separate development evidence and production-readiness status; undeployed controls
-   stay pending. Keep secrets and sensitive incident details outside this document.
+   Keep secrets and sensitive incident details outside this document.
 8. **README and instructions**: what it is, prototype or production, bootstrap/check commands
    and navigation to project maintainability, security and style policies plus test
    commands/evidence locations. Keep `AGENTS.md` concise; tool-specific files point to it.
@@ -157,8 +154,7 @@ Each step ends with something you can run.
   it. Review the skeleton's contracts and run maintained example checks. Report unmapped
   mechanisms and untrialled maintenance exercises as gaps, never as working protection.
 - Exercise a representative security detection with a safe fixture (SE-2) and restore the
-  real configuration. If the Security module applies, run a safe response tabletop (SE-6)
-  without accessing production or sending messages.
+  real configuration.
 - Add a formatting violation: the check fails without changing the file, the fix command
   repairs it, and a second run changes nothing (ST-1).
 
@@ -173,9 +169,7 @@ Each step ends with something you can run.
 - What was not verified (for example: CI has not run on a server yet; branch protection must be
   set on the host by the user).
 - Next step: describe the first feature and run `spec`.
-- Report production security readiness separately from the rung: pending, blocked, or verified
-  for the stated release/environment. Local checks never establish actual deployed controls;
-  deployment access and authorization are not granted by this setup task.
+- The rung is not a security certificate; this setup grants no deployment access.
 
 Ask before the first commit. Suggest the message "Project harness: check, guardrails, walking
 skeleton".

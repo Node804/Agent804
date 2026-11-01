@@ -2,7 +2,6 @@
 
 - **Size:** <small | medium | large> (see the `spec` skill)
 - **Zone:** <green | yellow | red> (from `docs/risk-zones.md`)
-- **Quality scenarios:** <QS-n this touches, or "none">
 - **ADRs:** <numbers this applies or exercises, or "none">
 - **Security requirements:** <versioned IDs from docs/security.md, or reasoned "no impact">
 - **Status:** Draft | Agreed | Built | Dropped

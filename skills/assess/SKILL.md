@@ -88,8 +88,7 @@ or a fixture adapter pass with active project permissions or a working completio
    module applies, using actual requirements, safe detection evidence,
    dependency trust, effective controls, abuse tests and response/expiry records. Missing,
    incomplete, failed or stale checks are gaps, not clean results. A maintainability baseline
-   cannot accept security exposure. Report production readiness separately from every score;
-   assumed external controls or local settings do not verify deployment. Never read restricted
+   cannot accept security exposure. Local settings do not verify a deployment. Never read restricted
    production secrets, scan live systems or acquire extra authority to fill an evidence gap.
 
 10. **Style**: grade ST-1 per language the project maintains. The project's own choices
@@ -128,8 +127,6 @@ one model in separate contexts remains valid. Do not probe accounts or launch mo
    answer (a subagent, an unattended run), assume from the brief and state the assumption.
    Then the modules line from `modules.md`, triggered modules first with the reason each
    applies, for example `Modules: Operate O1✓ O2✓* O3◐ · Security ◐ · Parallel ✓`.
-   Include security readiness: pending, blocked, or verified for the identified release and
-   environment; evidence, expiry, open risks and explicit human decisions qualify the status.
 2. **Strengths**: rules met well, with evidence. Be specific; no praise without a file reference.
 3. **Gaps**, most serious first: rule ID, what is missing, what goes wrong because of it.
    Distinguish "designed but not running" (documented, never exercised) from "absent".

@@ -35,7 +35,7 @@ costs nothing ([modules.md](framework/modules.md)).
 | Module | Applies when |
 |---|---|
 | **Operate** | Agents, scripts or AI assistants call the system. One contract for people and agents; read-only until a person grants write; every write attributed; repeats harmless; untrusted text and outside load bounded. Most guidance stops at agents *building* software; once an assistant can call your system, this matters as much |
-| **Security** | The system holds sensitive data, handles money or safety, writes to other systems of record, or is reachable beyond the team. Threat model, safe defaults, abuse tests, owned findings, and production readiness reported separately |
+| **Security** | The system holds sensitive data, handles money or safety, writes to other systems of record, or is reachable beyond the team. Threat model, safe defaults, abuse tests and owned findings |
 | **Parallel work** | Several agents or people write at once. A checkout, database and port each, and a check of the combined result |
 | **Maintenance** (trial) | Adopting the harness onto existing code. Verified refactoring and a debt record that never waives a failing check |
 | **Context** (trial) | Work spans many sessions. Evidence with a known source and age; state recoverable from the repository, not from chat |
@@ -57,7 +57,7 @@ high-impact changes get deeper review.
 |---|---|---|
 | [framework/rules.md](framework/rules.md) | Both | Every rule, with an ID and how to grade it |
 | [framework/rungs.md](framework/rungs.md) | Both | The eight core rungs, how a project is scored, and how much it needs |
-| [framework/modules.md](framework/modules.md) | Both | The modules and their triggers, the Operate levels and production readiness |
+| [framework/modules.md](framework/modules.md) | Both | The modules and their triggers, and the Operate levels |
 | [framework/profiles/](framework/profiles/) | Both | The Django profile, and the template `start` fills in for any other stack |
 | [framework/agents/](framework/agents/) | Both | Host recipes: Claude Code, Codex, Grok Build CLI, ChatGPT and custom hosts |
 | [framework/worktrees.md](framework/worktrees.md) | Both | Separate checkouts for agents or people writing at the same time |
@@ -83,10 +83,10 @@ against the real code. A profile joins the kit once it has been used on a real p
 | [`spec`](skills/spec/SKILL.md) | Acceptance criteria sized to the change, then tests written first in a separate context |
 | [`review`](skills/review/SKILL.md) | A fresh-context review from the criteria and the real check output, deepest in red zones |
 | [`refactor`](skills/refactor/SKILL.md) | Restructuring with no behaviour change: callers traced, tests green before and after |
-| [`decide`](skills/decide/SKILL.md) | ADRs and quality scenarios, and the evidence recorded back once a feature is built |
+| [`decide`](skills/decide/SKILL.md) | ADRs, and the evidence recorded back once a feature is built |
 | [`sensor`](skills/sensor/SKILL.md) | A recurring mistake becomes a check whose message says how to fix it |
 | [`garden`](skills/garden/SKILL.md) | Finds stale instructions, drift and overdue follow-ups; proposes small fixes |
-| [`measure`](skills/measure/SKILL.md) | Delivery, test reliability and maintainability trends, against the last period |
+| [`measure`](skills/measure/SKILL.md) | Whether agent work holds: corrections, rework, escaped defects, test reliability and maintainability trends |
 | [`operate`](skills/operate/SKILL.md) | The Operate module: one contract for people and agents, read-only until granted, every write attributed |
 | [`route`](skills/route/SKILL.md) | Optional: which model and effort for each role, without launching anything |
 | [`context`](skills/context/SKILL.md) | Optional: gathers or recovers the evidence a long task needs, from the repository |
@@ -143,7 +143,8 @@ Restructuring with no behaviour change uses `refactor` instead of steps 1 and 2.
 
 - A mistake the agent makes twice becomes a check, with `sensor`.
 - `garden` finds stale instructions, drift and overdue follow-ups, and proposes small fixes.
-- `measure` compares delivery and test reliability with the last period.
+- `measure` shows whether agent work holds: corrections, rework, escaped defects and test
+  reliability, against the last period.
 
 Optional: `route` when you have several models or an allowance to plan; `context` when a task
 spans many sessions or the evidence is incomplete.

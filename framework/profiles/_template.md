@@ -72,7 +72,6 @@ Keep the project's existing choices; otherwise use the ecosystem's standard tool
 | AR-2 | |
 | AR-3 | Enforced dependency directions and cycle restrictions; module-cohesion review |
 | AR-4 | |
-| AR-5 | |
 | WK-4 | |
 | OP-1 to OP-5 | |
 
@@ -92,11 +91,10 @@ and MS-4 exercise evidence. Presence checks and static unused-code reports still
 
 What `start` generates: <files and the one end-to-end test>.
 
-## Security readiness
+## Security
 
 Map the [security baseline](../security.md) to this stack. Review code, dependencies, templates,
-configuration and build execution. Identify unsupported checks and restricted external
-verification as gaps; a development check is not deployed evidence. State verification scope,
+configuration and build execution. Identify unsupported checks as gaps. State verification scope,
 versions, freshness and response ownership. Mark new mechanisms Draft until exercised.
 
 ## Gotchas

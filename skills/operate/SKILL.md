@@ -13,7 +13,7 @@ red test; it is a wrong write in production, made at machine speed. The levels a
 **Framework files**: in Claude Code, `${CLAUDE_PLUGIN_ROOT}/framework/`; for other agents,
 `../../framework/` from this file.
 Read the project's `docs/security.md` if it exists. Operate levels complement SE-1 to SE-6;
-they do not certify production readiness. Agreement on a design does not grant authority to
+they are not a security certificate. Agreement on a design does not grant authority to
 write to or publish from a live system. Tests assert outcomes independently of the code and
 cross the real interface where it matters.
 

@@ -1,39 +1,25 @@
 ---
 name: decide
-description: Record quality scenarios (what must always be true of the system, measurably) and architecture decision records (which way it is achieved, and why), with the Proposed / Validated / Accepted / Rejected lifecycle, and record evidence back on both once a feature's tests pass. Use when a change may need a hard-to-reverse decision, contradicts an accepted one, adds a system-wide quality requirement, when the user asks for an ADR, or after a spec's tests pass.
+description: Record architecture decision records (which way, and why) with the Proposed / Validated / Accepted / Rejected lifecycle, and record evidence back once a feature's tests pass. Use when a change may need a hard-to-reverse decision, contradicts an accepted one, when the user asks for an ADR, or after a spec's tests pass.
 ---
 
 # Record a decision
 
-Three layers sit above the code, and each has one job:
+An ADR records a hard-to-reverse decision: which way, and why (DC-1 to DC-3). A spec applies
+the ADRs to one feature and makes them testable (`spec`). Tests passing make the spec Built
+and may validate a Proposed ADR; an Accepted ADR stays Accepted.
 
-| Layer | Answers | Example | How many |
-|---|---|---|---|
-| **Quality scenario** (`QS-n`) | What must always be true of the system, measurably? | QS-5: the same action submitted twice creates one record | Few, stable (DC-5) |
-| **ADR** | Which way do we achieve it, and why? | Write operations take a request ID; a repeat changes nothing | Tens (DC-1 to DC-4) |
-| **Spec** | What does this feature do, and how do we know it is done? | Retrying a label print with the same ID prints once | One per change (`spec`) |
-
-A scenario says *what*, an ADR says *how*, a spec *applies* both to one feature and makes them
-testable. Tests passing make the spec Built, may validate a Proposed ADR, and update only the
-part of a scenario those tests prove. An Accepted ADR stays Accepted.
+Some projects also state system-wide qualities as measurable scenarios that ADRs serve. If
+the project has them, read and cite them; adding one is the user's call.
 
 **Framework files**: in Claude Code, `${CLAUDE_PLUGIN_ROOT}/templates/`; for other agents,
-`../../templates/` from this file (`adr.md`, `evidence.md`, `quality-scenarios.md`).
+`../../templates/` from this file (`adr.md`, `evidence.md`).
 
 ## Read before deciding
 
-Read the project's quality scenarios and the ADRs on the change's topics. An Accepted ADR is a
+Read the ADRs on the change's topics. An Accepted ADR is a
 rule: follow it, or propose an amending ADR. Never work around it quietly.
 Only a person accepts an ADR, in their own words (GR-7).
-
-## Is it a quality scenario?
-
-Rarely. Only when a requirement applies across the system and would shape the architecture
-("a plant keeps working with its WAN down", "no request waits on an outside system"). Most
-requirements are spec criteria. A new scenario gets the next `QS-n` (never reused), the
-situation, the required response, how it is measured (the spec whose tests prove it, or "no
-spec yet"), the ADRs that serve it, and "Not yet". Ask the user before adding one: scenarios are
-what the system is judged against.
 
 ## Is it an ADR?
 
@@ -50,7 +36,7 @@ probably a spec; split it.
 2. Copy `adr.md` with the next number. Title is the decision as a sentence.
 3. Create its evidence record before acceptance (DC-2): by default
    `docs/evidence/<adr-number>-<topic>.md` from `evidence.md`, linked from the ADR. A project
-   that keeps a final Evidence section in each ADR keeps doing so; it only ever grows. Context: facts and forces, the quality scenarios it serves (`QS-n`), and
+   that keeps a final Evidence section in each ADR keeps doing so; it only ever grows. Context: facts and forces, and
    what went wrong before. Decision: numbered, each checkable. Consequences: what becomes a
    rule, and which check will enforce it.
 4. Status: Proposed. Deciders: the people who will own it, not only the author.
@@ -75,13 +61,11 @@ unverified. A green subset cannot validate an entire architecture decision.
   An Accepted record stays Accepted and its decision text frozen; later evidence changes
   only the evidence record. Contradictory evidence triggers owner review and an amending or superseding ADR
   when needed, never an automatic downgrade or quiet rewrite.
-- **Scenario:** update "Now" only from passing tests, and say what part is met ("Met for API
-  writes; web forms not yet"). Never mark one Met because code exists.
 
 | ADR status | Requires |
 |---|---|
 | Validated | Linked evidence record as above, citing the acceptance tests |
-| Accepted | The owners' own decision on this version (DC-4). Decision text frozen from here |
+| Accepted | A person's own decision on this version (GR-7). Decision text frozen from here |
 | Rejected | Linked evidence says why. Keep the ADR and evidence: they stop the next person trying again |
 | Superseded by NNNN | The new ADR exists and names this one |
 

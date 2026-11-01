@@ -50,7 +50,7 @@ remain failures or explicit gaps, never silently omitted checks.
 | SE-3 | † Review package publisher/source, `uv.lock`, indexes, integrity metadata, build backends and install/CI execution before introduction. `uv sync --locked` in isolated builds verifies resolution consistency, not publisher trust; include transitive/build dependencies and build/release provenance |
 | SE-4 | † Separate dev/test/prod settings; require production secrets from the authorized environment, safe production defaults and least-privilege database/service roles. Run deployment-shaped config checks and denial tests locally; authorized operators verify actual TLS/proxy, cookies, exposure, storage and logging before readiness |
 | SE-5 | † pytest covers cross-user/object/site/tenant refusals, direct URLs and alternate adapters, plus applicable injection, CSRF, uploads/paths, network access and resource limits. Assert no prohibited state change, disclosure or outside effect; verify authorized paths too |
-| SE-6 | † `docs/security.md` identifies owner, concrete response deadlines, blocking policy, scoped human decisions with expiry and a tabletop/fixture response result; scheduled review rechecks advisories and support status |
+| SE-6 | † `docs/security.md` identifies owner, concrete response deadlines, blocking policy, scoped human decisions with expiry; scheduled review rechecks advisories and support status |
 | CK-1 | `just check`, mirrored step for step in CI |
 | CK-8 | Gitea or GitHub Actions running the check against a PostgreSQL service container, with branch protection. Until a runner exists, `just check-clean`: clones the committed branch to a temporary folder, `uv sync --locked`, runs the check with only `DATABASE_URL` passed through (partly met) |
 | CK-4 | System checks raise `checks.Error(msg, hint=..., id="app.E0xx")`; the hint says how to fix it |
@@ -67,8 +67,7 @@ remain failures or explicit gaps, never silently omitted checks.
 | AR-1 | `LoginRequiredMiddleware` on; views declare public or explicit access; a system check and URL-resolution test catch missing declarations. † Direct URL/API/tool tests verify effective object and tenant authorization; login middleware alone does not enforce these boundaries |
 | AR-2 | Modules subclass a `ModuleConfig(AppConfig)` with key, label, nav, URL prefix and access levels; settings, URLs, nav and permission groups derive from it. † Review changed business rules for one authority in services/selectors and duplicate findings for independent-domain justifications |
 | AR-3 | `import-linter` contracts: the platform never imports modules; cross-module imports use public `services` (writes) and `selectors` (reads). † Add declared layer/independence contracts to reject unapproved cycles and review module cohesion |
-| AR-4 | Writes go through `services.py`, take an actor, and record a history row |
-| AR-5 | Only the integrations package imports database drivers or outside clients (import contract); reads go through a cache so no request waits on a source |
+| AR-4 | Writes go through `services.py`, which validates them |
 | AR-6 | † Use Django parameterized ORM/query APIs, template autoescaping and safe serializers; review raw SQL, shell calls, unsafe template escapes, file paths and outbound destinations. Test applicable injection/output/path controls rather than treating validated strings as safe everywhere |
 | WK-4 | `towncrier create`; CI fails without a fragment unless labelled |
 | OP-1 | An `@operation` decorator in `operations.py` declares name, level, read or write, and pydantic schemas; Django Ninja serves it as REST and a small view serves it as MCP tools |

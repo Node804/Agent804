@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- Cut what one reference project's process or governance had written as universal rules.
+  AR-5 (outside systems never waited on during a request) leaves rung 6 and is noted for the
+  Operate work in phase 2; AR-4 keeps "every write is validated in one place" and drops
+  attribution and history. DC-5 (quality scenarios) and DC-4 (owners accept ADRs, now covered
+  by GR-7) are removed, so rung 7 gates DC-1 to DC-3; quality scenarios stay optional in
+  `decide` and `spec`, and their template is removed. MS-1 measures whether agent work holds
+  (corrections, rework, escaped defects, test reliability) instead of delivery speed. The
+  production-readiness status and the SE-6 response exercise are removed as governance.
+  Examples from one project's domain are replaced.
+
 - Remove the Approvals module (AP-1 to AP-4), its guide, record format, validator and twelve
   tests. Agent804 governs development, by agents and of a product's AI-facing parts; who
   signs off on a project, and how that is shown to others, is that developer's governance, which agents do

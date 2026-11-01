@@ -43,8 +43,7 @@ never silently skip a failure or change acceptance outcomes without affected cri
 9. **Security drift**: review advisories/support status, config changes, current scanner
    coverage and failed/stale reports, due remediation and expiring risk acceptances. Propose
    fixes or accountable human decisions; never silently renew exceptions or treat existing
-   findings as permitted exposure. Check response-exercise follow-up and readiness evidence
-   after material changes. Do not read secrets or inspect live systems without authorization.
+   findings as permitted exposure. Do not read secrets or inspect live systems without authorization.
 
 10. **Style drift** (ST-1): a new language with no formatter, editor and CI versions that
     disagree, or broad suppressions. Propose scoped fixes; never run a bulk reformat unasked.

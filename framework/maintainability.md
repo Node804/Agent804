@@ -144,8 +144,8 @@ skeleton with nothing retired can have MT-3 not applicable yet; say so rather th
 
 ## Measure and exercise
 
-MS-1 tracks comparable complexity, duplication and aging-exception trends alongside delivery
-metrics. Record tool versions, scope and baseline changes so numbers are interpretable. A
+MS-1 tracks comparable complexity, duplication and aging-exception trends alongside test
+reliability. Record tool versions, scope and baseline changes so numbers are interpretable. A
 change in a metric is a signal to investigate, not proof of a cause or a developer ranking.
 MS-2 reviews structural drift and retention decisions during gardening.
 

@@ -18,8 +18,7 @@ version: a message, a review, meeting notes. -->
 
 ## Context
 
-What forces the decision. Facts, constraints, the quality scenarios it serves (`QS-n`), what
-went wrong before.
+What forces the decision. Facts, constraints, what went wrong before.
 
 ## Decision
 
