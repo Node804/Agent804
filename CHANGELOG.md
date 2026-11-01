@@ -1,6 +1,17 @@
 # Changelog
 
-## Unreleased
+## 0.4.0 - Unreleased preview
+
+- Version 0.4.0 in both plugin manifests. The README links the release zip on
+  [GitHub](https://github.com/Node804/agent804/releases). The roadmap's release list is what
+  actually remains: an independent review of the 0.4 skill rewrites, the release zip and a
+  clean-machine install; publishing is the push itself.
+
+- The README says what is proven and what is only an idea. Every skill and module carries one
+  of four marks (Proven, Used once, Fixture-tested, Idea), and the Status section becomes
+  Evidence, saying what each mark rests on. Only `assess` is proven; the change flow ran once,
+  with the reference project's own playbooks, and the kit's current skill text has not yet
+  run on a real feature.
 
 - Fixes from the reassessment of both reference projects. `assess` no longer checks TS-11 at
   rung 4, counts git-ignored output from the check as testing, and takes actual-host

@@ -16,6 +16,18 @@ checked it against published practice from Anthropic, OpenAI, Simon Willison, Ha
 Osmani, Kent Beck, Birgitta Böckeler and GitHub Spec Kit, and used their work to reinforce
 it: see [framework/validation.md](framework/validation.md).
 
+**What is proven, and what is only an idea.** Many agent frameworks are written and then
+assumed to work: nobody checks that agents follow them in real development. Agent804 reports
+the difference. Every skill, module and mechanism carries one of four marks, and
+[Evidence](#evidence) says what each one rests on.
+
+| Mark | Means |
+|---|---|
+| **Proven** | Used in real development on real code more than once, and agents followed it |
+| **Used once** | Used in real development once. It worked; it has not been repeated |
+| **Fixture-tested** | Code in the kit passes automated tests in throwaway repositories; not yet seen working in a real host |
+| **Idea** | Written and checked for consistency, never used on a real project. Agents may not follow it as written |
+
 ## Core and modules
 
 **The core is what every project built with agents needs**: eight rungs, from an instructions
@@ -32,16 +44,16 @@ file to measurement ([rungs.md](framework/rungs.md)). Along the way it covers:
 it is true the module is scored and a gap is a real finding, and when it is false the module
 costs nothing ([modules.md](framework/modules.md)).
 
-| Module | Applies when |
-|---|---|
-| **Operate** | Agents, scripts or AI assistants call the system. One contract for people and agents; read-only until a person grants write; every write attributed; repeats harmless; untrusted text and outside load bounded. Most guidance stops at agents *building* software; once an assistant can call your system, this matters as much |
-| **Security** | The system holds sensitive data, handles money or safety, writes to other systems of record, or is reachable beyond the team. Threat model, safe defaults, abuse tests and owned findings |
-| **Parallel work** | Several agents or people write at once. A checkout, database and port each, and a check of the combined result |
-| **Maintenance** (trial) | Adopting the harness onto existing code. Verified refactoring and a debt record that never waives a failing check |
-| **Context** (trial) | Work spans many sessions. Evidence with a known source and age; state recoverable from the repository, not from chat |
-| **Routing** (trial) | Several models or a spend budget. Traceable assignments and cost compared against accepted outcomes |
+| Module | Applies when | Evidence |
+|---|---|---|
+| **Operate** | Agents, scripts or AI assistants call the system. One contract for people and agents; read-only until a person grants write; every write attributed; repeats harmless; untrusted text and outside load bounded. Most guidance stops at agents *building* software; building the parts agents and AI use matters as much | Used once: its rules come from one project's built code. The `operate` skill is an idea |
+| **Security** | The system holds sensitive data, handles money or safety, writes to other systems of record, or is reachable beyond the team. Threat model, safe defaults, abuse tests and owned findings | Idea |
+| **Parallel work** | Several agents or people write at once. A checkout, database and port each, and a check of the combined result | Idea. One project tried it and found isolation gaps |
+| **Maintenance** (trial) | Adopting the harness onto existing code. Verified refactoring and a debt record that never waives a failing check | Idea |
+| **Context** (trial) | Work spans many sessions. Evidence with a known source and age; state recoverable from the repository, not from chat | Idea |
+| **Routing** (trial) | Several models or a spend budget. Traceable assignments and cost compared against accepted outcomes | Used once: tiered subagents on one feature |
 
-Trial modules have not run on a real project yet; `assess` reports them without a score.
+Trial modules are reported by `assess` without a score until a real project has used them.
 
 Other guides: [agent hosts](framework/agents/README.md) (Claude Code, Codex, Grok Build,
 ChatGPT and custom hosts, kept separate from language profiles), and
@@ -76,27 +88,28 @@ on. For any other stack, `start` writes a Draft profile for the project from the
 against the real code. A profile joins the kit once it has been used on a real project; see
 [profiles](framework/profiles/README.md).
 
-| Skill | Does |
-|---|---|
-| [`start`](skills/start/SKILL.md) | New project: an interview, then a running skeleton with one check command, guardrails, CI, decisions and risk zones, before any feature |
-| [`assess`](skills/assess/SKILL.md) | Existing project: the score, which modules apply, the gaps with evidence and the next three steps. Read-only |
-| [`spec`](skills/spec/SKILL.md) | Acceptance criteria sized to the change, then tests written first in a separate context |
-| [`review`](skills/review/SKILL.md) | A fresh-context review from the criteria and the real check output, deepest in red zones |
-| [`refactor`](skills/refactor/SKILL.md) | Restructuring with no behaviour change: callers traced, tests green before and after |
-| [`decide`](skills/decide/SKILL.md) | ADRs, and the evidence recorded back once a feature is built |
-| [`sensor`](skills/sensor/SKILL.md) | A recurring mistake becomes a check whose message says how to fix it |
-| [`garden`](skills/garden/SKILL.md) | Finds stale instructions, drift and overdue follow-ups; proposes small fixes |
-| [`measure`](skills/measure/SKILL.md) | Whether agent work holds: corrections, rework, escaped defects, test reliability and maintainability trends |
-| [`operate`](skills/operate/SKILL.md) | The Operate module: one contract for people and agents, read-only until granted, every write attributed |
-| [`route`](skills/route/SKILL.md) | Optional: which model and effort for each role, without launching anything |
-| [`context`](skills/context/SKILL.md) | Optional: gathers or recovers the evidence a long task needs, from the repository |
+| Skill | Does | Evidence |
+|---|---|---|
+| [`assess`](skills/assess/SKILL.md) | Existing project: the score, which modules apply, the gaps with evidence and the next three steps. Read-only | **Proven** |
+| [`spec`](skills/spec/SKILL.md) | Acceptance criteria sized to the change, then tests written first in a separate context | Used once, in an earlier form |
+| [`decide`](skills/decide/SKILL.md) | ADRs, and the evidence recorded back once a feature is built | Used once, in an earlier form |
+| [`review`](skills/review/SKILL.md) | A fresh-context review from the criteria and the real check output, deepest in red zones | Used once, in an earlier form |
+| [`start`](skills/start/SKILL.md) | New project: an interview, then a running skeleton with one check command, guardrails, CI, decisions and risk zones, before any feature | Idea |
+| [`refactor`](skills/refactor/SKILL.md) | Restructuring with no behaviour change: callers traced, tests green before and after | Idea |
+| [`sensor`](skills/sensor/SKILL.md) | A recurring mistake becomes a check whose message says how to fix it | Idea |
+| [`garden`](skills/garden/SKILL.md) | Finds stale instructions, drift and overdue follow-ups; proposes small fixes | Idea |
+| [`measure`](skills/measure/SKILL.md) | Whether agent work holds: corrections, rework, escaped defects, test reliability and maintainability trends | Idea |
+| [`operate`](skills/operate/SKILL.md) | The Operate module: one contract for people and agents, read-only until granted, every write attributed | Idea |
+| [`route`](skills/route/SKILL.md) | Optional: which model and effort for each role, without launching anything | Idea |
+| [`context`](skills/context/SKILL.md) | Optional: gathers or recovers the evidence a long task needs, from the repository | Idea |
 
 ## Use it
 
 ### 1. Install
 
 Until Agent804 is in a plugin marketplace, download it from GitHub: get the latest
-`agent804-<version>.zip` from the repository's Releases page and unzip it somewhere it can
+`agent804-<version>.zip` from the [Releases page](https://github.com/Node804/agent804/releases)
+and unzip it somewhere it can
 stay, for example `C:\tools\agent804` or `~/tools/agent804`. Keep the folder whole: skills
 find the templates and tables by relative path, so a skill folder copied on its own breaks.
 
@@ -159,32 +172,51 @@ spans many sessions or the evidence is incomplete.
 - Enforce anything by prose alone. A hook or setting protects nothing until it has been seen
   working in the host you use.
 
-## Status
+## Evidence
 
-**Unreleased; the last preview was 0.3.0.** Rules still change; see [CHANGELOG.md](CHANGELOG.md)
-and [ROADMAP.md](ROADMAP.md).
+**Version 0.4.0, a preview, not yet released.** Rules still change; see [CHANGELOG.md](CHANGELOG.md)
+and [ROADMAP.md](ROADMAP.md). The reference projects are real line-of-business applications
+built with coding agents; they are not named here.
 
-Tried on real projects:
-- `assess` on two real Django repositories by independent agents working from the skill
-  alone: three rounds under 0.2, and again under 0.4. Scores converged once ambiguous wording
-  was fixed; the 0.4 round found the defects fixed since (GR-1 wording, guessed evidence) and
-  others still open in the roadmap.
-- The full flow on one real feature, from a one-line request: quality scenarios and ADRs read
-  unprompted, a stop on a Proposed ADR (which caught a flaw in it), an agreed spec, tests from
-  a separate context failing for the right reason, the build with the tests unchanged, review,
-  and evidence recorded back on the ADR and the scenario.
-- The Operate module, graded on one reference project.
-- `assess` installed as a plugin in Claude Code and in Codex (ChatGPT desktop app).
+**Proven**
+- **`assess` and the scoring.** Run on two real Django repositories by independent agents
+  working from the skill alone: three rounds under 0.2 and two under 0.4. Agents followed it
+  without help, and scores converged once ambiguous wording was fixed. Every round also
+  produced a list of places the wording made the agent guess; those lists drove most of the
+  changes in 0.3 and 0.4.
 
-Not tried yet:
-- `start` on an empty repository, and the `refactor`, `sensor`, `garden` and `measure` skills.
-- The small-change path of `spec`.
-- The 0.4 skills, which now carry their own instructions, on a real feature.
-- The Security and Parallel work modules on a project where they apply.
-- The trial modules (Maintenance, Context, Routing); `assess` reports them without a score.
-- The full flow under Codex or Grok Build, and live hook enforcement in either. Grok's
-  offline inspection found all twelve skills; that is discovery, not enforcement.
-- Any stack other than Django.
+**Used once**
+- **The change flow** (`spec`, separate test writing, build, `review`, `decide`) on one real
+  feature, from a one-line request. The agent read the ADRs unprompted, stopped on a Proposed
+  ADR (which caught a flaw in it), agreed a spec, had tests written in a separate context that
+  failed for the right reason, built with the tests unchanged, reviewed, and recorded the
+  evidence back. This ran with the reference project's own playbooks, which the kit's skills
+  were written from. **The kit's current skill text has not yet run on a real feature.**
+- **The Claude Code stop hook and permission settings**, in an earlier copy, on one reference
+  project. Green runs are recorded in the real host; a block on a red check is not recorded.
+- **Model routing:** fast, mid and strongest tiers for search, test writing and design over
+  one feature. It found one real problem (the test writer's output did not type-check, which
+  led to TS-7); it was not compared with another route, and cost was not measured.
+- **The Operate rules**, which describe one reference project's built and running design.
+  Graded on two projects; whether they hold for other products is untested.
+- **The Django profile's unmarked mechanisms**, used on one reference project. Items marked †
+  have not run anywhere.
+- **Plugin install** of `assess` in Claude Code and in Codex (ChatGPT desktop app).
+
+**Fixture-tested**
+- **Stop hooks for Claude Code, Codex and Grok Build**: 34 regression cases in disposable Git
+  repositories, including linked worktrees. None of the Codex or Grok adapters has blocked a
+  real session yet; Grok's offline inspection found all twelve skills, which is discovery,
+  not enforcement.
+
+**Idea**
+- **Skills never run:** `start`, `refactor`, `sensor`, `garden`, `measure`, `operate`, `route`
+  and `context`, and the small-change path of `spec`.
+- **Modules never run where they apply:** Security, Parallel work, Maintenance and Context. One
+  project's attempt at parallel worktrees found its isolation gaps.
+- **Rules added or rewritten in 0.4** that no project has met yet, for example MT-2's file-size
+  and duplication limits and the GR-1 exception for a read-only development credential.
+- **Any stack other than Django**, and the full change flow under Codex or Grok Build.
 
 The kit's own check (Python 3.11+ and Git):
 
@@ -192,10 +224,10 @@ The kit's own check (Python 3.11+ and Git):
 python scripts/check.py
 ```
 
-It runs 50 regression tests (stop hooks for each host in disposable Git repositories, skill
-paths, private names, read budgets and rule alignment) and checks
-links, rule IDs, budgets and configuration syntax. It proves the kit is consistent, not that
-it works in your project: run it on real repositories and change the rules that do not survive.
+It runs 50 regression tests (stop hooks for each host, skill paths, private names, read
+budgets and rule alignment) and checks links, rule IDs, budgets and configuration syntax. It
+proves the kit is consistent, not that it works: only use on real repositories moves an item
+up this list, and a rule that does not survive that use is changed.
 
 ## License
 

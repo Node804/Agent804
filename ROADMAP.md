@@ -1,25 +1,29 @@
 # Roadmap
 
-**Status:** 0.3.0, preview, not yet released. What has and hasn't been tested is in the
-README's Status section; this page is what's next and why things are the way they are.
+**Status:** 0.4.0, preview, not yet released. What is proven and what is only an idea is in
+the README's Evidence section; this page is what's next and why things are the way they are.
 
 ## Before the first public release
 
-- [ ] Trial the revised [testing workflow](framework/testing.md) on an application: preserved
-      red/green handoff without a commit, compiled missing-interface diagnostic, bug regression,
-      discovery failure, isolated parallel fixtures and owned flake/quarantine remediation.
-      Exercise selected TS-13 sensitivity cases before considering any new gate; re-score
-      reference projects under the TS-10/TS-12, TS-11 and TS-8/TS-9 gates.
-- [ ] Clearance to publish (private details in `HANDOVER.local.md`).
-- [ ] First commit, and a remote under the Node 804 organisation.
-- [ ] Install the plugin in Claude Code from a clean machine (`/plugin marketplace add`, then
-      `/plugin install agent804@agent804`). Codex install is already tested.
-- [ ] Rebuild the zip package after the last edits.
+The first public release is the push to the public repository under Node 804, with a release
+zip attached.
+
+- [ ] Independent review of the 0.4 skill rewrites, by Grok and by ChatGPT, against the 0.3
+      text: nothing an agent needs was lost, and nothing reads as one project's process.
+- [ ] Build `agent804-0.4.0.zip` from the release commit.
+- [ ] Install from that zip on a clean machine, in Claude Code and in Codex, and run `assess`
+      once from each.
 
 ## Trials before 1.0
 
-Each is one session. Record the result in the README's Status section, and fix whatever the
+Each is one session. Record the result in the README's Evidence section, and fix whatever the
 trial shows is unclear before moving on.
+
+- [ ] Run the change flow on a real feature with the kit's own current skills (`spec`, tests
+      written in a separate context, build, `review`, `decide`), not a project's own playbooks.
+- [ ] Trial the [testing workflow](framework/testing.md) on an application: red and green output
+      in the plan, a bug regression, an empty suite failing the check, isolated tests, and a
+      flaky test reported rather than retried into a pass.
 
 - [ ] Trial Grok Build CLI with actual trusted project instructions/skills/permissions and
       passing/failing native Stop continuation, reporting escape, timeouts and worktrees.
