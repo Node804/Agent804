@@ -16,50 +16,41 @@ checked it against published practice from Anthropic, OpenAI, Simon Willison, Ha
 Osmani, Kent Beck, Birgitta Böckeler and GitHub Spec Kit, and used their work to reinforce
 it: see [framework/validation.md](framework/validation.md).
 
-## Five development goals
+## Core and modules
 
-The same project requirements apply to humans and agents. Tools and language conventions
-are selected by the project; the framework defines the properties and evidence to check.
+**The core is what every project built with agents needs**: eight rungs, from an instructions
+file to measurement ([rungs.md](framework/rungs.md)). Along the way it covers:
 
-| Goal | What Agent804 provides |
+| Goal | What the core requires |
 |---|---|
-| [Maintainable code](framework/maintainability.md) | Useful public contracts, scoped navigation, controlled complexity, authoritative business rules and retirement of obsolete paths. Existing projects can adopt reviewed baselines without an immediate rewrite |
-| [Security from the foundation](framework/security.md) | Threats and versioned requirements, dependency/build trust, automated checks, effective access controls, abuse tests and accountable response. Actual production readiness is verified separately |
-| [One style per language](framework/rules.md#st-style-rung-2) | A pinned formatter and linter for each language, run by the check without rewriting files. The project's existing choices win; new projects use the ecosystem's standard tools |
-| [Traceable human approval](framework/approvals.md) | Original source/authority, reviewed subjects, scoped reuse, freshness and requirements-to-results traceability. Every merge needs human review; agent-written records and tool permission are not consent |
-| [Witnessed TDD](framework/testing.md) | Independent acceptance-test context, meaningful red/green/refactor evidence, bug regressions, reliable isolated tests and real integration boundaries. Commit order alone proves no execution |
+| [Witnessed TDD](framework/testing.md) | Tests written from agreed criteria in a separate context, shown failing first and then passing; bug fixes keep a test that failed before the fix; isolated, reliable tests and real integration boundaries |
+| [Maintainable code](framework/maintainability.md) | Documented public interfaces, enforced complexity limits, one authority for each business rule, and obsolete code removed. Existing projects can adopt a reviewed baseline without a rewrite |
+| [One style per language](framework/rules.md#st-style-rung-2) | A pinned formatter and linter for each language, run by the check without rewriting files. The project's existing choices win |
+| [Security basics](framework/security.md) | Security scanners in the check, reviewed dependencies, no production secrets within an agent's reach, and a person reading every change before merge |
 
-The process scales to the change. Small behavior fixes need focused criteria/regression tests;
-documentation and style changes use relevant validations. Architecture, security and other
-high-impact changes follow their applicable approval and review requirements.
+**Modules cover problems a project has only in some situations.** Each has a trigger; when
+it is true the module is scored and a gap is a real finding, and when it is false the module
+costs nothing ([modules.md](framework/modules.md)).
 
-## Supporting workflows
-
-| Capability | How it helps |
+| Module | Applies when |
 |---|---|
-| [Verified refactoring](skills/refactor/SKILL.md) | Establish baseline/characterization evidence, inspect consumers/contracts, restructure in small steps and verify preservation. Routine in-scope refactoring needs no separate invocation |
-| [Worktree lifecycle](framework/worktrees.md) | Concurrent writers have separate checkouts and isolated databases, ports, queues/storage and private check state. Handoffs name exact artifacts; combined changes are checked again |
-| [Agent-host profiles](framework/agents/README.md) | Separate Claude Code, Codex, Grok Build CLI and ChatGPT/custom-host recipes from language profiles. Record actual discovery, execution, permissions, hook trust and limitations |
-| [Optional model routing](framework/model-routing.md) | Recommend roles, supported native effort and bounded escalation using actual access, quality evidence and separate subscription/API budgets. No automatic calls or spending; one model in separate contexts remains sufficient |
-| [Independent adversarial roles](framework/model-routing.md#optional-adversarial-workflow) | Acceptance author A, implementer B and reviewer C use controlled inputs and actual test evidence. Different models are optional; agreement or majority vote never replaces checks and human review |
-| [Context management](framework/context-management.md) | Retrieve scoped evidence with provenance/freshness, handle truncated output and recover critical state after compaction, interruption or model handoff. Existing plan/PR notes hold the working record |
-| [Technical-debt lifecycle](framework/technical-debt.md) | Confirm consequences, assign ownership, prioritize impact, review deferral and verify closure in one canonical tracker/document. A debt ticket grants no exception or failed-check waiver |
-| [Decisions and evidence](framework/approvals.md) | Accepted ADRs stay frozen; later verification appends to separate evidence records. Real approval sources remain distinct from mechanical record validation |
+| **Operate** | Agents, scripts or AI assistants call the system. One contract for people and agents; read-only until a person grants write; every write attributed; repeats harmless; untrusted text and outside load bounded. Most guidance stops at agents *building* software; once an assistant can call your system, this matters as much |
+| **Security** | The system holds sensitive data, handles money or safety, writes to other systems of record, or is reachable beyond the team. Threat model, safe defaults, abuse tests, owned findings, and production readiness reported separately |
+| **Approvals** | Someone other than the author must sign off. Who approved which revision, from what source, traced to tests and results |
+| **Parallel work** | Several agents or people write at once. A checkout, database and port each, and a check of the combined result |
+| **Maintenance** (trial) | Adopting the harness onto existing code. Verified refactoring and a debt record that never waives a failing check |
+| **Context** (trial) | Work spans many sessions. Evidence with a known source and age; state recoverable from the repository, not from chat |
+| **Routing** (trial) | Several models or a spend budget. Traceable assignments and cost compared against accepted outcomes |
 
-MT-4/MT-5 (refactoring/debt), IN-8/WK-8 (context), WK-7/MS-5 (optional routing), MS-4
-(maintenance exercises) and TS-13 (test sensitivity) are reported practices pending trials,
-not additional scoring gates. Their supporting guides do not waive existing required rules.
-No mandatory retrieval engine, universal token/coverage quota or fixed debt-capacity percentage
-is imposed. Model/host selection does not guarantee correct results.
+Trial modules have not run on a real project yet; `assess` reports them without a score.
 
-## Two halves
+Other guides: [agent hosts](framework/agents/README.md) (Claude Code, Codex, Grok Build,
+ChatGPT and custom hosts, kept separate from language profiles), and
+[independent roles](framework/model-routing.md#optional-adversarial-workflow) (separate
+contexts write the tests, the code and the review; different models are optional).
 
-- **Build: how agents build the software.** Eight rungs, from an instructions file to
-  measurement, with explicit gating rules, practices and evidence for named failure modes.
-- **Operate: how agents use the software.** Three levels: one contract for people and agents;
-  safe by default (read-only until granted, every write attributed, repeats harmless); and
-  bounded (untrusted text, outside load, a person publishes). Most guidance stops at the first
-  half. Once an AI assistant can call your system, the second matters as much.
+The process scales to the change: a small fix needs a focused test, not a spec, and
+high-impact changes get deeper review.
 
 ## Choose a starting workflow
 
@@ -77,7 +68,8 @@ is imposed. Model/host selection does not guarantee correct results.
 
 | Path | What |
 |---|---|
-| [framework/rungs.md](framework/rungs.md) | The eight Build rungs and three Operate levels, what each prevents, how a project is scored and how much it needs |
+| [framework/rungs.md](framework/rungs.md) | The eight core rungs, what each prevents, how a project is scored and how much it needs |
+| [framework/modules.md](framework/modules.md) | The modules, their triggers and rules, the Operate levels and production readiness |
 | [framework/rules.md](framework/rules.md) | The rules, each with an ID, its source and how to check it |
 | [framework/profiles/](framework/profiles/) | Support matrix, Django reference baseline and draft stack profiles with explicit parent/extension guidance |
 | [framework/agents/](framework/agents/) | Host capabilities and setup: Claude Code, Codex, Grok Build CLI, ChatGPT/custom harnesses; exercised evidence and explicit gaps |
@@ -101,7 +93,7 @@ integration separately.
 | Skill | Does |
 |---|---|
 | [`start`](skills/start/SKILL.md) | New project: interview, then a running skeleton with one check command, guardrails, CI, decisions and risk zones, before any feature; if agents will use it, the first action goes through one contract |
-| [`assess`](skills/assess/SKILL.md) | Existing project: Build foundation and coverage, Operate level, with evidence, and the next three steps. Read-only |
+| [`assess`](skills/assess/SKILL.md) | Existing project: foundation and coverage, which modules apply and how they score, with evidence, and the next three steps. Read-only |
 | [`spec`](skills/spec/SKILL.md) | Acceptance criteria sized to the change; tests from a separate session, written first |
 | [`refactor`](skills/refactor/SKILL.md) | Scoped restructuring with baseline tests, consumer/contract analysis and preservation evidence; routine feature refactoring needs no separate invocation |
 | [`route`](skills/route/SKILL.md) | Optional model/host/effort and budget recommendations; prepares independent-role handoffs without launching agents or spending allowance |
@@ -111,7 +103,7 @@ integration separately.
 | [`review`](skills/review/SKILL.md) | Fresh-context review from the acceptance criteria, deepest in red zones |
 | [`garden`](skills/garden/SKILL.md) | Finds stale guidance, structural/context drift, due debt/exception reviews and security follow-up; proposes scoped fixes |
 | [`measure`](skills/measure/SKILL.md) | Delivery, test reliability and maintainability/debt trends; optional routing usage and context-recovery trials, with evidence and uncertainty |
-| [`operate`](skills/operate/SKILL.md) | Agents using the system (Operate O1 to O3): one contract, read-only until granted, attributed, safe retries, untrusted text, bounded outside load |
+| [`operate`](skills/operate/SKILL.md) | The Operate module, O1 to O3: one contract, read-only until granted, attributed, safe retries, untrusted text, bounded outside load |
 
 ## Use it
 

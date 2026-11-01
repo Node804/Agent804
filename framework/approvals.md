@@ -143,8 +143,8 @@ conditions, revocation/supersession, expired risk acceptance and changed approva
 Fresh sessions must recover valid consent without asking again. Test host stale-review and
 independence enforcement with authorized fixtures; never forge a real human review.
 
-AP-1 to AP-3 gate rung 3, AP-4 rung 5; RV-1 gates rung 4 and owner-source evidence strengthens
-DC-4 at rung 7. Missing provenance stays a gap/assumption, not a proven approval. An empty
+AP-1 to AP-4 make up the Approvals module (`modules.md`), scored when outside sign-off is
+required. RV-1 gates rung 4 and owner-source evidence strengthens DC-4 at rung 7. Missing provenance stays a gap/assumption, not a proven approval. An empty
 merge history distinguishes configured enforcement from exercised human review. Gardening
 reports missing evidence, stale stages and unresolved conditions, preserving history.
 

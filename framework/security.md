@@ -2,8 +2,9 @@
 
 Security covers three different things: the agent's development environment, the application
 it builds, and the released system in its real environment. A sandbox protects the first;
-it does not prove the other two safe. SE-1 to SE-6 in [rules.md](rules.md) span the existing
-[rungs](rungs.md); no extra ladder or certification claim is introduced.
+it does not prove the other two safe. SE-2 and SE-3 are core, at rungs 2 and 3. SE-1 and
+SE-4 to SE-6 form the Security [module](modules.md#security), scored when a breach would hurt
+someone other than the developer. Neither is a certification.
 
 Keep the project's scope, requirements, evidence and finding decisions in `docs/security.md`
 from the project template. Keep secrets and sensitive incident details out of this record;
@@ -100,8 +101,8 @@ them. Verify positive authorized behavior too; a system refusing everything is n
 For agent tools, model planted instructions in data and prove restricted authority holds
 (OP-6). A threat ADR or an agent saying it ignored the text is insufficient: inspect actual
 permissions and attempted actions. Use isolated test resources, never live victims or data.
-The skeleton has initial security/refusal evidence at rung 4; rung 5 extends tests-first
-acceptance to subsequent security-affecting features.
+When the Security module applies, the skeleton carries initial refusal evidence, and later
+security-affecting features get abuse tests written first like any other criteria.
 
 ## SE-6: Ownership and response
 

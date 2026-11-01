@@ -59,7 +59,7 @@ dispositions from an unfamiliar human and a fresh agent context.
 | [pip-audit security model and options](https://github.com/pypa/pip-audit) | Known-vulnerability auditing with explicit collection coverage and restricted resolution | Auditing is not malicious-package detection; dependency resolution may execute code. Review sources first and avoid untrusted installation as an audit prerequisite |
 | [Gitleaks commands and exit behavior](https://github.com/gitleaks/gitleaks) | Separate working-file and history scans, report handling and representative detection fixtures | Scope, redaction, errors and shallow history must be recorded; a baseline cannot itself accept exposure |
 
-SE-2 gates rung 2, SE-1/SE-3 rung 3, SE-4/SE-6 rung 4 and SE-5 rung 5. Security enforcement
+SE-2 gates rung 2 and SE-3 rung 3; since 0.4, SE-1 and SE-4 to SE-6 form the Security module. Security enforcement
 paths receive human review, and OP-6 now needs actual authority-boundary evidence. Build and
 Operate scores remain separate from release/environment security readiness. The new gates,
 dependency/build verification, response exercise and Django mappings remain untrialled on
@@ -81,7 +81,7 @@ on a real project. `start` now writes a Draft profile per project from `profiles
 | [GitHub protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches) | Required human reviews, reviewed-change freshness and independent latest-push approval support AP-1 to AP-3 and RV-1 | Host controls and bypasses must be inspected, not inferred from repo prose; other hosts need equivalent verified mechanisms |
 | [SLSA attestation model v1.2](https://slsa.dev/spec/v1.2/attestation-model) | Distinguishing artifact identity, statement meaning and authenticated issuer supports explicit subject/scope/source records | A hash or agent-written reviewer name does not authenticate consent. Ordinary projects need not adopt signed attestations; no SLSA conformance is claimed |
 
-AP-1 to AP-3 gate rung 3, AP-4 rung 5 and RV-1 rung 4; DC-4 requires actual owner-source
+AP-1 to AP-4 form the Approvals module since 0.4, and RV-1 gates rung 4; DC-4 requires actual owner-source
 evidence. The portable validator and twelve synthetic regression cases verify mechanical
 structure, preserved snapshots, selected scope/dependency freshness, conditions/expiry and
 non-authorizing output. No fixture is a real human approval. Original-source authentication,

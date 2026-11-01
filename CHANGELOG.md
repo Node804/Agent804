@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- Split the framework into a core and modules. The eight rungs are the core (69 rules, 39 of
+  them gating). Modules apply only when their trigger is true and are listed in the new
+  `framework/modules.md`: Operate (OP-1 to OP-8), Security (SE-1, SE-4 to SE-6), Approvals
+  (AP-1 to AP-4) and Parallel work (WK-6) are scored; Maintenance (MT-4, MT-5), Context
+  (IN-8, WK-8) and Routing (WK-7, MS-5) are trial modules, reported without a mark until a
+  real project has used them. Rule IDs are unchanged.
+- Rungs 3 to 5 no longer gate on AP-1 to AP-4, SE-1, SE-4, SE-5 or SE-6. SE-2 and SE-3 stay
+  core. Operate levels and production readiness move from `rungs.md` to `modules.md`.
+- `assess` decides which modules apply before scoring and reports a modules line; `start`
+  asks the triggers in its interview and sets up module mechanisms only when they apply.
+
 - Remove the eleven Draft stack profiles (Python, PHP, Laravel, JS/TS, .NET, WPF, WinForms,
   Go, Rust, PowerShell, Bash). None had run on a real project. Django stays as the one
   profile; `start` writes a Draft profile per project from the template, and a profile joins

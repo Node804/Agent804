@@ -13,7 +13,7 @@ python scripts/check.py        # Python 3.11+ and Git; must pass before calling 
 It checks: skill frontmatter (portable fields only, name matches folder, description present),
 every relative link and every `${CLAUDE_PLUGIN_ROOT}` path resolves, every rule ID cited in
 skills, templates and framework pages exists in `framework/rules.md` (including MT, SE, ST and AP), line
-budgets, JSON and style/Codex/Grok TOML plus style XML configs parse, and all stop-hook entry points
+budgets, JSON and Codex/Grok TOML parse, and all stop-hook entry points
 compile and pass behavioral regression tests in disposable Git repositories. Intact relocated
 skill resources resolve; this does not establish native discovery or host enforcement.
 It also checks approval-template structure and mechanical approval regressions; this does
@@ -42,6 +42,8 @@ not authenticate a human decision or grant action authority.
 - Debt lifecycle guidance is `framework/technical-debt.md` (MT-5 practice). Keep one authority,
   preserve real deferral/closure evidence, and never use a ticket to waive another requirement.
 
+- A new rule is core only if every project built with agents needs it. Otherwise it goes in a
+  module with a trigger (`framework/modules.md`), and a new module starts as Trial.
 - A rule states a property, never a tool. Stack mechanisms belong in
   `framework/profiles/<stack>.md`, added only after a real project has used it.
 - `framework/validation.md` lists the published work the framework was checked against, what

@@ -1,6 +1,6 @@
 ---
 name: assess
-description: Audit an existing repository against the Agent804 rungs and rules, read-only, and report its foundation and coverage with evidence and the next three steps. Use when the user asks how their project or agent setup measures up, where to start improving it, or before adopting the framework on existing code.
+description: Audit an existing repository against the Agent804 rungs, rules and modules, read-only, and report its foundation, coverage and triggered modules with evidence and the next three steps. Use when the user asks how their project or agent setup measures up, where to start improving it, or before adopting the framework on existing code.
 ---
 
 # Assess a repository
@@ -31,7 +31,7 @@ For Grok Build, inspect native versus imported compatibility sources and version
 Stop/trust evidence; public and upstream docs differ. Never equate native skill discovery
 or a fixture adapter pass with active project permissions or a working completion gate.
 
-1. **Read the framework**: `rungs.md`, `rules.md`, and the profile for the stack if one exists
+1. **Read the framework**: `rungs.md`, `modules.md`, `rules.md`, and the profile for the stack if one exists
    (`profiles/`). Identify the stack from the lock files and dependency manifests.
    With no profile for the stack, judge each rule by its property, using the table in
    `profiles/README.md`. A profile describes mechanisms; only running ones count as met.
@@ -54,23 +54,29 @@ or a fixture adapter pass with active project permissions or a working completio
    to touch, run the steps that are safe, name the exact commands you would have run, and do
    not work around it. Test runners that use an in-memory or throwaway database are safe;
    anything that opens the project's own database file is not, when told read-only.
-4. **Go through the gating rules rung by rung** (the table in `rungs.md`), then the other
-   rules as practices. For each rule: **met**, **partly
+4. **Decide which modules apply.** For each module in `modules.md`, state whether its
+   trigger is true and the evidence: an API or MCP server (Operate), the data the system
+   holds and who can reach it (Security), who must sign off (Approvals), signs of several
+   concurrent writers (Parallel work), and so on. When the evidence is unclear, ask; when
+   nobody can answer, assume and say so.
+5. **Go through the gating rules rung by rung** (the table in `rungs.md`), then the rules of
+   each triggered module, then the other core rules as practices. For each rule: **met**, **partly
    met**, **not met**, **not verifiable** (history cannot show it), **not applicable**, or
    **above target** (not required for this kind of project), with the file and line or command
    output that shows it. Do not mark a rule met because a document says it is done; find the
    mechanism.
-5. **Look at history** for what documents cannot show: `git log` for change size, merge
+6. **Look at history** for what documents cannot show: `git log` for change size, merge
    commits, branch use, whether tests arrive before or with code, whether there is a remote.
-6. **Score it** using "Scoring" in `rungs.md`: grade each gating rule, mark each rung, then
-   the foundation and the coverage line. If agents, scripts or assistants use the built system,
-   score the Operate levels the same way. List any not-verifiable rule as an assumption.
-7. **Parallel work and evidence**: inspect checkout/resource isolation and per-checkout hook
-   state using the worktree playbook (Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/worktrees.md`,
+7. **Score it** using "Scoring" in `rungs.md`: grade each gating rule, mark each rung, then
+   the foundation and the coverage line. Mark each triggered scored module the same way
+   (Operate by level); report trial modules without a mark. List any not-verifiable rule as an
+   assumption.
+8. **Parallel work and evidence**: when the Parallel work module applies, inspect
+   checkout/resource isolation and per-checkout hook state using the worktree playbook (Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/worktrees.md`,
    otherwise `../../framework/worktrees.md` from this file). Check ADR evidence links in
    `docs/evidence/` (direct or indexed for migrated ADRs), including contradictions awaiting
    owner review. Unmigrated inline evidence is a gap; do not edit frozen ADRs in this assessment.
-8. **Maintainability**: inspect public contracts and current examples (MT-1); exercised
+9. **Maintainability**: inspect public contracts and current examples (MT-1); exercised
    complexity checks, review-trigger dispositions and scoped exceptions (MT-2); authoritative
    business rules and boundaries (AR-2, AR-3); retirement evidence (MT-3). A reviewed baseline
    can retain specific debt, but cannot waive controls or permit worsening findings. Do not
@@ -79,18 +85,20 @@ or a fixture adapter pass with active project permissions or a working completio
    Report MT-4 refactoring separately as a practice: problem, consumers/contracts, baseline
    and final preservation evidence, improvement and compatibility gaps. A green suite does
    not prove complete equivalence; absence of a standalone refactor skill is not a failure.
-9. **Security**: grade SE-1 to SE-6 using actual requirements, safe detection evidence,
+10. **Security**: grade SE-2 and SE-3 always, and SE-1, SE-4 to SE-6 when the Security
+   module applies, using actual requirements, safe detection evidence,
    dependency trust, effective controls, abuse tests and response/expiry records. Missing,
    incomplete, failed or stale checks are gaps, not clean results. A maintainability baseline
-   cannot accept security exposure. Report production readiness separately from Build/Operate;
+   cannot accept security exposure. Report production readiness separately from every score;
    assumed external controls or local settings do not verify deployment. Never read restricted
    production secrets, scan live systems or acquire extra authority to fill an evidence gap.
 
-10. **Style**: grade ST-1 per language the project maintains. The project's own choices
+11. **Style**: grade ST-1 per language the project maintains. The project's own choices
     qualify equally with standard ones; an editor config alone is not enforcement. Do not
     install tools or reformat files to gather evidence.
 
-11. **Human decisions**: grade AP-1 to AP-4 and RV-1 using original reviewer/source authority,
+12. **Human decisions**: grade RV-1 always, and AP-1 to AP-4 when the Approvals module
+    applies, using original reviewer/source authority,
     subject revisions, validity/conditions and actual requirement trace. Metadata validation
     cannot establish consent. Distinguish session evidence from retrievable authenticated
     reviews, missing host evidence and configured-but-unexercised enforcement. An empty merge
@@ -98,13 +106,13 @@ or a fixture adapter pass with active project permissions or a working completio
 
 ## Report
 
-Assess MT-5 as a practice using Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/technical-debt.md`,
+When the Maintenance module applies, report MT-5 (trial) using Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/technical-debt.md`,
 otherwise `../../framework/technical-debt.md`. Inspect confirmed consequences, owner,
 disposition/review condition, actual deferral authority, linked exceptions and closure evidence
 in the canonical record. Scanner candidates are not confirmed debt; a debt label neither
 waives a gate nor accepts security/test failures. A clean project needs no invented debt items.
 
-Inspect scoped retrieval/freshness and recoverable state under IN-8/WK-8 as practices:
+When the Context module applies, report IN-8/WK-8 (trial):
 Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/context-management.md`, otherwise
 `../../framework/context-management.md` from here. Check missing/truncated evidence, stale
 indexes/dirty work and assumptions promoted by summaries. Missing context trials stay pending;
@@ -119,7 +127,8 @@ one model in separate contexts remains valid. Do not probe accounts or launch mo
 1. **Score**: foundation, the coverage line, the holes in rungs marked `✓*`, and the target
    for this kind of project. Ask the two questions in `rungs.md` if you can; when nobody can
    answer (a subagent, an unattended run), assume from the brief and state the assumption.
-   Then the Operate levels (`Operate O1✓ O2✓* O3◐`, or `Operate –`).
+   Then the modules line from `modules.md`, triggered modules first with the reason each
+   applies, for example `Modules: Operate O1✓ O2✓* O3◐ · Security ◐ · Approvals – · Parallel ✓`.
    Include security readiness: pending, blocked, or verified for the identified release and
    environment; evidence, expiry, open risks and explicit human decisions qualify the status.
 2. **Strengths**: rules met well, with evidence. Be specific; no praise without a file reference.

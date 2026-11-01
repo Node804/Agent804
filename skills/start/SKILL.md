@@ -40,11 +40,15 @@ Ask, wait, then ask the next. Accept short answers; offer a default for each.
    that the harness lowers the skill needed but does not remove the need for a reviewer, and
    suggest red-zone areas be kept small.
 6. **Will agents, scripts or AI assistants use this system?** An API, MCP tools,
-   automation. If yes, the target includes Operate O1 and O2 (all three in production), and
-   the skeleton's first action is built through one contract (`operate`).
+   automation. If yes, the Operate module applies, and the skeleton's first action is built
+   through one contract (`operate`).
+7. **Who must sign off, and how many write at once?** If someone other than the author must
+   approve (owners, a regulated process, a customer), the Approvals module applies. If several
+   agents or people will write at the same time, Parallel work applies.
 
-Set the **target** from the table in `framework/rungs.md` (a foundation plus the loop rungs
-the project needs, and Operate levels if agents will use it). Tell the user the target and what it costs in one or two sentences.
+Set the **target** from the table in `framework/rungs.md`, and list the modules whose
+triggers in `framework/modules.md` are true; question 2 also decides Security. Tell the user
+the target and the modules, and what they cost, in two or three sentences.
 
 ## 3. Load the stack profile
 
@@ -56,20 +60,19 @@ rules, actual versions and missing mechanisms as gaps.
 Read the maintainability guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/maintainability.md`,
 otherwise `../../framework/maintainability.md` from this file. Agree enforced complexity limits,
 review triggers, public-interface scope and exception handling before implementing the skeleton.
-Read security guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/security.md`, otherwise
-`../../framework/security.md` from this file. Identify the accountable owner, assets, data,
-identities, interfaces and trust boundaries; agree credible abuse cases, versioned security
-requirements, justified exclusions, safe development data and dependency/install policy.
-Record concrete finding deadlines, release-blocking policy and scoped human acceptance rules.
+Every project gets security scanners in the check and a dependency review policy (SE-2,
+SE-3). If the Security module applies, read Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/security.md`,
+otherwise `../../framework/security.md` from this file, and agree with the user the owner,
+assets, trust boundaries, credible abuse cases and versioned requirements (SE-1), and how
+findings get deadlines (SE-6).
 For style, use the ecosystem's standard formatter and linter (for example Ruff, Prettier and
 ESLint, gofmt, rustfmt, `dotnet format`, Pint) unless the user prefers others, and record them
 in the profile's Style table. Offer `templates/editorconfig` and `templates/gitattributes` for
 line endings and encoding.
-Read approvals guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/approvals.md`, otherwise
-`../../framework/approvals.md` from this file. Agree owner/reviewer authority, required stage
-decisions, independence and original-source verification. Reuse existing scoped consent;
-group related decisions when their subjects were presented clearly. Never invent missing
-approval evidence or infer commit/push/deployment permission from feature agreement.
+If the Approvals module applies, read Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/approvals.md`,
+otherwise `../../framework/approvals.md` from this file, and agree who has authority to
+approve what and where those decisions are recorded. Never invent approval evidence or infer
+commit, push or deployment permission from agreement on a feature.
 
 ## 4. Build the harness, in this order
 
@@ -104,8 +107,8 @@ Each step ends with something you can run.
    machine credentials.
    Document the public contracts, failures and side effects the declarations cannot explain
    (MT-1); provide a short navigation path to the area and its test command (IN-4).
-   Demonstrate secure initial defaults and an authorized and refused path with no prohibited
-   effect/disclosure (SE-4). Do not wait for rung 5 to protect the first interface.
+   Show an allowed and a refused request, the refused one with no effect (AR-1). If the
+   Security module applies, also demonstrate safe initial defaults (SE-4).
 4. **`AGENTS.md`** from the template, with real commands and scoped additions where needed.
    For Claude Code add `CLAUDE.md` containing `@AGENTS.md`; verify selected hosts' discovery.
 5. **Guardrails** (GR-1 to GR-4): production credentials never go in the project's `.env`;
@@ -123,9 +126,8 @@ Each step ends with something you can run.
    `docs/risk-zones.md` from the template with the first zones drawn with the
    user, and `docs/quality-scenarios.md` from the template with two or three scenarios drawn
    from the interview's "what happens if it breaks" answer (DC-5). A changelog mechanism
-   from the profile. Copy `framework/worktrees.md` to `docs/worktrees.md` and fill in the
-   profile's actual bootstrap, resource configuration and cleanup commands, even if parallel
-   work will come later.
+   from the profile. If the Parallel work module applies, copy `framework/worktrees.md` to
+   `docs/worktrees.md` and fill in the actual bootstrap, resource and cleanup commands.
    Create `docs/maintainability.md` from `templates/maintainability.md` with actual checks,
    thresholds, public-interface scope and scoped exceptions. A new project starts without
    legacy findings; do not invent a baseline or bulk exclusions.
@@ -155,14 +157,13 @@ Each step ends with something you can run.
 - Introduce a small complexity violation, confirm the check fails for that reason, then remove
   it. Review the skeleton's contracts and run maintained example checks. Report unmapped
   mechanisms and untrialled maintenance exercises as gaps, never as working protection.
-- Exercise representative security detections and skeleton abuse/refusal tests with safe
-  fixtures; restore the real configuration. Run a safe response tabletop/fixture (SE-6),
-  recording outcomes and gaps without accessing production or sending messages on its own.
+- Exercise a representative security detection with a safe fixture (SE-2) and restore the
+  real configuration. If the Security module applies, run a safe response tabletop (SE-6)
+  without accessing production or sending messages.
 - Add a formatting violation: the check fails without changing the file, the fix command
   repairs it, and a second run changes nothing (ST-1).
-- Exercise mechanical approval structure/freshness cases and document the separate human-source
-  and host enforcement path (AP-1 to AP-3). Plan valid cross-session reuse and material-change
-  trials; a metadata check alone does not prove human review or satisfy RV-1.
+- If the Approvals module applies, exercise the approval record checks and document where
+  the real human decisions live (AP-1 to AP-3); a metadata check never proves review (RV-1).
 
 - Exercise test discovery and failure propagation, including an unexpectedly empty suite;
   show isolated fixtures and actual integration at the skeleton boundary (TS-10 to TS-12).

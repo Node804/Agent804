@@ -8,7 +8,7 @@ description: Design or review how a system's actions are used by agents and auto
 Most guidance covers agents **building** software. This covers agents **using** it: an
 assistant calling your API or MCP tools, a script acting for a user. A mistake here is not a
 red test; it is a wrong write in production, made at machine speed. The levels are in
-`framework/rungs.md` ("Operate") and the rules are OP-1 to OP-8 in `framework/rules.md`.
+`framework/modules.md` ("Operate") and the rules are OP-1 to OP-8 in `framework/rules.md`.
 
 **Framework files**: in Claude Code, `${CLAUDE_PLUGIN_ROOT}/framework/`; for other agents,
 `../../framework/` from this file.

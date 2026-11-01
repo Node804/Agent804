@@ -6,10 +6,15 @@ checked against is in `validation.md`.
 A rule states the **property**, never the tool. "The build fails when an entry point declares no
 access rule" holds in any stack; how a stack makes it fail lives in its profile (`profiles/`).
 
-Words: **must** is required at the rung the rule belongs to; **should** is the default, and a
+Most rules are **core** and belong to a rung. Rules in a [module](modules.md) apply only when
+that module's trigger does; each family below says which.
+
+Words: **must** is required at the rung or module the rule belongs to; **should** is the default, and a
 project that departs from it says why in an ADR.
 
 ## IN: Instructions (rung 1)
+
+IN-8 is in the Context module.
 
 | ID | Rule | Check |
 |---|---|---|
@@ -41,7 +46,7 @@ project that departs from it says why in an ADR.
 |---|---|---|
 | ST-1 | Each language the project maintains has one formatter and linter, with committed configuration and pinned versions. The check reports violations without rewriting files; a separate command fixes them. The project's existing choices govern; a new project uses its ecosystem's standard tools. | Add a deliberate violation: the check fails and the file is unchanged; the fix command repairs it; a second run changes nothing. Configured but not in the check or CI is partly met |
 
-## AP: Traceable human approval (rungs 3, 5 and 7)
+## AP: Traceable human approval (Approvals module)
 
 Evidence, validity and proportionality are in [approvals.md](approvals.md).
 
@@ -103,7 +108,7 @@ Interpretation, evidence and staged handoffs are in [testing.md](testing.md).
 | AR-5 | Outside systems are reached from one place, read-only unless a decision says otherwise, and never waited on during a request. | Grep for outside clients outside that place |
 | AR-6 | Data is parsed and validated at boundaries and safely interpreted or encoded for each destination. Validation alone never makes data safe as a query, command, path or rendered output. | Inspect input-to-sink paths and test applicable injection, traversal and unsafe-output cases |
 
-## SE: Security baseline (rungs 2 to 5; verified again before production)
+## SE: Security (SE-2 at rung 2, SE-3 at rung 3; the rest in the Security module)
 
 Scope, exceptions and production readiness are in [security.md](security.md).
 
@@ -118,6 +123,8 @@ Scope, exceptions and production readiness are in [security.md](security.md).
 
 ## MT: Maintainability (rungs 2, 4 and 6)
 
+MT-4 and MT-5 are in the Maintenance module.
+
 Interpretation, exceptions and adoption are in [maintainability.md](maintainability.md).
 
 | ID | Rule | Check |
@@ -129,6 +136,8 @@ Interpretation, exceptions and adoption are in [maintainability.md](maintainabil
 | MT-5 | Confirmed actionable debt has concrete evidence/consequences, an owner, disposition and review condition; deferral uses applicable authority and closure verifies stated outcomes while preserving identity/history. | Inspect canonical records, candidates versus confirmed items, linked exceptions, actual decisions and resolution evidence. A reported practice pending trials, not a gate; recording debt grants no waiver or acceptance |
 
 ## WK: Work (rungs 4–5)
+
+WK-6 is in the Parallel work module, WK-7 in Routing and WK-8 in Context.
 
 | ID | Rule | Check |
 |---|---|---|
@@ -163,6 +172,8 @@ Interpretation, exceptions and adoption are in [maintainability.md](maintainabil
 
 ## MS: Measure and garden (rung 8)
 
+MS-5 is in the Routing module.
+
 | ID | Rule | Check |
 |---|---|---|
 | MS-1 | Track lead time, human interventions, first-pass CI rate, rework, escaped defects and rollbacks, plus test reliability (flakes, quarantine age, skips, duration and escaped regressions) and maintainability trends: complexity, duplication and aging exceptions. Never lines generated. | Comparable measurements and limitations in a log or dashboard; distinguish measured trends from inferred causes |
@@ -171,7 +182,7 @@ Interpretation, exceptions and adoption are in [maintainability.md](maintainabil
 | MS-4 | Periodically exercise a representative maintenance task with a maintainer who did not author it. Record information needed, obstacles, verification and improvements; include experienced humans and fresh agent contexts over time. | Task, revision, maintainer type, needed context, result and follow-up recorded. A practice pending trial, not a rung gate |
 | MS-5 | When optional routing is evaluated, compare accepted outcomes and total usage/cost including retries, transfers, review and rework, with native units, sources and uncertainty. | Comparable tasks/quality thresholds, actual role/model/host/effort, measured versus estimated usage, defects and interventions; do not aggregate unlike allowances or infer causality. Conditional practice, not a gate |
 
-## OP: Operate (levels O1 to O3, when agents use the built system)
+## OP: Operate (Operate module, levels O1 to O3)
 
 | ID | Rule | Check |
 |---|---|---|
