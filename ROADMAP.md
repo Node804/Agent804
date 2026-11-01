@@ -113,7 +113,8 @@ trial shows is unclear before moving on.
   a person, with evidence that only grows. Quality scenarios, delivery metrics, audit history
   in the write layer and a production-readiness status were one reference project's process
   or governance, and were dropped in 0.4.
-- **Operate grows in phase 2.** Building MCP servers, APIs for agents and embedded AI features.
+- **Operate grows in phase 2.** Building MCP servers, APIs for agents and embedded AI features;
+  its trigger should then also cover a product that calls a model itself.
   OP-1, OP-4, OP-7 and OP-8 still read as one project's design and need generalising; the
   former AR-5 (outside systems reached from one place, never waited on during a request) is
   a candidate to return there.

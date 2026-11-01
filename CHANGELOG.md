@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- Fixes from the reassessment of both reference projects. `assess` no longer checks TS-11 at
+  rung 4, counts git-ignored output from the check as testing, and takes actual-host
+  evidence from records rather than launching sessions. A missing check is graded once, under
+  its own rule, even when it runs elsewhere such as a pre-commit hook. Rung 5 judges work
+  since adoption, dated from the commit that introduced the harness, instead of "two
+  features". A not-verifiable rule counts as met, with the assumption named. TS-4 is not
+  verifiable while no test can run. The Security trigger no longer fires on staff sign-in
+  data alone; Parallel work names its evidence; Routing covers development only. IN-3 and CK-2
+  apply to a tool-specific root file when there is no `AGENTS.md`; WK-1 counts per merged
+  change; GR-7 notes that a co-author trailer does not show who decided; SK-1 says how a
+  read-only assessment grades it. When several target rows apply, the most demanding one is used.
+
 - Lighter where the goals need less. TS-12 asks the check to print test counts and fail on an
   empty suite; TS-10 asks for isolated, repeatable tests with flakes reported (owning them is
   `garden`'s job); TS-2 asks for red and green output in the plan or PR. TS-11 stops gating

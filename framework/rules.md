@@ -20,7 +20,7 @@ IN-8 is in the Context module.
 |---|---|---|
 | IN-1 | Root `AGENTS.md` is the shared project-policy authority; scoped additions refine relevant areas without silently conflicting. Tool-specific files point to shared guidance. Effective instruction discovery preserves the intended policy. | Inspect root/nested/override sources, precedence and loading limits in each selected host. File presence alone is insufficient; a lone tool-specific source is partly met |
 | IN-2 | It holds only what an agent cannot find by reading the repo, or would have to dig for every session: commands, decisions not in code, misleading code, anything corrected twice. No tour of directories the agent can list itself, no history; a short map pointing into `docs/` is fine. | Read it: flag directory tours, dated history, restated code |
-| IN-3 | Root file under 200 lines, nested files under 150, enforced by the check. | Line counts. Any file over budget is not met. Within budget but not yet enforced (no check exists) is partly met |
+| IN-3 | Root file under 200 lines, nested files under 150, enforced by the check. | Line counts of the root instruction file (a tool-specific file when there is no `AGENTS.md`) and nested ones. Any file over budget is not met. Within budget but not yet enforced (no check exists) is partly met |
 | IN-4 | Area-specific rules load only in that area. A short navigation path leads a maintainer to its purpose, public interfaces, permitted dependencies and test command. Local guidance fills gaps the code cannot explain. | Follow the navigation without the author's chat; inspect scoped retrieval routes to contracts/callers/tests and nested guidance where areas differ |
 | IN-5 | Maintained instructions, documentation links, configuration examples and executable examples agree with the current system. Named paths and commands resolve; mechanically verifiable claims run in the check. | Resolve maintained references against actual revision/dirty state and exercise commands/examples; distinguish current authority, superseded decisions and historical records |
 | IN-6 | Plain statements, no IMPORTANT or ALL CAPS: emphasis makes agents over-apply a rule. | Grep for shouting |
@@ -31,8 +31,8 @@ IN-8 is in the Context module.
 
 | ID | Rule | Check |
 |---|---|---|
-| CK-1 | One command runs every applicable check (format, lint, types, tests, architecture, maintainability and security). CI runs the same command. | Find it; run it; compare with CI. Not met when there is no single command. Partly met when CI runs something different, or the command leaves out a check the project already has. A kind of check the project lacks entirely is graded once, under its own rule (MT-2, SE-2, ST-1), not again here. Unavailable security checks stay visible as failures or gaps, never a clean result. Independent execution is CK-8 |
-| CK-2 | The check command is in the first section of `AGENTS.md`, where an agent reads it before anything else. Until a check exists, that section says so. | Look. Named but later in the file is partly met |
+| CK-1 | One command runs every applicable check (format, lint, types, tests, architecture, maintainability and security). CI runs the same command. | Find it; run it; compare with CI. Not met when there is no single command; partly met when CI runs something different. Whether a particular kind of check is in the command is graded under its own rule (ST-1, MT-2, SE-2, TS-12), never again here, even when that check runs somewhere else such as a pre-commit hook. Unavailable security checks stay visible as failures or gaps, never a clean result. Independent execution is CK-8 |
+| CK-2 | The check command is in the first section of `AGENTS.md`, where an agent reads it before anything else. Until a check exists, that section says so. | Look, in the root instruction file (a tool-specific file when there is no `AGENTS.md`). Named but later in the file is partly met |
 | CK-3 | Deterministic checks first; AI review is extra, never a substitute. | Count computational vs inferential checks |
 | CK-4 | Error messages say how to fix the problem, because the agent reads them. | Read custom check messages |
 | CK-5 | A rule that exists only as prose is a check not yet written. When a review comment recurs, it becomes a lint rule, structural test, type, hook or skill. | Prose rules in `AGENTS.md` that could be mechanical |
@@ -56,13 +56,13 @@ IN-8 is in the Context module.
 | GR-4 | Completion controls require the applicable check before a success claim and expose failures. A bounded escape permits honest failure reporting, not a success claim. | Exercise effective host loading, trust and failure continuation/blocking; configuration or instructions alone are insufficient. Reporting escape after one block is met; skipped/unsupported controls are gaps. CI merge gating is separate |
 | GR-5 | An unattended run answers five questions first: what done looks like, how it checks itself, what it may touch, what stops it, who signs off. It runs sandboxed. | Look at scheduled or headless runs |
 | GR-6 | Scripts that change data are dry-run unless told to apply. | Read data scripts |
-| GR-7 | Agents cannot supply consent. Approval comes from the person directing the work, for the specific action or content, in their own words. An approved plan, a tool permission prompt, a passing check or a record an agent filled in is not approval. Agreement covers what the person saw: when the agent's work changes it materially, the agent asks again. An agent never marks a decision Accepted or a review done itself. | Instructions say so; history shows no agent-set Accepted status, agent-written approval, commit that followed only a plan approval, or agreed criteria changed without the person seeing them again. Instructions alone with no contrary history is met |
+| GR-7 | Agents cannot supply consent. Approval comes from the person directing the work, for the specific action or content, in their own words. An approved plan, a tool permission prompt, a passing check or a record an agent filled in is not approval. Agreement covers what the person saw: when the agent's work changes it materially, the agent asks again. An agent never marks a decision Accepted or a review done itself. | Instructions say so; history shows no agent-set Accepted status, agent-written approval, commit that followed only a plan approval, or agreed criteria changed without the person seeing them again. Instructions alone with no contrary history is met. A co-author trailer says who wrote a commit, not who decided |
 
 ## SK: Walking skeleton (rung 4)
 
 | ID | Rule | Check |
 |---|---|---|
-| SK-1 | One rerunnable command takes a fresh clone to a running app. | Run it on a clean clone |
+| SK-1 | One rerunnable command takes a fresh clone to a running app. | Run it on a clean clone. A read-only assessment that cannot clone grades the command and its tests, and says it was not run |
 | SK-2 | One end-to-end test exists from the first commit and runs in CI. | Find it |
 | SK-3 | Prefer established stack capabilities and existing project implementations. New dependencies and custom replacements serve a demonstrated requirement with a maintenance justification; neither hand-written code nor a dependency is automatically preferable. | Inspect new capabilities, alternatives considered and maintenance costs in the plan or review; use an ADR only for a hard-to-reverse choice |
 | SK-4 | Configuration comes from the environment; no hard-coded paths or hosts. | Grep for absolute paths and hosts |
@@ -84,7 +84,7 @@ Interpretation, evidence and staged handoffs are in [testing.md](testing.md).
 | TS-9 | Bug fixes retain regression protection that reproduces the affected pre-fix behavior before the fix. | Record pre-fix failure and post-fix pass; explain reproduction limits. Applies to bug fixes after adoption, not invented historical evidence |
 | TS-10 | Tests isolate the data they change and control time, randomness and order where it matters. A flaky test is reported, never retried silently into a pass. | Two runs give the same result; retries and quarantined tests are visible in the output |
 | TS-11 | Verification covers important component contracts and real integration at the lowest effective level, plus representative end-to-end journeys. | Name simulated and actual boundaries; mocks alone do not prove compatibility. Use safe external substitutes with contract evidence where live access is unsuitable |
-| TS-12 | The check prints how many tests it found and ran, lists skips and exclusions, and fails when it finds none where tests are expected. | Run it: the counts appear; an emptied test directory makes it fail |
+| TS-12 | The check prints how many tests it found and ran, lists skips and exclusions, and fails when it finds none where tests are expected. | Run it: the counts appear. Partly met when an empty run passes |
 | TS-13 | Selected critical behavior is checked for test sensitivity by deliberate wrong behavior in isolation. This is a practice pending trials, not a rung gate. | Record detected faults, survivors, limits and justified exclusions; invalid compilation is not behavioral detection. No universal mutation or coverage quota |
 
 ## AR: Architecture (rung 6)
@@ -130,7 +130,7 @@ WK-6 is in the Parallel work module, WK-7 in Routing and WK-8 in Context.
 
 | ID | Rule | Check |
 |---|---|---|
-| WK-1 | Small changes, one logical change each; structural changes separate from behaviour changes. | Count changed lines excluding migrations, lock files, translation catalogues, changelogs and vendored or generated files; templates and docs count. Over about 400 is large, over 1,000 a finding. Mostly small is met |
+| WK-1 | Small changes, one logical change each; structural changes separate from behaviour changes. | Count changed lines per merged change (a pull request, or a commit where there are none), excluding migrations, lock files, translation catalogues, changelogs and vendored or generated files; templates and docs count. Over about 400 is large, over 1,000 a finding. Mostly small is met |
 | WK-2 | Non-trivial work has a checked-in plan with progress notes, so the next session can resume from the repo, not from chat. | `docs/plans/` or equivalent |
 | WK-3 | Planning and implementation use separate contexts with an exact artifact handoff. Unrelated work does not inherit stale assumptions. | Inspect actual handoff and input boundaries; compaction or a mode switch alone is not fresh context. Sequential separate chats can reuse a checkout; no subagent mechanism is required |
 | WK-4 | Each change carries a changelog entry written as it is made. | Fragments or entries per change |

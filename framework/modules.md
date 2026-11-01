@@ -14,11 +14,11 @@ its interview.
 | Module | Applies when | Rules | Status |
 |---|---|---|---|
 | [Operate](#operate) | Agents, scripts or AI assistants call the system: an API, MCP tools, automation acting for a user | OP-1 to OP-8 | Scored, levels O1 to O3 |
-| [Security](#security) | The system holds personal, customer or business-sensitive data; handles money or safety; writes to another system of record; or people outside the development team can reach it | SE-1, SE-4, SE-5, SE-6 | Scored |
-| [Parallel work](#parallel-work) | More than one agent or person writes to the repository at the same time | WK-6 | Scored |
+| [Security](#security) | The system holds personal data beyond what sign-in needs (staff names and emails from sign-in do not count on their own), customer or business-sensitive data; handles money or safety; writes to another system of record; or people outside the development team can reach it | SE-1, SE-4, SE-5, SE-6 | Scored |
+| [Parallel work](#parallel-work) | More than one agent or person writes to the repository at the same time: the instructions or tooling describe concurrent sessions, or history shows overlapping branches | WK-6 | Scored |
 | [Maintenance](#maintenance) | The framework is adopted onto existing code, or the project carries known debt | MT-4, MT-5 | Trial |
 | [Context](#context) | Work regularly spans several sessions or more than one context window | IN-8, WK-8 | Trial |
-| [Routing](#routing) | More than one model is used, or model spend is budgeted | WK-7, MS-5 | Trial |
+| [Routing](#routing) | More than one model is used for development, or development model spend is budgeted. A product that calls a model is Operate's concern | WK-7, MS-5 | Trial |
 
 **Scored** modules are marked like the rungs: `✓`, `✓*`, `◐` or `✗` (see Scoring in
 [rungs.md](rungs.md)). **Trial** modules have not yet been run on a real project, so the

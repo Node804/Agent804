@@ -12,7 +12,8 @@ every claim. Read-only: never edit, commit or install anything.
 `../../framework/` from this file.
 
 Assess TS-2 using actual red/green results and revision/patch evidence, not commit order
-alone. Check TS-10/TS-12 at rung 2, TS-11 at rung 4 and TS-8/TS-9 where applicable at rung 5.
+alone. Check TS-10/TS-12 at rung 2 and TS-1 to TS-4, TS-8/TS-9 where applicable at rung 5; report
+TS-11 as a practice.
 Report isolation, discovery, retry/quarantine and unexecuted target gaps. TS-13 is a practice;
 no universal mutation score is required and historical TDD must not be invented.
 
@@ -24,8 +25,10 @@ metadata substitutes for execution evidence.
 Read host guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/agents/README.md`, otherwise
 `../../framework/agents/README.md` from here. Inspect actual client/version, orchestration,
 instruction overrides/loading limits, installed skill resources, effective permissions and
-hook trust/load/failure evidence. Report configured vs fixture-tested vs actual-host evidence;
-do not install plugins, change trust/global policy or launch host sessions to fill gaps.
+hook trust/load/failure evidence. Report configured vs fixture-tested vs actual-host evidence.
+Actual-host evidence comes from records (the project's host record, hook state files, CI
+logs); when there are none, say so. Do not install plugins, change trust/global policy or
+launch host sessions to create it.
 For Grok Build, inspect native versus imported compatibility sources and version-specific
 Stop/trust evidence; public and upstream docs differ. Never equate native skill discovery
 or a fixture adapter pass with active project permissions or a working completion gate.
@@ -46,7 +49,8 @@ or a fixture adapter pass with active project permissions or a working completio
    work counts, and the report says which findings depend on it.
 3. **Find the check.** Look for a single check command in the instructions, task runner and CI.
    Run it if it only reads and tests. Tests that create and drop their own throwaway database
-   count as testing, unless the user said strictly read-only. If it needs credentials or a
+   count as testing, unless the user said strictly read-only, and so does git-ignored output
+   the check generates (compiled translations, caches); changing a tracked file does not. If it needs credentials or a
    service that is not available, or running it could write to data the user asked you not
    to touch, run the steps that are safe, name the exact commands you would have run, and do
    not work around it. Test runners that use an in-memory or throwaway database are safe;

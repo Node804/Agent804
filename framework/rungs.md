@@ -24,7 +24,7 @@ first feature.
 | 2 | One check command | "Looks done" code; inconsistent style, unchecked complexity and security | CK-1, ST-1, MT-2, SE-2, TS-10, TS-12 | One command, also run by CI, runs the formatter and linter without rewriting files, complexity limits, security scanners and isolated tests, and shows how many tests ran. A check that could not run is a gap, never a pass |
 | 3 | Guardrails | Irreversible actions, exposed secrets, untrusted dependencies | GR-1 to GR-4, GR-7, SE-3 | No production secret within the agent's reach beyond a recorded read-only exception; commit, push, deploy and migrate need a person, and only a person gives approval; every change on a branch; the agent cannot finish with the check red; new dependencies are reviewed |
 | 4 | Walking skeleton and CI | Unreviewed merges, undocumented contracts, works-on-my-machine | SK-1, SK-2, CK-8, RV-1, MT-1 | A fresh clone boots with one command; an end-to-end test runs in CI from committed state and blocks a red merge; a person reads every change before merge; public interfaces say what they do |
-| 5 | Tests before code | Tests that only confirm the implementation; tests weakened to get green | TS-1 to TS-4, TS-8, TS-9 where bug fixes apply | At least two features since adoption have agreed criteria, tests written in a separate context and shown failing first, then passing; no test is weakened, skipped or deleted to get green; bug fixes keep a test that failed before the fix |
+| 5 | Tests before code | Tests that only confirm the implementation; tests weakened to get green | TS-1 to TS-4, TS-8, TS-9 where bug fixes apply | Features built since adoption have agreed criteria, tests written in a separate context and shown failing first, then passing; no test is weakened, skipped or deleted to get green; bug fixes keep a test that failed before the fix |
 | 6 | Architecture and maintainability as checks | Slow drift; duplicated rules; obsolete code; injection | AR-1, AR-3, AR-6, CK-4, MT-3; AR-2, AR-4 where they apply | Access, boundaries and project invariants fail the build with messages that say how to fix them; input is parsed at the boundary and encoded for each destination; replaced code is removed or its retention is recorded |
 | 7 | Decisions with evidence | Re-arguing settled choices; losing the reason | DC-1 to DC-3 | ADRs with Proposed / Validated / Accepted / Rejected, each with an append-only evidence record, accepted by a person (GR-7) |
 | 8 | Measure and garden | Agent work that does not hold; stale docs and structural decay | MS-1, MS-2 | Corrections, rework, escaped defects, test reliability and maintainability trends tracked; a scheduled pass proposes reviewed fixes |
@@ -77,15 +77,21 @@ Counting rules:
 - A rule that names several mechanisms (SE-2's three scanners) is met when all of them
   run, partly met when at least one does, and not met when none does. Name the missing ones.
 - Grade a missing piece once, under its own rule: a check command without a complexity
-  step is an MT-2 gap, not a CK-1 gap as well.
+  step is an MT-2 gap, not a CK-1 gap as well; a secret scan that runs only in a pre-commit
+  hook is an SE-2 gap.
 - Tests that exist but cannot run (a broken migration, a missing service) protect nothing:
-  every rule that needs a test run is not met, and the cause is the first gap reported.
+  every rule that needs a test run is not met, and the cause is the first gap reported. Rules
+  graded from history instead of a run (TS-4) are not verifiable while no test can run.
+- Rung 5 judges work since adoption: from the commit that introduced the project's harness
+  (its instructions file or check), not earlier history. With no feature built since then,
+  its gates are not verifiable.
 - Only the repository counts: git-ignored or user-level personal settings do not protect the
   next developer or the next agent. No committed agent settings means GR-2 is not met.
 - **Not verifiable** is only for facts that live outside the repository (host branch
   protection, who reviewed a pull request, the contents of a file the assessor may not read).
-  It does not fail a rung; the report states it as an assumption, with the evidence used
-  instead (docs, scripts, examples), for example "foundation 3, assuming branch protection".
+  It does not fail a rung: mark the rung as if the rule were met and name the assumption,
+  with the evidence used instead (docs, scripts, examples), for example "foundation 3,
+  assuming branch protection".
   If no changes have merged yet, RV-1 says so rather than counting configured protection as
   an exercised review.
 
@@ -101,7 +107,7 @@ Counting rules:
 
 "Writes into other systems of record" means anything hard to undo outside the project: an ERP,
 a ticketing system, a machine or controller, a regulated document. Generating a report is not;
-changing an order is.
+changing an order is. When more than one row applies, use the most demanding one.
 
 A prototype that will be thrown away still writes **acceptance scenarios and decisions**: they
 survive into the rebuild, and code is the cheap part. "Plus 5 and 7 for what carries forward"
