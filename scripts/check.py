@@ -95,10 +95,56 @@ def agent_read_problems(root: Path) -> list[str]:
     return problems
 
 
+RANGE = re.compile(r"\b([A-Z]{2})-(\d+) (?:to|–) (?:\1-)?(\d+)\b")
+
+
+def cited_ids(text: str) -> set[str]:
+    """Rule IDs a text cites, with ranges such as `TS-1 to TS-3` expanded."""
+    ids = {m.group(0) for m in RULE_ID.finditer(text)}
+    for family, first, last in RANGE.findall(text):
+        ids.update(f"{family}-{n}" for n in range(int(first), int(last) + 1))
+    return ids
+
+
+def gating_ids(rungs_text: str) -> set[str]:
+    """Rule IDs in the gating column of the rung table in `rungs.md`."""
+    ids: set[str] = set()
+    for line in rungs_text.splitlines():
+        cells = [c.strip() for c in line.split("|")]
+        if len(cells) > 5 and cells[1].isdigit():
+            ids |= cited_ids(cells[4])
+    return ids
+
+
+def rule_alignment_gaps(root: Path) -> list[str]:
+    """Rules that no agent-facing file acts on.
+
+    A rule only an explanation page mentions is one no agent is told to follow. Every rule
+    needs a skill or template citing it. `assess` grades gating rules from the rungs table,
+    so a gating rule also needs a skill or template other than `assess` that sets it up.
+    """
+    rules_text = (root / "framework" / "rules.md").read_text(encoding="utf-8")
+    defined = re.findall(r"^\| ((?:[A-Z]{2})-\d+) \|", rules_text, re.MULTILINE)
+    gating = gating_ids((root / "framework" / "rungs.md").read_text(encoding="utf-8"))
+    cited: dict[str, set[str]] = {}
+    for path in sorted(root.glob("skills/*/SKILL.md")) + sorted(root.glob("templates/*.md")):
+        cited[path.relative_to(root).as_posix()] = cited_ids(path.read_text(encoding="utf-8"))
+    assess = cited.get("skills/assess/SKILL.md", set())
+    gaps = []
+    for rule in defined:
+        setters = [f for f, ids in cited.items() if rule in ids and f != "skills/assess/SKILL.md"]
+        if rule in gating and not setters:
+            gaps.append(f"{rule}: gating rule cited by no skill or template that sets it up")
+        elif not setters and rule not in assess:
+            gaps.append(f"{rule}: cited by no skill or template")
+    return gaps
+
+
 def main() -> int:
     errors: list[str] = []
     errors.extend(check_resources(ROOT))
     errors.extend(agent_read_problems(ROOT))
+    errors.extend(rule_alignment_gaps(ROOT))
     names_file = ROOT / "private-names.local.md"
     if names_file.exists():
         names = [n.strip() for n in names_file.read_text(encoding="utf-8").splitlines()]

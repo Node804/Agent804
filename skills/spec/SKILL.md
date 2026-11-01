@@ -41,7 +41,7 @@ One question at a time, offering a default:
 - What does the person see when it works? When they are not allowed? When the input is wrong?
 - What existing behaviour must not change?
 
-Mark anything unanswered `[NEEDS CLARIFICATION]`. Do not plan until every mark is resolved.
+Mark anything unanswered `[NEEDS CLARIFICATION]` (TS-6). Do not plan until every mark is resolved.
 
 ## 3. Write the criteria
 
@@ -63,8 +63,8 @@ Mark anything unanswered `[NEEDS CLARIFICATION]`. Do not plan until every mark i
   with a reason. A new shortcut needs a person's agreement, not a ticket written afterwards.
 - Read the code the change touches, with its callers and configuration. A search with no hits
   or a summary is a pointer, not proof.
-- For medium and large changes, create `docs/plans/<name>.md` from the plan template: small
-  steps, with structural changes separate from behaviour changes.
+- For medium and large changes, create `docs/plans/<name>.md` from the plan template (WK-2):
+  small steps, with structural changes separate from behaviour changes.
 
 ## 5. Hand over
 
@@ -75,7 +75,7 @@ Mark anything unanswered `[NEEDS CLARIFICATION]`. Do not plan until every mark i
   reported as passing, not forced to fail. A red handoff ends this stage, not the feature.
 - **Hand over exact artifacts**: the criteria, the tests, the revision or patch and the red
   output. A summarised chat is not a handoff.
-- **Implementation in a fresh context**: read the criteria, plan and red output; supporting
+- **Implementation in a fresh context** (WK-3): read the criteria, plan and red output; supporting
   unit tests are allowed. Never edit the acceptance tests to fit the code; a test that looks
   wrong goes back to the user (TS-4). After green, refactor where it helps (TS-2), update
   public contracts (MT-1), remove retired paths (MT-3) and stay within complexity limits (MT-2).

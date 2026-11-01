@@ -89,21 +89,28 @@ Each step ends with something you can run.
    error/skip handling. Review dependency sources, build execution and reproducible inputs
    before installing new packages (SE-3); an audit is not permission to run untrusted code.
    The check runs the formatter and linter in report mode; a separate command fixes (ST-1).
+   Editor and pre-commit hooks give fast feedback; CI still runs the full check (CK-6).
 2. **The check command** (CK-1): one command that runs everything. Write it to `.agent-check`
    (one line) for the stop hook.
 3. **Walking skeleton** (SK-1, SK-2): the smallest app that boots, one page or endpoint behind
    access control, a bootstrap command that takes a fresh clone to running, and one end-to-end
-   test. If the target includes AR-1, add the check that fails on an entry point with no access
-   rule. If agents will use the system (O1, O2), the skeleton's one action is declared once and
+   test of a real user journey (TS-5). Configuration comes from the environment, with no
+   hard-coded paths or hosts (SK-4). If the target includes AR-1, add the check that fails
+   on an entry point with no access rule; every check message says how to fix it (CK-4).
+   Writes go through one layer that validates and records who did it (AR-4); outside
+   systems are reached from one place, read-only unless decided otherwise (AR-5); input is
+   parsed at the boundary and encoded for each destination (AR-6). If agents will use the system (O1, O2), the skeleton's one action is declared once and
    served to the page and to the API or agent tools with the same access rule, read-only for
    machine credentials.
    Document the public contracts, failures and side effects the declarations cannot explain
    (MT-1); provide a short navigation path to the area and its test command (IN-4).
    Show an allowed and a refused request, the refused one with no effect (AR-1). If the
    Security module applies, also demonstrate safe initial defaults (SE-4).
-4. **`AGENTS.md`** from the template, with real commands. Agents read every line of it in
-   every session, so it holds only what an agent would otherwise get wrong; no explanations
-   for people, no HTML comments. Add one line per module that applies, naming its record:
+4. **`AGENTS.md`** from the template (IN-1), with real commands in its first section (CK-2).
+   Agents read every line of it in every session, so it holds only what an agent would
+   otherwise get wrong, in plain statements with no shouting (IN-6); repeated procedures
+   are skills, not paragraphs (IN-7). The check enforces its line budget (IN-3). Keep the
+   template's lines on dry-run scripts (GR-6) and the definition of done (WK-5). Add one line per module that applies, naming its record:
    Security (`docs/security.md`), Approvals (`docs/approvals/README.md`), Parallel work
    (`docs/worktrees.md`), and model routing if opted in (`docs/model-routing.md`). Tell the
    user how it grows: a correction given twice becomes a line; a line the check can enforce
@@ -112,13 +119,13 @@ Each step ends with something you can run.
 5. **Guardrails** (GR-1 to GR-4, GR-7): `AGENTS.md` says only a person approves, and an
    approved plan is not a request to commit. Production credentials never go in the `.env`, except a GR-1 exception the
    developer decides and records in `docs/security.md`;
-   development uses isolated test resources/credentials. Follow the selected host recipe:
-   Claude settings/stop hook, Codex config/hooks, or Grok native config/hooks with its adapter;
-   follow the selected recipe's paired engine, native event/continuation contract and reviewed
-   command policy. Render actual paths per checkout; merge existing settings, preserve host
-   restrictions and verify load/trust. Other hosts need real equivalents or explicit gaps.
-6. **CI** running the same check command, and a pull request template from
-   `templates/pull_request_template.md`.
+   development uses isolated test resources/credentials. Install the stop hook and settings
+   from the selected host recipe, with paths for this checkout; merge existing settings and
+   verify the host loads them. Other hosts need real equivalents or explicit gaps.
+   A scheduled or headless run states what done looks like, how it checks itself, what it
+   may touch, what stops it and who signs off, and runs sandboxed (GR-5).
+6. **CI** running the same check command from committed state in a clean environment, before
+   any merge (CK-8), and a pull request template from `templates/pull_request_template.md`.
 7. **Docs**: `docs/adr/` with `templates/adr.md` as `0000-template.md`, and ADR 0001 recording
    the interview answers, stack and target (Status: Proposed). `docs/specs/`,
    `docs/plans/`, `docs/evidence/` with `templates/evidence.md` as `0000-template.md` and a
@@ -126,7 +133,7 @@ Each step ends with something you can run.
    `docs/risk-zones.md` from the template with the first zones drawn with the
    user, and `docs/quality-scenarios.md` from the template with two or three scenarios drawn
    from the interview's "what happens if it breaks" answer (DC-5). A changelog mechanism
-   from the profile. If the Parallel work module applies, copy `framework/worktrees.md` to
+   from the profile, one entry per change (WK-4). If the Parallel work module applies, copy `framework/worktrees.md` to
    `docs/worktrees.md` and fill in the actual bootstrap, resource and cleanup commands.
    Create `docs/maintainability.md` from `templates/maintainability.md` with actual checks,
    thresholds, public-interface scope and scoped exceptions. A new project starts without

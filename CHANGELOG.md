@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- The kit's own `AGENTS.md` is about working on the kit and says how a rule stays aligned:
+  its row in `rules.md`, the instruction in the skill or template that sets it up, and the
+  reason in the framework page change in one commit. The check now fails a rule no skill or
+  template cites, and a gating rule only `assess` cites. Twenty rules had no such citation;
+  `start`, `spec` and `review` now cite them where they set them up, and say what to do for
+  the ones that had no instruction at all (CK-6, CK-8, GR-5, SK-4, TS-5, AR-4 to AR-6).
+
 - Agents load instructions, not explanations. `framework/` stays the reference for people;
   skills no longer send agents to its guidance pages and say what to do themselves. `spec`
   now loads about 5k characters before work starts, down from about 52k with the pages it
