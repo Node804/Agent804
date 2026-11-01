@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- GR-1 judges what a credential allows. When production is the only source to develop
+  against, a development credential passes if a person decided it in writing and it is
+  read-only and non-sensitive by the source's own limits, rate-limited and separate from
+  production's own. Credentials and data are graded separately; non-sensitive production
+  data is a threat-model entry. `security.md` no longer contradicts the rule, and the
+  security template records the exception.
+- `assess` never writes a guess as a finding: a grade that depends on something it cannot
+  see is not verifiable, with the question that settles it. An example file's empty slot
+  shows a setting exists, not that it is set.
 - Add GR-7 to the core, gating rung 3: agents cannot supply consent. An approved plan, a tool
   permission, a passing check or an agent-filled record is not approval. AP-2 keeps only the
   provenance of recorded decisions; the rest of Approvals stays a module.

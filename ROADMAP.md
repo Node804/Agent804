@@ -107,9 +107,11 @@ trial shows is unclear before moving on.
   protection fails a rung. Operate (O1–O3) is scored the same way, separately. Earlier versions
   failed a rung on any partial rule and swung scores on trivia; three assessment rounds settled
   this form.
-- **GR-1 judges impact.** Production secrets in the agent's reach fail it; production reachable
-  with no credential at all is an outside risk, not a failure. Never infer a secret from a
-  placeholder.
+- **GR-1 judges what a credential allows, not whether it is production's.** A production
+  credential in the agent's reach fails it, except a recorded development credential that
+  is read-only, non-sensitive, rate-limited and separate from production's own; the
+  alternative failed a project whose only data was production. Non-sensitive production
+  data is a threat-model entry, not a failure. An example file's empty slot proves nothing.
 - **Quality scenarios above decisions and specs (DC-5).** Status changes only when tests pass;
   evidence flows back from specs to ADRs to scenarios.
 

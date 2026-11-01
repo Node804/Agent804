@@ -15,6 +15,14 @@ Keep secrets and incident details out of this file. A small tool can keep it sho
 
 Include agents: outside text they read, and code that runs on install or build.
 
+## Production access from development (GR-1)
+
+<!-- Only when production is the only source to develop against. Delete otherwise. -->
+
+| Source | Data, and why it is not sensitive | Credential separate from production's? | Read-only enforced by | Rate limit | Decided by, date |
+|---|---|---|---|---|---|
+| | | | | | |
+
 ## Checks (SE-2)
 
 | Check | Command | How we know it fails (fixture) | Advisory freshness |

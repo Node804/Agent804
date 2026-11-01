@@ -44,7 +44,8 @@ or a fixture adapter pass with active project permissions or a working completio
 2. **Read the repository's own instructions**: `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/`,
    `.github/copilot-instructions.md`, nested instruction files, agent settings and hooks.
    Read `.env.example` (or its equivalent) and its comments: it says which settings hold
-   secrets and which sources need none. Only what is in the repository counts; git-ignored
+   secrets and which sources need none. A slot shows a setting exists, never that it is
+   set or unset. Only what is in the repository counts; git-ignored
    personal settings do not. Uncommitted
    work counts, and the report says which findings depend on it.
 3. **Find the check.** Look for a single check command in the instructions, task runner and CI.
@@ -64,7 +65,9 @@ or a fixture adapter pass with active project permissions or a working completio
    met**, **not met**, **not verifiable** (history cannot show it), **not applicable**, or
    **above target** (not required for this kind of project), with the file and line or command
    output that shows it. Do not mark a rule met because a document says it is done; find the
-   mechanism.
+   mechanism. When a grade depends on something you cannot see (a restricted file, a host
+   setting, who decided), mark it not verifiable, say what you saw and the question that
+   settles it, and ask the owner if you can. Never write a guess as a finding.
 6. **Look at history** for what documents cannot show: `git log` for change size, merge
    commits, branch use, whether tests arrive before or with code, whether there is a remote.
 7. **Score it** using "Scoring" in `rungs.md`: grade each gating rule, mark each rung, then

@@ -55,7 +55,7 @@ remain failures or explicit gaps, never silently omitted checks.
 | CK-8 | Gitea or GitHub Actions running the check against a PostgreSQL service container, with branch protection. Until a runner exists, `just check-clean`: clones the committed branch to a temporary folder, `uv sync --locked`, runs the check with only `DATABASE_URL` passed through (partly met) |
 | CK-4 | System checks raise `checks.Error(msg, hint=..., id="app.E0xx")`; the hint says how to fix it |
 | CK-6 | `.claude/settings.json` PostToolUse hook runs ruff on each edited `.py`; pre-commit |
-| GR-1 | Deny secret reads as supplementary protection; † isolate development from production credentials/data, use scoped test credentials and synthetic or reviewed sanitized fixtures. Credential-free production exposure remains a security finding |
+| GR-1 | Deny secret reads as supplementary protection; † isolate development from production credentials/data, use scoped test credentials and synthetic or reviewed sanitized fixtures, or the GR-1 exception recorded in `docs/security.md`. Credential-free production exposure remains a security finding |
 | GR-2 | `git commit`, `git push`, `manage.py migrate` in the `ask` list; force-push denied |
 | GR-4 | † Stop hook (`start` templates) runs the check when the tree changed since its last green run |
 | GR-6 | A base management command adds `--commit`; without it the command reports what it would do |

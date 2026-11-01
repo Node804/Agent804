@@ -24,7 +24,10 @@ do not exist and can be registered by an attacker. Before installing, verify the
 the package identity; registry presence and a familiar name prove nothing. Review install
 hooks, build plugins and CI actions before adding them; an audit command can itself run
 package code. Lock versions with integrity hashes, and build cleanly with scoped credentials.
-No production data or credentials enter agent sessions or install jobs (GR-1).
+No production credentials or sensitive production data enter agent sessions, and none
+enter install jobs (GR-1). When production is the only source to develop against, GR-1
+allows one development credential: decided by a person, read-only and limited to
+non-sensitive data by the source itself, rate-limited, and separate from production's own.
 
 **Protect the harness.** An agent stuck on a red check will be tempted to weaken the check.
 Changes to security checks and tests, CI gates, permissions, approval policy and deployment
