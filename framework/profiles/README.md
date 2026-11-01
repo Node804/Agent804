@@ -40,11 +40,11 @@ Use this table when filling in `_template.md`. Each row needs a mechanism or a l
 |---|---|
 | IN-1, IN-3 to IN-5, CK-2 | Agent instructions, plus checks for line budgets, paths and links |
 | CK-1, CK-4, CK-6, CK-8 | One check command with useful messages, editor or pre-commit feedback, CI from committed state, merge protection |
-| ST-1 | The ecosystem's standard formatter and linter, configured and pinned, run by the check without rewriting files |
+| ST-1 | The language's standard style through its usual formatter and linter, configured and pinned, run by the check without rewriting files |
 | RV-1 | How a person's review before merge is required and recorded |
 | GR-1 to GR-4, GR-7 | Test credentials and data, a task branch per change, human approval for commit/push/deploy, a completion check the agent cannot skip, and instructions that only a person approves |
 | GR-5, GR-6 | Sandboxed unattended runs; data scripts dry-run by default |
-| MT-1 to MT-3 | Interface documentation checks, complexity limits, unused-code reports |
+| MT-1 to MT-3 | Interface documentation checks, complexity, file-size and duplication limits, unused-code reports |
 | TS-1 to TS-12 | See [testing](../testing.md): separate acceptance tests, red then green, isolated test data, real integration boundaries, full test discovery |
 | WK-4, WK-6 | Changelog check; a database, port and storage per checkout |
 | SE-1 to SE-6 | Secret, code and dependency scanners in the check; reviewed dependency sources; safe defaults; abuse tests; an owner for findings |

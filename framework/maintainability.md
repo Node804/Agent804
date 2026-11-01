@@ -2,8 +2,8 @@
 
 A maintainer unfamiliar with a change can locate its behavior, understand its contract,
 modify it within clear boundaries and verify the result using repository-held information.
-This applies to experienced developers and agents. It is not a limit on total repository size
-or a promise that every task fits one model's context window.
+This applies to experienced developers and agents. It is not a limit on total repository size,
+but each file or module stays small enough to be read whole (MT-2).
 
 The rules are MT-1 to MT-5, supported by IN-4, IN-5, AR-2, AR-3, SK-3, TS-2 and MS-1 to MS-4
 in [rules.md](rules.md). Limits and mechanisms belong in the [stack profiles](profiles/README.md).

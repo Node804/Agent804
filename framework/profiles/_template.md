@@ -49,7 +49,7 @@ Keep the project's existing choices; otherwise use the ecosystem's standard tool
 | IN-3, IN-5 | |
 | IN-4 | Navigation to purpose, public interfaces, permitted dependencies and test command |
 | MT-1 | Declared public-interface scope; documentation presence plus meaningful-contract review |
-| MT-2 | Actual function-complexity limit, nesting/size/dependency review thresholds, reports and scoped exceptions |
+| MT-2 | Function-complexity, file-size and duplication limits run by the check; review thresholds and scoped exceptions |
 | MT-3 | Unused-code/dependency candidates, dynamic consumers, replacement-path review and retention conditions |
 | SE-1 | Versioned requirements, threat model, applicability and exclusions |
 | SE-2 | Actual security commands, safe detection fixtures, tool/feed freshness and error/skip handling |

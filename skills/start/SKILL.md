@@ -56,15 +56,15 @@ Read Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/profiles/README.md`, otherwise
 use it. Otherwise copy `_template.md` to the project's `docs/stack-profile.md`, fill it in
 with the user using the table in the profiles README, and mark it Draft. List unmapped
 rules, actual versions and missing mechanisms as gaps.
-Agree enforced complexity limits, what counts as a public interface, and how exceptions are
-approved, before building the skeleton (MT-2).
+Agree limits on function complexity, file size and duplication, what counts as a public
+interface, and how exceptions are approved, before building the skeleton (MT-2).
 Every project gets security scanners in the check and a dependency review policy (SE-2,
 SE-3). If the Security module applies, agree with the user the owner, assets, trust
 boundaries, credible abuse cases and versioned requirements (SE-1), and how findings get
 deadlines (SE-6).
-For style, use the ecosystem's standard formatter and linter (for example Ruff, Prettier and
-ESLint, gofmt, rustfmt, `dotnet format`, Pint) unless the user prefers others, and record them
-in the profile's Style table. Offer `templates/editorconfig` and `templates/gitattributes` for
+For style, use the language's standard style and its usual formatter and linter (for
+example Ruff, Prettier and ESLint, gofmt, rustfmt, `dotnet format`, Pint). If the user prefers
+another, record why in the profile (ST-1). Offer `templates/editorconfig` and `templates/gitattributes` for
 line endings and encoding.
 Never infer commit, push or deployment permission from agreement on a feature (GR-7).
 
@@ -79,7 +79,7 @@ to model routing, copy `templates/model-routing.md`; don't launch models or spen
 Each step ends with something you can run.
 
 1. **Baseline tools** from the profile: package manager with a lock file, formatter, linter,
-   type checker, test runner and complexity checks (MT-2). Pin versions. Add the profile's
+   type checker, test runner, and complexity, file-size and duplication checks (MT-2). Pin versions. Add the profile's
    documentation, example, duplicate and unused-code checks; keep judgment-based reports
    visible for review instead of presenting them as proof of correctness. Add applicable
    security checks (SE-2), with report freshness, safe detection fixtures and explicit
@@ -150,8 +150,8 @@ Each step ends with something you can run.
 - Run `git status` and confirm `.env` or other secrets are ignored.
 - Exercise the stop hook with a failing check and confirm it blocks. If worktrees are used,
   verify each one's hook, isolated databases and other resources, and independent check state.
-- Introduce a small complexity violation, confirm the check fails for that reason, then remove
-  it. Review the skeleton's contracts and run maintained example checks. Report unmapped
+- Introduce a small violation of each MT-2 limit, confirm the check fails for that reason,
+  then remove it. Review the skeleton's contracts and run maintained example checks. Report unmapped
   mechanisms and untrialled maintenance exercises as gaps, never as working protection.
 - Exercise a representative security detection with a safe fixture (SE-2) and restore the
   real configuration.

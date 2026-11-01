@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- Close gaps against the framework's goals. TS-4 (never weaken, skip or delete a test to get
+  green) gates rung 5, and a changed expected outcome goes back to the person who agreed it.
+  AR-6 (parse input at the boundary, encode output for each destination) gates rung 6.
+  MT-2 limits file or module size, so a unit can be read whole within an agent's context, and
+  duplicated code, as well as function complexity; the Django profile gains Draft mechanisms
+  for both. MT-1 asks for a comment on non-obvious logic. ST-1 makes the language's standard
+  style the default and asks a project that keeps another to record why.
+
 - Cut what one reference project's process or governance had written as universal rules.
   AR-5 (outside systems never waited on during a request) leaves rung 6 and is noted for the
   Operate work in phase 2; AR-4 keeps "every write is validated in one place" and drops
