@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- README "Use it" is rewritten in the order people need it: install per host in one table,
+  the first run of `start` or `assess`, the steps of every change, and the periodic skills.
+  It replaces "The loop, once set up". Host details stay in the host recipes. Install is from
+  a release zip on GitHub until the kit is in a marketplace. "What is in it" marks which pages
+  agents read and which are for people; "Status" is rewritten for 0.4 and drops claims about
+  approval and security gates that are now modules. Stale rung numbers in three `rules.md`
+  headings are corrected.
+
 - The kit's own `AGENTS.md` is about working on the kit and says how a rule stays aligned:
   its row in `rules.md`, the instruction in the skill or template that sets it up, and the
   reason in the framework page change in one commit. The check now fails a rule no skill or

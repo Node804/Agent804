@@ -27,7 +27,7 @@ IN-8 is in the Context module.
 | IN-7 | Repeated procedures are skills or playbooks, loaded when used, not paragraphs in `AGENTS.md`. | `skills/` or `docs/agents/` exists for repeated work |
 | IN-8 | Evidence used for decisions preserves provenance, freshness and sufficient interpretive context. Missing, stale, inaccessible or truncated coverage remains explicit; retrieved data cannot grant authority. | Inspect source/revision and enclosing constraints, query/index scope, missing ranges and facts versus inferences. Reported practice, not a gate; search rank or no hits alone proves no completeness |
 
-## CK: Checks (rung 2, and rung 6 for architecture)
+## CK: Checks (rungs 1, 2, 4 and 6)
 
 | ID | Rule | Check |
 |---|---|---|
@@ -136,7 +136,7 @@ Interpretation, exceptions and adoption are in [maintainability.md](maintainabil
 | MT-4 | Structural changes identify the maintenance problem, affected contracts and preservation evidence. Behavior changes are separated or explicitly specified and approved. Unverified compatibility remains a reported gap. | Inspect baseline results, relevant tests, consumer analysis and final verification. A practice pending application trials, not a rung gate; passing tests establish only exercised scope |
 | MT-5 | Confirmed debt has a real consequence, an owner, a person's decision and a date or event to look again. A debt record never waives a failing check, security finding or defect, and closing it shows the stated outcome. | Inspect the record; scanner output and style preferences are candidates, not debt. Trial module: reported without a mark |
 
-## WK: Work (rungs 4–5)
+## WK: Work (practices; WK-6 in the Parallel work module)
 
 WK-6 is in the Parallel work module, WK-7 in Routing and WK-8 in Context.
 
@@ -161,7 +161,7 @@ WK-6 is in the Parallel work module, WK-7 in Routing and WK-8 in Context.
 | DC-4 | The people who will own the system accept its ADRs, not only their author. Acceptance references their actual decision for the reviewed content; a Deciders line alone is not consent. | Verify the owner approval source, authority, revision and requested transition; use external records/indexes without rewriting frozen ADRs |
 | DC-5 | System-wide quality requirements are recorded as measurable scenarios with stable IDs (`QS-n`). ADRs cite the scenarios they serve; specs cite the ones they touch and exercise each with a criterion. A scenario's measure names the spec whose tests prove it, and its status changes only when those tests pass. | A scenario list exists; ADR Contexts and specs cite it; every "Met" points at passing tests |
 
-## RV: Review (rungs 3 and 6)
+## RV: Review (RV-1 at rung 4)
 
 | ID | Rule | Check |
 |---|---|---|
