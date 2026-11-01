@@ -1,7 +1,7 @@
 {
   "name": "agent804",
   "version": "0.4.0",
-  "description": "Build the harness before the app: skills that set up, assess and grow an agent-ready project (instructions, checks, guardrails, specs, refactoring, optional model routing, context recovery, debt management, decisions, review, measurement).",
+  "description": "Preview framework: build the harness before the app with skills for instructions, checks, guardrails, specs, refactoring, optional routing, context recovery, debt management, decisions, review and measurement.",
   "author": { "name": "Node 804" },
   "license": "MIT"
 }

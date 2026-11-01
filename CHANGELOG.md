@@ -2,6 +2,28 @@
 
 ## 0.4.0 - Unreleased preview
 
+- Operate review fixes: grade an unbounded OP-9 result consistently not met; restore OP-4's
+  replay authorization, changed-input rejection, atomic persistence, crash recovery and
+  expiry instructions/tests; scope OP-11's per-client consent to OAuth proxies.
+
+- State the primary goals in the README: maintainability for people and agents, security in
+  development, one style per language, human authority, witnessed TDD with preservation,
+  repository-held memory, an honest completion check, measurement, and Operate. Operate is
+  development of MCP servers, agent APIs, and embedded model features, scored when that
+  surface exists. Add OP-9 (designed tool list and bounded results), OP-10 (embedded model
+  features; model output cannot approve), and OP-11 (credentials issued for this server;
+  sessions do not authenticate). Operate level grades now include those rules. Reference
+  projects have not been reassessed. No core rung gate changed.
+
+- First-public-release review: restore the planned missing-interface compiler exception in
+  test handoffs; align testing gates and ADR lifecycle summaries with the current rules;
+  keep module-only Security records conditional; remove stale outside-system and response-exercise
+  requirements. Correct the OpenAI listing category and subtitle length, clarify preview
+  metadata, and add the local marketplace description. Make the per-project stack-profile
+  template independent of kit-relative links after copying. Align the maintainability guide
+  and record with MT-2's enforced size/duplication limits and remove the retired exercise
+  requirement. No scoring algorithm changes.
+
 - Version 0.4.0 in both plugin manifests. The README links the release zip on
   [GitHub](https://github.com/Node804/agent804/releases). The roadmap's release list is what
   actually remains: an independent review of the 0.4 skill rewrites, the release zip and a

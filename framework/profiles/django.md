@@ -78,6 +78,9 @@ remain failures or explicit gaps, never silently omitted checks.
 | OP-6 | † Record outside-text threats and exercise planted instructions against tool credentials, destinations and write/publish permissions; inspect attempted operations, not only the agent's response |
 | OP-7 | † Definitions (labels, forms, screens) are drafted and saved through operations at `designer` level; publishing needs a person at that level, never a token |
 | OP-8 | Each MCP or ODBC source has a request budget (a requests-per-minute setting), refused before sending when spent; reads go through the shared cache, so many viewers and agents cause one read |
+| OP-9 | † The operation decorator exposes MCP tools. A designed list, a result bound, and a server-enforced effect are not a running check. Review the list; a wrapper per function is a gap |
+| OP-10 | † This profile describes no embedded model feature. When one is added, its prompt, allowed actions, and output effects follow OP-10. Until then the rule is not applicable |
+| OP-11 | † Bearer tokens are scoped to modules and sites. Refusal of a foreign token, per-client consent before a third-party call, and session-is-not-authentication are not recorded as running. A local MCP process takes no production credential (GR-1) |
 
 ## Testing evidence (draft)
 

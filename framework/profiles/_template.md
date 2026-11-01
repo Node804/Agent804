@@ -3,8 +3,9 @@
 - **Status:** Draft
 - **Applies to:** <language and framework, versions>
 
-Fill this in against the real project, with its real versions. Every rule in the table in
-`profiles/README.md` gets a mechanism or a listed gap. It stays Draft until it has run.
+Fill this in against the real project, with its real versions. During setup use the kit's
+`framework/profiles/README.md` table; each applicable rule gets a mechanism or a listed gap.
+This project-owned profile stays Draft until it has run.
 
 ## Baseline
 
@@ -56,7 +57,7 @@ Keep the project's existing choices; otherwise use the ecosystem's standard tool
 | SE-3 | Publisher/source verification, locked/integrity-checked resolution, install/build behavior and clean-build evidence |
 | SE-4 | Secure initial defaults, deployment-shaped tests and separate authorized deployed-control verification |
 | SE-5 | Abuse/refusal tests, bypasses and assertions of no prohibited effects or disclosure |
-| SE-6 | Human owner, concrete deadlines, blocking/acceptance policy with expiry, safe response exercise |
+| SE-6 | When Security applies: human owner, concrete deadlines, findings and scoped risk decisions with expiry |
 | CK-1 | |
 | CK-6 | |
 | ST-1 | See Style above |
@@ -65,7 +66,7 @@ Keep the project's existing choices; otherwise use the ecosystem's standard tool
 | SK-1 | |
 | SK-2 | |
 | TS-4 | Reviewed corrections preserve protection; changed outcomes require criteria review |
-| TS-7 to TS-12 | Map [testing guidance](../testing.md): meaningful red diagnostics, independent assertions, bug regressions, isolation, actual integration and discovery/results per target |
+| TS-7 to TS-12 | Meaningful red diagnostics, independent assertions, bug regressions, isolation, actual integration and discovery/results per target |
 | TS-13 (practice) | Optional isolated sensitivity tools/trials; survivors and limits, no universal quota |
 | WK-6 | Unique checkout ID; database, port, queue and storage isolation; bootstrap and cleanup commands (see worktree playbook) |
 | AR-1 | |
@@ -93,7 +94,7 @@ What `start` generates: <files and the one end-to-end test>.
 
 ## Security
 
-Map the [security baseline](../security.md) to this stack. Review code, dependencies, templates,
+Map core security rules and triggered Security requirements to this stack. Review code, dependencies, templates,
 configuration and build execution. Identify unsupported checks as gaps. State verification scope,
 versions, freshness and response ownership. Mark new mechanisms Draft until exercised.
 

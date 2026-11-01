@@ -39,6 +39,11 @@ say so in the report: it limits the review.
    - **Security**: object and tenant access, input parsed and output encoded (AR-6), what agent tools can do,
      abuse paths tested (SE-5), dependencies from intended sources (SE-3). A weakened security
      check, test or approval policy without a person's review is a finding (GR-2).
+   - **AI-facing surface**, when the change adds or alters an MCP tool, agent API, or embedded
+     model feature: one action declaration (OP-1), a designed list rather than a wrapper per
+     function, bounded secret-free results, a server-enforced effect (OP-9), tokens issued for
+     this server (OP-11), and model output that cannot approve or publish (OP-10). A protocol
+     library is not that design.
    - **Agreement** (GR-7): the person agreed to the criteria this change meets, and material
      changes since then were shown to them again.
    - **Debt**: a new shortcut was agreed by a person; a debt ticket never waives a failed check

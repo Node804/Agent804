@@ -3,8 +3,9 @@
 Agent804 has a **core** and **modules**. The core is eight rungs, below: what every project
 built with agents needs. [Modules](modules.md) cover problems a project has only in some
 situations (agents calling the system, sensitive data, several writers at once) and are
-scored only when their trigger applies. The largest is **Operate**: how the AI-facing parts of
-a product are built, such as MCP servers and APIs for agents.
+scored only when their trigger applies. **Operate** is a primary goal of that development, not a
+later phase: MCP servers, APIs and tools for agents, and embedded model features, scored when
+the project builds them.
 
 ## The eight rungs
 
@@ -26,7 +27,7 @@ first feature.
 | 4 | Walking skeleton and CI | Unreviewed merges, undocumented contracts, works-on-my-machine | SK-1, SK-2, CK-8, RV-1, MT-1 | A fresh clone boots with one command; an end-to-end test runs in CI from committed state and blocks a red merge; a person reads every change before merge; public interfaces say what they do |
 | 5 | Tests before code | Tests that only confirm the implementation; tests weakened to get green | TS-1 to TS-4, TS-8, TS-9 where bug fixes apply | Features built since adoption have agreed criteria, tests written in a separate context and shown failing first, then passing; no test is weakened, skipped or deleted to get green; bug fixes keep a test that failed before the fix |
 | 6 | Architecture and maintainability as checks | Slow drift; duplicated rules; obsolete code; injection | AR-1, AR-3, AR-6, CK-4, MT-3; AR-2, AR-4 where they apply | Access, boundaries and project invariants fail the build with messages that say how to fix them; input is parsed at the boundary and encoded for each destination; replaced code is removed or its retention is recorded |
-| 7 | Decisions with evidence | Re-arguing settled choices; losing the reason | DC-1 to DC-3 | ADRs with Proposed / Validated / Accepted / Rejected, each with an append-only evidence record, accepted by a person (GR-7) |
+| 7 | Decisions with evidence | Re-arguing settled choices; losing the reason | DC-1 to DC-3 | ADRs with at least Proposed / Accepted / Superseded, each with an append-only evidence record, accepted by a person (GR-7) |
 | 8 | Measure and garden | Agent work that does not hold; stale docs and structural decay | MS-1, MS-2 | Corrections, rework, escaped defects, test reliability and maintainability trends tracked; a scheduled pass proposes reviewed fixes |
 
 Every other core rule in `rules.md` is a **practice**: reported in the assessment, but not

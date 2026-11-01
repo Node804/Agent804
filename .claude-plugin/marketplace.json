@@ -1,5 +1,6 @@
 {
   "name": "agent804",
+  "description": "Agent804 skills for building and assessing agent-ready projects.",
   "owner": { "name": "Node 804" },
   "plugins": [
     {

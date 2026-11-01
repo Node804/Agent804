@@ -31,14 +31,21 @@ the difference. Every skill, module and mechanism carries one of four marks, and
 ## Core and modules
 
 **The core is what every project built with agents needs**: eight rungs, from an instructions
-file to measurement ([rungs.md](framework/rungs.md)). Along the way it covers:
+file to measurement ([rungs.md](framework/rungs.md)). These are the primary goals. Operate is
+one of them. Building an MCP server, an agent API, or an embedded model feature is development
+work, scored when the project has that surface.
 
-| Goal | What the core requires |
+| Goal | What it requires |
 |---|---|
-| [Witnessed TDD](framework/testing.md) | Tests written from agreed criteria in a separate context, shown failing first and then passing; bug fixes keep a test that failed before the fix; isolated, reliable tests and real integration boundaries |
-| [Maintainable code](framework/maintainability.md) | Documented public interfaces, enforced complexity limits, one authority for each business rule, and obsolete code removed. Existing projects can adopt a reviewed baseline without a rewrite |
-| [One style per language](framework/rules.md#st-style-rung-2) | A pinned formatter and linter for each language, run by the check without rewriting files. The project's existing choices win |
-| [Security basics](framework/security.md) | Security scanners in the check, reviewed dependencies, no production secrets within an agent's reach, and a person reading every change before merge |
+| [Maintainable by people and agents](framework/maintainability.md) | One authority per business rule; units small enough to read whole; contracts and the non-obvious why, with no comment quota; obsolete code removed or recorded; new work fits the existing design; a refactor keeps behavior and records preservation. Existing code can adopt a reviewed baseline |
+| [Security in development](framework/security.md) | Honest scanners, identified dependencies, and no production secrets in an agent's reach. A person reviews any change that weakens those controls. When a breach would hurt someone else: a threat model against a versioned standard, safe defaults, abuse tests first, and owned findings. A score is not a certificate |
+| [One style per language](framework/rules.md#st-style-rung-2) | One pinned formatter and linter per language. The check reports and does not rewrite. The language's usual style is the default (PEP 8, PSR-12). A project that keeps another style records why |
+| [A person owns the work](framework/rules.md#rv-review-rv-1-at-rung-4) | The person agrees criteria before code, can explain every change before merge, and is the only one who approves. Commit, push, deploy, and migrate wait for them. Agent review and a green check do not replace that |
+| [Witnessed TDD and preservation](framework/testing.md) | Criteria first. Acceptance tests come from a separate context, fail for the intended reason, then pass. Existing behavior stays covered. Tests are not weakened to get green, and they assert outcomes. Failure and refusal are criteria when they matter |
+| [The repository is the memory](framework/context-management.md) | Standards, decisions, plans, and evidence live in the repo. A later session resumes from those files. A summary or a search miss is not authority and is not a check result |
+| [The agent cannot declare success](framework/rules.md#ck-checks-rungs-1-2-4-and-6) | One check covers format, lint, types, tests, architecture, and security. CI runs it on the committed tree and blocks a red merge. A red check cannot be called done. A repeated review comment becomes a check |
+| [Whether the work holds](framework/rules.md#ms-measure-and-garden-rung-8) | Track corrections, rework, escaped defects, flakes, and maintainability trends. Never count lines generated |
+| [The AI-facing surface](framework/operate.md) | MCP servers, agent APIs, and embedded model features use one contract, a designed tool list, read-only access until a person grants write, and model output that cannot approve or publish |
 
 **Modules cover problems a project has only in some situations.** Each has a trigger; when
 it is true the module is scored and a gap is a real finding, and when it is false the module
@@ -46,7 +53,7 @@ costs nothing ([modules.md](framework/modules.md)).
 
 | Module | Applies when | Evidence |
 |---|---|---|
-| **Operate** | Agents, scripts or AI assistants call the system. One contract for people and agents; read-only until a person grants write; every write attributed; repeats harmless; untrusted text and outside load bounded. Most guidance stops at agents *building* software; building the parts agents and AI use matters as much | Used once: its rules come from one project's built code. The `operate` skill is an idea |
+| **Operate** | The project builds an MCP server, an agent API or tools, or an embedded model feature. One contract; a designed tool list; read-only until a person grants write; repeats harmless; tokens issued for this server; model output cannot approve or publish | Used once: OP-1 to OP-8 come from one project's built code. OP-9 to OP-11 and the `operate` skill are ideas |
 | **Security** | The system holds sensitive data, handles money or safety, writes to other systems of record, or is reachable beyond the team. Threat model, safe defaults, abuse tests and owned findings | Idea |
 | **Parallel work** | Several agents or people write at once. A checkout, database and port each, and a check of the combined result | Idea. One project tried it and found isolation gaps |
 | **Maintenance** (trial) | Adopting the harness onto existing code. Verified refactoring and a debt record that never waives a failing check | Idea |
@@ -73,7 +80,7 @@ high-impact changes get deeper review.
 | [framework/profiles/](framework/profiles/) | Both | The Django profile, and the template `start` fills in for any other stack |
 | [framework/agents/](framework/agents/) | Both | Host recipes: Claude Code, Codex, Grok Build CLI, ChatGPT and custom hosts |
 | [framework/worktrees.md](framework/worktrees.md) | Both | Separate checkouts for agents or people writing at the same time |
-| [testing](framework/testing.md), [maintainability](framework/maintainability.md), [security](framework/security.md), [debt](framework/technical-debt.md), [context](framework/context-management.md), [routing](framework/model-routing.md) | People | Why the rules on each topic exist, and their trade-offs |
+| [testing](framework/testing.md), [maintainability](framework/maintainability.md), [security](framework/security.md), [operate](framework/operate.md), [debt](framework/technical-debt.md), [context](framework/context-management.md), [routing](framework/model-routing.md) | People | Why the rules on each topic exist, and their trade-offs |
 | [framework/validation.md](framework/validation.md) | People | The published work the framework was checked against, and where it chose differently |
 | [templates/](templates/) | Agents | `AGENTS.md`, specs, plans, pull requests, ADRs and evidence, project records, host settings and stop hooks |
 | [skills/](skills/) | Agents | The twelve skills below |
@@ -99,7 +106,7 @@ against the real code. A profile joins the kit once it has been used on a real p
 | [`sensor`](skills/sensor/SKILL.md) | A recurring mistake becomes a check whose message says how to fix it | Idea |
 | [`garden`](skills/garden/SKILL.md) | Finds stale instructions, drift and overdue follow-ups; proposes small fixes | Idea |
 | [`measure`](skills/measure/SKILL.md) | Whether agent work holds: corrections, rework, escaped defects, test reliability and maintainability trends | Idea |
-| [`operate`](skills/operate/SKILL.md) | The Operate module: one contract for people and agents, read-only until granted, every write attributed | Idea |
+| [`operate`](skills/operate/SKILL.md) | MCP servers, agent APIs, and embedded model features: one contract, a designed tool list, read-only until granted | Idea |
 | [`route`](skills/route/SKILL.md) | Optional: which model and effort for each role, without launching anything | Idea |
 | [`context`](skills/context/SKILL.md) | Optional: gathers or recovers the evidence a long task needs, from the repository | Idea |
 
@@ -197,8 +204,9 @@ built with coding agents; they are not named here.
 - **Model routing:** fast, mid and strongest tiers for search, test writing and design over
   one feature. It found one real problem (the test writer's output did not type-check, which
   led to TS-7); it was not compared with another route, and cost was not measured.
-- **The Operate rules**, which describe one reference project's built and running design.
-  Graded on two projects; whether they hold for other products is untested.
+- **Operate OP-1 to OP-8**, which describe one reference project's built and running design.
+  Graded on two projects; whether they hold for other products is untested. OP-9 to OP-11
+  are not part of that evidence.
 - **The Django profile's unmarked mechanisms**, used on one reference project. Items marked †
   have not run anywhere.
 - **Plugin install** of `assess` in Claude Code and in Codex (ChatGPT desktop app).
@@ -215,7 +223,8 @@ built with coding agents; they are not named here.
 - **Modules never run where they apply:** Security, Parallel work, Maintenance and Context. One
   project's attempt at parallel worktrees found its isolation gaps.
 - **Rules added or rewritten in 0.4** that no project has met yet, for example MT-2's file-size
-  and duplication limits and the GR-1 exception for a read-only development credential.
+  and duplication limits, the GR-1 exception for a read-only development credential, and
+  OP-9 to OP-11 (designed tool list, embedded model features, credentials issued for this server).
 - **Any stack other than Django**, and the full change flow under Codex or Grok Build.
 
 The kit's own check (Python 3.11+ and Git):

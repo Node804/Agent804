@@ -1,7 +1,9 @@
 # Security
 
 <!-- Copy to docs/security.md and link it from AGENTS.md, so agents read it before building.
-Keep secrets and incident details out of this file. A small tool can keep it short. -->
+Keep secrets and incident details out of this file. Checks and Dependencies are core
+(SE-2, SE-3); keep the GR-1 exception only when applicable. The remaining sections apply
+only when the Security module triggers; omit them otherwise. -->
 
 - **Owner:** <person, and how to report a suspected problem>
 - **Standards:** <e.g. OWASP ASVS version and the requirements selected; selecting some is not compliance>

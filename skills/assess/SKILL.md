@@ -59,7 +59,8 @@ or a fixture adapter pass with active project permissions or a working completio
    runner, the linter) one by one to grade the other rules, and say you did. If the tests
    cannot run at all, report why: that is the first gap.
 4. **Decide which modules apply.** For each module in `modules.md`, state whether its
-   trigger is true and the evidence: an API or MCP server (Operate), the data the system
+   trigger is true and the evidence: an MCP server, agent API, or embedded model feature
+   (Operate), the data the system
    holds and who can reach it (Security), signs of several
    concurrent writers (Parallel work), and so on. When the evidence is unclear, ask; when
    nobody can answer, assume and say so.
@@ -71,7 +72,7 @@ or a fixture adapter pass with active project permissions or a working completio
    mechanism. When a grade depends on something you cannot see (a restricted file, a host
    setting, who decided), mark it not verifiable, say what you saw and the question that
    settles it, and ask the owner if you can. Never write a guess as a finding. Steps 7 to
-   11 say what to look for in areas where the Check column is not enough.
+   12 say what to look for in areas where the Check column is not enough.
 6. **Look at history** for what documents cannot show: `git log` for change size, merge
    commits, branch use, whether tests arrive before or with code, whether there is a remote.
 7. **Parallel work and evidence**: when the Parallel work module applies, inspect
@@ -105,7 +106,13 @@ or a fixture adapter pass with active project permissions or a working completio
     reviews, missing host evidence and configured-but-unexercised enforcement. An empty merge
     history is not an exercised human review workflow; never invent evidence to fill it.
 
-12. **Score it**, only now that every rule is graded, using "Scoring" in `rungs.md`: mark
+12. **Operate**: when the module applies, grade OP-1 to OP-11. A protocol library or a
+    generated wrapper per function is not a designed surface (OP-9). An embedded model
+    feature whose prompt and allowlist are not in the repo, or whose output can approve or
+    publish, is not met (OP-10). No such feature is not applicable. A forwarded foreign
+    token, a skipped per-client consent, or a session used as login is not met (OP-11).
+
+13. **Score it**, only now that every rule is graded, using "Scoring" in `rungs.md`: mark
     each rung, then the foundation and the coverage line. Mark each triggered scored module
     the same way (Operate by level); report trial modules without a mark. List any
     not-verifiable rule as an assumption.

@@ -28,7 +28,7 @@ needs. Starting points:
 |---|---|
 | Design, specification, architecture | Strongest |
 | Review | Strongest, a different model from the author where available |
-| Acceptance tests | Strong or mid; check its output type-checks before handover (TS-7) |
+| Acceptance tests | Strong or mid; pass independent validity checks; identify expected missing-interface diagnostics (TS-7) |
 | Implementation | Mid, raised for security, concurrency or cross-module work |
 | Search, running checks, mechanical edits | Fast |
 

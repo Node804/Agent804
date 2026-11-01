@@ -39,9 +39,11 @@ Ask, wait, then ask the next. Accept short answers; offer a default for each.
 5. **Who reviews changes, and can they read code in this stack?** If nobody can, say plainly
    that the harness lowers the skill needed but does not remove the need for a reviewer, and
    suggest red-zone areas be kept small.
-6. **Will agents, scripts or AI assistants use this system?** An API, MCP tools,
-   automation. If yes, the Operate module applies, and the skeleton's first action is built
-   through one contract (`operate`).
+6. **Will this project build an MCP server, an API or tools for agents, or an embedded
+   model feature** (a chat, assistant, classifier, or generator)? Scripts that call the
+   system count. If yes, Operate applies, and the skeleton's first action is one designed
+   contract (`operate`): name, when to use it, schema, result bound, and effect. Not one
+   tool per function.
 7. **How many write at once?** If several agents or people will write at the same time,
    Parallel work applies.
 
@@ -95,9 +97,12 @@ Each step ends with something you can run.
    hard-coded paths or hosts (SK-4). If the target includes AR-1, add the check that fails
    on an entry point with no access rule; every check message says how to fix it (CK-4).
    Writes are validated in one place before they are stored (AR-4); input is parsed at
-   the boundary and encoded for each destination (AR-6). If agents will use the system (O1, O2), the skeleton's one action is declared once and
-   served to the page and to the API or agent tools with the same access rule, read-only for
-   machine credentials.
+   the boundary and encoded for each destination (AR-6). If Operate applies (O1, O2), the
+   skeleton's one action is declared once and served to the page and to the API or agent
+   tools with the same access rule, read-only for machine credentials, with a bounded result
+   and a server-enforced effect (OP-9). A local process gets no production credential
+   (OP-11). An embedded model feature keeps its prompt and allowed actions in the repo; its
+   output cannot approve or publish (OP-10).
    Document the public contracts, failures and side effects the declarations cannot explain
    (MT-1); provide a short navigation path to the area and its test command (IN-4).
    Show an allowed and a refused request, the refused one with no effect (AR-1). If the
@@ -132,8 +137,10 @@ Each step ends with something you can run.
    Create `docs/maintainability.md` from `templates/maintainability.md` with actual checks,
    thresholds, public-interface scope and scoped exceptions. A new project starts without
    legacy findings; do not invent a baseline or bulk exclusions.
-   Create `docs/security.md` from `templates/security.md`: threats, requirement/control/test
-   mapping, actual verification policy, dependency trust, owner/deadlines and response steps.
+   Create `docs/security.md` from `templates/security.md` with core scanner verification and
+   dependency trust (SE-2, SE-3); keep a GR-1 exception only when applicable. If Security
+   applies, also fill in threats, versioned requirements, owner/deadlines and risk outcomes.
+   Otherwise omit the module-only sections.
    Keep secrets and sensitive incident details outside this document.
 8. **README and instructions**: what it is, prototype or production, bootstrap/check commands
    and navigation to project maintainability, security and style policies plus test

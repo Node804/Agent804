@@ -11,7 +11,7 @@
   Accepted     adopted by the people who will own it; frozen from here
   Rejected     tried or argued and dropped; linked evidence says why
   Superseded by NNNN
-An Accepted record changes only its Status and Topics lines. -->
+An Accepted record changes only its Status, Topics and append-only evidence record. -->
 
 <!-- Owner names are not consent. Acceptance points to the owners' own decision on this
 version: a message, a review, meeting notes. -->

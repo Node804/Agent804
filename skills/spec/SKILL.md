@@ -54,6 +54,9 @@ Mark anything unanswered `[NEEDS CLARIFICATION]` (TS-6). Do not plan until every
 - Security: include the abuse and bypass paths that apply (another tenant's object, a direct
   API call, bad input), each asserting nothing forbidden happens (SE-5). "No security impact"
   needs a reason.
+- An MCP tool, agent API, or embedded model feature states its effect (read, write, or
+  destructive), what it must not return, and that model output cannot approve or publish
+  (OP-9, OP-10). Hand that surface to `operate`.
 - Show the criteria to the user and get agreement in their own words (GR-7). If the criteria
   change materially later, show them again.
 
@@ -71,7 +74,9 @@ Mark anything unanswered `[NEEDS CLARIFICATION]` (TS-6). Do not plan until every
 - **Tests first, in a separate context** (TS-3): another session or subagent writes the
   acceptance tests from the agreed criteria, without the implementation, and runs them on the
   current code to show they fail for the intended reason. Record the command and output
-  (TS-2, TS-9). The tests must type-check and lint (TS-7). Behaviour that already passes is
+  (TS-2, TS-9). Independent lint, type and fixture checks must pass (TS-7); a specific
+  compiler diagnostic for the planned missing public interface may be the expected red.
+  Record that diagnostic; unrelated setup or syntax failures do not qualify. Behaviour that already passes is
   reported as passing, not forced to fail. A red handoff ends this stage, not the feature.
 - **Hand over exact artifacts**: the criteria, the tests, the revision or patch and the red
   output. A summarised chat is not a handoff.

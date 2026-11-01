@@ -13,7 +13,7 @@ its interview.
 
 | Module | Applies when | Rules | Status |
 |---|---|---|---|
-| [Operate](#operate) | Agents, scripts or AI assistants call the system: an API, MCP tools, automation acting for a user | OP-1 to OP-8 | Scored, levels O1 to O3 |
+| [Operate](#operate) | The project builds an MCP server, an API or tools for agents, or an embedded model feature (a chat, assistant, classifier, or generator). Scripts that call the system count | OP-1 to OP-11 | Scored, levels O1 to O3 |
 | [Security](#security) | The system holds personal data beyond what sign-in needs (staff names and emails from sign-in do not count on their own), customer or business-sensitive data; handles money or safety; writes to another system of record; or people outside the development team can reach it | SE-1, SE-4, SE-5, SE-6 | Scored |
 | [Parallel work](#parallel-work) | More than one agent or person writes to the repository at the same time: the instructions or tooling describe concurrent sessions, or history shows overlapping branches | WK-6 | Scored |
 | [Maintenance](#maintenance) | The framework is adopted onto existing code, or the project carries known debt | MT-4, MT-5 | Trial |
@@ -44,15 +44,15 @@ production. Everything else in a triggered module is a gap to close before produ
 
 ## Operate
 
-Most guidance covers agents *building* software. This covers agents *using* it, where a
-mistake is a wrong write in production made at machine speed, not a red test. Playbook:
-[`operate`](../skills/operate/SKILL.md).
+This is how the project develops its AI-facing surface: an MCP server, an API or tools for
+agents, or an embedded model feature. A mistake is a wrong write at machine speed, not a red
+test. Guide: [operate.md](operate.md). Playbook: [`operate`](../skills/operate/SKILL.md).
 
 | # | Level | Prevents | Gating rules | At it when |
 |---|---|---|---|---|
-| O1 | One contract | The UI, the API and agent tools disagreeing about what is allowed | OP-1, OP-5 | Every action is declared once and served to people and agents with the same access rules; credentials never travel in URLs |
-| O2 | Safe by default | An agent with too much power, an unattributed change, a retry that doubles a record | OP-2 to OP-4 | Agent access is read-only until a person grants write, scoped to what it needs; every write records who acted and through which channel; a repeated request changes nothing |
-| O3 | Bounded | An agent acting on planted instructions, overloading a system you do not own, or shipping code nobody reviewed | OP-6 to OP-8 | Text from data is treated as untrusted where agents read it; load on outside systems has a budget; agents draft definitions and a person publishes them |
+| O1 | One contract | The UI, the API and agent tools disagreeing about what is allowed, and a tool list that is every function | OP-1, OP-5, OP-9 | Every action is declared once, with the same access rules, a designed name, schema, bound, and effect; credentials never travel in URLs |
+| O2 | Safe by default | An agent with too much power, an unattributed or duplicated write, a foreign or session credential | OP-2 to OP-4, OP-11 | Agent access is read-only until a person grants write; writes name who acted; a repeat changes nothing; tokens were issued for this server, and a session is not a login |
+| O3 | Bounded | Planted instructions, an embedded model that can approve itself, unbounded outside load, code nobody reviewed | OP-6 to OP-8, OP-10 | Data text is untrusted; an embedded model feature is specified and its output cannot approve or publish; outside calls have a budget; a person publishes definitions |
 
 Levels are climbed in order: O2 means little without O1. Grade and mark every level, but
 the level reached is the highest one with every level below it met or met with holes, as

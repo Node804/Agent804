@@ -49,8 +49,9 @@ report, not permission to declare the rule met. Unsupported checks stay explicit
 |---|---|
 | Function control-flow complexity | An enforceable limit selected for the stack |
 | Nesting and excessive branching | An enforced limit where reliable, otherwise a documented review trigger |
-| File or module size and dependency spread | Review triggers; inspect responsibility and coupling |
-| Duplicate blocks | Investigate whether they express the same business rule |
+| File or module size | An enforceable limit keeps a unit readable within an agent's context |
+| Duplicate blocks | An enforceable limit bounds duplication; reviewed exceptions distinguish independent concepts |
+| Dependency spread | Review triggers; inspect responsibility and coupling |
 | Unused code or dependencies | Investigate runtime use before removal |
 
 A limit breach fails the check unless covered by a narrow, reviewed exception. A review
@@ -142,18 +143,12 @@ useful current contracts, MT-2 needs exercised checks and reviewed dispositions,
 needs evidence from actual replacement changes or an exercised replacement fixture. A new
 skeleton with nothing retired can have MT-3 not applicable yet; say so rather than invent use.
 
-## Measure and exercise
+## Measure
 
 MS-1 tracks comparable complexity, duplication and aging-exception trends alongside test
 reliability. Record tool versions, scope and baseline changes so numbers are interpretable. A
 change in a metric is a signal to investigate, not proof of a cause or a developer ranking.
 MS-2 reviews structural drift and retention decisions during gardening.
-
-For example, change one validation rule using the area's public interfaces and local tests.
-Success means the behavior is understood, modified and verified without unexplained coupling.
-Choose suitable expectations for the task; do not impose a universal time or context budget.
-Record exercises in `docs/metrics/maintenance-exercises.md`. A request to report metrics alone
-does not authorize implementation changes as part of an exercise.
 
 ## References
 

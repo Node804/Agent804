@@ -97,6 +97,7 @@ not justify an arbitrary percentage or prove all assertions are effective.
 Use existing spec/plan/PR evidence fields, proportionate to risk; a tiny fix needs no separate
 test-strategy document. Existing projects record an honest adoption baseline and improve new
 work without fabricated retroactive TDD. Rung 2 gates isolation and complete execution evidence;
-rung 4 gates integration boundaries; rung 5 adds behavior-focused assertions and regression
+rung 4 gates a representative end-to-end test in CI; TS-11's broader integration coverage is
+a reported practice. Rung 5 adds behavior-focused assertions and regression
 witnesses where bug fixes apply. Rung 8 tracks flakes, quarantine age, skips, duration and
 escaped regressions. Record missing evidence and unexercised mechanisms explicitly.

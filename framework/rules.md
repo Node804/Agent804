@@ -170,6 +170,8 @@ MS-5 is in the Routing module.
 
 ## OP: Operate (Operate module, levels O1 to O3)
 
+Scope and the MCP design choices are in [operate.md](operate.md).
+
 | ID | Rule | Check |
 |---|---|---|
 | OP-1 | Each action is declared once and served to the UI, the API and agent tools with the same access rules. | Compare a UI action and its API/tool twin |
@@ -180,3 +182,6 @@ MS-5 is in the Routing module.
 | OP-6 | Data text is untrusted when it reaches an agent. Tools acting on it have constrained authority and enforce boundaries even when the text contains instructions. | Record the threat and exercise planted-instruction scenarios against actual tool permissions; an ADR alone is insufficient evidence |
 | OP-7 | People and agents design definitions (forms, screens, labels), never code. Agents may draft; a person publishes. | Publish permission |
 | OP-8 | Calls the system makes to outside systems on an agent's behalf are bounded: a request budget per source, shared reads cached once for everyone, no retry storms. An agent looping on a tool must not become load on a system the project does not own. | A budget and a cache for each outside source an agent can reach through the system |
+| OP-9 | Each model-facing action has a stable name, when to use it and when not to, a validated input schema, a bounded result that omits secrets, and a declared effect of read, write, or destructive. The set is the actions a task needs. A declared read does not write, send, delete, or spend. The server enforces the effect. | Compare the exposed list with internal functions. A wrapper per function, an unbounded or secret-bearing result, or a read that changes state is not met |
+| OP-10 | An embedded model feature keeps its instructions, allowed actions, accepted inputs, and output effects in the repository, and is specified, tested, and reviewed like other behavior. Model output is data: it cannot grant access, publish, approve, or bypass a check. Planted instructions in user or retrieved content have no forbidden effect. | Trace the prompt, allowlist, and effects to repo artifacts, tests, and a person's review. Output that writes or publishes without the same checks as a direct call is not met. No such feature is not applicable |
+| OP-11 | A credential accepted by an agent or MCP endpoint was issued for that endpoint. The server does not accept or forward a token issued for another audience. An OAuth proxy obtains consent for the specific client before forwarding to third-party authorization; another client's consent does not cover it. A session identifier is not authentication. A local server process does not receive production credentials and does not run with more privilege than its actions need. | Foreign-token passthrough, OAuth-proxy consent skipped for a later client, or a session used as login is not met. A local process holding a production credential or broader privilege is not met. No such path, with credentials limited to the action, is met |

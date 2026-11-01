@@ -15,8 +15,9 @@ remove placeholders. Keep records narrow; reference the architecture docs instea
 |---|---|---|---|
 | Function complexity | <authored code> | <stack-appropriate limit> | <command in the check> |
 | Nesting | <scope> | <limit or trigger> | <command or review> |
-| Size and dependency spread | <scope> | <review triggers> | <report and reviewer disposition> |
-| Duplication and unused code | <scope> | <investigation triggers> | <report and reviewer disposition> |
+| File or module size | <authored code> | <stack-appropriate limit> | <command in the check> |
+| Duplication | <authored code> | <stack-appropriate limit> | <command in the check> |
+| Dependency spread and unused code | <scope> | <investigation triggers> | <report and reviewer disposition> |
 
 ## Adoption baseline and exceptions
 
@@ -45,4 +46,3 @@ Preserve old entries when correcting or resolving them. No blanket package exclu
 
 - Comparable reports: <locations, tool versions, scope and cadence>
 - Gardening: <routine, responsible reviewer and exception follow-up>
-- Maintenance exercises: <schedule or planned trial; results in docs/metrics/maintenance-exercises.md>

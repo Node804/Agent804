@@ -47,9 +47,9 @@ Use this table when filling in `_template.md`. Each row needs a mechanism or a l
 | MT-1 to MT-3 | Interface documentation checks, complexity, file-size and duplication limits, unused-code reports |
 | TS-1 to TS-12 | See [testing](../testing.md): separate acceptance tests, red then green, isolated test data, real integration boundaries, full test discovery |
 | WK-4, WK-6 | Changelog check; a database, port and storage per checkout |
-| SE-1 to SE-6 | Secret, code and dependency scanners in the check; reviewed dependency sources; safe defaults; abuse tests; an owner for findings |
-| AR-1 to AR-6 | Access declared on every entry point, one write layer, import boundaries, one place for outside systems |
-| OP-1 to OP-8 | When machines use the system: one operation contract, narrowed credentials, attribution, safe retries, bounded outside load |
+| SE-2, SE-3; SE-1, SE-4 to SE-6 when Security applies | Secret, code and dependency scanners in the check; reviewed dependency sources; module-specific threats, safe defaults, abuse tests and owned findings |
+| AR-1 to AR-4, AR-6 | Access declared on every entry point, authoritative rules, validated writes, import boundaries, input parsing and destination-safe output |
+| OP-1 to OP-11 | When the project builds an MCP server, agent API, or embedded model feature: one contract, a designed tool list, narrowed credentials, attribution, safe retries, tokens issued for this server, bounded outside load |
 
 Mixed stacks combine their mechanisms under one check. A profile grants no install,
 production or deployment authority.

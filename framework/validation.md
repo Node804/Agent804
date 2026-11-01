@@ -99,7 +99,8 @@ the record format and is no longer relied on.
 | [Google: end-to-end tests](https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html) and [coverage practices](https://testing.googleblog.com/2020/08/code-coverage-best-practices.html?hl=sk) | Effective test boundaries and risk-focused coverage support TS-5/TS-11 | No fixed layer ratio or coverage percentage; representative journeys and real integration remain necessary |
 | [Stryker introduction](https://stryker-mutator.io/docs/) and [mutant states](https://stryker-mutator.io/docs/mutation-testing-elements/mutant-states-and-metrics/), [Microsoft mutation testing](https://learn.microsoft.com/en-us/dotnet/core/testing/mutation-testing) | Deliberate faults can expose weak assertions (TS-13) | Invalid compilation is not behavioral detection; survivors need interpretation and no universal score proves requirement correctness |
 
-TS-10/TS-12 gate rung 2, TS-11 rung 4, and TS-8/TS-9 (where bug fixes apply) rung 5.
+TS-10/TS-12 gate rung 2, and TS-8/TS-9 (where bug fixes apply) rung 5. TS-11 is a
+reported practice; SK-2 still gates a representative end-to-end test in CI at rung 4.
 TS-13 remains a reported practice pending trials. Existing runner references above informed
 Draft stack-specific discovery, failure, isolation and target-scope guidance. Repository
 checks validate documentation integrity and existing mechanical regressions, not the new
@@ -172,3 +173,10 @@ evaluations were performed, and no automatic orchestrator or account adapter was
 proposed IN-8/WK-8 practices. Context-effectiveness/recovery trials remain pending;
 repository integrity checks do not establish attention, retrieval recall or complete evidence.
 [Debt research](validation/debt.md) and [Grok Build evidence](validation/grok-build.md) record their scopes and pending trials.
+
+## Operate
+
+[MCP tool and security notes](validation/operate.md) record the specification pages read for
+OP-9 to OP-11. Those rules are untrialled. OP-1 to OP-8 still describe one reference
+project's design. The embedded-feature rule is this kit's, because the specification does
+not cover an in-product model feature.

@@ -8,16 +8,19 @@ the README's Evidence section; this page is what's next and why things are the w
 The first public release is the push to the public repository under Node 804, with a release
 zip attached.
 
-- [ ] Independent review of the 0.4 skill rewrites, by Grok and by ChatGPT, against the 0.3
-      text: nothing an agent needs was lost, and nothing reads as one project's process.
+- [x] ChatGPT review of the 0.4 rewrites against 0.3 (2026-11-01); corrected the missing-interface
+      test exception, stale gate/lifecycle summaries and conditional Security setup.
+- [x] Independent Grok review of the 0.4 skill rewrites against 0.3; completed per the
+      developer, with the follow-up Operate corrections checked on 2026-11-01.
 - [ ] Build `agent804-0.4.0.zip` from the release commit.
-- [ ] Install from that zip on a clean machine, in Claude Code and in Codex, and run `assess`
-      once from each.
 
 ## Trials before 1.0
 
 Each is one session. Record the result in the README's Evidence section, and fix whatever the
 trial shows is unclear before moving on.
+
+- [ ] Install from the release zip on a clean machine, in Claude Code and in Codex, and run
+      `assess` once from each. This remains a follow-up, not a blocker to publishing the repo.
 
 - [ ] Run the change flow on a real feature with the kit's own current skills (`spec`, tests
       written in a separate context, build, `review`, `decide`), not a project's own playbooks.
@@ -71,12 +74,14 @@ trial shows is unclear before moving on.
 
 ## Known gaps
 
-- The guardrail mechanisms (stop hook, permission rules) are Claude Code's; Codex needs its own.
+- Codex and Grok have Draft guardrail adapters and settings; actual-host enforcement remains unverified.
 - Under Codex, skill names show without a prefix (`spec`, `start`), so they can clash with
   other skills.
 - Items marked † in `framework/profiles/django.md` have not run on a real project.
 - Django is the only stack profile. Others are written per project by `start` and join the
   kit after a real project has used them.
+- The `operate` skill and OP-9 to OP-11 have not been trialed. A designed tool list and an
+  embedded model feature are specified; no reference project has been graded against them.
 - Not yet read, so not relied on: arc42 §10 and the SEI's quality attribute scenarios (the
   quality scenarios follow their form); StrongDM's "software factory" write-up; the DORA 2025 AI
   report; METR's 2025 developer productivity study.
@@ -117,11 +122,13 @@ trial shows is unclear before moving on.
   a person, with evidence that only grows. Quality scenarios, delivery metrics, audit history
   in the write layer and a production-readiness status were one reference project's process
   or governance, and were dropped in 0.4.
-- **Operate grows in phase 2.** Building MCP servers, APIs for agents and embedded AI features;
-  its trigger should then also cover a product that calls a model itself.
-  OP-1, OP-4, OP-7 and OP-8 still read as one project's design and need generalising; the
-  former AR-5 (outside systems reached from one place, never waited on during a request) is
-  a candidate to return there.
+- **Operate is development of the AI-facing surface.** MCP servers, APIs and tools for agents,
+  and embedded model features are a primary goal, scored when the project builds them and
+  left unscored when it does not. The `operate` skill and OP-9 to OP-11 (a designed tool
+  list, embedded features, credentials issued for this server) are written and untrialled.
+  OP-1, OP-4, OP-7 and OP-8 still describe one project's mechanisms and need a second
+  implementation. The former AR-5 (outside systems reached from one place, never waited on
+  during a request) remains a candidate for OP-8.
 
 ## Changing the framework
 

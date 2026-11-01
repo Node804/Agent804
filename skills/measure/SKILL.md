@@ -26,7 +26,7 @@ and environments. Missing data stays missing; retries alone do not turn failure 
 | Harness growth | Checks added by `sensor` in the period | Whether mistakes become checks |
 | Structural trends | Comparable complexity, duplication and dependency reports | Whether maintenance costs need investigation, not proof of their cause |
 | Aging exceptions | Scoped baseline and retention records in `docs/maintainability.md` | Debt awaiting its agreed review condition |
-| Security follow-up | `docs/security.md` and restricted report references | Overdue findings, expired acceptances, verification gaps/freshness and response exercise follow-up (SE-2, SE-6); counts are not proof of security |
+| Security follow-up | `docs/security.md` and restricted report references | Verification gaps/freshness (SE-2); when Security applies, overdue findings and expired acceptances (SE-6). Counts are not proof of security |
 
 If the project has no interventions log, create `docs/metrics/interventions.md` with the
 columns: date, what the agent did, what was corrected, rule or check that now prevents it
