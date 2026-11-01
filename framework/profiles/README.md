@@ -42,7 +42,7 @@ Use this table when filling in `_template.md`. Each row needs a mechanism or a l
 | CK-1, CK-4, CK-6, CK-8 | One check command with useful messages, editor or pre-commit feedback, CI from committed state, merge protection |
 | ST-1 | The ecosystem's standard formatter and linter, configured and pinned, run by the check without rewriting files |
 | AP-1 to AP-4, RV-1 | Where human approvals live and how a reviewed revision is identified; mechanical checks are not consent |
-| GR-1 to GR-4 | Test credentials and data, a task branch per change, human approval for commit/push/deploy, a completion check the agent cannot skip |
+| GR-1 to GR-4, GR-7 | Test credentials and data, a task branch per change, human approval for commit/push/deploy, a completion check the agent cannot skip, and instructions that only a person approves |
 | GR-5, GR-6 | Sandboxed unattended runs; data scripts dry-run by default |
 | MT-1 to MT-3 | Interface documentation checks, complexity limits, unused-code reports |
 | TS-1 to TS-12 | See [testing](../testing.md): separate acceptance tests, red then green, isolated test data, real integration boundaries, full test discovery |

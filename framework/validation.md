@@ -58,12 +58,13 @@ dispositions from an unfamiliar human and a fresh agent context.
 | [Django deployment checklist](https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/) | Production settings and `check --deploy`, secret separation and effective environment checks | Local deployment-shaped configuration is not proof of actual TLS/proxy/database deployment |
 | [pip-audit security model and options](https://github.com/pypa/pip-audit) | Known-vulnerability auditing with explicit collection coverage and restricted resolution | Auditing is not malicious-package detection; dependency resolution may execute code. Review sources first and avoid untrusted installation as an audit prerequisite |
 | [Gitleaks commands and exit behavior](https://github.com/gitleaks/gitleaks) | Separate working-file and history scans, report handling and representative detection fixtures | Scope, redaction, errors and shallow history must be recorded; a baseline cannot itself accept exposure |
+| [OWASP SAMM](https://owaspsamm.org/) | A security programme is built and measured over time, practice by practice | Agent804 does not model programme maturity; projects that need one use SAMM directly |
 
-SE-2 gates rung 2 and SE-3 rung 3; since 0.4, SE-1 and SE-4 to SE-6 form the Security module. Security enforcement
-paths receive human review, and OP-6 now needs actual authority-boundary evidence. Build and
-Operate scores remain separate from release/environment security readiness. The new gates,
-dependency/build verification, response exercise and Django mappings remain untrialled on
-reference projects; repository validation checks document integrity, not deployed security.
+In 0.3 the security guide restated much of these standards. Since 0.4 it keeps only what
+agents change (stale scanners read as clean, invented package names, insecure copied
+defaults, agents accepting their own risks) and links the standards for the rest. SE-2 and
+SE-3 are core; SE-1 and SE-4 to SE-6 form the Security module. None of this has yet been
+trialled on a reference project, and production readiness stays separate from every score.
 
 ## Style
 
@@ -148,6 +149,14 @@ profiles and adapters are Draft integration guidance, with no automatic Referenc
 | [OpenAI models/effort](https://learn.chatgpt.com/docs/models) | Task-based selection, native effort tradeoffs and non-equivalent settings inform optional WK-7 | Guidance is a starting point, not account access or cross-provider superiority evidence; power modes may include delegation |
 | [OpenAI usage guidance](https://learn.chatgpt.com/docs/pricing?codex-pricing-plans=individual) | Model, context, reasoning, tools and cache affect usage; shared pools and current observations inform MS-5 | No static balance/rate table, invented token conversion, API entitlement or guaranteed saving. Consult each selected provider's current official guidance |
 
+Since 0.4 the guide is written in roles and capability tiers rather than budget accounting,
+and leads with the quality reasons for routing. One reference project's evidence so far: it
+pinned a fast tier for code search and running checks, a mid tier for acceptance-test
+writing, convention review and data lookups, and kept design in the strongest main session.
+That worked over a full feature, with one finding: the mid-tier test writer handed over
+tests with type errors, which led to TS-7 (type-check tests before handover). It was not
+compared against another route, and cost was not measured. That cross-family review catches
+more than same-model review remains a plausible assumption, not a measured result.
 The role/effort/budget policy and adversarial input boundaries are proposed framework design,
 not an empirical claim that model diversity improves correctness. WK-7/MS-5 are conditional
 practices with no scoring gates; single-model separate contexts remain sufficient. Integrity

@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+- Add GR-7 to the core, gating rung 3: agents cannot supply consent. An approved plan, a tool
+  permission, a passing check or an agent-filled record is not approval. AP-2 keeps only the
+  provenance of recorded decisions; the rest of Approvals stays a module.
+- Add the ownership boundary to `AGENTS.md`: Agent804 owns what coding agents change, and
+  links established standards for the rest.
+- Cut technical debt to what agents change (they create debt faster, invent candidates,
+  expand scope, and must not defer debt themselves); tracking itself is left to the project.
+  The guide goes from 124 lines to 29 and the template to one short item.
+- Cut security to what agents change, linking OWASP ASVS, NIST SSDF and OWASP SAMM for the
+  rest. SE-1 to SE-6 are reworded plainly; the guide goes from 160 lines to 78.
+- Rewrite model routing around quality: capability matched to judgement, review by a
+  different model where available, and allowances planned so review and the final check are
+  never the steps cut. Roles map to capability tiers, never model names. WK-7 and MS-5 are
+  reworded; the guide, `route` skill and template are rewritten.
+
 - The check fails when a file names a private project, organisation or person listed in the
   git-ignored `private-names.local.md`; the kit refers to "a reference project" instead.
 

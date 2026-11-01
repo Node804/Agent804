@@ -111,7 +111,8 @@ Each step ends with something you can run.
    Security module applies, also demonstrate safe initial defaults (SE-4).
 4. **`AGENTS.md`** from the template, with real commands and scoped additions where needed.
    For Claude Code add `CLAUDE.md` containing `@AGENTS.md`; verify selected hosts' discovery.
-5. **Guardrails** (GR-1 to GR-4): production credentials never go in the project's `.env`;
+5. **Guardrails** (GR-1 to GR-4, GR-7): `AGENTS.md` says only a person approves, and an
+   approved plan is not a request to commit. Production credentials never go in the `.env`;
    development uses isolated test resources/credentials. Follow the selected host recipe:
    Claude settings/stop hook, Codex config/hooks, or Grok native config/hooks with its adapter;
    follow the selected recipe's paired engine, native event/continuation contract and reviewed

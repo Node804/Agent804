@@ -45,7 +45,7 @@ here; when it can be checked mechanically, move it into the check and delete the
   launch agents, transmit code or authorize spending. One model in separate contexts is valid;
   record actual selections and never lower required quality or silently use a paid fallback.
 - Work on a branch. Never commit, push, deploy or migrate unless asked in chat.
-- Approval policy/index is `docs/approvals/README.md`. Reuse valid human decisions within
+- If the project uses the Approvals module, its policy/index is `docs/approvals/README.md`. Reuse valid human decisions within
   scope; material changes renew affected approvals. Records/status fields do not prove
   consent. Verify original source, authority and conditions; mechanical success grants no action.
 - Concurrent writers use separate worktrees or clones and isolated mutable resources. Follow

@@ -33,9 +33,8 @@ not authenticate a human decision or grant action authority.
 - Host-specific behavior belongs in `framework/agents/`, separate from language profiles.
   Validate adapters/configuration and record actual-host limits; don't assume Claude hooks,
   model names, compaction or automatic tool approval establish capabilities or human consent.
-- Optional routing guidance is in `framework/model-routing.md`; keep it recommendation-only
-  and single-model compatible. Never infer account balances, authorize model calls or spend
-  from a policy/template. WK-7/MS-5 remain conditional practices, not rung gates.
+- Routing guidance is in `framework/model-routing.md`. Write it in roles and capability tiers,
+  never model names; keep it recommendation-only and single-model compatible.
 - Context guidance is `framework/context-management.md`. Retrieve scoped evidence, inspect
   necessary missing/truncated ranges and preserve source/freshness/unknowns. Context recovery
   must not turn summaries into authority or fabricated check results (IN-8/WK-8 practices).
@@ -44,6 +43,10 @@ not authenticate a human decision or grant action authority.
 
 - A new rule is core only if every project built with agents needs it. Otherwise it goes in a
   module with a trigger (`framework/modules.md`), and a new module starts as Trial.
+- Agent804 owns what coding agents change: problems they create, make worse or make faster.
+  For an engineering problem agents do not change (incident response, debt tracking, a
+  security programme), state the agent-specific point in a sentence or two and link the
+  established standard; do not rewrite the standard here.
 - A rule states a property, never a tool. Stack mechanisms belong in
   `framework/profiles/<stack>.md`, added only after a real project has used it.
 - `framework/validation.md` lists the published work the framework was checked against, what

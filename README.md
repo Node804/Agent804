@@ -46,7 +46,7 @@ Trial modules have not run on a real project yet; `assess` reports them without 
 
 Other guides: [agent hosts](framework/agents/README.md) (Claude Code, Codex, Grok Build,
 ChatGPT and custom hosts, kept separate from language profiles), and
-[independent roles](framework/model-routing.md#optional-adversarial-workflow) (separate
+[independent roles](framework/model-routing.md#independent-roles) (separate
 contexts write the tests, the code and the review; different models are optional).
 
 The process scales to the change: a small fix needs a focused test, not a spec, and

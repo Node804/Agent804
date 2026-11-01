@@ -28,7 +28,8 @@ project has used it and the result is recorded in [validation](validation.md).
 
 The core still applies inside every module. SE-2 and SE-3 (security checks in the check
 command, reviewed dependencies) are core, and so are RV-1 (a human reads every change before
-merge) and DC-4 (owners accept ADRs). A module adds to them; it never replaces them.
+merge), GR-7 (agents cannot supply consent) and DC-4 (owners accept ADRs). A module adds
+to them; it never replaces them.
 
 ## Reporting
 
@@ -74,8 +75,8 @@ documented settings alone cannot verify a deployment.
 
 ## Approvals
 
-The core already requires a human to read every change before merge (RV-1) and owners to
-accept ADRs (DC-4). This module is for projects where that sign-off must be traceable to
+The core already says agents cannot supply consent (GR-7), requires a human to read every
+change before merge (RV-1) and owners to accept ADRs (DC-4). This module is for projects where that sign-off must be traceable to
 someone with authority: which revision they reviewed, what they decided, under what
 conditions, and from what original source (AP-1 to AP-3), with approved requirements traced
 through tests to results (AP-4). An agent can prepare the record; it can never supply the
