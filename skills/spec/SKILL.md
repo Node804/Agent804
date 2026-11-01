@@ -5,31 +5,25 @@ description: Turn a feature request into acceptance criteria sized to the change
 
 # Specify a change
 
-Write down what "done" looks like before code exists, at the size the change deserves. Heavy
-specs for small changes are waste (BB-SDD); no spec for a large one means the agent's tests only
-confirm what it built (TS-1, TS-3).
+Write down what "done" looks like before code exists, at the size the change deserves. A heavy
+spec for a small change is waste; no spec for a large one means the agent's tests only confirm
+what it built (TS-1, TS-3).
 
-**Framework files**: in Claude Code, `${CLAUDE_PLUGIN_ROOT}/templates/`; for other agents,
-`../../templates/` from this file. The project's zones are in `docs/risk-zones.md`.
+**Templates**: in Claude Code, `${CLAUDE_PLUGIN_ROOT}/templates/`; for other agents,
+`../../templates/` from this file.
 
-Start by reading the project's quality scenarios and the ADRs on the change's topics (`decide`).
-A spec applies them; it never re-decides them. If the change needs a new hard-to-reverse
-decision, that is a Proposed ADR first, and a stop for the user.
-Read `docs/security.md` and security guidance: Claude Code
-`${CLAUDE_PLUGIN_ROOT}/framework/security.md`, otherwise `../../framework/security.md` from
-this file. Update affected threats, requirement applicability and evidence needs (SE-1).
-Security-policy/test/CI/permission changes follow their risk, even in docs or tooling (RV-3).
-Read approval policy/source records and guidance: Claude Code
-`${CLAUDE_PLUGIN_ROOT}/framework/approvals.md`, otherwise `../../framework/approvals.md` from
-this file. Reuse valid scoped decisions; material criteria/architecture/security changes need
-renewed affected approval. An approval label, time elapsed or agent-written record is not consent.
+## 0. Read the project's records
+
+- Quality scenarios and the ADRs on the change's topics (`decide`). A spec applies them; it
+  never re-decides them. A new hard-to-reverse decision is a Proposed ADR first, and a stop.
+- `docs/risk-zones.md`.
+- If they exist: `docs/security.md` (update the threats this change affects, SE-1),
+  `docs/approvals/README.md` (who must agree to what), and the project's debt record.
 
 ## 1. Size it
 
-Pure structural work uses the refactor playbook: Claude Code
+Pure restructuring with no behaviour change uses the `refactor` skill instead: Claude Code
 `${CLAUDE_PLUGIN_ROOT}/skills/refactor/SKILL.md`, otherwise `../refactor/SKILL.md` from here.
-Preserve existing behavior with baseline tests; no invented red failure or new feature spec
-is required. Specify intended behavior changes here and retain applicable architecture review.
 
 | Size | Looks like | Spec |
 |---|---|---|
@@ -57,69 +51,39 @@ Mark anything unanswered `[NEEDS CLARIFICATION]`. Do not plan until every mark i
 - Include who must **not** be able to do it, when the project has access control.
 - For each quality scenario the change touches, at least one criterion exercises it and cites
   it ("QS-5: submitted twice with the same ID, one record") (DC-5).
-- Cite applicable versioned security requirement IDs and include relevant abuse/bypass paths
-  (SE-5), including direct/alternate interfaces and object/tenant access where present. Assert
-  no prohibited effect or disclosure, and successful authorized behavior. No security impact
-  is a reasoned disposition, not an assumed exemption. Evidence identifies revision and scope.
-- Show criteria and reviewable content to the user and get agreement, or resolve an existing
-  approval covering that exact scope. Index the real source, reviewer authority, subject,
-  conditions and grouped decisions (AP-1 to AP-3); set Agreed only from that decision. Apply
-  preauthorized administrative status updates under policy, not repeated approval prompts.
-- Assign stable requirement/criterion references and begin the trace (AP-4). Early approval
-  must not invent future tests or results; append actual coverage in the plan/PR later.
+- Security: include the abuse and bypass paths that apply (another tenant's object, a direct
+  API call, bad input), each asserting nothing forbidden happens (SE-5). "No security impact"
+  needs a reason.
+- Show the criteria to the user and get agreement in their own words (GR-7). If the Approvals
+  module applies, record who agreed, to which version, and any conditions (AP-1 to AP-3).
 
 ## 4. Plan
 
-Inspect relevant debt before planning (MT-5): Claude Code
-`${CLAUDE_PLUGIN_ROOT}/framework/technical-debt.md`, otherwise `../../framework/technical-debt.md`.
-Choose in-scope repayment, separate scheduling or justified retention; preserve approved criteria.
-New compromises need real scoped deferral authority and review conditions, not a post-hoc ticket.
-
-Scope retrieval and preserve critical authority/unknowns via Claude Code
-`${CLAUDE_PLUGIN_ROOT}/framework/context-management.md`, otherwise
-`../../framework/context-management.md` from here. Expand incomplete snippets to enclosing
-contracts; summaries and missing search hits cannot resolve a requirement or establish consent.
-
-For medium and large changes, create `docs/plans/<name>.md` from the plan template: small
-steps separating intentional red handoff from implementation completion; structural changes
-separate from behavior changes. Read testing guidance: Claude Code
-`${CLAUDE_PLUGIN_ROOT}/framework/testing.md`, otherwise `../../framework/testing.md` from here.
+- Check the debt record for items in the area; repay in scope, schedule separately, or leave
+  with a reason. A new shortcut needs a person's agreement, not a ticket written afterwards.
+- Read the code the change touches, with its callers and configuration. A search with no hits
+  or a summary is a pointer, not proof.
+- For medium and large changes, create `docs/plans/<name>.md` from the plan template: small
+  steps, with structural changes separate from behaviour changes.
 
 ## 5. Hand over
 
-If optional routing is enabled, read Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/model-routing.md`,
-otherwise `../../framework/model-routing.md` from here. Record actual role/model/host/native
-effort and input boundaries (WK-7); A/B/C may be the same model in separate contexts. Budget
-pressure never permits weaker acceptance protection, automatic launches or paid fallback.
-
-Use the host context contract: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/agents/README.md`,
-otherwise `../../framework/agents/README.md`. A compacted chat or inherited implementation
-reasoning alone does not establish independent test authorship; hand off exact artifacts.
-
-- **Tests first, in a separate context** (TS-3): derive acceptance tests from agreed criteria,
-  confirm the intended gap on the pre-change revision and preserve command, environment,
-  diagnostic and revision/patch evidence (TS-2, TS-9). Independent validity checks pass (TS-7);
-  identify expected missing-public-interface diagnostics separately from setup failures.
-  A red handoff finishes this stage, not the feature. Existing behavior may already pass;
-  report verification honestly instead of manufacturing failure.
-- **Preserve the handoff**: a tests-only commit is useful only when authorized, and commit
-  order alone proves no execution. A preserved patch/base plus run evidence also suffices.
-- **Implementation in a fresh context**: read the criteria, plan and red evidence; supporting
-  unit tests are allowed. Explain legitimate test corrections (TS-4); changing acceptance
-  outcomes requires criteria review and affected approval. Never weaken tests to get green.
-  After green, inspect duplication and structure; make justified behavior-preserving
-  refactoring separately where practical (TS-2). Record the disposition, including when none
-  is needed, update affected public contracts (MT-1), and remove or explain retired paths
-  (MT-3). Stay within the approved scope and the project's complexity limits (MT-2).
-  Recover and verify applicable approvals, not just the spec status. Preserve original
-  decisions, renew affected material deltas and record actual tests, reviewed implementation
-  revision and results in the requirement trace before acceptance.
-- **Parallel work** (WK-6): if another session works on this repository at the same time,
-  each writer gets its own worktree and isolated resources. Follow the worktree playbook:
-  Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/worktrees.md`, otherwise
-  `../../framework/worktrees.md` from this file. Sequential test-writing and implementation
-  contexts may reuse a checkout. A handoff between worktrees names the exact commit or
-  preserved patch; uncommitted tests do not appear in another checkout automatically.
+- **Tests first, in a separate context** (TS-3): another session or subagent writes the
+  acceptance tests from the agreed criteria, without the implementation, and runs them on the
+  current code to show they fail for the intended reason. Record the command and output
+  (TS-2, TS-9). The tests must type-check and lint (TS-7). Behaviour that already passes is
+  reported as passing, not forced to fail. A red handoff ends this stage, not the feature.
+- **Hand over exact artifacts**: the criteria, the tests, the revision or patch and the red
+  output. A summarised chat is not a handoff.
+- **Implementation in a fresh context**: read the criteria, plan and red output; supporting
+  unit tests are allowed. Never edit the acceptance tests to fit the code; a test that looks
+  wrong goes back to the user (TS-4). After green, refactor where it helps (TS-2), update
+  public contracts (MT-1), remove retired paths (MT-3) and stay within complexity limits (MT-2).
+- **Routing**: if the project has `docs/model-routing.md`, use it and record the model each
+  role actually used (WK-7). One model in separate contexts is enough.
+- **Parallel work** (WK-6): if another session writes to this repository at the same time,
+  each writer gets its own worktree and resources (`docs/worktrees.md`). Uncommitted tests do
+  not appear in another checkout; hand over a commit or a patch.
 - **Evidence back up** (`decide`): once the tests pass, the spec is Built, each ADR it
   exercised gets an entry in `docs/evidence/<adr-number>-<topic>.md`, and each scenario it
   proves updates its "Now". Accepted ADRs stay frozen and Accepted.

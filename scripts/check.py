@@ -18,6 +18,14 @@ FRAMEWORK_BUDGET = 200
 RULE_ID = re.compile(r"\b(IN|CK|ST|AP|GR|SK|TS|AR|SE|MT|WK|DC|RV|MS|OP)-\d+\b")
 LINK = re.compile(r"\[[^\]]*\]\(([^)#\s]+)(?:#[^)]*)?\)")
 PLUGIN_PATH = re.compile(r"\$\{CLAUDE_PLUGIN_ROOT\}/([\w./-]+)")
+# framework/ is written for people. Skills may send agents only to the tables and playbooks
+# they execute; everything else an agent needs is said in the skill itself.
+FRAMEWORK_REF = re.compile(r"framework/([\w./-]+\.md)")
+AGENT_PAGES = re.compile(r"(rules|rungs|modules|worktrees)\.md|(profiles|agents)/[\w.-]+\.md")
+# Characters, about four to a token. Agents read a skill whole each time it runs.
+SKILL_CHARS = 8000
+SETUP_SKILL_CHARS = 14000  # assess and start run once per project
+TEMPLATE_AGENTS_CHARS = 3000  # every project's AGENTS.md starts here and loads every session
 
 
 def frontmatter(text: str) -> dict[str, str] | None:
@@ -57,9 +65,40 @@ def private_name_hits(root: Path, names: list[str]) -> list[str]:
     return hits
 
 
+def agent_read_problems(root: Path) -> list[str]:
+    """What skills and the AGENTS.md template make agents read beyond their budget.
+
+    Agents pay for every character they load; the framework's explanations are for people.
+    """
+    problems = []
+    for skill in sorted(root.glob("skills/*/SKILL.md")):
+        rel = skill.relative_to(root).as_posix()
+        text = skill.read_text(encoding="utf-8")
+        budget = SETUP_SKILL_CHARS if skill.parent.name in ("assess", "start") else SKILL_CHARS
+        if len(text) > budget:
+            problems.append(f"{rel}: {len(text)} characters, budget {budget}")
+        for page in sorted(set(FRAMEWORK_REF.findall(text))):
+            if not AGENT_PAGES.fullmatch(page):
+                problems.append(
+                    f"{rel}: sends agents to framework/{page}, which is written for people; "
+                    "say what to do in the skill"
+                )
+    template = root / "templates" / "AGENTS.md"
+    if template.exists():
+        text = template.read_text(encoding="utf-8")
+        if len(text) > TEMPLATE_AGENTS_CHARS:
+            problems.append(
+                f"templates/AGENTS.md: {len(text)} characters, budget {TEMPLATE_AGENTS_CHARS}"
+            )
+        if "<!--" in text:
+            problems.append("templates/AGENTS.md: HTML comments load into every session")
+    return problems
+
+
 def main() -> int:
     errors: list[str] = []
     errors.extend(check_resources(ROOT))
+    errors.extend(agent_read_problems(ROOT))
     names_file = ROOT / "private-names.local.md"
     if names_file.exists():
         names = [n.strip() for n in names_file.read_text(encoding="utf-8").splitlines()]

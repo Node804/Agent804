@@ -24,8 +24,8 @@ part of a scenario those tests prove. An Accepted ADR stays Accepted.
 
 Read the project's quality scenarios and the ADRs on the change's topics. An Accepted ADR is a
 rule: follow it, or propose an amending ADR. Never work around it quietly.
-Read approval guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/approvals.md`, otherwise
-`../../framework/approvals.md` from this file, and the project's authority/index policy.
+Only a person accepts an ADR, in their own words (GR-7). If the project has
+`docs/approvals/README.md`, it says who may decide what.
 
 ## Is it a quality scenario?
 
@@ -63,8 +63,7 @@ probably a spec; split it.
 
 After a spec's tests pass:
 
-Use testing guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/testing.md`, otherwise
-`../../framework/testing.md` from this file. Record environment, discovered/executed scope,
+Record environment, discovered/executed scope,
 actual results and skips/exclusions (TS-12); unexecuted quality/security boundaries remain
 unverified. A green subset cannot validate an entire architecture decision.
 

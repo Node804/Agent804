@@ -5,9 +5,7 @@ description: Recommend which model and effort setting should handle each develop
 
 # Route work to models
 
-Read the guide first: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/model-routing.md`,
-otherwise `../../framework/model-routing.md` from this file. Routing is a trial module; one
-model in separate contexts is always enough.
+Routing is a trial module; one model in separate contexts is always enough.
 
 This skill recommends. It does not launch models or agents, change accounts or settings,
 probe paid APIs, or send the project to another provider.
@@ -18,13 +16,24 @@ probe paid APIs, or send the project to another provider.
   providers allowed to receive the code.
 - Ask the user which models they have and which account pays for each, if unknown. Never ask
   for credentials. A model in a public catalogue is not proof the user can use it.
-- Note the host each model runs in (`framework/agents/`): a model without the tools a role
-  needs cannot fill that role.
+- Note the host each model runs in (`docs/agent-host.md`): a model without the tools a
+  role needs cannot fill that role.
 
 ## 2. Recommend tiers for the task's roles
 
 Map the user's models to the Strongest, Mid and Fast tiers, then assign the roles the task
-needs from the table in the guide. For each, give the model, its effort setting and one line
+needs. Starting points:
+
+| Role | Tier |
+|---|---|
+| Design, specification, architecture | Strongest |
+| Review | Strongest, a different model from the author where available |
+| Acceptance tests | Strong or mid; check its output type-checks before handover (TS-7) |
+| Implementation | Mid, raised for security, concurrency or cross-module work |
+| Search, running checks, mechanical edits | Fast |
+
+Name tiers, not models, in anything kept in the kit; model names belong only in the
+project's `docs/model-routing.md`. For each, give the model, its effort setting and one line
 on why. Raise a tier for security, concurrency or cross-module work; lower one only where
 results have shown the cheaper tier produces the same accepted outcomes.
 

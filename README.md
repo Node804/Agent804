@@ -84,6 +84,12 @@ high-impact changes get deeper review.
 | [templates/](templates/) | Agent instructions; specs/plans/PRs; ADR/evidence and approval records/validator; maintainability/security/debt records; host/routing records; `.editorconfig` and `.gitattributes` starters; Claude/Codex/Grok starters |
 | [skills/](skills/) | The skills below, as plain playbooks any agent can follow |
 
+**Two readers.** `framework/` is written for people: why each rule exists, its trade-offs and
+evidence. Skills and templates are written for agents and say only what to do, because an
+agent pays for every line it loads. Skills send agents into `framework/` only for the tables
+and playbooks they execute (rules, rungs, modules, profiles, hosts, worktrees); the check
+enforces that and keeps each skill and the `AGENTS.md` template within a size budget.
+
 The kit ships one language profile, Django, because it is the only stack it has been run
 on. For any other stack, `start` writes a Draft profile for the project from the template,
 against the real code. A profile joins the kit once it has been used on a real project; see

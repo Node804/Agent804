@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- Agents load instructions, not explanations. `framework/` stays the reference for people;
+  skills no longer send agents to its guidance pages and say what to do themselves. `spec`
+  now loads about 5k characters before work starts, down from about 52k with the pages it
+  pointed at; `review` about 4k, down from 57k. The `AGENTS.md` template every project loads
+  each session goes from 6.4k characters to 2.1k: module lines are added by `start` only when
+  a module applies, and its guidance for people moves into `start`. The check fails a skill
+  that links a guidance page, a skill over its size budget, or HTML comments in the template.
+
 - GR-1 judges what a credential allows. When production is the only source to develop
   against, a development credential passes if a person decided it in writing and it is
   read-only and non-sensitive by the source's own limits, rate-limited and separate from

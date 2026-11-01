@@ -9,18 +9,16 @@ A rule that exists only as prose is a check not yet written (CK-5). This skill w
 next session cannot repeat the mistake, and so nobody has to fix the same diff by hand again
 (RV-4).
 
-**Framework files**: in Claude Code, `${CLAUDE_PLUGIN_ROOT}/framework/`; for other agents,
-`../../framework/` from this file. The stack's mechanisms are in `profiles/<stack>.md`.
-Without one, use the project's `docs/stack-profile.md`. A Draft mechanism still needs an
+The stack's mechanisms are in the kit's Django profile (Claude Code
+`${CLAUDE_PLUGIN_ROOT}/framework/profiles/django.md`, otherwise
+`../../framework/profiles/django.md`) or the project's `docs/stack-profile.md`. A Draft mechanism still needs an
 implementation and a shown failure before it counts as a sensor.
 
 For test sensors, assert an independent expected outcome and show the intended violation
 fails (TS-8). Control resources and inspect discovery/exit handling (TS-10, TS-12). Optional
 TS-13 sensitivity trials use isolated disposable changes, never production or shared state.
-
-Read testing guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/testing.md`, otherwise
-`../../framework/testing.md` from this file. Keep stage completion distinct from feature
-completion; no commit history or passing metadata substitutes for execution evidence.
+A sensor counts once it has run and failed on the violation; commit history or a passing
+record is not that evidence.
 
 ## 1. State the invariant
 

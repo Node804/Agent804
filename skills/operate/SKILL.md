@@ -8,19 +8,14 @@ description: Design or review how a system's actions are used by agents and auto
 Most guidance covers agents **building** software. This covers agents **using** it: an
 assistant calling your API or MCP tools, a script acting for a user. A mistake here is not a
 red test; it is a wrong write in production, made at machine speed. The levels are in
-`framework/modules.md` ("Operate") and the rules are OP-1 to OP-8 in `framework/rules.md`.
+`framework/modules.md` ("Operate"); the rules are OP-1 to OP-8.
 
 **Framework files**: in Claude Code, `${CLAUDE_PLUGIN_ROOT}/framework/`; for other agents,
 `../../framework/` from this file.
-Read the project's `docs/security.md` and security guidance: Claude Code
-`${CLAUDE_PLUGIN_ROOT}/framework/security.md`, otherwise `../../framework/security.md` from
-this file. Operate levels complement SE-1 to SE-6; they do not certify production readiness.
-For interface changes, follow the project's maintainability/style policies and approved
-criteria. Read approval guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/approvals.md`,
-otherwise `../../framework/approvals.md` from here. Design approval does not grant live write
-or publish authority. Use testing guidance: Claude Code
-`${CLAUDE_PLUGIN_ROOT}/framework/testing.md`, otherwise `../../framework/testing.md` from here;
-preserve meaningful red/green evidence, independent assertions and actual integration scope.
+Read the project's `docs/security.md` if it exists. Operate levels complement SE-1 to SE-6;
+they do not certify production readiness. Agreement on a design does not grant authority to
+write to or publish from a live system. Tests assert outcomes independently of the code and
+cross the real interface where it matters.
 
 ## O1: One contract
 

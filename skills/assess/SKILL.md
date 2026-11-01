@@ -16,9 +16,8 @@ alone. Check TS-10/TS-12 at rung 2, TS-11 at rung 4 and TS-8/TS-9 where applicab
 Report isolation, discovery, retry/quarantine and unexecuted target gaps. TS-13 is a practice;
 no universal mutation score is required and historical TDD must not be invented.
 
-Read testing guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/testing.md`, otherwise
-`../../framework/testing.md` from this file. Keep stage completion distinct from feature
-completion; no commit history or passing metadata substitutes for execution evidence.
+Keep stage completion distinct from feature completion; no commit history or passing
+metadata substitutes for execution evidence.
 
 ## Steps
 
@@ -35,12 +34,8 @@ or a fixture adapter pass with active project permissions or a working completio
    (`profiles/`). Identify the stack from the lock files and dependency manifests.
    With no profile for the stack, judge each rule by its property, using the table in
    `profiles/README.md`. A profile describes mechanisms; only running ones count as met.
-   Read maintainability guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/maintainability.md`,
-   otherwise `../../framework/maintainability.md` from this file.
-   Read security guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/security.md`, otherwise
-   `../../framework/security.md` from this file; inspect the project's security record.
-   Read approval guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/approvals.md`, otherwise
-   `../../framework/approvals.md` from this file; inspect actual policy, sources and subjects.
+   Grade from the Check column in `rules.md`; inspect the project's own maintainability,
+   security and approval records, not the framework's explanations of them.
 2. **Read the repository's own instructions**: `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/`,
    `.github/copilot-instructions.md`, nested instruction files, agent settings and hooks.
    Read `.env.example` (or its equivalent) and its comments: it says which settings hold
@@ -109,20 +104,16 @@ or a fixture adapter pass with active project permissions or a working completio
 
 ## Report
 
-When the Maintenance module applies, report MT-5 (trial) using Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/technical-debt.md`,
-otherwise `../../framework/technical-debt.md`. Inspect confirmed consequences, owner,
+When the Maintenance module applies, report MT-5 (trial). Inspect confirmed consequences, owner,
 disposition/review condition, actual deferral authority, linked exceptions and closure evidence
 in the canonical record. Scanner candidates are not confirmed debt; a debt label neither
 waives a gate nor accepts security/test failures. A clean project needs no invented debt items.
 
-When the Context module applies, report IN-8/WK-8 (trial):
-Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/context-management.md`, otherwise
-`../../framework/context-management.md` from here. Check missing/truncated evidence, stale
+When the Context module applies, report IN-8/WK-8 (trial). Check missing/truncated evidence, stale
 indexes/dirty work and assumptions promoted by summaries. Missing context trials stay pending;
 do not run model sessions or modify the app to establish them during read-only assessment.
 
-For opted-in routing, inspect Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/model-routing.md`,
-otherwise `../../framework/model-routing.md`, and project records for WK-7/MS-5. Report role,
+For opted-in routing, inspect the project's `docs/model-routing.md` and records for WK-7/MS-5. Report role,
 native effort, access/budget evidence, bounds, fallbacks and actual context independence as
 conditional practices. Missing optional routing or multiple subscriptions never fails a rung;
 one model in separate contexts remains valid. Do not probe accounts or launch models to score it.

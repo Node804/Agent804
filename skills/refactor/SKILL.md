@@ -9,18 +9,12 @@ Improve a concrete maintenance problem while preserving the affected behavior an
 MT-4 is a reported practice pending trials, not a rung gate. A passing suite supports only
 the scope it exercises; it is not proof of complete equivalence.
 
-**Framework files**: in Claude Code, `${CLAUDE_PLUGIN_ROOT}/framework/`; for other agents,
-`../../framework/` from this file. Read [maintainability](../../framework/maintainability.md),
-especially MT-4: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/maintainability.md`.
-Read [testing](../../framework/testing.md): Claude Code
-`${CLAUDE_PLUGIN_ROOT}/framework/testing.md`. Use the project's resolved stack profile,
-conventions, risk zones, applicable ADRs and approval policy.
+Use the project's stack profile, `docs/maintainability.md`, conventions, risk zones,
+applicable ADRs and approval policy.
 
 ## Scope and preservation contract
 
-Inspect relevant canonical debt (MT-5): Claude Code
-`${CLAUDE_PLUGIN_ROOT}/framework/technical-debt.md`, otherwise `../../framework/technical-debt.md`.
-Link authorized repayment/completion criteria and retained scope; don't expand into unrelated
+Check the project's debt record for items in the area (MT-5). Link authorized repayment/completion criteria and retained scope; don't expand into unrelated
 cleanup. Verify debt outcomes and reconcile exceptions before proposing closure. Moving a
 finding or replacing a workaround preserves history and cannot silently resolve the item.
 
@@ -31,16 +25,14 @@ finding or replacing a workaround preserves history and cannot silently resolve 
   consumers; absence from static search is not permission to remove compatibility.
 - Identify what must remain stable: relevant results, errors, side effects, public interfaces,
   security/refusal behavior, ordering, transactions, retries and performance constraints.
-- Reuse authorization within its scope. Read [approval guidance](../../framework/approvals.md):
-  Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/approvals.md`. Material architecture or contract
+- Reuse authorization within its scope. Material architecture or contract
   changes follow the existing spec/ADR/approval process. A bug fix or changed public outcome
   is specified separately rather than hidden inside a refactor. No commit/push/deploy authority
   is implied. Routine extractions within an approved task need no repeated permission.
 
 ## Establish the baseline
 
-Use context guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/context-management.md`,
-otherwise `../../framework/context-management.md`. Follow consumers/config/registrations,
+Follow consumers/config/registrations,
 verify dirty-state/index freshness and inspect missing/truncated relevant output. Search
 absence alone cannot justify deleting compatibility paths (IN-8); preserve recovery evidence.
 
@@ -70,14 +62,13 @@ failures before extending the change. Explain legitimate test adjustments and pr
 acceptance outcomes (TS-4/TS-8); rewriting assertions to bless changed behavior is not evidence.
 Avoid unrelated cleanup, speculative abstractions and broad formatting changes. Follow
 project-owned style and maintainability limits; don't move violations to erase their history.
-For concurrent writers, follow [worktrees](../../framework/worktrees.md): Claude Code
-`${CLAUDE_PLUGIN_ROOT}/framework/worktrees.md`; isolate resources and check combined changes.
+For concurrent writers, follow the project's `docs/worktrees.md`; isolate resources and
+check combined changes.
 
 ## Complete and review
 
-Preserve the plan's resume handoff across contexts. Verify actual host capabilities via
-Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/agents/README.md`, otherwise
-`../../framework/agents/README.md`; unsupported execution remains a reported gap.
+Preserve the plan's resume handoff across contexts. What the host cannot do (see
+`docs/agent-host.md`) remains a reported gap.
 
 Update callers, public-contract documentation, navigation and examples. Remove obsolete paths,
 dependencies and configuration or record retained consumers, reason and review condition

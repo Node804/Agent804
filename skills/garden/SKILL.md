@@ -8,23 +8,12 @@ description: Find instruction files, docs, plans and decisions that no longer ma
 Docs go stale the moment code changes, and agents copy whatever patterns exist, good or bad
 (OAI). This pass finds drift and proposes small fixes (MS-2, MS-3). It changes files only when
 the user asks; otherwise it reports.
-Read the project's maintainability record and guidance: Claude Code
-`${CLAUDE_PLUGIN_ROOT}/framework/maintainability.md`, otherwise
-`../../framework/maintainability.md` from this file.
-Read `docs/security.md` and security guidance: Claude Code
-`${CLAUDE_PLUGIN_ROOT}/framework/security.md`, otherwise `../../framework/security.md` from
-this file. Finding decisions follow SE-6; maintained security evidence has freshness limits.
-
-Read approval policy/index and guidance: Claude Code
-`${CLAUDE_PLUGIN_ROOT}/framework/approvals.md`, otherwise `../../framework/approvals.md`.
+Read the project's records where they exist: `docs/maintainability.md`, `docs/security.md`
+(finding decisions follow SE-6; security evidence goes stale) and `docs/approvals/README.md`.
 
 Review flaky failures, retry rates, quarantine owners/expiry, skipped suites, unexpected
 discovery changes and obsolete fixtures (MS-2, TS-10, TS-12). Propose reviewed corrections;
 never silently skip a failure or change acceptance outcomes without affected criteria review.
-
-Read testing guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/testing.md`, otherwise
-`../../framework/testing.md` from this file. Keep stage completion distinct from feature
-completion; no commit history or passing metadata substitutes for execution evidence.
 
 ## Steps
 
@@ -69,14 +58,11 @@ completion; no commit history or passing metadata substitutes for execution evid
 
 ## Report
 
-Review canonical debt under MT-5: Claude Code
-`${CLAUDE_PLUGIN_ROOT}/framework/technical-debt.md`, otherwise `../../framework/technical-debt.md`.
-Triage candidates, missing owners, due dates/events, changed exposure and stale closure evidence.
+Review the project's debt record (MT-5). Triage candidates, missing owners, due dates/events, changed exposure and stale closure evidence.
 Propose repayment or accountable deferral review; never silently renew exceptions or acquire
 authority by creating tickets. Urgent security/defect follow-up keeps its own response clock.
 
-Inspect context drift via Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/context-management.md`,
-otherwise `../../framework/context-management.md`: stale maps/indexes/working notes, lost
+Inspect context drift: stale maps/indexes/working notes, lost
 constraints or summaries that promote hypotheses to decisions. Propose scoped fixes; do not
 generate a second code inventory or claim recall/recovery effectiveness without trial evidence.
 

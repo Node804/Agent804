@@ -7,17 +7,11 @@ description: Report whether agent-built work is getting faster and better or jus
 
 Developers using AI often feel faster than they are. This skill replaces the feeling with a few
 numbers (MS-1). Never count lines generated.
-Read the project's maintainability record and guidance: Claude Code
-`${CLAUDE_PLUGIN_ROOT}/framework/maintainability.md`, otherwise
-`../../framework/maintainability.md` from this file.
+Read the project's `docs/maintainability.md` if it exists.
 
 Track test flakes/retries, quarantine age, skips/exclusions, suite duration and escaped
 regressions (MS-1). Preserve original failures and scope/count changes; compare like targets
 and environments. Missing data stays missing; retries alone do not turn failure into success.
-
-Read testing guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/testing.md`, otherwise
-`../../framework/testing.md` from this file. Keep stage completion distinct from feature
-completion; no commit history or passing metadata substitutes for execution evidence.
 
 ## What to measure
 
@@ -59,23 +53,17 @@ columns: date, what the agent did, what was corrected, rule or check that now pr
 
 ## Report
 
-For debt follow-up (MT-5, MS-1/MS-2), use Claude Code
-`${CLAUDE_PLUGIN_ROOT}/framework/technical-debt.md`, otherwise `../../framework/technical-debt.md`.
-Track observed consequences, ownership gaps, due/overdue reviews, recurrence and verified
+For debt follow-up (MT-5, MS-1/MS-2), use the project's debt record. Track observed consequences, ownership gaps, due/overdue reviews, recurrence and verified
 repayment with comparable scope. Separate estimated clean-code effort from measured friction;
 raw ticket totals/closures prove no benefit. No universal score/capacity percentage is required,
 and measurements do not authorize deferral, risk acceptance or automatic issue creation.
 
-For context/recovery MS-4 trials, use Claude Code
-`${CLAUDE_PLUGIN_ROOT}/framework/context-management.md`, otherwise
-`../../framework/context-management.md`. Compare equivalent tasks/model/host/effort and
+For context and recovery trials (MS-4), compare equivalent tasks/model/host/effort and
 expected evidence: missed contracts, retrieval gaps, unnecessary reads, recovery accuracy,
 defects/interventions, task completion and measured overhead. Token reduction or a single
 successful lookup alone proves no improvement. Missing trials are practices pending evidence.
 
-If optional routing is evaluated, apply MS-5: Claude Code
-`${CLAUDE_PLUGIN_ROOT}/framework/model-routing.md`, otherwise `../../framework/model-routing.md`
-from this file. Compare equivalent task/quality scopes and actual model/host/native effort;
+If the project routes models (`docs/model-routing.md`), apply MS-5. Compare equivalent task/quality scopes and actual model/host/native effort;
 include failures, transfers, retries, rework, interventions, defects and elapsed time. Keep
 measured/estimated/unknown usage distinct and subscription pools/native units separate from
 API spend. Do not infer savings from prompt length or rank models on incomparable tasks.

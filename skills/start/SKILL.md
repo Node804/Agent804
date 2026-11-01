@@ -57,21 +57,18 @@ Read Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/profiles/README.md`, otherwise
 use it. Otherwise copy `_template.md` to the project's `docs/stack-profile.md`, fill it in
 with the user using the table in the profiles README, and mark it Draft. List unmapped
 rules, actual versions and missing mechanisms as gaps.
-Read the maintainability guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/maintainability.md`,
-otherwise `../../framework/maintainability.md` from this file. Agree enforced complexity limits,
-review triggers, public-interface scope and exception handling before implementing the skeleton.
+Agree enforced complexity limits, what counts as a public interface, and how exceptions are
+approved, before building the skeleton (MT-2).
 Every project gets security scanners in the check and a dependency review policy (SE-2,
-SE-3). If the Security module applies, read Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/security.md`,
-otherwise `../../framework/security.md` from this file, and agree with the user the owner,
-assets, trust boundaries, credible abuse cases and versioned requirements (SE-1), and how
-findings get deadlines (SE-6).
+SE-3). If the Security module applies, agree with the user the owner, assets, trust
+boundaries, credible abuse cases and versioned requirements (SE-1), and how findings get
+deadlines (SE-6).
 For style, use the ecosystem's standard formatter and linter (for example Ruff, Prettier and
 ESLint, gofmt, rustfmt, `dotnet format`, Pint) unless the user prefers others, and record them
 in the profile's Style table. Offer `templates/editorconfig` and `templates/gitattributes` for
 line endings and encoding.
-If the Approvals module applies, read Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/approvals.md`,
-otherwise `../../framework/approvals.md` from this file, and agree who has authority to
-approve what and where those decisions are recorded. Never invent approval evidence or infer
+If the Approvals module applies, agree who has authority to approve what and where those
+decisions are recorded. Never invent approval evidence or infer
 commit, push or deployment permission from agreement on a feature.
 
 ## 4. Build the harness, in this order
@@ -79,13 +76,8 @@ commit, push or deployment permission from agreement on a feature.
 Select actual hosts via Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/agents/README.md`,
 otherwise `../../framework/agents/README.md` from here. Record client/version/capabilities
 in `docs/agent-host.md` from `templates/agent-host.md`; missing facilities stay gaps.
-Use context guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/context-management.md`,
-otherwise `../../framework/context-management.md`; keep recovery state in existing plan/PR notes.
-For actual debt, use Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/technical-debt.md`, otherwise
-`../../framework/technical-debt.md`; choose a canonical tracker/record, inventing no clean-project debt.
-Only if opted in, use Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/model-routing.md`, otherwise
-`../../framework/model-routing.md`; offer the optional template without requiring extra models
-or subscriptions. Defaults are disabled/recommend-only; don't launch or spend by setting it up.
+Choose one place debt is tracked; a new project has none to record. Only if the user opts in
+to model routing, copy `templates/model-routing.md`; don't launch models or spend to set it up.
 
 Each step ends with something you can run.
 
@@ -109,7 +101,13 @@ Each step ends with something you can run.
    (MT-1); provide a short navigation path to the area and its test command (IN-4).
    Show an allowed and a refused request, the refused one with no effect (AR-1). If the
    Security module applies, also demonstrate safe initial defaults (SE-4).
-4. **`AGENTS.md`** from the template, with real commands and scoped additions where needed.
+4. **`AGENTS.md`** from the template, with real commands. Agents read every line of it in
+   every session, so it holds only what an agent would otherwise get wrong; no explanations
+   for people, no HTML comments. Add one line per module that applies, naming its record:
+   Security (`docs/security.md`), Approvals (`docs/approvals/README.md`), Parallel work
+   (`docs/worktrees.md`), and model routing if opted in (`docs/model-routing.md`). Tell the
+   user how it grows: a correction given twice becomes a line; a line the check can enforce
+   moves into the check and is deleted. Area rules go in nested files where that area lives.
    For Claude Code add `CLAUDE.md` containing `@AGENTS.md`; verify selected hosts' discovery.
 5. **Guardrails** (GR-1 to GR-4, GR-7): `AGENTS.md` says only a person approves, and an
    approved plan is not a request to commit. Production credentials never go in the `.env`, except a GR-1 exception the
@@ -169,9 +167,8 @@ Each step ends with something you can run.
 
 - Exercise test discovery and failure propagation, including an unexpectedly empty suite;
   show isolated fixtures and actual integration at the skeleton boundary (TS-10 to TS-12).
-  Record command/environment/revision, counts, skips/exclusions and results. Read testing
-  guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/testing.md`, otherwise
-  `../../framework/testing.md` from this file. New mechanisms remain untrialled until exercised.
+  Record command/environment/revision, counts, skips/exclusions and results. New mechanisms
+  remain untrialled until exercised.
 
 ## 6. Report
 

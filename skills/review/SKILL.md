@@ -7,99 +7,61 @@ description: Review a change (uncommitted work, a branch or a pull request) in a
 
 A second look from a context that did not write the code (RV-2), aimed where damage is likely
 (RV-3). Report only: never edit, commit or push. Run this in a fresh session or subagent, not
-in the one that wrote the change.
+in the one that wrote the change. If you inherited the author's conversation or conclusions,
+say so in the report: it limits the review.
 
 ## Steps
 
 1. **Get the change**: the diff against the base branch, plus uncommitted and untracked files,
-   or the pull request or paths given.
+   or the pull request or paths given. Note the revision you reviewed.
 2. **Get the intent**: the spec in `docs/specs/` or the PR description. If there are no
    acceptance criteria, say so first: the review can only check rules, not correctness.
 3. **Get the zones** from `docs/risk-zones.md`. Spend most of the effort on red, then yellow.
-4. **Read the rules**: the root `AGENTS.md` and the `AGENTS.md` of every directory touched.
-   Read the project's `docs/maintainability.md` and the guidance: Claude Code
-   `${CLAUDE_PLUGIN_ROOT}/framework/maintainability.md`, otherwise
-   `../../framework/maintainability.md` from this file. Compare findings with the reviewed
-   baseline and scoped exceptions; moving a violation does not make it new or erase it.
-   Read `docs/security.md` and security guidance: Claude Code
-   `${CLAUDE_PLUGIN_ROOT}/framework/security.md`, otherwise `../../framework/security.md` from
-   this file. Check exposure changes, versioned requirements, blocking policy and expiry.
-   Read approval policy/index and guidance: Claude Code
-   `${CLAUDE_PLUGIN_ROOT}/framework/approvals.md`, otherwise `../../framework/approvals.md`
-   from this file. Verify required subjects, human sources/authority, scope and freshness.
-5. **Check, in this order**:
+4. **Read the rules**: the root `AGENTS.md`, the `AGENTS.md` of every directory touched, and
+   where they exist `docs/maintainability.md`, `docs/security.md` and
+   `docs/approvals/README.md`.
+5. **Run the check** if it only reads and tests. Use its real result; never the author's report
+   of it.
+6. **Check, in this order**:
    - **Criteria**: each acceptance criterion has a test, and the code does what it says. Look
      for refusal paths (the user without access, bad input, the outside system down).
-   - **Tests** (TS-2, TS-4, TS-7 to TS-12): verify meaningful pre-change failure for changed
-     behavior and bug regressions, independent assertions, justified test corrections, real
-     integration boundaries, isolation and full discovery/results. Existing passing tests
-     remain useful. Inspect retries, skips/quarantine and unavailable targets as explicit gaps.
-     Read testing guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/testing.md`, otherwise
-     `../../framework/testing.md` from here. TS-13 sensitivity evidence is a practice, not a gate.
-   - **Scope**: features nobody asked for (KB); changes outside the plan.
-   - **Approvals/trace** (AP-1 to AP-4): original human decisions match required subjects and
-     conditions; material changes renewed affected reviews, unrelated edits did not. Trace
-     requirements through criteria, actual tests, reviewed revision and results. Agent review
-     or mechanical record checks cannot replace required human implementation review (RV-1).
+   - **Tests** (TS-2, TS-4, TS-7 to TS-12): changed behaviour has a test that failed before
+     the change; assertions are independent of the code; any edited acceptance test has a
+     reason; the boundary is real where it matters; retries, skips and quarantines are
+     reported, not hidden.
+   - **Scope**: features nobody asked for; changes outside the plan.
    - **Rules**: each rule in `AGENTS.md` that the change could break.
-   - **Maintainability**: useful public contracts (MT-1); complexity limits and dispositions
-     for new or worsening review triggers (MT-2); authoritative business rules (AR-2), cohesive
-     boundaries and cycles (AR-3); existing capabilities before custom replacements or new
-     dependencies (SK-3); and removed or explicitly retained obsolete paths (MT-3). Confirm
-     duplication and unused-code reports against actual consumers before proposing changes.
-     Check red/green/refactor disposition (TS-2); "no refactor needed" is a valid result.
-     For structural work (MT-4), inspect the stated maintenance problem, affected consumers
-     and preserved contracts, baseline/characterization tests and final results. Flag hidden
-     behavior changes and unverified compatibility. Green tests prove only exercised scope;
-     characterization tests need no artificial red witness. MT-4 itself remains a practice.
-   - **Security**: threats/control mapping (SE-1), current complete checks (SE-2), intended
-     dependency sources and build authority (SE-3), safe defaults and truthful deployment
-     evidence (SE-4), abuse/bypass tests (SE-5), and owner/deadlines/expiry (SE-6). Check object
-     and tenant authorization, unsafe sinks and agent-tool authority where applicable.
-     Security gates/tests or approval policy weakened without explicit human review are
-     findings; a scanner baseline or suppressed exit code does not accept risk.
-   - **Style** (ST-1): unexplained formatter config or version changes, broad exclusions, and
+   - **Maintainability**: public contracts documented (MT-1); complexity limits and new
+     exceptions (MT-2); business rules kept in one place (AR-2); boundaries and cycles (AR-3);
+     an existing capability reused before a new one or a new dependency (SK-3); retired paths
+     removed (MT-3). Moving a violation does not make it new or make it go away. "No refactor
+     needed" is a valid result. For a restructuring, check the stated problem, the preserved
+     contracts and the before/after test results; flag hidden behaviour changes.
+   - **Security**: object and tenant access, unsafe inputs and outputs, what agent tools can do,
+     abuse paths tested (SE-5), dependencies from intended sources (SE-3). A weakened security
+     check, test or approval policy without a person's review is a finding (GR-2).
+   - **Approvals** (if the module applies, AP-1 to AP-4): the required people agreed to this
+     version, and material changes since then were agreed again.
+   - **Debt**: a new shortcut was agreed by a person; a debt ticket never waives a failed check
+     or an unmet criterion.
+   - **Style** (ST-1): unexplained formatter config changes, broad exclusions, and
      reformatting of files the change did not need to touch.
    - **Red zones**: every line.
-6. **Confirm each finding** by reading the code around it. Drop anything you cannot confirm.
+7. **Confirm each finding** by reading the code around it, with its callers and configuration.
+   Drop anything you cannot confirm, and findings about impossible cases (RV-5).
 
-Skip layout owned by automation. Naming, interface clarity and documentation meaning remain
-reviewable when tools cannot judge them (RV-2). Drop findings about impossible cases (RV-5).
-Do not infer maintainability from comment counts or file size alone. Report a breached
-contract, unresolved threshold, duplicated authority or concrete maintenance consequence.
+Skip layout the formatter owns. Naming, interface clarity and documentation remain reviewable.
+Do not judge maintainability from comment counts or file size alone.
 
 ## Report
-
-Inspect debt dispositions (MT-5): Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/technical-debt.md`,
-otherwise `../../framework/technical-debt.md`. Confirm new compromises were reviewed, deferred
-scope has actual authority/review conditions, and closure meets stated outcomes. Tickets do
-not waive gates, unmet criteria or security/test findings; partial repayment keeps remaining
-scope open. Report MT-5 as a practice, without inventing debt from stylistic preferences.
-
-Apply context guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/context-management.md`,
-otherwise `../../framework/context-management.md` from here. Verify source/revision and enough
-enclosing caller/config/exception context; resolve necessary truncated ranges or report the
-uninspected scope. An author's summary or stale index is not evidence the current diff is clean.
-
-When optional routing is used (WK-7), compare actual role/model/host/effort and inherited
-inputs with the proposed handoff. Read Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/model-routing.md`,
-otherwise `../../framework/model-routing.md` from here. Different models agreeing is not
-correctness; require concrete counterexamples for findings and actual execution evidence.
-No finding quota or majority vote replaces approved criteria and human review.
-
-Check the review context's actual inputs against the host contract: Claude Code
-`${CLAUDE_PLUGIN_ROOT}/framework/agents/README.md`, otherwise `../../framework/agents/README.md`
-from here. Compaction or a fork label alone is not independence. Report inherited author
-conclusions as a review limitation; don't claim tests or host controls you could not exercise.
 
 Findings, most serious first: `path:line`, what breaks, who sees what (a concrete failure, not
 "could be an issue"), and which criterion or rule it breaks. Then:
 - criteria with no test;
 - a mistake that will recur, with the check that would prevent it (hand it to `sensor`);
+- what you could not check, and why;
+- what still needs a person: this review is not the human review before merge (RV-1), and it
+  never approves a deployment;
 - one line listing what was checked and found clean.
-- security blockers, missing/stale verification and scoped human acceptances; distinguish
-  repository evidence from actual production verification and never authorize deployment.
-- approval gaps, stale/conditional/revoked decisions and missing original provenance. State
-  what still requires a human; do not declare your own review to be that human approval.
 
 If nothing survives verification, say so plainly.

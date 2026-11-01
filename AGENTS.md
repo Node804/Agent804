@@ -47,6 +47,9 @@ not authenticate a human decision or grant action authority.
   For an engineering problem agents do not change (incident response, debt tracking, a
   security programme), state the agent-specific point in a sentence or two and link the
   established standard; do not rewrite the standard here.
+- `framework/` is for people, skills and templates for agents. Put an instruction in the
+  skill that needs it, once; the framework page explains why and cites the rule ID. Skills
+  link only the framework tables and playbooks the check allows, within its size budgets.
 - A rule states a property, never a tool. Stack mechanisms belong in
   `framework/profiles/<stack>.md`, added only after a real project has used it.
 - `framework/validation.md` lists the published work the framework was checked against, what
