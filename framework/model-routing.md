@@ -15,7 +15,7 @@ Which model does which job changes the software, not just the bill. Three reason
    of the framework depends on. Plan so those are never the ones cut.
 
 Routing is the Routing [module](modules.md#routing), a trial. One model in separate contexts
-meets every rung; nothing here is required to climb them. The
+meets every core level; nothing here is required to climb them. The
 [`route`](../skills/route/SKILL.md) skill recommends assignments; it never launches a model
 or spends allowance.
 

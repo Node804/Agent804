@@ -1,18 +1,23 @@
 ---
 name: assess
-description: Audit an existing repository against the Agent804 rungs, rules and modules, read-only, and report its foundation, coverage and triggered modules with evidence and the next three steps. Use when the user asks how their project or agent setup measures up, where to start improving it, or before adopting the framework on existing code.
+description: Audit an existing repository against Agent804 levels, rules and modules, read-only, with evidence, one bounded next action and optional follow-ups. Use to understand the project's position; adopt guides implementation of missing protections on existing code.
 ---
 
 # Assess a repository
 
-Score a repository against `framework/rungs.md` and `framework/rules.md`, with evidence for
+Score a repository against `framework/levels.md` and `framework/rules.md`, with evidence for
 every claim. Read-only: never edit, commit or install anything.
+
+Adoption does not require earning a level first. Recommend one useful increment, not a
+whole-repository conversion. To carry it out, use `adopt`: Claude Code
+`${CLAUDE_PLUGIN_ROOT}/skills/adopt/SKILL.md`, otherwise `../adopt/SKILL.md` from here.
+Do not invoke it or create an adoption record during this read-only assessment.
 
 **Framework files**: in Claude Code, `${CLAUDE_PLUGIN_ROOT}/framework/`; for other agents,
 `../../framework/` from this file.
 
 Assess TS-2 using actual red/green results and revision/patch evidence, not commit order
-alone. Check TS-10/TS-12 at rung 2 and TS-1 to TS-4, TS-8/TS-9 where applicable at rung 5; report
+alone. Check TS-10/TS-12 at level 1 and TS-1 to TS-4, TS-8/TS-9 where applicable at level 3; report
 TS-11 as a practice.
 Report isolation, discovery, retry/quarantine and unexecuted target gaps. TS-13 is a practice;
 no universal mutation score is required and historical TDD must not be invented.
@@ -33,7 +38,7 @@ For Grok Build, inspect native versus imported compatibility sources and version
 Stop/trust evidence; public and upstream docs differ. Never equate native skill discovery
 or a fixture adapter pass with active project permissions or a working completion gate.
 
-1. **Read the framework**: `rungs.md`, `modules.md`, `rules.md`, and the profile for the stack if one exists
+1. **Read the framework**: `levels.md`, `modules.md`, `rules.md`, and the profile for the stack if one exists
    (`profiles/`). Identify the stack from the lock files and dependency manifests.
    With no profile for the stack, judge each rule by its property, using the table in
    `profiles/README.md`. When a profile covers only part of the stack (a Django backend
@@ -64,10 +69,10 @@ or a fixture adapter pass with active project permissions or a working completio
    holds and who can reach it (Security), signs of several
    concurrent writers (Parallel work), and so on. When the evidence is unclear, ask; when
    nobody can answer, assume and say so.
-5. **Go through the gating rules rung by rung** (the table in `rungs.md`), then the rules of
+5. **Go through gates by introduction level** (the practice mapping in `levels.md`), then rules of
    each triggered module, then the other core rules as practices. For each rule: **met**, **partly
    met**, **not met**, **not verifiable** (history cannot show it), **not applicable**, or
-   **above target** (not required for this kind of project), with the file and line or command
+   **not assessed (above target)** where evidence was not examined, with the file and line or command
    output that shows it. Do not mark a rule met because a document says it is done; find the
    mechanism. When a grade depends on something you cannot see (a restricted file, a host
    setting, who decided), mark it not verifiable, say what you saw and the question that
@@ -112,10 +117,12 @@ or a fixture adapter pass with active project permissions or a working completio
     publish, is not met (OP-10). No such feature is not applicable. A forwarded foreign
     token, a skipped per-client consent, or a session used as login is not met (OP-11).
 
-13. **Score it**, only now that every rule is graded, using "Scoring" in `rungs.md`: mark
-    each rung, then the foundation and the coverage line. Mark each triggered scored module
-    the same way (Operate by level); report trial modules without a mark. List any
-    not-verifiable rule as an assumption.
+13. **Score it**, only now that every rule is graded, using "Scoring" in `levels.md`: mark
+    the highest cumulative core level with every applicable gate met. Partial or missing
+    gates block advancement. Unverified gates support only a separately named provisional
+    level with assumptions; never present it as earned. Report progress by named practice,
+    including lower-level blockers and later strengths. Score triggered modules by their
+    own marks (Operate O1–O3); report trial modules without a mark.
 
 ## Report
 
@@ -130,23 +137,32 @@ do not run model sessions or modify the app to establish them during read-only a
 
 For opted-in routing, inspect the project's `docs/model-routing.md` and records for WK-7/MS-5. Report role,
 native effort, access/budget evidence, bounds, fallbacks and actual context independence as
-conditional practices. Missing optional routing or multiple subscriptions never fails a rung;
+conditional practices. Missing optional routing or multiple subscriptions never fails a level;
 one model in separate contexts remains valid. Do not probe accounts or launch models to score it.
 
-1. **Score**: foundation, the coverage line, the holes in rungs marked `✓*`, and the target
-   for this kind of project. Ask the two questions in `rungs.md` if you can; when nobody can
+1. **Score**: earned level number and name, target and any additional requirements
+   for this kind of project. Ask the two questions in `levels.md` if you can; when nobody can
    answer (a subagent, an unattended run), assume from the brief and state the assumption.
+   For example: `Core: Level 2 — Controlled. Target: Level 3 — Verified.` Give any
+   provisional level and assumptions separately; Level 0 means no level earned. Show named
+   practice progress toward the next level, not a second aggregate score. If the target and
+   additions are met, say so and label further advancement optional.
    Then the modules line from `modules.md`, triggered modules first with the reason each
    applies, for example `Modules: Operate O1✓ O2✓* O3◐ · Security ◐ · Parallel ✓`.
 2. **Strengths**: rules met well, with evidence. Be specific; no praise without a file reference.
 3. **Gaps**, most serious first: rule ID, what is missing, what goes wrong because of it.
    Distinguish "designed but not running" (documented, never exercised) from "absent".
-4. **Next three steps**: the smallest changes that raise the foundation first, then close the
-   gap to the target, each with the rule IDs it satisfies and a rough size (an hour, a day).
+4. **Do next**: one bounded improvement with benefit, scope, rule IDs, rough size and
+   observable completion evidence. Recommend guided `adopt` implementation; keep this report
+   read-only. Address serious risks first, then unmet additions to the stated target, then
+   gates blocking levels that target actually requires. A Level 2 prototype owing only
+   TS-1, TS-6 and DC-1 to DC-3 does not need the rest of Level 3 to meet its target.
+   Offer at most two **optional follow-ups**; do not make every finding today's backlog.
+   Above-target work is not a required gap; urgent module risks need explicit attention.
 5. **Not checked**: anything you could not verify and why.
    Include host capability gaps: model name, file presence and automatic tool permission
    review do not establish instruction loading, human consent or enforced completion checks.
 
-Put the score, the top three gaps and the next three steps in the first 15 lines, so a reader
-can stop there; evidence follows. Plain statements; do not soften findings, and do not invent
-ones you could not confirm.
+Put the score, up to three key gaps (urgent risks explicit) and the one next action in the
+first 15 lines; optional follow-ups and full evidence follow. Keep all verified findings
+available without implying agreement to fix them now. Do not invent findings.

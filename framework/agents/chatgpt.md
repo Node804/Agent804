@@ -28,7 +28,7 @@ review; verify input boundaries. No requirement for a particular subagent API or
 
 Passing local checks cannot establish remote deployment readiness. Host automatic permission
 review cannot replace required human architecture/criteria/merge review. Report missing
-enforcement explicitly and never claim a fully exercised foundation from document access.
+enforcement explicitly and never claim a fully exercised core level from document access.
 
 ## Sources and limits
 

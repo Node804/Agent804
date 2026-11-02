@@ -6,7 +6,7 @@ practices, [NIST SSDF](https://csrc.nist.gov/projects/ssdf); for building a secu
 programme over time, [OWASP SAMM](https://owaspsamm.org/). This page covers what coding agents
 change about security, and which rules hold a project to it.
 
-SE-2 and SE-3 are core, at rungs 2 and 3. SE-1 and SE-4 to SE-6 form the Security
+SE-2 and SE-3 are core, at levels 1 and 2. SE-1 and SE-4 to SE-6 form the Security
 [module](modules.md#security), scored when a breach would hurt someone other than the
 developer. Keep the project's record in `docs/security.md` from the
 [template](../templates/security.md); keep secrets and incident details out of it.

@@ -1,5 +1,46 @@
 # Changelog
 
+## 0.5.0 - Unreleased preview
+
+- Make the practice table the sole mapping of gates to practices and introduction levels;
+  keep the four-level table as an overview. Preserve all 38 gates and their conditions;
+  update the extractor and regressions to check exact practice ownership and ignore unrelated
+  rule mentions. Practice statuses explain progress without changing the earned level.
+- Clarify that targets do not cap earned levels: verified above-target gates count normally,
+  while unassessed gates cannot support advancement. Use explicit portable host-checklist
+  paths in `adopt` so the resource check verifies both forms.
+
+- Fix five wording ambiguities reported in independent review: core and Operate advancement
+  include the claimed level's own gates; name all tests-before-code gates left unverified
+  before post-adoption features exist; prioritize explicit target additions without requiring
+  an unnecessary higher level; keep proposed adoption increments unauthorized until agreed.
+  The scoring sample has one next action, and a continuation record is not consent to start
+  the next increment.
+
+- Add `adopt` for guided, incremental setup on existing code: reuse current tools, ask the
+  next necessary question, create missing protections such as style conventions and a check
+  command, exercise them and keep a small continuation record. Full assessment is optional;
+  adoption can begin before Level 1. Existing failures and missing controls remain explicit.
+- Add a developer guide covering new projects, existing-code adoption and daily work.
+  Assessments now recommend one bounded next action and at most two optional follow-ups,
+  with urgent risks explicit, instead of presenting three mandatory-seeming tasks.
+  Update setup routing, skill listings and plugin descriptions. Adoption is untrialled on
+  real projects; fixture and review evidence do not establish field effectiveness.
+
+- Replace eight rungs and the foundation/coverage scores with four cumulative core levels:
+  Guided, Controlled, Verified and Sustained. Retain all 38 core gating rules in their new
+  groups; eight named practices explain progress toward the next level.
+- Require every applicable gate through a level to be fully met. Partial gates block
+  advancement; unresolved evidence supports only an explicitly provisional higher level.
+  Existing module triggers, marks and Operate O1–O3 scoring remain separate and unchanged.
+- Rename `framework/rungs.md` to `framework/levels.md`; update assessment, setup, rule
+  headings, guides and integrity checks. Personal prototypes now target the whole controlled
+  harness; personal production tools also require architecture checks and decision evidence.
+  Preserve explicit prototype requirements for scenarios, tests and decisions.
+- Start the 0.5.0 change set in both plugin manifests and preview metadata. Historical
+  assessments are evidence for the earlier scheme only; new reference-project assessments
+  and real-world validation of the levels remain pending.
+
 ## 0.4.0 - Unreleased preview
 
 - Operate review fixes: grade an unbounded OP-9 result consistently not met; restore OP-4's

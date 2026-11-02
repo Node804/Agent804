@@ -29,6 +29,21 @@ It is here so that anyone changing a rule, person or agent, can see what it rest
 
 ## Local regression evidence
 
+### Cumulative core levels (0.5)
+
+The developer requested a concise project label with gates for advancement after finding
+the eight-rung foundation/coverage split confusing. Four cumulative groups now retain the
+same core gates: Guided (former 1–2), Controlled (3–4), Verified (5–7), Sustained (8).
+Named practices describe progress without a second aggregate score. Partial gates now block
+advancement; unverified facts support a provisional label separately from the earned level.
+This is a local design choice, not a maturity model derived from the references above.
+Gate-preservation regressions check all 38 gates, their unique practice ownership and extraction.
+They do not prove assessment consistency or real-world effectiveness. Reference-project
+reassessment with fresh agents is pending; previous scores must not be relabelled as levels.
+
+[Guided adoption evidence](validation/adoption.md) records the local design and limits for
+`adopt`, developer journeys and the assessment handoff. Real-project trials remain pending.
+
 The independent repository review reproduced a skipped hook for `.git` files and an unchanged
 fingerprint after editing a staged file before the first commit. `scripts/test_stop_check.py`
 exercises these paths, independent worktree caches, command changes and failure reporting.
@@ -40,7 +55,7 @@ yet been trialled end to end in a production application.
 
 ## Maintainability adoption
 
-MT-2 now gates rung 2, MT-1 gates rung 4, and MT-3 joins rung 6; there is no ninth rung.
+MT-2 gates Level 1, MT-1 gates Level 2, and MT-3 joins Level 3 under the 0.5 grouping.
 The existing rules now address navigation, current references, authoritative business rules,
 cohesive boundaries, dependency choices and red/green/refactor. Existing projects may retain
 specific reviewed debt without allowing new unapproved or worsening findings. Maintenance
@@ -99,8 +114,8 @@ the record format and is no longer relied on.
 | [Google: end-to-end tests](https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html) and [coverage practices](https://testing.googleblog.com/2020/08/code-coverage-best-practices.html?hl=sk) | Effective test boundaries and risk-focused coverage support TS-5/TS-11 | No fixed layer ratio or coverage percentage; representative journeys and real integration remain necessary |
 | [Stryker introduction](https://stryker-mutator.io/docs/) and [mutant states](https://stryker-mutator.io/docs/mutation-testing-elements/mutant-states-and-metrics/), [Microsoft mutation testing](https://learn.microsoft.com/en-us/dotnet/core/testing/mutation-testing) | Deliberate faults can expose weak assertions (TS-13) | Invalid compilation is not behavioral detection; survivors need interpretation and no universal score proves requirement correctness |
 
-TS-10/TS-12 gate rung 2, and TS-8/TS-9 (where bug fixes apply) rung 5. TS-11 is a
-reported practice; SK-2 still gates a representative end-to-end test in CI at rung 4.
+TS-10/TS-12 gate level 1, and TS-8/TS-9 (where bug fixes apply) level 3. TS-11 is a
+reported practice; SK-2 still gates a representative end-to-end test in CI at level 2.
 TS-13 remains a reported practice pending trials. Existing runner references above informed
 Draft stack-specific discovery, failure, isolation and target-scope guidance. Repository
 checks validate documentation integrity and existing mechanical regressions, not the new
@@ -115,7 +130,7 @@ historical Reference scores have not been re-established under these gates.
 | [Fowler: Refactoring](https://refactoring.com/) | Small transformations preserve observable behavior while improving internal structure; preparatory and everyday refactoring support MT-4 | Agent804 adds explicit consumer/contract and baseline/final evidence for agent handoffs. Tests support exercised scope, not complete equivalence; characterization need not produce artificial red |
 
 The new refactor playbook uses existing plan/PR records and approval rules. MT-4 is a reported
-practice at rung 6, with no new rung or gate. Portable metadata, links, budgets and rule-ID
+practice associated with Level 3, with no new level or gate. Portable metadata, links, budgets and rule-ID
 checks validate kit integrity, not behavioral preservation in adopting applications. Standalone
 refactor trials, unknown/dynamic consumers, weak-test characterization and separation of
 hidden behavior changes remain untrialled. No Reference scores or runtime compatibility are

@@ -117,7 +117,7 @@ The [refactor playbook](../skills/refactor/SKILL.md) covers standalone and subst
 preparatory work; ordinary red/green/refactor remains part of development. Use existing
 plan/PR evidence rather than a mandatory new artifact. Record the maintenance improvement,
 baseline/final results, affected contracts, consumers and verification limits. MT-4 is reported
-as a practice at rung 6 pending application trials; it adds no rung or scoring gate.
+as a practice at level 3 pending application trials; it adds no level or scoring gate.
 
 ## MT-5: Accountable debt disposition (practice)
 
@@ -125,7 +125,7 @@ Use the [debt lifecycle](technical-debt.md) for confirmed maintenance consequenc
 justified deferral: one authoritative record, owner, evidence, disposition, review condition
 and verifiable closure. Candidate reports need confirmation. Link existing MT-2 baselines,
 MT-3 retention records and specialist security/test obligations; don't duplicate authorities.
-A ticket alone grants no exception or acceptance. MT-5 is reported, not a rung gate.
+A ticket alone grants no exception or acceptance. MT-5 is reported, not a level gate.
 
 ## Adopt in an existing project
 

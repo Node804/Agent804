@@ -1,6 +1,6 @@
 # Agent804
 
-![Public Preview · 0.4.0 — Some features and workflows are still being tested across models and agent hosts. Behavior and rules may change.](assets/preview-banner.svg)
+![Public Preview · 0.5.0 — Some features and workflows are still being tested across models and agent hosts. Behavior and rules may change.](assets/preview-banner.svg)
 
 **Build the harness before the app.** A framework and skill set for working with coding
 agents, from Node 804.
@@ -32,8 +32,22 @@ the difference. Every skill, module and mechanism carries one of four marks, and
 
 ## Core and modules
 
-**The core is what every project built with agents needs**: eight rungs, from an instructions
-file to measurement ([rungs.md](framework/rungs.md)). These are the primary goals. Operate is
+**The core is what every project built with agents needs**, grouped into four cumulative
+[levels](framework/levels.md). Each level requires every applicable gate in that level and
+in every earlier level to be fully met:
+
+| Level | What it establishes |
+|---|---|
+| **1 — Guided** | Repository instructions and one working check |
+| **2 — Controlled** | Guardrails, a running skeleton, CI and human review |
+| **3 — Verified** | Independent tests before code, architecture checks and decisions with evidence |
+| **4 — Sustained** | Measurement and regular gardening |
+
+An assessment says **“Level 2 — Controlled”**, names gaps blocking the next required level,
+and reports modules separately. Partial gates block advancement; unresolved evidence is
+explicitly provisional. The level describes development protections, not product correctness.
+
+These are the primary goals. Operate is
 one of them. Building an MCP server, an agent API, or an embedded model feature is development
 work, scored when the project has that surface.
 
@@ -41,12 +55,12 @@ work, scored when the project has that surface.
 |---|---|
 | [Maintainable by people and agents](framework/maintainability.md) | One authority per business rule; units small enough to read whole; contracts and the non-obvious why, with no comment quota; obsolete code removed or recorded; new work fits the existing design; a refactor keeps behavior and records preservation. Existing code can adopt a reviewed baseline |
 | [Security in development](framework/security.md) | Honest scanners, identified dependencies, and no production secrets in an agent's reach. A person reviews any change that weakens those controls. When a breach would hurt someone else: a threat model against a versioned standard, safe defaults, abuse tests first, and owned findings. A score is not a certificate |
-| [One style per language](framework/rules.md#st-style-rung-2) | One pinned formatter and linter per language. The check reports and does not rewrite. The language's usual style is the default (PEP 8, PSR-12). A project that keeps another style records why |
-| [A person owns the work](framework/rules.md#rv-review-rv-1-at-rung-4) | The person agrees criteria before code, can explain every change before merge, and is the only one who approves. Commit, push, deploy, and migrate wait for them. Agent review and a green check do not replace that |
+| [One style per language](framework/rules.md#st-style-level-1) | One pinned formatter and linter per language. The check reports and does not rewrite. The language's usual style is the default (PEP 8, PSR-12). A project that keeps another style records why |
+| [A person owns the work](framework/rules.md#rv-review-rv-1-at-level-2) | The person agrees criteria before code, can explain every change before merge, and is the only one who approves. Commit, push, deploy, and migrate wait for them. Agent review and a green check do not replace that |
 | [Witnessed TDD and preservation](framework/testing.md) | Criteria first. Acceptance tests come from a separate context, fail for the intended reason, then pass. Existing behavior stays covered. Tests are not weakened to get green, and they assert outcomes. Failure and refusal are criteria when they matter |
 | [The repository is the memory](framework/context-management.md) | Standards, decisions, plans, and evidence live in the repo. A later session resumes from those files. A summary or a search miss is not authority and is not a check result |
-| [The agent cannot declare success](framework/rules.md#ck-checks-rungs-1-2-4-and-6) | One check covers format, lint, types, tests, architecture, and security. CI runs it on the committed tree and blocks a red merge. A red check cannot be called done. A repeated review comment becomes a check |
-| [Whether the work holds](framework/rules.md#ms-measure-and-garden-rung-8) | Track corrections, rework, escaped defects, flakes, and maintainability trends. Never count lines generated |
+| [The agent cannot declare success](framework/rules.md#ck-checks-levels-1-to-3) | One check covers format, lint, types, tests, architecture, and security. CI runs it on the committed tree and blocks a red merge. A red check cannot be called done. A repeated review comment becomes a check |
+| [Whether the work holds](framework/rules.md#ms-measure-and-garden-level-4) | Track corrections, rework, escaped defects, flakes, and maintainability trends. Never count lines generated |
 | [The AI-facing surface](framework/operate.md) | MCP servers, agent APIs, and embedded model features use one contract, a designed tool list, read-only access until a person grants write, and model output that cannot approve or publish |
 
 **Modules cover problems a project has only in some situations.** Each has a trigger; when
@@ -77,7 +91,7 @@ high-impact changes get deeper review.
 | Path | Read by | What |
 |---|---|---|
 | [framework/rules.md](framework/rules.md) | Both | Every rule, with an ID and how to grade it |
-| [framework/rungs.md](framework/rungs.md) | Both | The eight core rungs, how a project is scored, and how much it needs |
+| [framework/levels.md](framework/levels.md) | Both | The four cumulative core levels, scoring and project targets |
 | [framework/modules.md](framework/modules.md) | Both | The modules and their triggers, and the Operate levels |
 | [framework/profiles/](framework/profiles/) | Both | The Django profile, and the template `start` fills in for any other stack |
 | [framework/agents/](framework/agents/) | Both | Host recipes: Claude Code, Codex, Grok Build CLI, ChatGPT and custom hosts |
@@ -85,7 +99,8 @@ high-impact changes get deeper review.
 | [testing](framework/testing.md), [maintainability](framework/maintainability.md), [security](framework/security.md), [operate](framework/operate.md), [debt](framework/technical-debt.md), [context](framework/context-management.md), [routing](framework/model-routing.md) | People | Why the rules on each topic exist, and their trade-offs |
 | [framework/validation.md](framework/validation.md) | People | The published work the framework was checked against, and where it chose differently |
 | [templates/](templates/) | Agents | `AGENTS.md`, specs, plans, pull requests, ADRs and evidence, project records, host settings and stop hooks |
-| [skills/](skills/) | Agents | The twelve skills below |
+| [developer guide](framework/developer-guide.md) | People | Starting new projects, gradual adoption and daily development |
+| [skills/](skills/) | Agents | The thirteen skills below |
 
 **Two readers.** The pages marked "People" explain; skills and templates instruct, because an
 agent pays for every line it loads. Skills send agents into `framework/` only for the pages
@@ -99,7 +114,8 @@ against the real code. A profile joins the kit once it has been used on a real p
 
 | Skill | Does | Evidence |
 |---|---|---|
-| [`assess`](skills/assess/SKILL.md) | Existing project: the score, which modules apply, the gaps with evidence and the next three steps. Read-only | **Proven** |
+| [`assess`](skills/assess/SKILL.md) | Existing project: the score, which modules apply, the gaps with evidence and one next action. Read-only | **Proven** under earlier scoring; 0.5 scoring untrialled |
+| [`adopt`](skills/adopt/SKILL.md) | Existing project: guided creation of missing protections, one implemented increment at a time, with evidence and a resume point | Idea; isolated setup exercise only |
 | [`spec`](skills/spec/SKILL.md) | Acceptance criteria sized to the change, then tests written first in a separate context | Used once, in an earlier form |
 | [`decide`](skills/decide/SKILL.md) | ADRs, and the evidence recorded back once a feature is built | Used once, in an earlier form |
 | [`review`](skills/review/SKILL.md) | A fresh-context review from the criteria and the real check output, deepest in red zones | Used once, in an earlier form |
@@ -113,6 +129,9 @@ against the real code. A profile joins the kit once it has been used on a real p
 | [`context`](skills/context/SKILL.md) | Optional: gathers or recovers the evidence a long task needs, from the repository | Idea |
 
 ## Use it
+
+The [developer guide](framework/developer-guide.md) walks through new projects, gradual
+adoption of existing code and daily work, with example requests and responsibilities.
 
 ### 1. Install
 
@@ -145,9 +164,11 @@ agents will call it, how many write at once). Then it builds a running skeleton 
 guardrails, CI, risk zones and a first ADR, and proves each control by making it fail once.
 It asks before the first commit.
 
-**Existing project:** run `assess`. It changes nothing. The first lines of its report are the
-score, the three most serious gaps and the next three steps with rough sizes; the evidence
-follows. Work the next steps, then run it again.
+**Existing project:** use `adopt` for guided setup, or `assess` for a read-only diagnosis.
+Assessment recommends one bounded next action with optional follow-ups. Adoption walks you
+through the choices and creates missing pieces, such as style conventions or a check command.
+Agree one useful increment, prove what works, then resume later from the project record.
+You can begin before earning Level 1; the full findings are not today's mandatory backlog.
 
 ### 3. Every change
 
@@ -183,16 +204,17 @@ spans many sessions or the evidence is incomplete.
 
 ## Evidence
 
-**Version 0.4.0, a preview, not yet released.** Rules still change; see [CHANGELOG.md](CHANGELOG.md)
+**Version 0.5.0, a preview, not yet released.** Rules still change; see [CHANGELOG.md](CHANGELOG.md)
 and [ROADMAP.md](ROADMAP.md). The reference projects are real line-of-business applications
 built with coding agents; they are not named here.
 
 **Proven**
-- **`assess` and the scoring.** Run on two real Django repositories by independent agents
+- **`assess` under earlier scoring.** Run on two real Django repositories by independent agents
   working from the skill alone: three rounds under 0.2 and two under 0.4. Agents followed it
   without help, and scores converged once ambiguous wording was fixed. Every round also
   produced a list of places the wording made the agent guess; those lists drove most of the
-  changes in 0.3 and 0.4.
+  changes in 0.3 and 0.4. The cumulative 0.5 levels have not been trialled; earlier scores
+  do not establish them and require fresh reassessment.
 
 **Used once**
 - **The change flow** (`spec`, separate test writing, build, `review`, `decide`) on one real
@@ -216,12 +238,18 @@ built with coding agents; they are not named here.
 **Fixture-tested**
 - **Stop hooks for Claude Code, Codex and Grok Build**: 34 regression cases in disposable Git
   repositories, including linked worktrees. None of the Codex or Grok adapters has blocked a
-  real session yet; Grok's offline inspection found all twelve skills, which is discovery,
+  real session yet; Grok's earlier offline inspection found the twelve skills shipped then,
+  which is discovery,
   not enforcement.
 
 **Idea**
-- **Skills never run:** `start`, `refactor`, `sensor`, `garden`, `measure`, `operate`, `route`
-  and `context`, and the small-change path of `spec`.
+- **0.5 guided adoption and developer journeys:** integrity-checked and independently reviewed.
+  An isolated Python exercise created a partial check and resumed to document style;
+  real-project trials and full enforcement setup remain pending.
+- **0.5 cumulative scoring:** gate mapping is regression-tested; assessment clarity and
+  reference-project levels remain untrialled.
+- **Skills not run on real projects:** `start`, `refactor`, `sensor`, `garden`, `measure`, `operate`, `route`
+  and `context`, plus new `adopt` and the small-change path of `spec`.
 - **Modules never run where they apply:** Security, Parallel work, Maintenance and Context. One
   project's attempt at parallel worktrees found its isolation gaps.
 - **Rules added or rewritten in 0.4** that no project has met yet, for example MT-2's file-size
@@ -235,7 +263,7 @@ The kit's own check (Python 3.11+ and Git):
 python scripts/check.py
 ```
 
-It runs 50 regression tests (stop hooks for each host, skill paths, private names, read
+It runs 56 regression tests (stop hooks for each host, skill paths, private names, read
 budgets and rule alignment) and checks links, rule IDs, budgets and configuration syntax. It
 proves the kit is consistent, not that it works: only use on real repositories moves an item
 up this list, and a rule that does not survive that use is changed.

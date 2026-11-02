@@ -6,7 +6,7 @@ description: Plan and perform scoped restructuring of existing code while preser
 # Refactor existing code
 
 Improve a concrete maintenance problem while preserving the affected behavior and contracts.
-MT-4 is a reported practice pending trials, not a rung gate. A passing suite supports only
+MT-4 is a reported practice pending trials, not a level gate. A passing suite supports only
 the scope it exercises; it is not proof of complete equivalence.
 
 Use the project's stack profile, `docs/maintainability.md`, conventions, risk zones,

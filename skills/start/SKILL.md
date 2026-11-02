@@ -1,22 +1,23 @@
 ---
 name: start
-description: Set up a new project from an empty or near-empty repository with an agent harness before any feature is built - instructions file, one check command, guardrails, walking skeleton, CI, decisions and risk zones. Use only when the user asks to start or set up a new project. For a repository that already has code, use assess instead.
+description: Set up a new project from an empty or near-empty repository with an agent harness before any feature is built - instructions file, one check command, guardrails, walking skeleton, CI, decisions and risk zones. For existing code, use adopt for guided setup or assess for read-only diagnosis.
 ---
 
 # Start a project
 
-Put a new project on foundation 4 (the whole harness) before its first feature: a running app, a
+Target Level 2 — Controlled (the whole harness) before the first feature: a running app, a
 green check and exercised completion controls, or explicit gaps against that target. Nothing is committed
 unless the user asks.
 
 **Framework files**: in Claude Code, `${CLAUDE_PLUGIN_ROOT}/framework/` and
 `${CLAUDE_PLUGIN_ROOT}/templates/`; for other agents, `../../framework/` and `../../templates/`
-from this file. Read `framework/rungs.md` first.
+from this file. Read `framework/levels.md` first.
 
 ## 1. Check the starting point
 
-- List the folder. If it holds application code, stop and suggest `assess`: this skill is for
-  new projects.
+- List the folder. If it holds application code, use `adopt` for guided setup or `assess`
+  for read-only diagnosis: this skill is for new projects. Adopt: Claude Code
+  `${CLAUDE_PLUGIN_ROOT}/skills/adopt/SKILL.md`, otherwise `../adopt/SKILL.md` from here.
 - Initialize Git if needed. Independently inspect the branch and working-tree changes before
   writing: reuse an appropriate task branch or create one (for example `setup`). An existing
   empty repository on its default branch still needs a task branch. Preserve existing changes;
@@ -32,7 +33,7 @@ Ask, wait, then ask the next. Accept short answers; offer a default for each.
 
 1. **What is it, and for whom?** One paragraph.
 2. **What happens if it breaks?** Personal tool / internal business use / customer data,
-   money, safety, or writes into other systems of record (see `rungs.md`).
+   money, safety, or writes into other systems of record (see `levels.md`).
 3. **Prototype or production?** A prototype will be thrown away; say so in the README.
 4. **Stack?** If the user has no preference, recommend one that has a profile in
    `framework/profiles/` and is boring, typed and well known. Explain in one line why.
@@ -47,7 +48,7 @@ Ask, wait, then ask the next. Accept short answers; offer a default for each.
 7. **How many write at once?** If several agents or people will write at the same time,
    Parallel work applies.
 
-Set the **target** from the table in `framework/rungs.md`, and list the modules whose
+Set the **target** from the table in `framework/levels.md`, and list the modules whose
 triggers in `framework/modules.md` are true; question 2 also decides Security. Tell the user
 the target and the modules, and what they cost, in two or three sentences.
 
@@ -172,11 +173,13 @@ Each step ends with something you can run.
 
 ## 6. Report
 
-- What exists, as a short list, and the rung reached against the target.
+- What exists, as a short list, and the earned level number/name against the target.
+  Partial or missing gates block advancement; unverified gates qualify only a provisional
+  level with named assumptions. A new skeleton cannot prove historical review or TDD.
 - What was not verified (for example: CI has not run on a server yet; branch protection must be
   set on the host by the user).
 - Next step: describe the first feature and run `spec`.
-- The rung is not a security certificate; this setup grants no deployment access.
+- The level is not a security certificate; this setup grants no deployment access.
 
 Ask before the first commit. Suggest the message "Project harness: check, guardrails, walking
 skeleton".

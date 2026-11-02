@@ -7,8 +7,8 @@ from pathlib import Path
 from check import cited_ids, gating_ids, rule_alignment_gaps
 
 RULES = "| ID | Rule | Check |\n|---|---|---|\n| WK-1 | One. | x |\n| WK-2 | Two. | x |\n"
-RUNGS = "| # | Rung | Prevents | Gating rules | On it when |\n|---|---|---|---|---|\n" \
-        "| 1 | First | x | WK-1 | x |\n"
+LEVELS = "| Practice | Introduced at | Gating rules |\n|---|---|---|\n" \
+        "| First practice | Level 1 | WK-1 |\n"
 
 
 class RuleAlignmentTest(unittest.TestCase):
@@ -17,7 +17,7 @@ class RuleAlignmentTest(unittest.TestCase):
         self.root = Path(self.dir.name)
         (self.root / "framework").mkdir()
         (self.root / "framework" / "rules.md").write_text(RULES, encoding="utf-8")
-        (self.root / "framework" / "rungs.md").write_text(RUNGS, encoding="utf-8")
+        (self.root / "framework" / "levels.md").write_text(LEVELS, encoding="utf-8")
 
     def tearDown(self) -> None:
         self.dir.cleanup()
@@ -30,8 +30,8 @@ class RuleAlignmentTest(unittest.TestCase):
     def test_ranges_are_expanded(self) -> None:
         self.assertEqual(cited_ids("see TS-1 to TS-3"), {"TS-1", "TS-2", "TS-3"})
 
-    def test_gating_ids_come_from_the_rung_table(self) -> None:
-        self.assertEqual(gating_ids(RUNGS), {"WK-1"})
+    def test_gating_ids_come_from_the_practice_mapping(self) -> None:
+        self.assertEqual(gating_ids(LEVELS), {"WK-1"})
 
     def test_uncited_rules_are_reported(self) -> None:
         gaps = rule_alignment_gaps(self.root)

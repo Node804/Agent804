@@ -28,10 +28,10 @@ templates are written for agents: what to do, in the fewest words. Each statemen
 | What an agent does about it | The skill that sets it up or runs it, or a template line | The instruction, citing the rule ID |
 | Why | The framework page for its topic | The reason, citing the rule ID; never repeats the instruction |
 
-When a rule changes, change all three in the same commit, plus `rungs.md` or `modules.md` if
+When a rule changes, change all three in the same commit, plus `levels.md` or `modules.md` if
 its gating or module moves, and the README and `validation.md` where they describe it.
 The check enforces part of this: every rule is cited by a skill or template, and every
-gating rule by one other than `assess` that sets it up (`assess` grades from the rungs table).
+gating rule by one other than `assess` that sets it up (`assess` grades from the practice mapping).
 Skills link only the framework tables and playbooks the check allows, within size budgets.
 
 ## Rules

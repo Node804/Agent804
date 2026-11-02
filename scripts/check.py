@@ -20,7 +20,7 @@ PLUGIN_PATH = re.compile(r"\$\{CLAUDE_PLUGIN_ROOT\}/([\w./-]+)")
 # framework/ is written for people. Skills may send agents only to the tables and playbooks
 # they execute; everything else an agent needs is said in the skill itself.
 FRAMEWORK_REF = re.compile(r"framework/([\w./-]+\.md)")
-AGENT_PAGES = re.compile(r"(rules|rungs|modules|worktrees)\.md|(profiles|agents)/[\w.-]+\.md")
+AGENT_PAGES = re.compile(r"(rules|levels|modules|worktrees)\.md|(profiles|agents)/[\w.-]+\.md")
 # Characters, about four to a token. Agents read a skill whole each time it runs.
 SKILL_CHARS = 8000
 SETUP_SKILL_CHARS = 14000  # assess and start run once per project
@@ -105,26 +105,39 @@ def cited_ids(text: str) -> set[str]:
     return ids
 
 
-def gating_ids(rungs_text: str) -> set[str]:
-    """Rule IDs in the gating column of the rung table in `rungs.md`."""
-    ids: set[str] = set()
-    for line in rungs_text.splitlines():
-        cells = [c.strip() for c in line.split("|")]
-        if len(cells) > 5 and cells[1].isdigit():
-            ids |= cited_ids(cells[4])
-    return ids
+def practice_gates(levels_text: str) -> list[tuple[str, int, set[str]]]:
+    """Practice, introduction level and gates from the authoritative practice table."""
+    rows: list[tuple[str, int, set[str]]] = []
+    in_mapping = False
+    for line in levels_text.splitlines():
+        if not line.startswith("|"):
+            in_mapping = False
+            continue
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if cells == ["Practice", "Introduced at", "Gating rules"]:
+            in_mapping = True
+        elif in_mapping and len(cells) == 3:
+            level = re.fullmatch(r"Level (\d+)", cells[1])
+            if level:
+                rows.append((cells[0], int(level.group(1)), cited_ids(cells[2])))
+    return rows
+
+
+def gating_ids(levels_text: str) -> set[str]:
+    """All core gates from the practice mapping, excluding overview and prose citations."""
+    return set().union(*(gates for _, _, gates in practice_gates(levels_text)))
 
 
 def rule_alignment_gaps(root: Path) -> list[str]:
     """Rules that no agent-facing file acts on.
 
     A rule only an explanation page mentions is one no agent is told to follow. Every rule
-    needs a skill or template citing it. `assess` grades gating rules from the rungs table,
+    needs a skill or template citing it. `assess` grades gates from the practice mapping,
     so a gating rule also needs a skill or template other than `assess` that sets it up.
     """
     rules_text = (root / "framework" / "rules.md").read_text(encoding="utf-8")
     defined = re.findall(r"^\| ((?:[A-Z]{2})-\d+) \|", rules_text, re.MULTILINE)
-    gating = gating_ids((root / "framework" / "rungs.md").read_text(encoding="utf-8"))
+    gating = gating_ids((root / "framework" / "levels.md").read_text(encoding="utf-8"))
     cited: dict[str, set[str]] = {}
     for path in sorted(root.glob("skills/*/SKILL.md")) + sorted(root.glob("templates/*.md")):
         cited[path.relative_to(root).as_posix()] = cited_ids(path.read_text(encoding="utf-8"))

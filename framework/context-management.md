@@ -2,7 +2,7 @@
 
 Make relevant evidence discoverable, verifiable and recoverable. Context capacity does not
 guarantee effective use; neither a small prompt nor a successful lookup proves understanding.
-IN-8 and WK-8 are reported practices pending trials, not new rung gates. Existing instruction,
+IN-8 and WK-8 are reported practices pending trials, not new level gates. Existing instruction,
 testing, approval and security requirements still apply. No retrieval engine or universal
 token threshold is required. The optional [context skill](../skills/context/SKILL.md) prepares
 or refreshes a task's working context; ordinary small changes need no separate invocation.

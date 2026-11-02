@@ -37,7 +37,7 @@ class AgentReadsTest(unittest.TestCase):
     def test_tables_and_playbooks_are_allowed(self) -> None:
         self.skill(
             "start",
-            "framework/rungs.md framework/modules.md framework/worktrees.md "
+            "framework/levels.md framework/modules.md framework/worktrees.md "
             "framework/profiles/django.md framework/agents/README.md\n",
         )
         self.assertEqual(agent_read_problems(self.root), [])

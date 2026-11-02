@@ -1,6 +1,6 @@
 # Modules
 
-The eight rungs are the **core**: every project built with agents needs them. Modules cover
+The four cumulative levels describe the **core** protections. Modules cover
 problems a project has only in some situations: agents calling the system, sensitive data,
 several agents writing at once. A module applies
 when its trigger is true. Then it is scored, and a missing protection is a real finding. When
@@ -20,8 +20,19 @@ its interview.
 | [Context](#context) | Work regularly spans several sessions or more than one context window | IN-8, WK-8 | Trial |
 | [Routing](#routing) | More than one model is used for development, or development model spend is budgeted. A product that calls a model is Operate's concern | WK-7, MS-5 | Trial |
 
-**Scored** modules are marked like the rungs: `✓`, `✓*`, `◐` or `✗` (see Scoring in
-[rungs.md](rungs.md)). **Trial** modules have not yet been run on a real project, so the
+**Scored** modules retain their own marks, separately from [core levels](levels.md):
+
+| Mark | Means |
+|---|---|
+| `✓` | Every applicable gating rule met |
+| `✓*` | None missing; some partly met, with holes listed |
+| `◐` | Some protection exists; at least one applicable gate missing |
+| `✗` | No applicable gate met or partly met |
+| `–` | Trigger does not apply |
+
+Unverifiable module gates retain the prior assumption convention: mark as if met and name
+the assumption and evidence. This does not earn a core level.
+**Trial** modules have not yet been run on a real project, so the
 assessment reports what it finds without a mark. A trial module becomes scored once a real
 project has used it and the result is recorded in [validation](validation.md).
 
@@ -54,9 +65,10 @@ test. Guide: [operate.md](operate.md). Playbook: [`operate`](../skills/operate/S
 | O2 | Safe by default | An agent with too much power, an unattributed or duplicated write, a foreign or session credential | OP-2 to OP-4, OP-11 | Agent access is read-only until a person grants write; writes name who acted; a repeat changes nothing; tokens were issued for this server, and a session is not a login |
 | O3 | Bounded | Planted instructions, an embedded model that can approve itself, unbounded outside load, code nobody reviewed | OP-6 to OP-8, OP-10 | Data text is untrusted; an embedded model feature is specified and its output cannot approve or publish; outside calls have a budget; a person publishes definitions |
 
-Levels are climbed in order: O2 means little without O1. Grade and mark every level, but
-the level reached is the highest one with every level below it met or met with holes, as
-with the foundation: `O1◐ O2✓` has reached no level. Start O1 with the first action: one
+Levels are climbed in order: O2 means little without O1. Grade and mark every level.
+The level reached is the highest one whose own mark and every lower level's mark are
+`✓` (met) or `✓*` (met with holes). Thus `O1✓ O2✗` reaches only O1, and `O1◐ O2✓`
+reaches no Operate level. Core levels require fully met gates. Start O1 with the first action: one
 contract retrofitted over many hand-built endpoints is the expensive path.
 
 ## Security
@@ -67,7 +79,7 @@ the developer. It adds a threat model with versioned requirements (SE-1), safe r
 defaults (SE-4), abuse tests for security-affecting changes (SE-5), and owned findings with
 deadlines (SE-6). Guide: [security.md](security.md).
 
-A rung or module mark assesses how the project is developed. It is not a security certificate
+A core level or module mark assesses how the project is developed. It is not a security certificate
 or permission to deploy, and settings checked locally say nothing about a deployed system.
 
 ## Parallel work

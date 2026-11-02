@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "agent804",
-  "version": "0.4.0",
-  "description": "Preview framework: build the harness before the app with skills for instructions, checks, guardrails, specs, refactoring, optional routing, context recovery, debt management, decisions, review and measurement.",
+  "version": "0.5.0",
+  "description": "Preview framework: build the harness before the app with skills for instructions, checks, guardrails, guided adoption, specs, refactoring, optional routing, context recovery, debt management, decisions, review and measurement.",
   "author": { "name": "Node 804" },
   "license": "MIT",
   "keywords": ["agents", "harness", "coding-agents", "specs", "adr"],
@@ -11,7 +11,7 @@
       "interface": {
         "displayName": "Agent804",
         "shortDescription": "Build your agent-ready project",
-        "longDescription": "Skills that set up, assess and grow an agent-ready project: instructions, one check command, guardrails, specs and tests first, verified refactoring, optional model routing, context recovery, accountable debt management, decisions with evidence, review, measurement, and safe use of the built system by agents.",
+        "longDescription": "Skills that set up, assess, adopt and grow an agent-ready project: instructions, one check command, guardrails, specs and tests first, verified refactoring, optional model routing, context recovery, accountable debt management, decisions with evidence, review, measurement, and safe use of the built system by agents.",
         "developerName": "Node 804",
         "category": "Developer Tools"
       }

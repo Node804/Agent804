@@ -39,7 +39,7 @@ Use evidence/owner/review/verified-closure fields (MT-5); a record grants no exc
 new threshold findings, refactor performed or not needed, removed or retained obsolete paths.
 For MT-4 structural work, include problem, preserved contracts, consumer analysis, baseline
 and final results, actual maintenance improvement and compatibility gaps. Use plan/PR links;
-characterization tests may already pass. MT-4 is a reported practice, not a rung gate.
+characterization tests may already pass. MT-4 is a reported practice, not a level gate.
 Preserve old entries when correcting or resolving them. No blanket package exclusions. -->
 
 ## Measurements

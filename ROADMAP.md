@@ -1,6 +1,6 @@
 # Roadmap
 
-**Status:** 0.4.0, preview, not yet released. What is proven and what is only an idea is in
+**Status:** 0.5.0, preview, not yet released. What is proven and what is only an idea is in
 the README's Evidence section; this page is what's next and why things are the way they are.
 
 ## Before the first public release
@@ -12,12 +12,19 @@ zip attached.
       test exception, stale gate/lifecycle summaries and conditional Security setup.
 - [x] Independent Grok review of the 0.4 skill rewrites against 0.3; completed per the
       developer, with the follow-up Operate corrections checked on 2026-11-01.
-- [ ] Build `agent804-0.4.0.zip` from the release commit.
+- [ ] Review the 0.5 cumulative scoring change and reassess reference projects with fresh
+      agents; compare evidence and gaps rather than converting old foundation scores.
+- [ ] Build `agent804-0.5.0.zip` from the release commit.
 
 ## Trials before 1.0
 
 Each is one session. Record the result in the README's Evidence section, and fix whatever the
 trial shows is unclear before moving on.
+
+- [ ] Trial `adopt` on existing code with a developer: missing style/check setup, preservation
+      of current tools, one bounded increment, pre-existing failures and continuation on a
+      later session. Check whether one assessment action and optional follow-ups reduce
+      overload; validate developer journeys without treating fixture evidence as a field trial.
 
 - [ ] Install from the release zip on a clean machine, in Claude Code and in Codex, and run
       `assess` once from each. This remains a follow-up, not a blocker to publishing the repo.
@@ -85,7 +92,7 @@ trial shows is unclear before moving on.
 - Not yet read, so not relied on: arc42 §10 and the SEI's quality attribute scenarios (the
   quality scenarios follow their form); StrongDM's "software factory" write-up; the DORA 2025 AI
   report; METR's 2025 developer productivity study.
-- The scoring rules are sensitive to wording. Any change to `rungs.md` or a rule's Check column
+- The scoring rules are sensitive to wording. Any change to `levels.md` or a rule's Check column
   should be followed by a fresh `assess` run on the reference projects.
 
 ## Decisions so far, and why
@@ -104,11 +111,11 @@ trial shows is unclear before moving on.
 - **Two plugin manifests.** `.claude-plugin/plugin.json` for Claude Code, root `plugin.json` for
   Codex; the check fails if they drift. Codex labels a privately added plugin with the account
   that added it, whatever the manifest says.
-- **Scoring.** Build rungs 1–4 are strict and cumulative (the foundation); 5–8 are independent.
-  A rule with a hole is "partly met" and leaves the rung "met with holes"; only a missing
-  protection fails a rung. Operate (O1–O3) is scored the same way, separately. Earlier versions
-  failed a rung on any partial rule and swung scores on trivia; three assessment rounds settled
-  this form.
+- **Scoring (0.5).** Four cumulative core levels replace foundation and coverage: Guided,
+  Controlled, Verified and Sustained. Every applicable gate through a level must be met;
+  partial gates block advancement, and unverified evidence supports only a provisional label.
+  Eight named practices explain progress. Module marks and Operate O1–O3 retain their prior
+  convention separately. These new core levels have not yet been trialled on reference projects.
 - **GR-1 judges what a credential allows, not whether it is production's.** A production
   credential in the agent's reach fails it, except a recorded development credential that
   is read-only, non-sensitive, rate-limited and separate from production's own; the

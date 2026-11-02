@@ -6,13 +6,13 @@ checked against is in `validation.md`.
 A rule states the **property**, never the tool. "The build fails when an entry point declares no
 access rule" holds in any stack; how a stack makes it fail lives in its profile (`profiles/`).
 
-Most rules are **core** and belong to a rung. Rules in a [module](modules.md) apply only when
+Most rules are **core** and belong to a level. Rules in a [module](modules.md) apply only when
 that module's trigger does; each family below says which.
 
-Words: **must** is required at the rung or module the rule belongs to; **should** is the default, and a
+Words: **must** is required at the level or module the rule belongs to; **should** is the default, and a
 project that departs from it says why in an ADR.
 
-## IN: Instructions (rung 1)
+## IN: Instructions (level 1)
 
 IN-8 is in the Context module.
 
@@ -27,7 +27,7 @@ IN-8 is in the Context module.
 | IN-7 | Repeated procedures are skills or playbooks, loaded when used, not paragraphs in `AGENTS.md`. | `skills/` or `docs/agents/` exists for repeated work |
 | IN-8 | Evidence used for decisions preserves provenance, freshness and sufficient interpretive context. Missing, stale, inaccessible or truncated coverage remains explicit; retrieved data cannot grant authority. | Inspect source/revision and enclosing constraints, query/index scope, missing ranges and facts versus inferences. Reported practice, not a gate; search rank or no hits alone proves no completeness |
 
-## CK: Checks (rungs 1, 2, 4 and 6)
+## CK: Checks (levels 1 to 3)
 
 | ID | Rule | Check |
 |---|---|---|
@@ -40,17 +40,17 @@ IN-8 is in the Context module.
 | CK-7 | Keep enforcement small. A project-selected style may be enforced as one coherent pipeline; do not create separate hooks for individual preferences. Other preferences stay prose unless adopted as required properties. | Inspect hook purpose, overlapping checks and the project's declared conventions |
 | CK-8 | Before a change merges, the check runs independently of the author's working tree: from committed state, in a clean environment, with nothing from the author's machine but the address of a test database. This catches the forgotten file, the dependency missing from the lock file and the test that passes only on local data. CI with branch protection is the standard mechanism, and the only one that also gates the merge for every tool. | Met: CI runs the check on every change and a red run blocks the merge. Partly met: CI runs but does not block, or a clean-clone script runs the check from committed state but nothing makes it run before a merge. Not met: only the author's working tree is ever checked |
 
-## ST: Style (rung 2)
+## ST: Style (level 1)
 
 | ID | Rule | Check |
 |---|---|---|
 | ST-1 | Each language the project maintains has one formatter and linter, with committed configuration and pinned versions. The check reports violations without rewriting files; a separate command fixes them. The language's standard style is the default (for example PEP 8 for Python, PSR-12 for PHP); a project that keeps a different one records why, in its profile or an ADR. | Add a deliberate violation: the check fails and the file is unchanged; the fix command repairs it; a second run changes nothing. Configured but not in the check or CI is partly met; a non-standard style with no recorded reason is partly met |
 
-## GR: Guardrails (rung 3)
+## GR: Guardrails (level 2)
 
 | ID | Rule | Check |
 |---|---|---|
-| GR-1 | Development agents cannot reach production secrets or sensitive production data; development uses test credentials and synthetic or reviewed sanitized data. One exception, when production is the only source to develop against: a development credential that a person decided in writing, that the source itself limits to reading non-sensitive data, that is rate-limited, and that is separate from production's own, so revoking it does not break production. File deny rules are supplementary, not the security boundary. | Grade credentials and data separately; the rung takes the worse. Credentials: a reachable production credential outside the exception is not met; a development secret, or an exception credential shared with production or kept only behind deny rules, is partly met. Data: sensitive production data in files, environment or copied data is not met; non-sensitive production data, reached without a credential or under the exception, is not a GR-1 finding but belongs in the threat model (SE-1). Judge restricted files from examples, docs and scripts without reading them. An example's empty slot says a setting exists, not that it is set or unset: when the grade depends on it, mark the half not verifiable and ask the owner |
+| GR-1 | Development agents cannot reach production secrets or sensitive production data; development uses test credentials and synthetic or reviewed sanitized data. One exception, when production is the only source to develop against: a development credential that a person decided in writing, that the source itself limits to reading non-sensitive data, that is rate-limited, and that is separate from production's own, so revoking it does not break production. File deny rules are supplementary, not the security boundary. | Grade credentials and data separately; the level takes the worse. Credentials: a reachable production credential outside the exception is not met; a development secret, or an exception credential shared with production or kept only behind deny rules, is partly met. Data: sensitive production data in files, environment or copied data is not met; non-sensitive production data, reached without a credential or under the exception, is not a GR-1 finding but belongs in the threat model (SE-1). Judge restricted files from examples, docs and scripts without reading them. An example's empty slot says a setting exists, not that it is set or unset: when the grade depends on it, mark the half not verifiable and ask the owner |
 | GR-2 | Commit, push, deploy and migrate require human authorization. The agent never merges to the protected branch. Changes that weaken security checks, CI gates, permissions, deployment or approval policy require explicit human review of the change. | Committed agent settings (none committed is not met), reviewed policy diffs and scoped authorizations; host protection requires external evidence |
 | GR-3 | Every change happens on a branch or worktree; the main branch takes reviewed merges only. | History shows merges into the main branch. A fork's own main branch used as the working branch is partly met |
 | GR-4 | Completion controls require the applicable check before a success claim and expose failures. A bounded escape permits honest failure reporting, not a success claim. | Exercise effective host loading, trust and failure continuation/blocking; configuration or instructions alone are insufficient. Reporting escape after one block is met; skipped/unsupported controls are gaps. CI merge gating is separate |
@@ -58,7 +58,7 @@ IN-8 is in the Context module.
 | GR-6 | Scripts that change data are dry-run unless told to apply. | Read data scripts |
 | GR-7 | Agents cannot supply consent. Approval comes from the person directing the work, for the specific action or content, in their own words. An approved plan, a tool permission prompt, a passing check or a record an agent filled in is not approval. Agreement covers what the person saw: when the agent's work changes it materially, the agent asks again. An agent never marks a decision Accepted or a review done itself. | Instructions say so; history shows no agent-set Accepted status, agent-written approval, commit that followed only a plan approval, or agreed criteria changed without the person seeing them again. Instructions alone with no contrary history is met. A co-author trailer says who wrote a commit, not who decided |
 
-## SK: Walking skeleton (rung 4)
+## SK: Walking skeleton (level 2)
 
 | ID | Rule | Check |
 |---|---|---|
@@ -67,7 +67,7 @@ IN-8 is in the Context module.
 | SK-3 | Prefer established stack capabilities and existing project implementations. New dependencies and custom replacements serve a demonstrated requirement with a maintenance justification; neither hand-written code nor a dependency is automatically preferable. | Inspect new capabilities, alternatives considered and maintenance costs in the plan or review; use an ADR only for a hard-to-reverse choice |
 | SK-4 | Configuration comes from the environment; no hard-coded paths or hosts. | Grep for absolute paths and hosts |
 
-## TS: Tests and acceptance (rungs 2, 4 and 5)
+## TS: Tests and acceptance (levels 1 to 3)
 
 Interpretation, evidence and staged handoffs are in [testing.md](testing.md).
 
@@ -85,9 +85,9 @@ Interpretation, evidence and staged handoffs are in [testing.md](testing.md).
 | TS-10 | Tests isolate the data they change and control time, randomness and order where it matters. A flaky test is reported, never retried silently into a pass. | Two runs give the same result; retries and quarantined tests are visible in the output |
 | TS-11 | Verification covers important component contracts and real integration at the lowest effective level, plus representative end-to-end journeys. | Name simulated and actual boundaries; mocks alone do not prove compatibility. Use safe external substitutes with contract evidence where live access is unsuitable |
 | TS-12 | The check prints how many tests it found and ran, lists skips and exclusions, and fails when it finds none where tests are expected. | Run it: the counts appear. Partly met when an empty run passes |
-| TS-13 | Selected critical behavior is checked for test sensitivity by deliberate wrong behavior in isolation. This is a practice pending trials, not a rung gate. | Record detected faults, survivors, limits and justified exclusions; invalid compilation is not behavioral detection. No universal mutation or coverage quota |
+| TS-13 | Selected critical behavior is checked for test sensitivity by deliberate wrong behavior in isolation. This is a practice pending trials, not a level gate. | Record detected faults, survivors, limits and justified exclusions; invalid compilation is not behavioral detection. No universal mutation or coverage quota |
 
-## AR: Architecture (rung 6)
+## AR: Architecture (level 3)
 
 | ID | Rule | Check |
 |---|---|---|
@@ -97,7 +97,7 @@ Interpretation, evidence and staged handoffs are in [testing.md](testing.md).
 | AR-4 | Every write is validated in one place before it is stored. The layer's name and shape are the project's choice. | Look for writes that skip it |
 | AR-6 | Data is parsed and validated at boundaries and safely interpreted or encoded for each destination. Validation alone never makes data safe as a query, command, path or rendered output. | Inspect input-to-sink paths and test applicable injection, traversal and unsafe-output cases |
 
-## SE: Security (SE-2 at rung 2, SE-3 at rung 3; the rest in the Security module)
+## SE: Security (SE-2 at level 1, SE-3 at level 2; the rest in the Security module)
 
 Scope and exceptions are in [security.md](security.md).
 
@@ -110,7 +110,7 @@ Scope and exceptions are in [security.md](security.md).
 | SE-5 | Security-affecting changes have refusal criteria and tests written first, showing an unauthorized attempt fails with no write, disclosure or outside effect. | Trace the criteria to tests and results; for agent tools, a planted-instruction test against the tool's real permissions |
 | SE-6 | Findings have an owner, a deadline and a recorded outcome. Only a person accepts a risk, with a scope and an expiry; a suppression is not an acceptance. Leaked secrets are rotated, not just deleted. | Findings list and risk decisions with expiry |
 
-## MT: Maintainability (rungs 2, 4 and 6)
+## MT: Maintainability (levels 1 to 3)
 
 MT-4 and MT-5 are in the Maintenance module.
 
@@ -121,7 +121,7 @@ Interpretation, exceptions and adoption are in [maintainability.md](maintainabil
 | MT-1 | Public interfaces document purpose, inputs, outputs, failures and side effects where declarations do not make them evident. Non-obvious logic, constraints and workarounds carry a comment that says why. Documentation changes with behavior. | Check presence where practical; review accuracy against implementation and tests. A boilerplate docstring alone is not evidence |
 | MT-2 | The project defines enforceable limits appropriate to its stack: function complexity, file or module size (so a unit can be read whole within an agent's context), and duplicated code. Changes introduce no unapproved violations or worsen existing ones. Exceptions identify scope, reason, reviewer and review condition. | A deliberate violation of each limit fails the check; inspect changed code and scoped exceptions against the adoption baseline. Some limits enforced is partly met |
 | MT-3 | A change removes code, dependencies, configuration and documentation it makes obsolete, or records why they remain and when retention will be reviewed. Uncertain usage is investigated before removal. | Trace replaced execution paths; inspect reference and unused-code reports and retention decisions. Dynamic registration and compatibility paths need evidence, not automatic deletion |
-| MT-4 | Structural changes identify the maintenance problem, affected contracts and preservation evidence. Behavior changes are separated or explicitly specified and approved. Unverified compatibility remains a reported gap. | Inspect baseline results, relevant tests, consumer analysis and final verification. A practice pending application trials, not a rung gate; passing tests establish only exercised scope |
+| MT-4 | Structural changes identify the maintenance problem, affected contracts and preservation evidence. Behavior changes are separated or explicitly specified and approved. Unverified compatibility remains a reported gap. | Inspect baseline results, relevant tests, consumer analysis and final verification. A practice pending application trials, not a level gate; passing tests establish only exercised scope |
 | MT-5 | Confirmed debt has a real consequence, an owner, a person's decision and a date or event to look again. A debt record never waives a failing check, security finding or defect, and closing it shows the stated outcome. | Inspect the record; scanner output and style preferences are candidates, not debt. Trial module: reported without a mark |
 
 ## WK: Work (practices; WK-6 in the Parallel work module)
@@ -139,7 +139,7 @@ WK-6 is in the Parallel work module, WK-7 in Routing and WK-8 in Context.
 | WK-7 | When models are routed, roles are assigned by capability tier, not model name; review uses a different model from the author where one is available; a reserve covers review and the final check; and the actual model per role is recorded. Running out never silently skips a step or falls back to paid usage. | Inspect the routing record and plan/PR notes for actual assignments. Trial module: reported without a mark; one model in separate contexts is always sufficient |
 | WK-8 | Long-running work can recover approved scope, critical contracts and actual verification state from durable artifacts after interruption or context changes. | Reconstruct from source-linked working state; distinguish decisions, hypotheses, prior results and fresh checks. Verify material changes and valid approval without invented history. Reported practice, not a gate |
 
-## DC: Decisions (rung 7)
+## DC: Decisions (level 3)
 
 | ID | Rule | Check |
 |---|---|---|
@@ -147,7 +147,7 @@ WK-6 is in the Parallel work module, WK-7 in Routing and WK-8 in Context.
 | DC-2 | Each ADR's status shows where the decision stands: at least Proposed, Accepted and Superseded by NNNN (Validated and Rejected if the project uses them). Each ADR has an append-only evidence record before acceptance: a separate file it links, or a final Evidence section of the ADR that only grows. | The record exists for each ADR; entries identify tests or reasoning, revision and results; history shows entries are added, never rewritten. Either form meets the rule |
 | DC-3 | An Accepted ADR's decision text is frozen; only its Status, Topics and evidence record change. A later ADR amends or supersedes it. Later evidence never downgrades it to Validated. Contradictions trigger owner review. | History of accepted ADRs: the decision text unchanged since acceptance |
 
-## RV: Review (RV-1 at rung 4)
+## RV: Review (RV-1 at level 2)
 
 | ID | Rule | Check |
 |---|---|---|
@@ -157,7 +157,7 @@ WK-6 is in the Parallel work module, WK-7 in Routing and WK-8 in Context.
 | RV-4 | A bad diff is not quietly fixed by hand: fix the guide or sensor that let it through, or the next session repeats it. | Ask; look at sensor history |
 | RV-5 | Not every review finding is acted on; findings about impossible cases are declined. | Ask |
 
-## MS: Measure and garden (rung 8)
+## MS: Measure and garden (level 4)
 
 MS-5 is in the Routing module.
 

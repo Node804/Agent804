@@ -14,7 +14,7 @@ context limit, architectural diagnosis or guaranteed improvement is inferred.
 | [Google: Retrieval Quality at Context Limit](https://research.google/pubs/retrieval-quality-at-context-limit/), 2025 abstract | Strong position-independent simple factoid retrieval in Gemini 2.5 Flash qualifies blanket lost-in-the-middle claims | Simple QA does not establish multi-source code reasoning, complete recall or equivalence across models |
 | [Microsoft MInference FAQ](https://www.microsoft.com/en-us/research/project/minference-million-tokens-prompt-inference-for-long-context-llms/faq/) | Sparse attention is an implementation research topic evaluated on multiple tasks | Framework context hygiene does not modify attention internals or diagnose why a particular model missed a rule |
 
-IN-8/WK-8 are reported practices, not rung gates. Existing navigation/freshness and handoff
+IN-8/WK-8 are reported practices, not level gates. Existing navigation/freshness and handoff
 rules are clarified, not replaced. The optional context playbook uses plan/PR working records
 rather than a mandatory new document. No vector/index service, model-specific compactor or
 attention adapter is shipped. Repository checks cover references, metadata and line budgets;
