@@ -1,168 +1,122 @@
 ---
 name: assess
-description: Audit an existing repository against Agent804 levels, rules and modules, read-only, with evidence, one bounded next action and optional follow-ups. Use to understand the project's position; adopt guides implementation of missing protections on existing code.
+description: Audit a repository against Agent804 levels, rules and triggered modules, with evidence and one bounded next action. Read-only; adopt implements protections and start handles empty projects.
 ---
 
 # Assess a repository
 
-Score a repository against `framework/levels.md` and `framework/rules.md`, with evidence for
-every claim. Read-only: never edit, commit or install anything.
+Read-only: never edit, install, commit, change trust/policy or launch host/model sessions.
+Report the level supported by actual evidence; assessment is not a prerequisite to adoption.
 
-Adoption does not require earning a level first. Recommend one useful increment, not a
-whole-repository conversion. To carry it out, use `adopt`: Claude Code
-`${CLAUDE_PLUGIN_ROOT}/skills/adopt/SKILL.md`, otherwise `../adopt/SKILL.md` from here.
-Do not invoke it or create an adoption record during this read-only assessment.
+**Resources:** Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/`; other agents `../../framework/`
+from this file. For guided implementation use `adopt`: Claude Code
+`${CLAUDE_PLUGIN_ROOT}/skills/adopt/SKILL.md`; otherwise `../adopt/SKILL.md`. Do not invoke it
+or create an adoption record during assessment.
 
-**Framework files**: in Claude Code, `${CLAUDE_PLUGIN_ROOT}/framework/`; for other agents,
-`../../framework/` from this file.
+## 1. Establish scope and load authorities
 
-Assess TS-2 using actual red/green results and revision/patch evidence, not commit order
-alone. Check TS-10/TS-12 at level 1 and TS-1 to TS-4, TS-8/TS-9 where applicable at level 3; report
-TS-11 as a practice.
-Report isolation, discovery, retry/quarantine and unexecuted target gaps. TS-13 is a practice;
-no universal mutation score is required and historical TDD must not be invented.
+- Identify the checkout, revision/dirty inputs, impact and prototype/production status.
+  Use the target questions in `framework/levels.md`; reuse known answers. Ask what is missing;
+  if nobody can answer, state assumptions from the brief. Do not turn assumptions into facts.
+- Read `levels.md`, `modules.md` and `rules.md`. These own scoring, triggers and grading.
+  A full assessment covers all core practices and every module trigger. Work through rule
+  families in sections if needed; keep a coverage list so staged reads omit no required rule.
+  Above-target gates may remain **not assessed (above target)**; examined strengths still count.
+- Identify the stack from manifests/lock files. Read only its applicable profile and
+  `profiles/README.md` where mappings are missing. Use partial profiles only for their scope;
+  otherwise grade the property in the rule's Check column. Draft mechanisms are not optional.
+- Read project instructions, nested/override sources, agent settings and relevant records.
+  Include tool-specific sources actually used by the selected host. Inspect `.env.example`
+  and comments without reading restricted secrets; an empty slot proves neither set nor unset.
+  Repository-held uncommitted protections count, identified as such; personal ignored settings
+  do not protect another developer.
 
-Keep stage completion distinct from feature completion; no commit history or passing
-metadata substitutes for execution evidence.
+## 2. Inspect the selected host and run safe checks
 
-## Steps
+Read the shared capability checklist, Claude Code
+`${CLAUDE_PLUGIN_ROOT}/framework/agents/README.md`, otherwise
+`../../framework/agents/README.md`, then only the selected host profile. Inspect actual
+client/version, overrides/loading limits, skill/resource resolution and effective action
+controls. Use existing host records, CI/logs and authorized session evidence. Distinguish
+configured, fixture-tested and exercised behavior; missing records remain unverified.
 
-Read host guidance: Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/agents/README.md`, otherwise
-`../../framework/agents/README.md` from here. Inspect actual client/version, orchestration,
-instruction overrides/loading limits, installed skill resources, effective permissions and
-hook trust/load/failure evidence. Report configured vs fixture-tested vs actual-host evidence.
-Actual-host evidence comes from records (the project's host record, hook state files, CI
-logs); when there are none, say so. Do not install plugins, change trust/global policy or
-launch host sessions to create it.
-For Grok Build, inspect native versus imported compatibility sources and version-specific
-Stop/trust evidence; public and upstream docs differ. Never equate native skill discovery
-or a fixture adapter pass with active project permissions or a working completion gate.
+Load completion guidance only for opted-in GR-8: Claude Code
+`${CLAUDE_PLUGIN_ROOT}/framework/agents/completion.md`, otherwise
+`../../framework/agents/completion.md`. Inspect runtime/bootstrap and correlated lifecycle
+evidence without installing anything. No Stop adapter ships in 0.6; do not retry withdrawn
+setup. Other host protocol limits belong in their profiles.
+GR-4 always grades current commands/state/results and claims, not presence of a hook.
 
-1. **Read the framework**: `levels.md`, `modules.md`, `rules.md`, and the profile for the stack if one exists
-   (`profiles/`). Identify the stack from the lock files and dependency manifests.
-   With no profile for the stack, judge each rule by its property, using the table in
-   `profiles/README.md`. When a profile covers only part of the stack (a Django backend
-   with a separate frontend), use it for that part and judge the rest by property. A profile describes mechanisms; only running ones count as met.
-   Grade from the Check column in `rules.md`; inspect the project's own maintainability
-   and security records, not the framework's explanations of them.
-2. **Read the repository's own instructions**: `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/`,
-   `.github/copilot-instructions.md`, nested instruction files, agent settings and hooks.
-   Read `.env.example` (or its equivalent) and its comments: it says which settings hold
-   secrets and which sources need none. A slot shows a setting exists, never that it is
-   set or unset. Only what is in the repository counts; git-ignored
-   personal settings do not. Uncommitted
-   work counts, and the report says which findings depend on it.
-3. **Find the check.** Look for a single check command in the instructions, task runner and CI.
-   Run it if it only reads and tests. Tests that create and drop their own throwaway database
-   count as testing, unless the user said strictly read-only, and so does git-ignored output
-   the check generates (compiled translations, caches); changing a tracked file does not. If it needs credentials or a
-   service that is not available, or running it could write to data the user asked you not
-   to touch, run the steps that are safe, name the exact commands you would have run, and do
-   not work around it. Test runners that use an in-memory or throwaway database are safe;
-   anything that opens the project's own database file is not, when told read-only.
-   With no check command, CK-1 is not met; still run the safe pieces that exist (the test
-   runner, the linter) one by one to grade the other rules, and say you did. If the tests
-   cannot run at all, report why: that is the first gap.
-4. **Decide which modules apply.** For each module in `modules.md`, state whether its
-   trigger is true and the evidence: an MCP server, agent API, or embedded model feature
-   (Operate), the data the system
-   holds and who can reach it (Security), signs of several
-   concurrent writers (Parallel work), and so on. When the evidence is unclear, ask; when
-   nobody can answer, assume and say so.
-5. **Go through gates by introduction level** (the practice mapping in `levels.md`), then rules of
-   each triggered module, then the other core rules as practices. For each rule: **met**, **partly
-   met**, **not met**, **not verifiable** (history cannot show it), **not applicable**, or
-   **not assessed (above target)** where evidence was not examined, with the file and line or command
-   output that shows it. Do not mark a rule met because a document says it is done; find the
-   mechanism. When a grade depends on something you cannot see (a restricted file, a host
-   setting, who decided), mark it not verifiable, say what you saw and the question that
-   settles it, and ask the owner if you can. Never write a guess as a finding. Steps 7 to
-   12 say what to look for in areas where the Check column is not enough.
-6. **Look at history** for what documents cannot show: `git log` for change size, merge
-   commits, branch use, whether tests arrive before or with code, whether there is a remote.
-7. **Parallel work and evidence**: when the Parallel work module applies, inspect
-   checkout/resource isolation and per-checkout hook state using the worktree playbook (Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/worktrees.md`,
-   otherwise `../../framework/worktrees.md` from this file). Check each ADR's evidence
-   record, a linked file or an append-only Evidence section (DC-2), including contradictions
-   awaiting owner review. Do not edit frozen ADRs in this assessment.
-8. **Maintainability**: inspect public contracts and current examples (MT-1); exercised
-   complexity checks, review-trigger dispositions and scoped exceptions (MT-2); authoritative
-   business rules and boundaries (AR-2, AR-3); retirement evidence (MT-3). A reviewed baseline
-   can retain specific debt, but cannot waive controls or permit worsening findings. Do not
-   call documentation "met" from presence alone. Treat unused-code and duplication reports as
-   leads needing confirmation.
-   Report MT-4 refactoring separately as a practice: problem, consumers/contracts, baseline
-   and final preservation evidence, improvement and compatibility gaps. A green suite does
-   not prove complete equivalence; absence of a standalone refactor skill is not a failure.
-9. **Security**: grade SE-2 and SE-3 always, and SE-1, SE-4 to SE-6 when the Security
-   module applies, using actual requirements, safe detection evidence,
-   dependency trust, effective controls, abuse tests and response/expiry records. Missing,
-   incomplete, failed or stale checks are gaps, not clean results. A maintainability baseline
-   cannot accept security exposure. Local settings do not verify a deployment. Never read restricted
-   production secrets, scan live systems or acquire extra authority to fill an evidence gap.
+Find the declared check in instructions, runner and CI. Run it if it only reads/tests;
+disposable test data and ignored build output are allowed unless the user said strictly
+read-only. Do not change tracked files or touch the project's own database in read-only work.
+If credentials/services or safe isolation are unavailable, run safe components, name omitted
+commands and report why. Do not obtain more authority to make the check pass.
+No single runner fails CK-1; still exercise available safe checks. If tests cannot execute,
+report that cause first; dependent execution rules cannot be met by those tests.
 
-10. **Style**: grade ST-1 per language the project maintains. The project's own choices
-    qualify equally with standard ones; an editor config alone is not enforcement. Do not
-    install tools or reformat files to gather evidence.
+## 3. Grade with evidence
 
-11. **Human decisions**: grade RV-1 and GR-7 from history: who reviewed what before merge,
-    and whether approvals came from the person, in their own words. Metadata cannot establish
-    consent. Distinguish session evidence from retrievable authenticated
-    reviews, missing host evidence and configured-but-unexercised enforcement. An empty merge
-    history is not an exercised human review workflow; never invent evidence to fill it.
+1. For every module trigger record applies/absent/uncertain and why. Resolve unknowns with
+   the owner where possible; otherwise state the assumption. A false trigger costs nothing;
+   a triggered module applies independently of the core target.
+2. Grade core gates by introduction level, triggered module rules, then remaining core
+   practices. Use the rule's Check column, not the topic essays. Record **met**, **partly met**,
+   **not met**, **not verifiable**, **not applicable**, or **not assessed (above target)**,
+   with file/line or actual command evidence. A document's claim is not its mechanism.
+3. Read history for branch/merge use, change size, post-adoption features and human review.
+   Tests-before-code needs actual red/green and revision/patch evidence, not commit order.
+   Do not invent pre-adoption TDD or fail unexercised history as if a contrary event occurred.
+4. For inaccessible host/external facts, restricted files or unexercised history, report
+   what is known, the unresolved question and the owner who can settle it. Do not guess met
+   or missing. An empty review history does not demonstrate RV-1; metadata is not consent.
 
-12. **Operate**: when the module applies, grade OP-1 to OP-11. A protocol library or a
-    generated wrapper per function is not a designed surface (OP-9). An embedded model
-    feature whose prompt and allowlist are not in the repo, or whose output can approve or
-    publish, is not met (OP-10). No such feature is not applicable. A forwarded foreign
-    token, a skipped per-client consent, or a session used as login is not met (OP-11).
+Apply these evidence boundaries alongside the tables:
 
-13. **Score it**, only now that every rule is graded, using "Scoring" in `levels.md`: mark
-    the highest cumulative core level with every applicable gate met. Partial or missing
-    gates block advancement. Unverified gates support only a separately named provisional
-    level with assumptions; never present it as earned. Report progress by named practice,
-    including lower-level blockers and later strengths. Score triggered modules by their
-    own marks (Operate O1–O3); report trial modules without a mark.
+- **Tests:** report isolation, discovered scope/counts, skips, retries/quarantine and
+  unexecuted targets. TS-10/TS-12 gate Level 1; TS-11/TS-13 are practices, without a universal
+  mutation quota. Stage completion or a valid red handoff is not feature completion.
+- **Maintainability:** inspect contracts/examples, exercised limits, trigger dispositions,
+  exceptions, boundaries and retirement. A scoped reviewed baseline retains specific debt,
+  never missing controls or worsening findings. Duplication/unused-code scans are leads.
+  MT-4 reports the problem, consumers, baseline/final preservation and limits; green alone
+  is not complete equivalence and a standalone refactor skill is not required in the project.
+- **Security/style:** SE-2/SE-3 always apply; module security follows its trigger. Use real
+  requirements, detection evidence, dependency trust and owned findings. Missing/stale/failed
+  scans are gaps; debt cannot accept exposure. Inspect each maintained language's ST-1
+  enforcement, including a deliberate project convention. Do not install scanners, bulk-format,
+  scan live targets or infer deployed security from local settings.
+- **Decisions/parallel work:** inspect append-only ADR evidence and contradictions (DC-2);
+  never rewrite frozen decisions. Only for concurrent writers, inspect checkout/resources and
+  private check state using Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/worktrees.md`,
+  otherwise `../../framework/worktrees.md`. Separate chats alone do not prove isolation.
+- **Operate:** grade OP-1 to OP-11 when triggered. A protocol library or generated wrappers
+  do not prove tool design. Inspect embedded prompts/allowed actions and whether output can
+  approve/publish. Forwarded foreign tokens, skipped client consent and session-as-login fail
+  OP-11. No AI-facing surface means not applicable.
+- **Trial modules:** inspect canonical debt dispositions/authority/closure (MT-5); provenance,
+  stale indexes/dirty inputs and recoverability (IN-8/WK-8); opted-in routing records,
+  role/effort/access/budget bounds, fallbacks and actual independence (WK-7/MS-5). No invented
+  debt, account probes or model sessions. One model in separate contexts remains valid.
 
-## Report
+## 4. Score and report
 
-When the Maintenance module applies, report MT-5 (trial). Inspect confirmed consequences, owner,
-disposition/review condition, actual deferral authority, linked exceptions and closure evidence
-in the canonical record. Scanner candidates are not confirmed debt; a debt label neither
-waives a gate nor accepts security/test failures. A clean project needs no invented debt items.
+Use `levels.md` Scoring only after grading. Partial/missing gates block advancement;
+unresolved gates support only a separately named provisional level with explicit assumptions.
+Never average practices or convert an old score automatically. Score triggered modules by
+their own marks (Operate O1–O3); report Trial modules, including GR-8, without a mark.
 
-When the Context module applies, report IN-8/WK-8 (trial). Check missing/truncated evidence, stale
-indexes/dirty work and assumptions promoted by summaries. Missing context trials stay pending;
-do not run model sessions or modify the app to establish them during read-only assessment.
+Put the earned level/name, target/additions, up to three key gaps (urgent risks explicit)
+and one next action in the first 15 lines. Then give:
 
-For opted-in routing, inspect the project's `docs/model-routing.md` and records for WK-7/MS-5. Report role,
-native effort, access/budget evidence, bounds, fallbacks and actual context independence as
-conditional practices. Missing optional routing or multiple subscriptions never fails a level;
-one model in separate contexts remains valid. Do not probe accounts or launch models to score it.
-
-1. **Score**: earned level number and name, target and any additional requirements
-   for this kind of project. Ask the two questions in `levels.md` if you can; when nobody can
-   answer (a subagent, an unattended run), assume from the brief and state the assumption.
-   For example: `Core: Level 2 — Controlled. Target: Level 3 — Verified.` Give any
-   provisional level and assumptions separately; Level 0 means no level earned. Show named
-   practice progress toward the next level, not a second aggregate score. If the target and
-   additions are met, say so and label further advancement optional.
-   Then the modules line from `modules.md`, triggered modules first with the reason each
-   applies, for example `Modules: Operate O1✓ O2✓* O3◐ · Security ◐ · Parallel ✓`.
-2. **Strengths**: rules met well, with evidence. Be specific; no praise without a file reference.
-3. **Gaps**, most serious first: rule ID, what is missing, what goes wrong because of it.
-   Distinguish "designed but not running" (documented, never exercised) from "absent".
-4. **Do next**: one bounded improvement with benefit, scope, rule IDs, rough size and
-   observable completion evidence. Recommend guided `adopt` implementation; keep this report
-   read-only. Address serious risks first, then unmet additions to the stated target, then
-   gates blocking levels that target actually requires. A Level 2 prototype owing only
-   TS-1, TS-6 and DC-1 to DC-3 does not need the rest of Level 3 to meet its target.
-   Offer at most two **optional follow-ups**; do not make every finding today's backlog.
-   Above-target work is not a required gap; urgent module risks need explicit attention.
-5. **Not checked**: anything you could not verify and why.
-   Include host capability gaps: model name, file presence and automatic tool permission
-   review do not establish instruction loading, human consent or enforced completion checks.
-
-Put the score, up to three key gaps (urgent risks explicit) and the one next action in the
-first 15 lines; optional follow-ups and full evidence follow. Keep all verified findings
-available without implying agreement to fix them now. Do not invent findings.
+- Named practice progress, lower-level blockers and later strengths; module line with
+  triggered modules first and reasons. Above-target gaps are optional, not target requirements.
+  If target/additions are met, say so; the level is not product/deployment approval.
+- Strengths and gaps with rule IDs/evidence, most serious first. Distinguish absent from
+  designed-but-unexercised. Retain all verified findings without implying consent to fix them.
+- **Do next:** one bounded adoption increment: benefit, scope, rule IDs, rough size and
+  observable evidence. Prioritize serious risks, target additions, then required-level gates.
+  A prototype needing only scenarios/decisions does not owe the rest of Level 3.
+  Offer at most two optional follow-ups; do not convert the report into today's full backlog.
+- What was not checked and why, including missing host, human review and execution evidence.
+  File presence, model identity and automatic tool approval do not prove those protections.

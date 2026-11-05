@@ -1,7 +1,7 @@
 {
   "name": "agent804",
-  "version": "0.5.0",
-  "description": "Preview framework: build the harness before the app with skills for instructions, checks, guardrails, guided adoption, specs, refactoring, optional routing, context recovery, debt management, decisions, review and measurement.",
+  "version": "0.6.0",
+  "description": "Preview framework: build the harness before the app with skills for instructions, checks, guardrails, guided adoption, requirements discovery, increment planning, refactoring, optional routing, context recovery, debt management, decisions, review and measurement.",
   "author": { "name": "Node 804" },
   "license": "MIT"
 }

@@ -7,7 +7,18 @@ testing, approval and security requirements still apply. No retrieval engine or 
 token threshold is required. The optional [context skill](../skills/context/SKILL.md) prepares
 or refreshes a task's working context; ordinary small changes need no separate invocation.
 
+The kit's context-load report measures explicit read recipes alongside individual file
+budgets. Whole-assessment coverage and bounded task retrieval have different costs; comparing
+unlike scenarios would overstate savings. Character estimates exclude project evidence,
+host/system instructions and repeated live reads. The check can catch missing resources and
+budget drift, not whether an agent chose the right context. Field comparisons remain pending.
+
 ## Frame the information need
+
+The [current behavior description](current-behavior.md) is the normal entry point for
+understanding an area (IN-5). Proposed changes, governing decisions and historical evidence
+answer different questions. Loading history by default increases context cost and can
+promote obsolete behavior; current guidance still needs verification against its scope.
 
 Start with the approved objective and a concrete question: what behavior, decision or
 dependency must be understood before the next action? Identify relevant instructions,

@@ -57,13 +57,13 @@ remain failures or explicit gaps, never silently omitted checks.
 | CK-6 | `.claude/settings.json` PostToolUse hook runs ruff on each edited `.py`; pre-commit |
 | GR-1 | Deny secret reads as supplementary protection; † isolate development from production credentials/data, use scoped test credentials and synthetic or reviewed sanitized fixtures, or the GR-1 exception recorded in `docs/security.md`. Credential-free production exposure remains a security finding |
 | GR-2 | `git commit`, `git push`, `manage.py migrate` in the `ask` list; force-push denied |
-| GR-4 | † Stop hook (`start` templates) runs the check when the tree changed since its last green run |
+| GR-4 | † Run `just check` directly against the current changed state; retain command, scope, revision/patch and results. Failed/missing verification stays incomplete; no Stop hook required |
 | GR-6 | A base management command adds `--commit`; without it the command reports what it would do |
 | SK-1 | `just bootstrap` writes `.env`, creates the database, migrates and creates an admin; safe to rerun |
 | SK-2 | † One Playwright test: sign in, open the landing page, see the module list |
 | TS-4 | `AGENTS.md` rule, plus review flags new `skip`/`xfail` markers |
 | TS-7 | The test-writing step runs `ruff` and `mypy` on its new tests; then `pytest` shows only the new acceptance tests failing |
-| WK-6 | Follow [worktrees](../worktrees.md). Each checkout gets a short unique ID in ignored dev config: `<project>_<id>` database (pytest-django uses `test_<name>`), port, queue and storage prefix as needed. Bootstrap from the lock file, provision dev credentials explicitly, and verify the hook inside each checkout |
+| WK-6 | Follow [worktrees](../worktrees.md). Each checkout gets a short unique ID in ignored dev config: `<project>_<id>` database (pytest-django uses `test_<name>`), port, queue and storage prefix as needed. Bootstrap from the lock file, provision dev credentials explicitly, and verify the declared check, action settings and isolated resources inside each checkout |
 | AR-1 | `LoginRequiredMiddleware` on; views declare public or explicit access; a system check and URL-resolution test catch missing declarations. † Direct URL/API/tool tests verify effective object and tenant authorization; login middleware alone does not enforce these boundaries |
 | AR-2 | Modules subclass a `ModuleConfig(AppConfig)` with key, label, nav, URL prefix and access levels; settings, URLs, nav and permission groups derive from it. † Review changed business rules for one authority in services/selectors and duplicate findings for independent-domain justifications |
 | AR-3 | `import-linter` contracts: the platform never imports modules; cross-module imports use public `services` (writes) and `selectors` (reads). † Add declared layer/independence contracts to reject unapproved cycles and review module cohesion |

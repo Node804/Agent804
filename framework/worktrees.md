@@ -52,16 +52,16 @@ The stack profile supplies the actual configuration keys and commands. Record al
 resources in the plan. A database address alone does not isolate a shared queue or file bucket.
 
 Discover paths with `git rev-parse --show-toplevel` and `git rev-parse --absolute-git-dir`;
-never assume `.git` is a directory. Put hook state in that private Git directory, not the
-shared common directory. Verify the tool-specific settings and hook in each checkout with a
-failing check, then restore the real command and verify success. Unsupported guardrails are
-reported as gaps; copying Claude settings does not enforce them in another agent.
+never assume `.git` is a directory. Keep any opted-in integration's private state there,
+not in the shared common directory. Verify tool-specific action settings and the declared check in each
+checkout with safe passing/failing fixtures. Core GR-4 needs actual current results; no Stop
+hook is required or supplied in 0.6. Unsupported applicable action controls remain gaps;
+copying Claude settings does not establish another host's controls.
 
-The stop-hook cache covers tracked changes, untracked files and the resolved check command.
-Ignored configuration and external resources are outside it: delete `agent-stop-check` from
-the discovered private Git directory after changing them, or run the full check explicitly.
-Before the first commit the hook does not cache success. A cached success is never a
-substitute for the independent committed-state check before merge (CK-8).
+Run checks independently for each checkout; another checkout's green result cannot verify
+this one. Any separately supported, developer-opted-in GR-8 integration must establish its
+own state/cache scope, invalidation and lifecycle evidence. No retired `agent-stop-check`
+cache behavior is assumed. Independent committed-state CI before merge remains CK-8.
 
 ## 4. Work and hand off
 

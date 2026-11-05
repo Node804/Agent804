@@ -13,6 +13,23 @@ The next session resumes from this file and the git log, not from chat. Keep it 
 - [ ] 2.
 - [ ] 3. After green: refactor where it helps, or note "none needed".
 - [ ] 4. Full check green.
+- [ ] 5. Current behavior description reconciled with verified scope and evidence (IN-5).
+
+## Increments and integration
+
+<!-- Only for work spanning several changes. Reuse an existing tracker if it already holds
+these facts. Use stable IDs; map every criterion, identify dependencies and verification,
+and distinguish pending/blocked/active/verified. Prerequisites name their consumer and check.
+Omit this section for a small change. -->
+
+| ID | Outcome / criteria | Depends on | Responsible session/person | Verification / evidence | Status |
+|---|---|---|---|---|---|
+| I1 | <observable outcome; AC IDs> | <IDs or none> | <name or unassigned> | <planned check; actual results when run> | pending |
+
+<!-- State shared contracts, safe intermediate states and integration checkpoints. Record
+combined revisions/patches and journey/full-check results; individual green increments do
+not establish that their combination works. Note required migration/deployment authorization
+and recovery decisions where relevant. A plan or proposed next action is not consent. -->
 
 ## Resume here
 

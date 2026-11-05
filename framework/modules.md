@@ -18,6 +18,7 @@ its interview.
 | [Parallel work](#parallel-work) | More than one agent or person writes to the repository at the same time: the instructions or tooling describe concurrent sessions, or history shows overlapping branches | WK-6 | Scored |
 | [Maintenance](#maintenance) | The framework is adopted onto existing code, or the project carries known debt | MT-4, MT-5 | Trial |
 | [Context](#context) | Work regularly spans several sessions or more than one context window | IN-8, WK-8 | Trial |
+| [Completion automation](#completion-automation) | The developer explicitly opts into automatic agent end-of-turn checks | GR-8 | Trial |
 | [Routing](#routing) | More than one model is used for development, or development model spend is budgeted. A product that calls a model is Operate's concern | WK-7, MS-5 | Trial |
 
 **Scored** modules retain their own marks, separately from [core levels](levels.md):
@@ -32,9 +33,9 @@ its interview.
 
 Unverifiable module gates retain the prior assumption convention: mark as if met and name
 the assumption and evidence. This does not earn a core level.
-**Trial** modules have not yet been run on a real project, so the
-assessment reports what it finds without a mark. A trial module becomes scored once a real
-project has used it and the result is recorded in [validation](validation.md).
+**Trial** modules lack sufficient successful real-project evidence for promotion. Report
+findings without a mark; an unsuccessful trial does not establish effectiveness. Promotion
+requires recorded real-project evidence and review, not merely an attempted run.
 
 The core still applies inside every module. SE-2 and SE-3 (security checks in the check
 command, reviewed dependencies) are core, and so are RV-1 (a human reads every change before
@@ -112,3 +113,22 @@ gets which model, what it may spend, and whether the cheaper route is actually c
 rework is counted. Assignments are traceable (WK-7) and comparisons count total cost against
 accepted outcomes (MS-5). One model in separate contexts is always enough. Guide:
 [model-routing.md](model-routing.md); playbook: [`route`](../skills/route/SKILL.md).
+
+## Completion automation
+
+Core GR-4 makes success claims answerable to current check evidence. Automatic end-of-turn
+checking is a host capability, not a universal project prerequisite. This opt-in Trial
+module adds GR-8; an unsupported or unsuccessful opted-in integration is reported here,
+without downgrading otherwise demonstrated core verification. No opt-in means `–`.
+
+A stop hook can catch omissions but may be skipped, time out or allow a reporting escape;
+it is not the merge/security boundary. CK-8 and human review remain separate. Claude Code
+has historical reference evidence; Codex Desktop failed its trial. All supplied Stop
+integrations are withdrawn in 0.6 after known implementation limitations; no runtime is shipped.
+Compatibility or a historical fixture pass cannot promote an integration.
+
+Using the project's existing tooling avoids accidental prerequisites; choosing a shared
+adapter runtime can also be justified when its installation is explicit and reproducible.
+The [completion playbook](agents/completion.md) owns selection/setup instructions. Host
+profiles own their native contracts. No model is expected to invent a hook protocol or
+install a new runtime simply because a template uses it.

@@ -1,4 +1,4 @@
-"""Keep the 0.5 core gates intact when editing the executable assessment table."""
+"""Preserve core membership and keep opt-in completion automation outside it in 0.6."""
 
 import unittest
 from collections import Counter
@@ -79,6 +79,27 @@ class LevelGatesTest(unittest.TestCase):
 
     def test_alignment_check_extracts_every_core_gate(self) -> None:
         self.assertEqual(gating_ids(self.text), set().union(*EXPECTED_GATES.values()))
+
+    def test_completion_automation_is_trial_and_separate_from_core(self) -> None:
+        modules = (Path(__file__).resolve().parent.parent / "framework" / "modules.md").read_text(
+            encoding="utf-8"
+        )
+        trial_rules = set()
+        memberships = Counter()
+        for line in modules.splitlines():
+            if not line.startswith("|"):
+                continue
+            cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+            if len(cells) == 4 and cells[-1] in ("Trial", "Scored", "Scored, levels O1 to O3"):
+                rules = check.cited_ids(cells[2])
+                memberships.update(rules)
+                if cells[-1] == "Trial":
+                    trial_rules.update(rules)
+        core = gating_ids(self.text)
+        self.assertIn("GR-4", core)
+        self.assertIn("GR-8", trial_rules)
+        self.assertEqual(memberships["GR-8"], 1)
+        self.assertTrue(trial_rules.isdisjoint(core))
 
     def test_extractors_ignore_overview_prose_and_unrelated_tables(self) -> None:
         text = """Prose cites OP-1 and AR-5, neither of which is a core gate.

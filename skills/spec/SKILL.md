@@ -1,96 +1,91 @@
 ---
 name: spec
-description: Turn a feature request into acceptance criteria sized to the change, before any code - from two lines for a small fix to an interview and Given/When/Then scenarios for a large or risky feature - then plan it and hand test-writing to a separate session. Use when the user describes a new feature, a behaviour change or a bug to fix.
+description: Discover missing requirements and interaction outcomes, then agree acceptance criteria sized to the change before code. Use for a feature, behaviour change or bug fix; larger work can pass to plan for verifiable increments before independent test writing.
 ---
 
 # Specify a change
 
-Write down what "done" looks like before code exists, at the size the change deserves. A heavy
-spec for a small change is waste; no spec for a large one means the agent's tests only confirm
-what it built (TS-1, TS-3).
+Agree observable behavior before code; acceptance authors work separately from implementation
+(TS-1, TS-3). Scale the records to the change.
 
-**Templates**: in Claude Code, `${CLAUDE_PLUGIN_ROOT}/templates/`; for other agents,
-`../../templates/` from this file.
+**Templates:** Claude Code `${CLAUDE_PLUGIN_ROOT}/templates/`; other agents `../../templates/`
+from this file. Load only the template needed at the chosen size, not the full framework.
 
-## 0. Read the project's records
+## 1. Establish the baseline and size
 
-- Quality scenarios and the ADRs on the change's topics (`decide`). A spec applies them; it
-  never re-decides them. A new hard-to-reverse decision is a Proposed ADR first, and a stop.
-- `docs/risk-zones.md`.
-- If they exist: `docs/security.md` (update the threats this change affects, SE-1) and the
-  project's debt record.
+Read affected current behavior and verify relevant code/config/tests (IN-5). Reuse README/
+contracts; if missing, establish only needed scope, optionally using `current-behavior.md`.
+Keep unknowns/defects explicit, intended contracts intact and deployment unclaimed.
+Read applicable quality scenarios, ADRs, risk zones, security and debt records; update
+affected threats in the security record (SE-1). Follow
+Accepted decisions; a new hard-to-reverse choice requires a Proposed ADR through `decide`
+and resolution before dependent work. Do not silently re-decide it.
 
-## 1. Size it
-
-Pure restructuring with no behaviour change uses the `refactor` skill instead: Claude Code
-`${CLAUDE_PLUGIN_ROOT}/skills/refactor/SKILL.md`, otherwise `../refactor/SKILL.md` from here.
-
-| Size | Looks like | Spec |
+| Size | Scope | Record |
 |---|---|---|
-| Small | A bug with a clear cause, a field, a label, one query | No file. One or two acceptance criteria in the plan or PR, as tests |
-| Medium | One screen or endpoint, one rule, touches one module | `docs/specs/<name>.md` from the template, short interview |
-| Large | Several modules, a new concept, data model change, or anything in a red zone | Full interview, a scenario per path, refusal paths, an ADR if it is hard to reverse |
+| Small | Clear fix, label, field, one query | One or two criteria in plan/PR; no spec file or extra discovery artifact |
+| Medium | One screen/endpoint/rule/module | Short interview and `docs/specs/<name>.md` from template |
+| Large | Several modules, new concept/data model or red zone | Full interview, scenarios/refusals and an ADR for hard-to-reverse choices |
 
-A change in a red zone is never small. When unsure, ask the user which it is.
+A red-zone change is never small. Ask when size is uncertain. Pure restructuring uses
+`refactor`: Claude Code `${CLAUDE_PLUGIN_ROOT}/skills/refactor/SKILL.md`; otherwise
+`../refactor/SKILL.md` from here.
 
-## 2. Interview (medium and large)
+## 2. Discover missing requirements (medium/large)
 
-One question at a time, offering a default:
-- Who needs this, and what do they do today without it?
-- What must it **not** do? (This becomes "Out of scope".)
-- What does the person see when it works? When they are not allowed? When the input is wrong?
-- What existing behaviour must not change?
+Reuse facts/answers; ask only consequential unknowns, one question at a time with a suggested
+default. Establish who needs it, today's behavior, problem/desired observable improvement,
+out-of-scope actions, success/error/refusal outcomes, preserved behavior and constraints/
+integrations/data/decisions that change the answer.
+For interactions, walk entry to outcome, relevant empty/loading/error/refusal/recovery states,
+permissions and accessibility. Reuse design conventions. A sketch may settle ambiguity; it
+is a proposal, not agreement or evidence. Use relevant prompts, not a universal checklist.
+Cite factual sources, distinguish proposed assumptions from agreed choices, and ask about
+consequential assumptions. Mark unresolved answers `[NEEDS CLARIFICATION]` (TS-6); resolve
+all marks before planning.
 
-Mark anything unanswered `[NEEDS CLARIFICATION]` (TS-6). Do not plan until every mark is resolved.
+## 3. Agree criteria
 
-## 3. Write the criteria
+- Compare baseline: added, changed, removed and preserved behavior; one sentence can suffice
+  for small work. Proposals stay in the change record until delivered.
+- State observable outcomes, never implementation. Each criterion gets at least one test;
+  include relevant refusal/access boundaries, failures and effects. Cite applicable quality
+  scenarios. Security changes include abuse/bypass tests (SE-5); explain any no-impact judgment.
+- MCP/agent APIs and embedded models declare effect, forbidden results and output that cannot
+  approve/publish (OP-9, OP-10); use `operate` for that surface.
+- Show criteria to the developer and retain their agreement in their own words (GR-7).
+  Material changes return for agreement; an agent-written status cannot supply it.
 
-- Behaviour a person can observe, never implementation ("the list shows only site A's orders",
-  not "filter the queryset").
-- Each criterion becomes at least one test.
-- Include who must **not** be able to do it, when the project has access control.
-- If the project states system-wide quality scenarios, cite the ones the change touches, with
-  a criterion that exercises each.
-- Security: include the abuse and bypass paths that apply (another tenant's object, a direct
-  API call, bad input), each asserting nothing forbidden happens (SE-5). "No security impact"
-  needs a reason.
-- An MCP tool, agent API, or embedded model feature states its effect (read, write, or
-  destructive), what it must not return, and that model output cannot approve or publish
-  (OP-9, OP-10). Hand that surface to `operate`.
-- Show the criteria to the user and get agreement in their own words (GR-7). If the criteria
-  change materially later, show them again.
+## 4. Plan and hand off
 
-## 4. Plan
+Inspect consumers/contracts and debt relevant to the change; repay in scope, schedule or
+leave with a reason. A new shortcut needs the person's agreement. Keep reasons/evidence
+traceable; an unread summary or search miss is not complete coverage.
+Medium/large work uses the existing plan or `docs/plans/<name>.md` (WK-2); separate structural
+and behavior steps. For dependent changes/handoffs use `plan`: Claude Code
+`${CLAUDE_PLUGIN_ROOT}/skills/plan/SKILL.md`; otherwise `../plan/SKILL.md`. Reuse agreed records.
 
-- Check the debt record for items in the area; repay in scope, schedule separately, or leave
-  with a reason. A new shortcut needs a person's agreement, not a ticket written afterwards.
-- Read the code the change touches, with its callers and configuration. A search with no hits
-  or a summary is a pointer, not proof.
-- For medium and large changes, create `docs/plans/<name>.md` from the plan template (WK-2):
-  small steps, with structural changes separate from behaviour changes.
+- **Independent tests first (TS-3):** a separate session/subagent derives tests from agreed
+  criteria and existing contracts, without new implementation. Run them before implementation
+  and retain intended red output (TS-2, TS-9). Validity checks pass first (TS-7): a specific
+  planned missing-interface compiler diagnostic may be expected red; unrelated syntax,
+  dependencies, fixture or environment errors are not. Already-passing behavior stays reported
+  as passing. A red handoff completes the test stage, not the feature.
+- **Exact handoff:** criteria, tests, revision/patch and actual commands/results, not a summary
+  saying tests ran. Fresh implementation context receives these (WK-3); supporting unit tests
+  are allowed. Never edit acceptance tests to fit code; suspected wrong expectations return to
+  the developer (TS-4). After green, refactor where useful or note none needed; update public
+  contracts (MT-1), retire replaced paths (MT-3) and respect limits (MT-2).
+- **Optional coordination:** follow existing routing records and record the model per role (WK-7);
+  one model in separate contexts is enough. Concurrent writers need separate checkout/resources and exact patch/commit handoffs
+  (WK-6); uncommitted files do not appear in another worktree. Neither plan nor skill launches
+  sessions or grants commit authority.
+- **Evidence back up (`decide`):** once tests pass, mark the spec Built and update evidence for
+  exercised ADRs/scenarios with actual scope/results. Accepted ADR text/status stays frozen;
+  later evidence goes in its linked record and scenario “Now” records exercised outcomes.
+- **Reconcile current behavior (IN-5):** update its existing home with verified outcomes,
+  source/test links, revision/patch and limits. Partial delivery names implemented scope;
+  pending work stays proposed. Preserve historical records and never infer deployment.
 
-## 5. Hand over
-
-- **Tests first, in a separate context** (TS-3): another session or subagent writes the
-  acceptance tests from the agreed criteria, without the implementation, and runs them on the
-  current code to show they fail for the intended reason. Record the command and output
-  (TS-2, TS-9). Independent lint, type and fixture checks must pass (TS-7); a specific
-  compiler diagnostic for the planned missing public interface may be the expected red.
-  Record that diagnostic; unrelated setup or syntax failures do not qualify. Behaviour that already passes is
-  reported as passing, not forced to fail. A red handoff ends this stage, not the feature.
-- **Hand over exact artifacts**: the criteria, the tests, the revision or patch and the red
-  output. A summarised chat is not a handoff.
-- **Implementation in a fresh context** (WK-3): read the criteria, plan and red output; supporting
-  unit tests are allowed. Never edit the acceptance tests to fit the code; a test that looks
-  wrong goes back to the user (TS-4). After green, refactor where it helps (TS-2), update
-  public contracts (MT-1), remove retired paths (MT-3) and stay within complexity limits (MT-2).
-- **Routing**: if the project has `docs/model-routing.md`, use it and record the model each
-  role actually used (WK-7). One model in separate contexts is enough.
-- **Parallel work** (WK-6): if another session writes to this repository at the same time,
-  each writer gets its own worktree and resources (`docs/worktrees.md`). Uncommitted tests do
-  not appear in another checkout; hand over a commit or a patch.
-- **Evidence back up** (`decide`): once the tests pass, the spec is Built, each ADR it
-  exercised gets an entry in its evidence record, and each scenario it
-  proves updates its "Now". Accepted ADRs stay frozen and Accepted.
-
-Report: the size chosen and why, the criteria, open questions, and the next session to start.
+Report size/reason, criteria, open questions and next session. Small work needs no framework
+table, host recipe, planning skill or new artifact unless its actual risk/dependencies require it.

@@ -23,18 +23,5 @@
       "Bash(git push --force:*)",
       "Bash(git push -f:*)"
     ]
-  },
-  "hooks": {
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python \"$CLAUDE_PROJECT_DIR/.claude/hooks/stop_check.py\"",
-            "timeout": 600
-          }
-        ]
-      }
-    ]
   }
 }

@@ -27,7 +27,11 @@ never silently skip a failure or change acceptance outcomes without affected cri
    owner review. Never rewrite frozen ADRs.
 3. **Plans**: plans marked active with no commit on their branch for two weeks; done plans
    still marked active.
-4. **Specs**: specs marked Agreed whose feature shipped (set Built) or was dropped.
+4. **Specs and current behavior** (IN-5): compare maintained area descriptions with current
+   code/config/tests, including removals, refusal paths and verification scope. Flag history
+   presented as current, pending features presented as built, and deployment claims based
+   only on local evidence. Check delivered change specs have been reconciled and their
+   statuses are accurate; preserve historical criteria and evidence. Propose fixes only.
 5. **Drift in code**: patterns `AGENTS.md` forbids that appeared anyway (grep for them);
    duplicated helpers where a shared one exists; new `skip` or `xfail` markers. Inspect
    structural trends, changed dependency directions, obsolete paths and exceptions whose

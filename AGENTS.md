@@ -14,7 +14,7 @@ python scripts/check.py        # Python 3.11+ and Git; must pass before calling 
 
 It checks: skill frontmatter, links and `${CLAUDE_PLUGIN_ROOT}` paths, rule IDs, rule
 alignment (below), line and character budgets, private names, JSON and TOML, the two plugin
-manifests and the stop hooks in disposable Git repositories. It
+manifests, scoring and context-load/resource regressions. It
 proves the kit is consistent, not that it works in a real project.
 
 ## Two readers, one home per statement

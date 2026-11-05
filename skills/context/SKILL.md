@@ -14,6 +14,10 @@ Read the current request, applicable instructions and existing plan/handoff. Ide
 approved objective, acceptance criteria and the concrete question needed for the next action.
 Confirm checkout, revision/patch, dirty files, host capabilities and existing data/access
 restrictions. Use the relevant scoped guidance; do not preload every policy or the whole repo.
+For "what does this do now?", start with the area's maintained behavior description (IN-5)
+and its source/test references. Check scope and material changes since verification. Read
+linked governing constraints; retrieve change history only for reasons, conflicts or missing
+facts. A historical spec or Accepted ADR alone does not establish current implementation.
 Missing critical context calls for scoped retrieval or a specific unresolved question, not
 an invented requirement. Continue independent work when it does not depend on that answer.
 
@@ -31,6 +35,8 @@ an invented requirement. Continue independent work when it does not depend on th
   to interpret evidence. Inspect actual authority before consequential edits; summaries and
   generated annotations remain derived aids. Preserve historical/current distinctions and
   conflicting evidence, including superseding decisions.
+- Report observed behavior separately from intended contracts when they disagree. Keep
+  unknowns and defects visible; do not infer deployed behavior from repository evidence.
 - If output is truncated/paginated, narrow and retrieve the missing relevant ranges. Record
   unavailable portions. Head/tail snippets or an unread report are not full review evidence.
   Keep original failures/logs accessible without flooding the working context.

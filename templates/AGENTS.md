@@ -24,6 +24,8 @@
 
 ## Working here
 
+- Current behavior: <README section or area guide>. Start there and verify affected sources;
+  history explains why. Update the description with verified behavior changes (IN-5).
 - Work on a branch. Never commit, push, deploy or migrate unless asked in chat. Only a person
   approves: an approved plan, a tool permission or a green check is not approval. Every merge
   to the main branch has a person's review.
@@ -34,9 +36,10 @@
 - Changes to checks, CI, permissions or this file need a person to review them.
 - Risk zones are in `docs/risk-zones.md`. In a red zone, stop and ask before changing behaviour.
 - Non-trivial work has a plan in `docs/plans/`; keep its progress notes current.
+  Use `plan` for several dependent changes: criteria per increment and combined checks.
 - **Done** means: criteria met, tests passing, the check green, a changelog entry, docs and this
   file updated if behaviour changed. Report the commands you ran and their results; never
-  claim a check you did not run.
+  claim a check you did not run or use stale/partial results as current success (GR-4).
 
 ## Decisions
 

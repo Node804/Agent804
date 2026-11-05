@@ -1,8 +1,8 @@
 # Host: Grok Build CLI (Draft integration)
 
 Documentation checked 2026-11-01. Installed CLI reports 1.0.70 (f50904eaee6c), stable.
-Native adapter fixtures and isolated offline discovery are exercised; actual model-driven
-hook continuation, permissions and OS isolation remain pending. Record actual version,
+Historical adapter fixtures and isolated offline discovery were exercised. The Stop adapter
+is withdrawn in 0.6; actual permissions and OS isolation remain pending. Record actual version,
 platform, model/effort, trust and capability results in the [host record](../../templates/agent-host.md).
 This recipe targets the coding CLI/TUI, not Grok's separate web/mobile Build Mode.
 
@@ -30,6 +30,10 @@ This addition installs/enables no plugin or MCP and changes no personal configur
 
 ## Native setup recipe
 
+Use direct checks and independent CI for GR-4/CK-8. The supplied Stop adapter is withdrawn
+in 0.6 with the shared engine's known cache/input/process-bound limitations. GR-8 remains
+an opt-in Trial design; [completion criteria](completion.md) establish no shipped integration.
+
 1. Keep project commands and policy in `AGENTS.md`. Merge
    [grok-project.toml](../../templates/grok-project.toml) into `.grok/config.toml`. It supplies
    supplementary prompts for direct Git command text, not comprehensive action authorization.
@@ -41,47 +45,22 @@ This addition installs/enables no plugin or MCP and changes no personal configur
    managed/user policy automatically. A session may select reviewed CLI controls such as
    `--permission-mode default --sandbox strict --no-subagents`; verify version/platform
    behavior. A sandbox profile name alone proves neither secret isolation nor network denial.
-3. For clients with the newer Stop-gate contract, copy
-   [grok_stop_check.py](../../templates/grok_stop_check.py) and shared
-   [stop_check.py](../../templates/stop_check.py) together under `.grok/hooks/`. Put the
-   reviewed project executable check command in `.agent-check`; inspect `AGENT_CHECK` overrides.
-4. Copy [grok-hooks.json](../../templates/grok-hooks.json) to
-   `.grok/hooks/agent804.json`; render the actual absolute checkout path and Python executable
-   for each platform/worktree. The command must work from a subdirectory. Review existing
-   native/Claude-compatible hooks to avoid duplicates. Do not enable plugin-wide hooks merely
-   by adding this profile to the kit.
-5. Inspect discovery using `grok inspect --json` (don't publish raw output with private config
-   details). Review the project's trust surfaces before `/hooks-trust`; trust can cover MCP,
-   LSP, project instructions and skills as well as hooks. Never turn trust off to make a
-   report green. Managed-only policies can skip local/plugin/compatibility hooks.
-6. Exercise the [capability checklist](README.md) in the actual session. Offline discovery
-   proves neither permission refusal nor Stop dispatch/continuation. If unsupported or
-   skipped, report the GR-4 gap; required CI and human review remain separate protections.
+3. Exercise instruction/skill discovery and applicable action controls using the
+   [capability checklist](README.md). Inspect effective configuration and trust in the actual
+   session; offline discovery proves neither action refusal nor OS isolation. Trust may cover
+   instructions, skills, MCP and LSP. Never bypass it to make an assessment green.
+4. Run the project's declared check directly and report current state/scope/results.
+   No Stop handler or automatic continuation is supplied. Existing installed handlers and
+   diagnostics need separately authorized review; changing this kit does not uninstall them.
 
-## Stop contract, version discrepancy and limits
+## Historical Stop evidence
 
-The public hooks page (updated July 2026) describes Stop as passive. The newer official
-repository guide explicitly describes Stop/SubagentStop blocking, exit 2 with stderr feedback,
-and native camelCase inputs. Therefore this adapter is Draft against the newer contract;
-don't infer the installed binary implements it from the website or latest branch alone.
-
-It accepts a native Stop event (`hookEventName` of `stop` or `Stop`), uses `cwd` to discover
-the checkout and tests `stopHookActive` for the reporting escape. It rejects a foreign
-`stop_hook_active` flag rather than silently losing the retry bound. Success allows stopping;
-check/validation errors exit 2 requesting continuation. An already-active continuation
-allows an honest unresolved-failure report and does not report a passing check. It does not
-register SubagentStop by default; subagent completion coverage remains a separate gap.
-
-Upstream describes hook failures/timeouts as fail-open and a built-in continuation cap.
-No adapter can make skipped dispatch, a timeout or that cap into fail-closed enforcement.
-Exercise effective behavior; never claim GR-4 met solely from a configured file. Claude's
-engine entry point alone reads the wrong active-flag spelling for this native protocol.
-
-The shared engine preserves per-worktree private caches and Git/root discovery. Ignored
-files, external services and time-dependent checks are outside the success key; refresh the
-private `agent-stop-check` state when needed and run independent final/CI checks. Concurrent
-writers still isolate mutable resources; native worktree creation does not isolate databases,
-ports or credentials. Context compaction/forking alone is not independent acceptance/review.
+The [trial record](../validation/grok-build.md) retains the public/upstream contract
+discrepancy and fixture/discovery results. They did not establish live continuation.
+The withdrawn shared engine also had dirty-gitlink cache reuse, EOF-dependent input and
+unbounded child execution; fixture success did not make those behaviors reliable.
+No subagent completion coverage is supplied. Worktree/resource isolation and independent
+acceptance/review contexts remain required where applicable.
 
 ## Permissions, routing and privacy
 

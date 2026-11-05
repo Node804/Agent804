@@ -11,7 +11,7 @@ It is here so that anyone changing a rule, person or agent, can see what it rest
 
 | Reference | Reinforced | Where Agent804 chose differently, and why |
 |---|---|---|
-| Anthropic, [Claude Code best practices](https://code.claude.com/docs/en/best-practices) | Short instructions holding only what an agent can't find for itself; must-always rules as hooks and deny rules; the check command up front; review in a fresh context; a stop hook so the agent can't finish with the check red | |
+| Anthropic, [Claude Code best practices](https://code.claude.com/docs/en/best-practices) | Short instructions holding only what an agent can't find for itself; must-always rules as hooks and deny rules; the check command up front; review in a fresh context; a stop hook so the agent can't finish with the check red | 0.6 separates core evidence from optional automation and withdraws supplied adapters after known limitations |
 | Anthropic, [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) | Keep always-loaded context small; add instructions for failures you actually see | |
 | Anthropic, [Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) | A boot script before any feature; progress kept in the repository; an end-to-end check before "done" | |
 | OpenAI, [Harness engineering](https://openai.com/index/harness-engineering/) | `AGENTS.md` as a map into `docs/`; the repository as the system of record; lint messages that tell the agent how to fix the problem; scheduled doc gardening | OpenAI makes human review optional at high volume. Agent804 keeps a person on every merge: few teams have the tooling and coverage that makes skipping it safe, and OpenAI says as much |
@@ -21,7 +21,7 @@ It is here so that anyone changing a rule, person or agent, can see what it rest
 | Kent Beck, [Augmented coding: beyond the vibes](https://newsletter.kentbeck.com/p/augmented-coding-beyond-the-vibes) | One failing test at a time; structural and behavioural changes kept apart; signs an agent is going wrong | |
 | Birgitta Böckeler, [Understanding spec-driven development](https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html) | One fixed workflow doesn't fit every size of change; heavy specs are hard to review | |
 | Birgitta Böckeler, [Context engineering for coding agents](https://martinfowler.com/articles/exploring-gen-ai/context-engineering-coding-agents.html), [Harness engineering for coding agent users](https://martinfowler.com/articles/harness-engineering.html) | Guides that steer and sensors that check; deterministic checks before AI review; a small always-loaded file with the rest on demand | |
-| GitHub, [Spec Kit](https://github.com/github/spec-kit) | A project constitution (here, `AGENTS.md`); `[NEEDS CLARIFICATION]` markers resolved before planning | Spec Kit fixes bugs by changing the spec and regenerating the code. Agent804 fixes the code, and the harness if a rule was missing: regenerating from the same spec doesn't give the same code twice |
+| GitHub, [Spec Kit](https://github.com/github/spec-kit) | A project constitution (here, `AGENTS.md`); `[NEEDS CLARIFICATION]` markers resolved before planning | Current Spec Kit also supports scoped assess/fix/verify; the earlier regeneration-only comparison was inaccurate. Agent804 retains its independent-test and harness requirements |
 | Git, [worktree](https://git-scm.com/docs/git-worktree) and [rev-parse](https://git-scm.com/docs/git-rev-parse) documentation | Separate working files, index and HEAD with shared history; linked checkouts use a `.git` file. Discover private metadata through Git; keep check state separate and retain branch/removal safeguards (WK-6, GR-4) | Worktrees isolate files, not credentials, databases or processes. Agent804 requires separate mutable resources and an explicit handoff and integration check |
 | Python, [PEP 8 comments](https://peps.python.org/pep-0008/#comments) | Useful current documentation, restrained inline comments and documented public interfaces (MT-1) | Contract scope follows each stack and project; no comment quota or requirement to restate obvious code |
 | Ruff, [complexity](https://docs.astral.sh/ruff/rules/complex-structure/), [settings](https://docs.astral.sh/ruff/settings/#lint_mccabe_max-complexity) and [public-function documentation](https://docs.astral.sh/ruff/rules/undocumented-public-function/) | Deterministic Python complexity and documentation-presence mechanisms (MT-1, MT-2) | Presence cannot prove accuracy; metrics cannot prove cohesion. Project thresholds and exceptions need review; new Django mappings remain draft |
@@ -43,10 +43,11 @@ reassessment with fresh agents is pending; previous scores must not be relabelle
 
 [Guided adoption evidence](validation/adoption.md) records the local design and limits for
 `adopt`, developer journeys and the assessment handoff. Real-project trials remain pending.
+[Discovery/planning](validation/planning.md) and [current behavior](validation/current-behavior.md) record untrialled 0.6 workflows, OpenSpec sources and limits; scoring is unchanged.
 
 The independent repository review reproduced a skipped hook for `.git` files and an unchanged
-fingerprint after editing a staged file before the first commit. `scripts/test_stop_check.py`
-exercises these paths, independent worktree caches, command changes and failure reporting.
+fingerprint after editing a staged file before the first commit. Historical hook fixtures
+covered those paths; 0.6 withdraws the defective engine and retires its adapter fixtures.
 The retry contract now explicitly covers concurrency, crash recovery and unknown external
 outcomes; these are required acceptance scenarios for adopting projects, not claims that the
 framework implements a transaction layer. Separate append-only ADR evidence records resolve
@@ -143,21 +144,21 @@ Official OpenAI documentation checked 2026-10-31:
 | References consulted | Reinforced | Limits and choices |
 |---|---|---|
 | [AGENTS.md discovery](https://learn.chatgpt.com/docs/agent-configuration/agents-md) and [skills](https://learn.chatgpt.com/docs/build-skills) | Effective root/nested/override guidance, loading limits, progressive skill discovery and intact resource layout support IN-1/IN-4/IN-5 | Shared policy remains host-neutral; metadata/path resolution does not prove actual loading or independent context |
-| [Hooks](https://learn.chatgpt.com/docs/hooks) | Codex Stop JSON/exit-2 contract, trust, config merging and orchestration-specific limits inform GR-4 adapters | Fixture success does not establish host registration, trust, continuation or timeout handling. Reporting escape never means a passing check |
+| [Hooks](https://learn.chatgpt.com/docs/hooks) | Historical Codex Stop adapter used JSON/exit-2, trust and config merging; removed after the failed Desktop trial | Fixture success does not establish host registration, trust, continuation or timeout handling. Reporting escape never means a passing check |
 | [Configuration](https://learn.chatgpt.com/docs/config-file/config-reference) and [command rules](https://learn.chatgpt.com/docs/agent-configuration/rules) | Effective sandbox/approval controls and limited command-prefix enforcement support GR-2 | Outside-sandbox Git prompts are supplementary; wrappers/other tools need review. Automatic permission approval is not human architecture/feature/merge consent |
 | [Plugin packaging](https://developers.openai.com/plugins/build/plugins) | Root portable manifest, fixed skill layout and OpenAI extension match the existing distribution format | No compatibility-overlay migration is required; intact layout/resource checks do not prove live installation |
 
-Thirteen Codex adapter fixtures exercise the installed pair, wire validation, Git failures,
+Historically, thirteen Codex adapter fixtures exercised the installed pair, wire validation, Git failures,
 cache/resource paths, linked worktrees, bounded reporting, malformed input and the rendered
-absolute-path command from a subdirectory. Two resource-layout fixtures resolve an intact
-relocated kit and reject a skills-only copy. Existing Claude/shared-engine
-regressions remain. A local Codex CLI 0.141.0 rule evaluation parsed the Draft direct Git
+absolute-path command from a subdirectory; those adapter fixtures are now retired. Two resource-layout fixtures resolve an intact
+relocated kit and reject a skills-only copy. Claude/Grok runtime fixtures are also retired
+with their withdrawn adapters. A local Codex CLI 0.141.0 rule evaluation parsed the Draft direct Git
 push rule and returned prompt; no Git push occurred. This is not a live approval/trust test.
 The CLI reported inaccessible alias/temp maintenance paths; no global configuration was changed.
 TOML/JSON and Python validation cover starter integrity, not effective runtime policy.
-Actual client discovery/trust/Stop continuation, timeout behavior, platform configuration,
-independent-context handoffs and cross-host application comparisons remain pending. Host
-profiles and adapters are Draft integration guidance, with no automatic Reference promotion.
+Codex Desktop automatic continuation failed despite attempted remedies; its Stop integration
+is removed. Platform/action-control trials, independent handoffs and cross-host application
+comparisons remain pending; host guidance has no automatic Reference promotion.
 
 ## Optional routing references and limits
 
@@ -195,3 +196,4 @@ repository integrity checks do not establish attention, retrieval recall or comp
 OP-9 to OP-11. Those rules are untrialled. OP-1 to OP-8 still describe one reference
 project's design. The embedded-feature rule is this kit's, because the specification does
 not cover an in-product model feature.
+[Completion automation in 0.6](validation/completion.md) separates core evidence from Trial hooks, following the [Desktop trial](validation/codex-desktop.md).

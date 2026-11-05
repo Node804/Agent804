@@ -1,25 +1,42 @@
 # Roadmap
 
-**Status:** 0.5.0, preview, not yet released. What is proven and what is only an idea is in
+**Status:** 0.6.0, preview, not yet released. What is proven and what is only an idea is in
 the README's Evidence section; this page is what's next and why things are the way they are.
 
-## Before the first public release
+## Before the 0.6 preview release
 
-The first public release is the push to the public repository under Node 804, with a release
-zip attached.
+Advance the public preview from 0.4 to 0.6 after review and package verification. Commit,
+push and publication need explicit authorization; the final ZIP is rebuilt from the release commit.
 
 - [x] ChatGPT review of the 0.4 rewrites against 0.3 (2026-11-01); corrected the missing-interface
       test exception, stale gate/lifecycle summaries and conditional Security setup.
 - [x] Independent Grok review of the 0.4 skill rewrites against 0.3; completed per the
       developer, with the follow-up Operate corrections checked on 2026-11-01.
-- [ ] Review the 0.5 cumulative scoring change and reassess reference projects with fresh
-      agents; compare evidence and gaps rather than converting old foundation scores.
-- [ ] Build `agent804-0.5.0.zip` from the release commit.
+- [x] Complete fresh review of the full 0.4-to-0.6 delta, including cumulative scoring;
+      corrected stale core-hook mappings in profiles and the worktree playbook.
+- [ ] Reassess reference projects separately; do not convert old scores or claim completed trials.
+- [x] Verify a local candidate ZIP and prepare release notes; extraction passes the full check.
+- [ ] After authorization, commit/publish and rebuild `agent804-0.6.0.zip` from that commit.
 
 ## Trials before 1.0
 
 Each is one session. Record the result in the README's Evidence section, and fix whatever the
 trial shows is unclear before moving on.
+
+- [ ] Trial tightened context loading on a real small fix, bounded adoption and resumed plan.
+      Record actual reads, missed constraints and procedural corrections against equivalent
+      tasks. Static context-load recipes and source walkthroughs do not prove live savings.
+
+- [ ] Trial current-behavior retrieval after several changes: superseded decisions, a pending
+      feature, a defect and a deployment behind the repository. Include incremental adoption
+      and a small README-only change. Record correctness, unnecessary history reads, missed
+      constraints, drift and update overhead; see [limits](framework/validation/current-behavior.md).
+
+- [ ] Trial 0.6 requirements discovery and `plan`: a small fix with no extra artifact, a
+      consequential assumption resolved before criteria agreement, relevant interaction
+      states, dependent increments and combined checks, then scope change/blocked-work
+      recovery. Record corrections, missed requirements, integration failures and overhead;
+      keep the workflow Trial until real-project evidence supports promotion.
 
 - [ ] Trial `adopt` on existing code with a developer: missing style/check setup, preservation
       of current tools, one bounded increment, pre-existing failures and continuation on a
@@ -36,9 +53,9 @@ trial shows is unclear before moving on.
       flaky test reported rather than retried into a pass.
 
 - [ ] Trial Grok Build CLI with actual trusted project instructions/skills/permissions and
-      passing/failing native Stop continuation, reporting escape, timeouts and worktrees.
-      Reconcile the public/upstream hook-doc discrepancy for the tested client; verify actual
-      OS/network isolation and keep web/mobile Build Mode separate from CLI capability claims.
+      direct checks, worktrees and actual OS/network isolation. Keep web/mobile Build Mode
+      separate from CLI claims. The Stop adapter is withdrawn; any future independently
+      supported integration needs its own runtime/lifecycle evidence and explicit scope.
 - [ ] Trial MT-5 debt management: confirm/reject candidates, reuse scoped deferral, revisit
       overdue/triggered review, repay in authorized feature/refactor work and verify closure.
       Include partial repayment and renamed items; prove ticket creation does not waive a
@@ -56,8 +73,9 @@ trial shows is unclear before moving on.
       and paid trials require applicable authorization; WK-7/MS-5 remain conditional practices.
 - [ ] Exercise host capability records and equivalent bug-fix/feature/refactor/review fixtures
       in Claude Code and Codex. Verify actual instruction discovery, nested overrides, intact
-      relocated skill resources, hook trust/loading/failure continuation and missing-control
-      reporting on the tested clients/OS; don't infer other surfaces from one CLI trial.
+      relocated skill resources and missing-control reporting on the tested clients/OS.
+      No Stop adapter is supplied in 0.6; use direct checks and CI. Future project-specific
+      completion trials require an independently supported integration and explicit opt-in.
 - [ ] Trial `refactor` on a scoped existing-code change: capture consumers/contracts and
       baseline, add immediately passing characterization tests where needed, restructure in
       small steps and verify final preservation/retirement. Exercise a hidden behavior-change
@@ -65,7 +83,8 @@ trial shows is unclear before moving on.
 - [ ] `start` on an empty repository, through to a green check and a walking skeleton.
 - [ ] One small change end to end, to prove the light path really is light.
 - [ ] The full flow under Codex: spec, separate test session, build, review, evidence. Work out
-      Codex's equivalents for the stop hook and the commit/push/migrate approvals (GR-2 to GR-4).
+      Codex action authorization (GR-2) and truthful completion evidence (GR-4) using direct
+      checks and CI. The failed Codex completion integration is removed.
 - [ ] Exercise a non-Django Draft profile on a real application before considering Reference
       promotion; record its resolved mappings, bootstrap/check/CI, refusal evidence and gaps.
 - [ ] Someone other than the author runs `assess` cold on their own repository.
@@ -81,7 +100,8 @@ trial shows is unclear before moving on.
 
 ## Known gaps
 
-- Codex and Grok have Draft guardrail adapters and settings; actual-host enforcement remains unverified.
+- Codex/Grok retain Draft action settings. All supplied Stop adapters are withdrawn in 0.6;
+  direct checks and CI remain the verification path.
 - Under Codex, skill names show without a prefix (`spec`, `start`), so they can clash with
   other skills.
 - Items marked † in `framework/profiles/django.md` have not run on a real project.

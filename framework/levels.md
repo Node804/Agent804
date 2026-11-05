@@ -40,7 +40,9 @@ explain progress without creating a second score:
 Every other core rule is a reported practice, not a gate. Module rules gate their module,
 never a core level. [Testing](testing.md), [maintainability](maintainability.md),
 [security](security.md) and the [host checklist](agents/README.md) explain the protections.
-A host configuration is not evidence that an instruction loads or a hook runs.
+GR-4 requires truthful current verification evidence, not a hook. Automatic completion
+checks belong to the opt-in Trial module (GR-8); missing/unsupported automation does not
+block a core level. A configured host control is not evidence it runs.
 
 ## Scoring
 
@@ -141,6 +143,10 @@ Compared with 0.4, personal prototypes now require the whole controlled harness,
 production tools also require architecture checks and decision evidence. Business and
 high-impact production targets retain all former required gates. No old score converts
 directly: regrouping, partial gates and unresolved evidence require reassessment.
+
+In 0.6, core gate IDs remain unchanged, but GR-4 grades current completion evidence rather
+than mandatory host blocking. Automatic completion checking is opt-in Trial GR-8. Reassess
+prior hook-related findings; do not automatically promote levels without actual GR-4 evidence.
 
 ## Scaling to the change
 

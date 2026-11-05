@@ -36,8 +36,9 @@ private helper. Boilerplate that repeats a signature does not establish a useful
 
 Maintained links, configuration examples and runnable examples are checked where practical
 (IN-5). Mark historical records explicitly; a frozen ADR describing an old state is not a
-current operating guide. Update maintained descriptions with behavior and review them against
-implementation and tests. Presence can be checked; accuracy still needs judgment.
+current operating guide. [Current behavior](current-behavior.md) explains the maintained
+entry point and its relationship to change records. Presence can be checked; accuracy still
+needs judgment against implementation and tests.
 
 ## MT-2: Controlled complexity
 

@@ -1,11 +1,15 @@
 # Grok Build integration evidence and limits
 
+Historical evidence: the 0.6 preview withdraws the supplied Grok Stop adapter and its
+fixtures with the shared engine. Results below describe earlier tests, not current support
+or an active install/trial plan. Action settings and skill-discovery guidance remain.
+
 Primary sources checked 2026-11-01; no xAI model or account endpoint was invoked.
 
 | Reference consulted | Informed | Limits and choices |
 |---|---|---|
 | [Overview](https://docs.x.ai/build/overview), [instructions](https://docs.x.ai/build/features/project-rules), [skills/plugins](https://docs.x.ai/build/features/skills-plugins-marketplaces) | Native root/scoped guidance, skill sources and Claude plugin compatibility | Metadata discovery is not execution. No third plugin manifest or extra routing frontmatter is needed; keep intact relative resources |
-| [Public hooks](https://docs.x.ai/build/features/hooks) versus [upstream hook guide](https://github.com/xai-org/grok-build/blob/main/crates/codegen/xai-grok-pager/docs/user-guide/10-hooks.md) | Older public page says Stop is passive; newer guide specifies blocking Stop, native camelCase flags, exit-2 feedback, trust and fail-open errors/caps | Draft adapter follows newer contract; inspect actual client/docs and exercise continuation before scoring GR-4. Never infer parity from Claude-compatible configuration |
+| [Public hooks](https://docs.x.ai/build/features/hooks) versus [upstream hook guide](https://github.com/xai-org/grok-build/blob/main/crates/codegen/xai-grok-pager/docs/user-guide/10-hooks.md) | Older public page says Stop is passive; newer guide specifies blocking Stop, native camelCase flags, exit-2 feedback, trust and fail-open errors/caps | Historical adapter followed newer contract; it is withdrawn. Core GR-4 now grades current check evidence; opt-in automation is Trial GR-8. Never infer parity from Claude-compatible configuration |
 | [Configuration scopes](https://github.com/xai-org/grok-build/blob/main/crates/codegen/xai-grok-pager/docs/user-guide/05-configuration.md) and [permissions](https://github.com/xai-org/grok-build/blob/main/crates/codegen/xai-grok-pager/docs/user-guide/22-permissions-and-safety.md) | Project permission rules versus user-only settings; merged ask/deny/allow and imported compatibility sources | Native prompt patterns are supplementary, not complete action authority. No global/user settings changed; no actual permission refusal was tested |
 | [Sandbox](https://docs.x.ai/build/features/sandbox) and [settings reference](https://docs.x.ai/build/settings/reference) | Separate sandbox/action controls, platform/network limits and effort/config scope | No claim that a profile name protects every platform, credential path or in-process tool |
 

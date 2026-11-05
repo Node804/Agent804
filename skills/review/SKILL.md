@@ -29,6 +29,10 @@ say so in the report: it limits the review.
      reason; the boundary is real where it matters; retries, skips and quarantines are
      reported, not hidden.
    - **Scope**: features nobody asked for; changes outside the plan.
+   - **Current description** (IN-5): the maintained README/area contract reflects delivered
+     behavior, with source/test references and verification scope. Pending work is not
+     presented as implemented, and local results are not deployment evidence. Compare with
+     code and tests; a historical feature spec or Accepted ADR alone is not current state.
    - **Rules**: each rule in `AGENTS.md` that the change could break.
    - **Maintainability**: public contracts documented and non-obvious logic explained (MT-1);
      complexity, file-size and duplication limits and new exceptions (MT-2); business rules kept in one place (AR-2); boundaries and cycles (AR-3); writes validated in one place (AR-4);

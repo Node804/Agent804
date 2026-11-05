@@ -1,185 +1,129 @@
 ---
 name: start
-description: Set up a new project from an empty or near-empty repository with an agent harness before any feature is built - instructions file, one check command, guardrails, walking skeleton, CI, decisions and risk zones. For existing code, use adopt for guided setup or assess for read-only diagnosis.
+description: Set up an empty project with instructions, checks, guardrails, a walking skeleton, CI and decisions before features. Existing code uses adopt; assess diagnoses read-only.
 ---
 
 # Start a project
 
-Target Level 2 — Controlled (the whole harness) before the first feature: a running app, a
-green check and exercised completion controls, or explicit gaps against that target. Nothing is committed
-unless the user asks.
+Target Level 2 — Controlled before the first feature, or report explicit gaps. No commit,
+push, deploy or migration without the developer's specific instruction (GR-7).
 
-**Framework files**: in Claude Code, `${CLAUDE_PLUGIN_ROOT}/framework/` and
-`${CLAUDE_PLUGIN_ROOT}/templates/`; for other agents, `../../framework/` and `../../templates/`
-from this file. Read `framework/levels.md` first.
+**Resources:** Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/` and
+`${CLAUDE_PLUGIN_ROOT}/templates/`; other agents `../../framework/` and `../../templates/`
+from this file. Read only the sections/resources needed for the current step; do not preload
+all profiles, templates, host recipes or historical records.
 
-## 1. Check the starting point
+## 1. Establish the starting point and target
 
-- List the folder. If it holds application code, use `adopt` for guided setup or `assess`
-  for read-only diagnosis: this skill is for new projects. Adopt: Claude Code
-  `${CLAUDE_PLUGIN_ROOT}/skills/adopt/SKILL.md`, otherwise `../adopt/SKILL.md` from here.
-- Initialize Git if needed. Independently inspect the branch and working-tree changes before
-  writing: reuse an appropriate task branch or create one (for example `setup`). An existing
-  empty repository on its default branch still needs a task branch. Preserve existing changes;
-  never reset or stash them automatically. Do not commit or push without authorization.
-- For concurrent writers, follow the worktree playbook in `framework/worktrees.md`: in Claude
-  Code `${CLAUDE_PLUGIN_ROOT}/framework/worktrees.md`, otherwise `../../framework/worktrees.md`
-  from this file. Before a baseline commit exists, use sequential sessions in the initial
-  checkout; do not create an implicit commit to enable parallel work.
+- Inspect files, branch and dirty work. Existing application code uses `adopt` (Claude Code
+  `${CLAUDE_PLUGIN_ROOT}/skills/adopt/SKILL.md`; otherwise `../adopt/SKILL.md`) or read-only
+  `assess`. Preserve changes; never automatically reset or stash.
+- Initialize Git if needed; reuse an appropriate task branch or create one (GR-3), even
+  for an empty repository on its default branch. Do not commit to enable worktrees.
+- Read `framework/levels.md`: Practices, Scoring and How much a project needs. Read the
+  trigger table in `framework/modules.md`; then only triggered module sections.
+- Reuse known answers; ask remaining questions one at a time, offering a default:
+  purpose/users; impact if it breaks; prototype or production; stack; who can review code;
+  any MCP/agent API/tools or embedded model feature; concurrent writers. Sign-in names alone
+  do not trigger Security; use the actual module triggers. Mark disposable prototypes in README.
+- Recommend an established typed stack with a profile if no preference exists. If nobody
+  can read the code, explain the remaining reviewer need and recommend small red zones.
+  Set the target/additions and triggered modules with their cost in two or three sentences.
 
-## 2. Interview, one question at a time
+## 2. Select mechanisms
 
-Ask, wait, then ask the next. Accept short answers; offer a default for each.
+Read `framework/profiles/README.md` and only the applicable stack profile. Without one,
+copy `_template.md` into `docs/stack-profile.md`, agree actual mappings/versions and mark
+Draft. Record missing mechanisms. Agree public-interface scope, complexity/file-size/
+duplication limits and exception review before building (MT-2).
 
-1. **What is it, and for whom?** One paragraph.
-2. **What happens if it breaks?** Personal tool / internal business use / customer data,
-   money, safety, or writes into other systems of record (see `levels.md`).
-3. **Prototype or production?** A prototype will be thrown away; say so in the README.
-4. **Stack?** If the user has no preference, recommend one that has a profile in
-   `framework/profiles/` and is boring, typed and well known. Explain in one line why.
-5. **Who reviews changes, and can they read code in this stack?** If nobody can, say plainly
-   that the harness lowers the skill needed but does not remove the need for a reviewer, and
-   suggest red-zone areas be kept small.
-6. **Will this project build an MCP server, an API or tools for agents, or an embedded
-   model feature** (a chat, assistant, classifier, or generator)? Scripts that call the
-   system count. If yes, Operate applies, and the skeleton's first action is one designed
-   contract (`operate`): name, when to use it, schema, result bound, and effect. Not one
-   tool per function.
-7. **How many write at once?** If several agents or people will write at the same time,
-   Parallel work applies.
+Use the shared host checklist, Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/agents/README.md`,
+otherwise `../../framework/agents/README.md`, and only the selected host profile. Record
+actual version/capabilities using `templates/agent-host.md`; file presence is not enforcement.
+For concurrent writers only, follow Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/worktrees.md`,
+otherwise `../../framework/worktrees.md`. Before a baseline commit, work sequentially;
+otherwise isolate checkout/resources and check state (WK-6).
 
-Set the **target** from the table in `framework/levels.md`, and list the modules whose
-triggers in `framework/modules.md` are true; question 2 also decides Security. Tell the user
-the target and the modules, and what they cost, in two or three sentences.
+Every project needs core scanners/dependency trust (SE-2, SE-3). If Security triggers, agree
+owner, assets, trust boundaries, credible abuse cases, versioned requirements and finding
+deadlines (SE-1, SE-6). Use the language's standard formatter/linter unless the developer
+chooses another convention; record why (ST-1). Offer `templates/editorconfig` and
+`templates/gitattributes`. Choose one debt record, initially empty. Only on routing opt-in
+use `templates/model-routing.md`; setup launches no models or account probes.
 
-## 3. Load the stack profile
+## 3. Build in this order
 
-Read Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/profiles/README.md`, otherwise
-`../../framework/profiles/README.md` from this file. If the kit has a profile for the stack,
-use it. Otherwise copy `_template.md` to the project's `docs/stack-profile.md`, fill it in
-with the user using the table in the profiles README, and mark it Draft. List unmapped
-rules, actual versions and missing mechanisms as gaps.
-Agree limits on function complexity, file size and duplication, what counts as a public
-interface, and how exceptions are approved, before building the skeleton (MT-2).
-Every project gets security scanners in the check and a dependency review policy (SE-2,
-SE-3). If the Security module applies, agree with the user the owner, assets, trust
-boundaries, credible abuse cases and versioned requirements (SE-1), and how findings get
-deadlines (SE-6).
-For style, use the language's standard style and its usual formatter and linter (for
-example Ruff, Prettier and ESLint, gofmt, rustfmt, `dotnet format`, Pint). If the user prefers
-another, record why in the profile (ST-1). Offer `templates/editorconfig` and `templates/gitattributes` for
-line endings and encoding.
-Never infer commit, push or deployment permission from agreement on a feature (GR-7).
+1. **Tools:** use the profile's pinned package manager/lock file, formatter/linter, type/test
+   runner, complexity/size/duplication checks and documentation/example/unused-code checks
+   (MT-2). Keep judgment reports visible. Review dependency sources and build execution
+   before installing (SE-3). Security checks show freshness, safe detection evidence and
+   error/skip handling (SE-2). Format/lint checks report; separate commands fix (ST-1).
+   Editor/pre-commit integrations use the same config; CI still runs the full check (CK-6).
+2. **One check (CK-1):** wrap all applicable checks, document the actual command in
+   instructions. `.agent-check` is optional completion-adapter configuration.
+3. **Skeleton (SK-1, SK-2):** one rerunnable fresh-clone bootstrap, a running page/endpoint
+   behind access control and a representative end-to-end test in CI (TS-5). Environment
+   configuration has no hard-coded paths/hosts (SK-4). Show allowed/refused requests, the
+   refusal with no effect (AR-1). When target requires AR-1, check entry points missing access
+   rules; diagnostics tell the agent how to fix them (CK-4). Validate writes once (AR-4),
+   parse input at boundaries and encode for destinations (AR-6). Document public contracts,
+   failures/side effects (MT-1) and scoped navigation/test commands (IN-4).
+   If Operate applies, use `operate` for O1/O2: one action declaration serves UI/API/tools
+   under the same access rules, machine credentials start read-only, results are bounded
+   and effect is server-enforced (OP-9). No production credential reaches a local process
+   (OP-11); embedded prompts/allowed actions live in the repo and output cannot approve or
+   publish (OP-10). Security-triggered projects demonstrate safe defaults (SE-4).
+4. **Instructions:** merge `templates/AGENTS.md` as shared authority (IN-1), actual check
+   first (CK-2), line budget enforced (IN-3). Keep only otherwise-missed guidance; plain
+   statements (IN-6), repeated procedures in skills (IN-7), area rules scoped. Preserve dry-run
+   scripts (GR-6) and done criteria (WK-5). Link applicable security/worktree/routing records.
+   Explain growth: a correction repeated twice becomes guidance; enforceable guidance moves
+   to a check. For Claude Code, `CLAUDE.md` contains `@AGENTS.md`; verify actual host loading.
+5. **Guardrails (GR-1 to GR-4, GR-7):** require human consent, task branches and current
+   check commands/scope/results. Failed or missing checks remain incomplete. Isolate test
+   credentials/data; no production secrets, except a GR-1 development exception the person
+   decides and records in `docs/security.md`. Preserve stricter settings/trust when merging
+   authorized action controls. Core needs no completion hook. Only for opted-in GR-8 and
+   a supported host, use Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/agents/completion.md`,
+   otherwise `../../framework/agents/completion.md`; agree runtime/prerequisites first.
+   No Stop adapter ships in 0.6; do not recreate withdrawn integrations during setup.
+   Headless work states done/check/scope/stop/sign-off and runs sandboxed (GR-5).
+6. **CI:** run the same check from committed state in a clean environment, blocking red
+   merges (CK-8). Use `templates/pull_request_template.md`; a person reviews every merge.
+7. **Records:** create only records needed for the selected scope, from the templates:
+   ADR 0001 (Proposed) holds interview/stack/target answers with linked evidence (DC-1 to
+   DC-3); `docs/specs/`, `docs/plans/`, `docs/evidence/` hold later work. Keep ADR/evidence
+   templates as `0000-template.md`. Draw `docs/risk-zones.md` with the developer.
+   Describe the running skeleton in an existing README/contract or `current-behavior.md`
+   (IN-5), linked from instructions with sources/tests, revision/patch and gaps. Unbuilt
+   features stay proposed; local tests do not prove deployment. Add the profile's changelog
+   mechanism (WK-4). Create `docs/maintainability.md` with checks, limits, interfaces and
+   exceptions; no invented legacy baseline. Create `docs/security.md` with core scanner/trust
+   evidence and applicable exception/module sections, without secrets or sensitive incidents.
+   For concurrent work, copy the worktree playbook to `docs/worktrees.md` and fill actual
+   bootstrap/resource/cleanup commands. README links commands, policies, tests and evidence;
+   instructions retain independent test contexts, truthful red handoffs and human review.
 
-## 4. Build the harness, in this order
+## 4. Prove and report
 
-Select actual hosts via Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/agents/README.md`,
-otherwise `../../framework/agents/README.md` from here. Record client/version/capabilities
-in `docs/agent-host.md` from `templates/agent-host.md`; missing facilities stay gaps.
-Choose one place debt is tracked; a new project has none to record. Only if the user opts in
-to model routing, copy `templates/model-routing.md`; don't launch models or spend to set it up.
+Run bootstrap and the full check; preserve actual output. In isolated fixtures, demonstrate:
 
-Each step ends with something you can run.
+- Selected host instruction/skill/resource discovery, effective controls and relevant refusals;
+  configuration/fixture success alone cannot establish live host behavior.
+- A missing access rule fails where AR-1 is implemented; each MT-2 violation fails; maintained
+  examples run and unmapped mechanisms remain gaps. Restore fixtures.
+- A representative security detection (SE-2); `.env`/secrets ignored in Git status.
+- A formatting violation fails without rewriting; targeted fix then an idempotent second fix.
+- Test discovery/counts/skips/exclusions, nonzero propagation and unexpected empty-suite
+  failure, isolated data and real skeleton integration (TS-10 to TS-12). Record environment,
+  revision and results; unexercised mechanisms stay untrialled.
+- Current completion evidence (GR-4); only opted-in supported GR-8 needs an actual correlated
+  lifecycle trial. Unsupported/unverified automation is a Trial finding, not a core hook gap.
+  Worktrees retain isolated resources and private state.
 
-1. **Baseline tools** from the profile: package manager with a lock file, formatter, linter,
-   type checker, test runner, and complexity, file-size and duplication checks (MT-2). Pin versions. Add the profile's
-   documentation, example, duplicate and unused-code checks; keep judgment-based reports
-   visible for review instead of presenting them as proof of correctness. Add applicable
-   security checks (SE-2), with report freshness, safe detection fixtures and explicit
-   error/skip handling. Review dependency sources, build execution and reproducible inputs
-   before installing new packages (SE-3); an audit is not permission to run untrusted code.
-   The check runs the formatter and linter in report mode; a separate command fixes (ST-1).
-   Editor and pre-commit hooks give fast feedback; CI still runs the full check (CK-6).
-2. **The check command** (CK-1): one command that runs everything. Write it to `.agent-check`
-   (one line) for the stop hook.
-3. **Walking skeleton** (SK-1, SK-2): the smallest app that boots, one page or endpoint behind
-   access control, a bootstrap command that takes a fresh clone to running, and one end-to-end
-   test of a real user journey (TS-5). Configuration comes from the environment, with no
-   hard-coded paths or hosts (SK-4). If the target includes AR-1, add the check that fails
-   on an entry point with no access rule; every check message says how to fix it (CK-4).
-   Writes are validated in one place before they are stored (AR-4); input is parsed at
-   the boundary and encoded for each destination (AR-6). If Operate applies (O1, O2), the
-   skeleton's one action is declared once and served to the page and to the API or agent
-   tools with the same access rule, read-only for machine credentials, with a bounded result
-   and a server-enforced effect (OP-9). A local process gets no production credential
-   (OP-11). An embedded model feature keeps its prompt and allowed actions in the repo; its
-   output cannot approve or publish (OP-10).
-   Document the public contracts, failures and side effects the declarations cannot explain
-   (MT-1); provide a short navigation path to the area and its test command (IN-4).
-   Show an allowed and a refused request, the refused one with no effect (AR-1). If the
-   Security module applies, also demonstrate safe initial defaults (SE-4).
-4. **`AGENTS.md`** from the template (IN-1), with real commands in its first section (CK-2).
-   Agents read every line of it in every session, so it holds only what an agent would
-   otherwise get wrong, in plain statements with no shouting (IN-6); repeated procedures
-   are skills, not paragraphs (IN-7). The check enforces its line budget (IN-3). Keep the
-   template's lines on dry-run scripts (GR-6) and the definition of done (WK-5). Add one line per module that applies, naming its record:
-   Security (`docs/security.md`), Parallel work (`docs/worktrees.md`), and model routing if opted in (`docs/model-routing.md`). Tell the
-   user how it grows: a correction given twice becomes a line; a line the check can enforce
-   moves into the check and is deleted. Area rules go in nested files where that area lives.
-   For Claude Code add `CLAUDE.md` containing `@AGENTS.md`; verify selected hosts' discovery.
-5. **Guardrails** (GR-1 to GR-4, GR-7): `AGENTS.md` says only a person approves, and an
-   approved plan is not a request to commit. Production credentials never go in the `.env`, except a GR-1 exception the
-   developer decides and records in `docs/security.md`;
-   development uses isolated test resources/credentials. Install the stop hook and settings
-   from the selected host recipe, with paths for this checkout; merge existing settings and
-   verify the host loads them. Other hosts need real equivalents or explicit gaps.
-   A scheduled or headless run states what done looks like, how it checks itself, what it
-   may touch, what stops it and who signs off, and runs sandboxed (GR-5).
-6. **CI** running the same check command from committed state in a clean environment, before
-   any merge (CK-8), and a pull request template from `templates/pull_request_template.md`.
-7. **Docs**: `docs/adr/` with `templates/adr.md` as `0000-template.md`, and ADR 0001 recording
-   the interview answers, stack and target (Status: Proposed). `docs/specs/`,
-   `docs/plans/`, `docs/evidence/` with `templates/evidence.md` as `0000-template.md` and a
-   record for ADR 0001 linked from that ADR,
-   and `docs/risk-zones.md` from the template with the first zones drawn with the
-   user. A changelog mechanism
-   from the profile, one entry per change (WK-4). If the Parallel work module applies, copy `framework/worktrees.md` to
-   `docs/worktrees.md` and fill in the actual bootstrap, resource and cleanup commands.
-   Create `docs/maintainability.md` from `templates/maintainability.md` with actual checks,
-   thresholds, public-interface scope and scoped exceptions. A new project starts without
-   legacy findings; do not invent a baseline or bulk exclusions.
-   Create `docs/security.md` from `templates/security.md` with core scanner verification and
-   dependency trust (SE-2, SE-3); keep a GR-1 exception only when applicable. If Security
-   applies, also fill in threats, versioned requirements, owner/deadlines and risk outcomes.
-   Otherwise omit the module-only sections.
-   Keep secrets and sensitive incident details outside this document.
-8. **README and instructions**: what it is, prototype or production, bootstrap/check commands
-   and navigation to project maintainability, security and style policies plus test
-   commands/evidence locations. Keep `AGENTS.md` concise; tool-specific files point to it.
-   Include independent acceptance contexts, honest red handoffs and human review before merge.
-
-## 5. Prove it
-
-- Run the bootstrap command and the check. Both must pass. Show the output.
-- Exercise the selected host capability checklist, including skill/resource resolution,
-  instruction overrides and actual control behavior; fixture passes alone do not establish it.
-- If AR-1 is in place: add an entry point with no access rule, run the check, confirm it fails
-  with a message that says how to fix it, then remove it.
-- Run `git status` and confirm `.env` or other secrets are ignored.
-- Exercise the stop hook with a failing check and confirm it blocks. If worktrees are used,
-  verify each one's hook, isolated databases and other resources, and independent check state.
-- Introduce a small violation of each MT-2 limit, confirm the check fails for that reason,
-  then remove it. Review the skeleton's contracts and run maintained example checks. Report unmapped
-  mechanisms as gaps, never as working protection.
-- Exercise a representative security detection with a safe fixture (SE-2) and restore the
-  real configuration.
-- Add a formatting violation: the check fails without changing the file, the fix command
-  repairs it, and a second run changes nothing (ST-1).
-
-- Exercise test discovery and failure propagation, including an unexpectedly empty suite;
-  show isolated fixtures and actual integration at the skeleton boundary (TS-10 to TS-12).
-  Record command/environment/revision, counts, skips/exclusions and results. New mechanisms
-  remain untrialled until exercised.
-
-## 6. Report
-
-- What exists, as a short list, and the earned level number/name against the target.
-  Partial or missing gates block advancement; unverified gates qualify only a provisional
-  level with named assumptions. A new skeleton cannot prove historical review or TDD.
-- What was not verified (for example: CI has not run on a server yet; branch protection must be
-  set on the host by the user).
-- Next step: describe the first feature and run `spec`.
-- The level is not a security certificate; this setup grants no deployment access.
-
-Ask before the first commit. Suggest the message "Project harness: check, guardrails, walking
-skeleton".
+Report what exists and earned level/name against target. Apply `levels.md` Scoring: partial
+or missing gates block; unresolved evidence permits only a separately named provisional level
+with assumptions. A new skeleton cannot demonstrate historical review/TDD. Name unverified
+CI/branch protection and other gaps. Suggest the first feature through `spec`; setup is not
+security certification or deployment approval. Ask before any first commit; a suggested
+message is “Project harness: check, guardrails, walking skeleton”.

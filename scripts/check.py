@@ -1,7 +1,6 @@
 """Self-check for the Agent804 repository: the kit is held to its own rules (CK-1)."""
 
 import json
-import py_compile
 import re
 import sys
 import tomllib
@@ -9,6 +8,7 @@ import unittest
 from pathlib import Path
 
 from check_skill_resources import check_resources
+from context_load import build_report, format_report
 
 ROOT = Path(__file__).resolve().parent.parent
 PORTABLE_KEYS = {"name", "description", "license", "compatibility", "metadata", "allowed-tools"}
@@ -224,12 +224,10 @@ def main() -> int:
         except tomllib.TOMLDecodeError as exc:
             errors.append(f"templates/{name}: {exc}")
 
-    for name in ("stop_check.py", "codex_stop_check.py", "grok_stop_check.py"):
-        try:
-            py_compile.compile(str(ROOT / "templates" / name), doraise=True)
-        except py_compile.PyCompileError as exc:
-            errors.append(f"templates/{name}: {exc.msg}")
-
+    try:
+        print(format_report(build_report(ROOT), detailed=False), flush=True)
+    except (OSError, ValueError) as exc:
+        errors.append(f"Cannot measure context load: {exc}")
 
     suite = unittest.defaultTestLoader.discover(str(ROOT / "scripts"), pattern="test_*.py")
     if not unittest.TextTestRunner(verbosity=1).run(suite).wasSuccessful():

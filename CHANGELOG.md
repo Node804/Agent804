@@ -1,6 +1,50 @@
 # Changelog
 
+## 0.6.0 - Preview candidate (publication pending)
+
+- Withdraw the remaining Claude/Grok Stop runtime, hook starters and adapter fixtures after
+  confirmed shared-engine cache/input/process-bound defects. Keep Claude/Grok action settings,
+  direct verification/CI guidance and historical evidence. No completion runtime ships in 0.6;
+  GR-8 remains an opt-in Trial design for independently supported project integrations.
+
+- Tighten assess/start/adopt/spec and load rule sections, selected hosts and conditional
+  playbooks by task. Preserve full-assessment coverage and existing scoring/safeguards.
+  Add character/estimated-token reports for skills and explicit workflow read recipes to
+  the kit check, with per-file JSON output and independent regression fixtures. Live
+  context savings and real-project effectiveness remain unmeasured.
+
+- Remove the Codex Stop adapter, hook starter, enabling flag and adapter fixtures after
+  the Desktop trial failed to auto-continue despite attempted remedies. Preserve historical
+  evidence; Codex setup uses direct checks, CI and action controls. No installed project
+  handlers or trust settings are changed.
+
+- Fold OpenSpec's current-spec/change separation into existing skills: maintain current
+  behavior, record proposed deltas and reconcile verified delivery. Extend IN-5, add an
+  optional area template and update setup, retrieval, review and gardening. Preserve ADRs
+  and historical evidence; no dependency, new skill or scoring gate. Field trials pending.
+
+- Expand `spec` with focused requirements and interaction discovery, source/assumption
+  distinctions and reuse of existing answers. Add Trial `plan` for verifiable increments,
+  criterion mapping, dependencies, integration checkpoints and resumable handoffs. Extend
+  existing templates, developer guidance and plugin discovery; keep small changes light.
+  No scoring gates or module triggers change. Real-project effectiveness remains untrialled.
+
+- Keep GR-4 in core as current verification evidence and truthful completion claims;
+  automatic end-of-turn blocking is no longer a core prerequisite. Add opt-in Completion
+  automation as a Trial module with GR-8. Core gate IDs remain unchanged; earlier hook-based
+  grades require reassessment rather than automatic promotion.
+- Make start/adopt select and disclose a project-appropriate runtime and new prerequisites
+  before any separately supported project completion integration. Supplied adapters are withdrawn.
+  Add a shared selection/setup playbook and staged evidence/troubleshooting contract; update
+  host recipes, assessment, templates, README and scoring regressions. Runtime/cache/input
+  defects and live Desktop continuation remain unresolved; no new native adapter is claimed.
+
 ## 0.5.0 - Unreleased preview
+
+- Record an anonymized, unsuccessful Codex Desktop completion trial: separate-process
+  discovery/trust and some uncorrelated exit-2 invocations do not prove host continuation.
+  Reproduce dirty-gitlink cache reuse and held-open-stdin waiting in isolated fixtures;
+  runtime selection, diagnostics and fixes remain pending. No live project settings changed.
 
 - Make the practice table the sole mapping of gates to practices and introduction levels;
   keep the four-level table as an overview. Preserve all 38 gates and their conditions;

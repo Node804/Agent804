@@ -1,6 +1,6 @@
 # Agent804
 
-![Public Preview · 0.5.0 — Some features and workflows are still being tested across models and agent hosts. Behavior and rules may change.](assets/preview-banner.svg)
+![Public Preview · 0.6.0 — Some features and workflows are still being tested across models and agent hosts. Behavior and rules may change.](assets/preview-banner.svg)
 
 **Build the harness before the app.** A framework and skill set for working with coding
 agents, from Node 804.
@@ -58,7 +58,7 @@ work, scored when the project has that surface.
 | [One style per language](framework/rules.md#st-style-level-1) | One pinned formatter and linter per language. The check reports and does not rewrite. The language's usual style is the default (PEP 8, PSR-12). A project that keeps another style records why |
 | [A person owns the work](framework/rules.md#rv-review-rv-1-at-level-2) | The person agrees criteria before code, can explain every change before merge, and is the only one who approves. Commit, push, deploy, and migrate wait for them. Agent review and a green check do not replace that |
 | [Witnessed TDD and preservation](framework/testing.md) | Criteria first. Acceptance tests come from a separate context, fail for the intended reason, then pass. Existing behavior stays covered. Tests are not weakened to get green, and they assert outcomes. Failure and refusal are criteria when they matter |
-| [The repository is the memory](framework/context-management.md) | Standards, decisions, plans, and evidence live in the repo. A later session resumes from those files. A summary or a search miss is not authority and is not a check result |
+| [The repository is the memory](framework/context-management.md) | A [current behavior description](framework/current-behavior.md) answers what the system does now; change specs, decisions and evidence retain proposals, reasons and history. Sessions start from current guidance and verify affected sources. Summaries and search misses are not proof |
 | [The agent cannot declare success](framework/rules.md#ck-checks-levels-1-to-3) | One check covers format, lint, types, tests, architecture, and security. CI runs it on the committed tree and blocks a red merge. A red check cannot be called done. A repeated review comment becomes a check |
 | [Whether the work holds](framework/rules.md#ms-measure-and-garden-level-4) | Track corrections, rework, escaped defects, flakes, and maintainability trends. Never count lines generated |
 | [The AI-facing surface](framework/operate.md) | MCP servers, agent APIs, and embedded model features use one contract, a designed tool list, read-only access until a person grants write, and model output that cannot approve or publish |
@@ -74,9 +74,11 @@ costs nothing ([modules.md](framework/modules.md)).
 | **Parallel work** | Several agents or people write at once. A checkout, database and port each, and a check of the combined result | Idea. One project tried it and found isolation gaps |
 | **Maintenance** (trial) | Adopting the harness onto existing code. Verified refactoring and a debt record that never waives a failing check | Idea |
 | **Context** (trial) | Work spans many sessions. Evidence with a known source and age; state recoverable from the repository, not from chat | Idea |
+| **Completion automation** (trial) | The developer opts into automatic end-of-turn checks. No supplied Codex integration after its failed trial | Historical Claude evidence; Grok live continuation unverified |
 | **Routing** (trial) | Several models or a spend budget. Traceable assignments and cost compared against accepted outcomes | Used once: tiered subagents on one feature |
 
-Trial modules are reported by `assess` without a score until a real project has used them.
+Trial modules are reported by `assess` without a score; promotion requires sufficient
+successful real-project evidence and review. An attempted run alone is insufficient.
 
 Other guides: [agent hosts](framework/agents/README.md) (Claude Code, Codex, Grok Build,
 ChatGPT and custom hosts, kept separate from language profiles), and
@@ -98,14 +100,22 @@ high-impact changes get deeper review.
 | [framework/worktrees.md](framework/worktrees.md) | Both | Separate checkouts for agents or people writing at the same time |
 | [testing](framework/testing.md), [maintainability](framework/maintainability.md), [security](framework/security.md), [operate](framework/operate.md), [debt](framework/technical-debt.md), [context](framework/context-management.md), [routing](framework/model-routing.md) | People | Why the rules on each topic exist, and their trade-offs |
 | [framework/validation.md](framework/validation.md) | People | The published work the framework was checked against, and where it chose differently |
-| [templates/](templates/) | Agents | `AGENTS.md`, specs, plans, pull requests, ADRs and evidence, project records, host settings and stop hooks |
+| [templates/](templates/) | Agents | `AGENTS.md`, specs, plans, pull requests, ADRs and evidence, project records and host action settings |
 | [developer guide](framework/developer-guide.md) | People | Starting new projects, gradual adoption and daily development |
-| [skills/](skills/) | Agents | The thirteen skills below |
+| [skills/](skills/) | Agents | The fourteen skills below |
 
 **Two readers.** The pages marked "People" explain; skills and templates instruct, because an
 agent pays for every line it loads. Skills send agents into `framework/` only for the pages
 marked "Both", and the check enforces that, keeps each skill within a size budget, and fails
 any rule that no skill or template acts on.
+
+Context loads by task: small fixes use `spec` and affected project records; bounded adoption
+retrieves relevant rules with their qualifications; full assessment covers the complete core
+and module triggers. Only selected host/stack guidance and applicable playbooks are loaded.
+The check reports skill sizes and explicit reading scenarios. Inspect them separately with
+`python scripts/context_load.py --host codex` (or `claude-code`, `grok-build`, `chatgpt`);
+`--json` provides per-file counts. These are character-based estimates, not live token usage;
+project evidence and conditional additions remain explicit. No aggregate threshold is set.
 
 The kit ships one language profile, Django, because it is the only stack it has been run
 on. For any other stack, `start` writes a Draft profile for the project from the template,
@@ -116,7 +126,8 @@ against the real code. A profile joins the kit once it has been used on a real p
 |---|---|---|
 | [`assess`](skills/assess/SKILL.md) | Existing project: the score, which modules apply, the gaps with evidence and one next action. Read-only | **Proven** under earlier scoring; 0.5 scoring untrialled |
 | [`adopt`](skills/adopt/SKILL.md) | Existing project: guided creation of missing protections, one implemented increment at a time, with evidence and a resume point | Idea; isolated setup exercise only |
-| [`spec`](skills/spec/SKILL.md) | Acceptance criteria sized to the change, then tests written first in a separate context | Used once, in an earlier form |
+| [`spec`](skills/spec/SKILL.md) | Discover requirements and interaction outcomes; agree criteria sized to the change, then independent tests first | Used once, in an earlier form; 0.6 discovery additions are ideas |
+| [`plan`](skills/plan/SKILL.md) | Larger agreed work: verifiable increments, dependencies, integration checkpoints and resumable handoffs | Idea; Trial workflow |
 | [`decide`](skills/decide/SKILL.md) | ADRs, and the evidence recorded back once a feature is built | Used once, in an earlier form |
 | [`review`](skills/review/SKILL.md) | A fresh-context review from the criteria and the real check output, deepest in red zones | Used once, in an earlier form |
 | [`start`](skills/start/SKILL.md) | New project: an interview, then a running skeleton with one check command, guardrails, CI, decisions and risk zones, before any feature | Idea |
@@ -151,10 +162,18 @@ find the templates and tables by relative path, so a skill folder copied on its 
 
 To update, replace the folder's contents with the new release (delete the old files first,
 so removed ones do not linger), then in Claude Code run `/plugin marketplace update agent804`.
-The stop hook and
-permission settings differ per host; `start` installs the right ones from the
-[host recipes](framework/agents/README.md). After moving the folder,
-`python scripts/check_skill_resources.py <folder>` confirms the paths still resolve.
+Host action-permission settings differ; `start` uses the [host recipes](framework/agents/README.md).
+Core GR-4 requires current check evidence and truthful reporting; CI runs independently.
+The 0.6 preview ships no completion adapter or Stop install recipe. Codex automatic
+continuation failed despite attempted remedies; the shared Claude/Grok engine also had
+known cache/input/process-bound defects. Those implementations and their adapter fixtures
+are withdrawn, while action-permission settings and historical evidence remain.
+
+GR-8 remains an opt-in Trial design for independently supported project integrations,
+not a prerequisite or a shipped runtime. See the [module](framework/modules.md#completion-automation)
+and [criteria](framework/agents/completion.md). Existing handlers copied into projects are
+not uninstalled by updating this kit; review them separately within authorized scope.
+After moving the folder, `python scripts/check_skill_resources.py <folder>` confirms paths.
 
 ### 2. First run
 
@@ -174,11 +193,20 @@ You can begin before earning Level 1; the full findings are not today's mandator
 
 1. **`spec`** sizes the change. A small fix gets one or two criteria in the plan; a large one
    gets an interview and a spec. You agree the criteria before any code.
+   Discovery surfaces assumptions, constraints and relevant interaction states. For work
+   spanning several changes, **`plan`** (Trial) divides the agreed outcome into verifiable
+   increments with dependencies and integration checkpoints, using the existing plan/tracker.
 2. **Tests first, in a separate context**: a fresh session or subagent writes the acceptance
    tests from the criteria and shows them failing.
 3. **Build** in another fresh context until the check is green, without editing those tests.
 4. **`review`** in a fresh context, from the criteria and the real check output. Then a person
    reviews before merge.
+
+Start from the area's maintained behavior description, reusing existing README/contract docs.
+`spec` records added, changed, removed and preserved behavior. Verified delivery reconciles
+the description before review; proposals and history remain separate. Small projects can use
+one README section. Source/test references and verification scope distinguish repository
+behavior from deployed state. This 0.6 workflow is untrialled; see [limits](framework/validation/current-behavior.md).
 
 Restructuring with no behaviour change uses `refactor` instead of steps 1 and 2.
 
@@ -204,7 +232,7 @@ spans many sessions or the evidence is incomplete.
 
 ## Evidence
 
-**Version 0.5.0, a preview, not yet released.** Rules still change; see [CHANGELOG.md](CHANGELOG.md)
+**Version 0.6.0, preview candidate; publication pending.** Rules still change; see [CHANGELOG.md](CHANGELOG.md)
 and [ROADMAP.md](ROADMAP.md). The reference projects are real line-of-business applications
 built with coding agents; they are not named here.
 
@@ -236,20 +264,30 @@ built with coding agents; they are not named here.
 - **Plugin install** of `assess` in Claude Code and in Codex (ChatGPT desktop app).
 
 **Fixture-tested**
-- **Stop hooks for Claude Code, Codex and Grok Build**: 34 regression cases in disposable Git
-  repositories, including linked worktrees. None of the Codex or Grok adapters has blocked a
-  real session yet; Grok's earlier offline inspection found the twelve skills shipped then,
-  which is discovery,
-  not enforcement.
+- **Kit regressions:** scoring/gate preservation, skill resources, private-name protection,
+  read budgets, rule alignment and modeled context-load calculations. Historical Stop-adapter
+  fixtures were retired with the withdrawn implementations; they never proved live host parity.
+
+**Unsuccessful field trial**
+- A [0.5 Codex Desktop completion trial](framework/validation/codex-desktop.md) reported
+  configured/trusted discovery in a separate process and some wrapper invocations returning 2,
+  but automatic continuation failed and none of the approaches tried enabled it. The Codex
+  Stop integration is removed in 0.6; use direct checks and CI. The failure cause remains
+  unresolved; fixture success was not active enforcement.
 
 **Idea**
+- **0.6 discovery and planning:** stronger requirements and interaction discovery in `spec`,
+  plus the Trial `plan` skill for increments and integration. No real-project trial yet;
+  [rationale](framework/planning.md) and [validation limits](framework/validation/planning.md).
 - **0.5 guided adoption and developer journeys:** integrity-checked and independently reviewed.
   An isolated Python exercise created a partial check and resumed to document style;
-  real-project trials and full enforcement setup remain pending.
+  a partial real-project adoption/host trial is recorded below; successful full enforcement
+  setup remains pending.
 - **0.5 cumulative scoring:** gate mapping is regression-tested; assessment clarity and
   reference-project levels remain untrialled.
 - **Skills not run on real projects:** `start`, `refactor`, `sensor`, `garden`, `measure`, `operate`, `route`
-  and `context`, plus new `adopt` and the small-change path of `spec`.
+  and `context`, plus the small-change path of `spec`. The partial `adopt` trial does not prove
+  a completed adoption workflow.
 - **Modules never run where they apply:** Security, Parallel work, Maintenance and Context. One
   project's attempt at parallel worktrees found its isolation gaps.
 - **Rules added or rewritten in 0.4** that no project has met yet, for example MT-2's file-size
@@ -263,7 +301,7 @@ The kit's own check (Python 3.11+ and Git):
 python scripts/check.py
 ```
 
-It runs 56 regression tests (stop hooks for each host, skill paths, private names, read
+It runs regression tests (scoring, context estimates, skill paths, private names, read
 budgets and rule alignment) and checks links, rule IDs, budgets and configuration syntax. It
 proves the kit is consistent, not that it works: only use on real repositories moves an item
 up this list, and a rule that does not survive that use is changed.

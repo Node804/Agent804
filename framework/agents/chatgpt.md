@@ -1,6 +1,9 @@
 # Host: ChatGPT or a custom API harness (Draft)
 
 Use [capability evidence](README.md), not the product/model name, to choose a workflow.
+Core GR-4 requires truthful verification, not a stop hook. Optional end-of-turn automation
+belongs to the Completion automation Trial module (GR-8); unsupported hooks alone cannot
+lower the core level. See the [setup playbook](completion.md) if the developer opts in.
 ChatGPT, Codex and API integrations may expose different repository, execution and approval
 surfaces. This page does not establish automatic local instruction discovery for every chat.
 

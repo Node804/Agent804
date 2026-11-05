@@ -20,6 +20,9 @@ the project has them, read and cite them; adding one is the user's call.
 Read the ADRs on the change's topics. An Accepted ADR is a
 rule: follow it, or propose an amending ADR. Never work around it quietly.
 Only a person accepts an ADR, in their own words (GR-7).
+Start from the area's current behavior description and verify affected implementation
+(IN-5). An Accepted decision constrains changes; it does not prove the code follows it.
+Keep links to governing decisions in the maintained description; reasons stay in ADRs.
 
 ## Is it an ADR?
 
@@ -61,6 +64,8 @@ unverified. A green subset cannot validate an entire architecture decision.
   An Accepted record stays Accepted and its decision text frozen; later evidence changes
   only the evidence record. Contradictory evidence triggers owner review and an amending or superseding ADR
   when needed, never an automatic downgrade or quiet rewrite.
+- **Current description:** reconcile verified outcomes and known differences in its existing
+  home (IN-5), with evidence scope. Pending decisions are not implemented behavior.
 
 | ADR status | Requires |
 |---|---|

@@ -4,6 +4,9 @@
 
 ## What changed
 
+<!-- Link the updated current behavior description and its verification basis (IN-5).
+Pending work and deployment limits stay explicit; a historical spec alone is insufficient. -->
+
 ## Agreement
 
 <!-- Where the person agreed the criteria, and anything that changed materially since. An

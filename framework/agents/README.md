@@ -8,9 +8,9 @@ capabilities; it does not install tools or establish permissions. One model rema
 
 | Host | Guidance | Evidence status |
 |---|---|---|
-| Claude Code | [claude-code.md](claude-code.md) | Historical feature trial; shared engine fixture regressions, revised setup still needs trials |
-| Codex | [codex.md](codex.md) | Historical assess installation; adapter fixture regressions, live hook/setup workflow pending |
-| Grok Build CLI | [grok-build.md](grok-build.md) | Draft native config/Stop adapter; fixture regressions and isolated skill discovery, live trust/continuation pending |
+| Claude Code | [claude-code.md](claude-code.md) | Historical feature trial; Stop integration withdrawn; action-control setup still needs trials |
+| Codex | [codex.md](codex.md) | Desktop completion trial failed; Stop integration removed; direct checks and action-control setup remain |
+| Grok Build CLI | [grok-build.md](grok-build.md) | Draft action settings and isolated skill discovery; Stop integration withdrawn, live action-control trials pending |
 | ChatGPT and custom API hosts | [chatgpt.md](chatgpt.md) | Capability-specific guidance; no general execution/enforcement claim |
 
 ## Capability check before claiming protection
@@ -25,7 +25,9 @@ an unavailable version. Distinguish configured, fixture-tested and exercised in 
 | Instructions | Inventory effective root/nested/override guidance and startup scope; resolve conflicts and loading limits | IN-1/IN-4 protection is not established from file presence |
 | Skills/resources | Invoke intended skill, resolve its framework/templates after installation, check name collisions | Installed metadata alone does not prove a usable workflow |
 | Check execution | Run an isolated passing and intended-failing check; inspect actual status/results | No claim of executed tests without tool output |
-| Guardrails | Inspect effective permissions, project trust and required hook/command controls; exercise safe refusal/continuation fixtures | GR-2/GR-4 remain gaps if applicable mechanisms are absent/unexercised |
+| Verification claims | Match current state, commands, scope/results and declared gaps to completion claims | GR-4 requires evidence, not automatic host blocking |
+| Guardrails | Inspect effective action permissions and exercise applicable safe refusals | GR-2 remains a gap where applicable action controls are missing |
+| Optional completion automation | Only after opt-in, follow the [playbook](completion.md) and record GR-8 runtime/lifecycle evidence | Trial module findings do not block core merely because hooks are absent/unsupported |
 | Worktrees | Use the [lifecycle](../worktrees.md); verify installed paths, private state and isolated mutable resources in each checkout | A separate chat or branch alone is not concurrent isolation |
 | Independent contexts | Supply criteria/contracts and exact artifacts to a separate test/review context; record its input boundary | Compaction or inherited implementation reasoning alone does not establish independence |
 | Human approval | Approval comes from the person directing the work, in their own words (GR-7) | Tool permission and automatic approval are not consent to a design, a feature or a review |
@@ -35,6 +37,10 @@ evidence read-only. Neither may change user/global/admin policy, grant network a
 plugins or run a paid host session merely to close a gap without applicable authorization.
 Record unavailable facilities. A chat-only review can be useful without an executable harness;
 it must not receive claims that require repository execution or blocking controls.
+
+Automatic completion checks are opt-in Trial integrations. The [completion playbook](completion.md)
+owns runtime selection/setup: existing project tooling first, new prerequisites explicit,
+current check evidence still required. No completion adapter is shipped in 0.6; host recipes cover action settings and direct checks.
 
 ## Fresh context and handoff
 

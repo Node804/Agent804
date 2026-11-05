@@ -20,6 +20,7 @@ your coding agent. Ask for the skill by name, or use your host's plugin command.
 | Existing code; you want to understand its position | `assess` | A read-only assessment and one recommended next action |
 | Existing code; you want help putting protections in place | `adopt` | One guided, implemented improvement and a continuation point |
 | Already working with the harness | `spec` or `refactor` | A change sized to the task, with verification and review |
+| Agreed work spans several changes | `plan` (Trial) | Verifiable increments, dependencies, integration checkpoints and a resume point |
 
 `assess` does not install anything. `adopt` can use its findings, but a full assessment is
 not required to begin. If you already know the missing piece, name it directly.
@@ -87,6 +88,11 @@ without automatically becoming an implementation backlog.
 
 ## Daily development
 
+The normal entry point is the affected area's [current behavior description](current-behavior.md),
+which can be an existing README section or contract guide. It answers what the area does
+without a tour of past changes. History explains how it got there; applicable decisions
+still constrain changes. Adoption can establish one area at a time from inspected sources.
+
 Start from the ordinary work you need to do. Tell the agent the outcome and relevant limits;
 it should size the process to the change. The developer's decisions and handoffs matter more
 than memorizing every skill name.
@@ -94,6 +100,7 @@ than memorizing every skill name.
 | Work | Your part | Agent work and evidence |
 |---|---|---|
 | Feature or bug fix | Describe the outcome; agree criteria before implementation | `spec` sizes the change; acceptance tests come from a separate context and show the intended failure before implementation |
+| Larger delivery | Agree the outcome and decisions the evidence cannot settle | `plan` maps criteria to ordered increments, shared contracts and combined verification |
 | Implementation | Resolve real uncertainties; keep the agreed outcome stable | Build from criteria and tests; preserve existing behavior; run relevant checks and record results |
 | Refactoring | Agree the maintenance problem and preserved behavior | `refactor` traces consumers, captures a baseline and proves the exercised preservation scope |
 | Review | Read and understand the final change before merge | `review` in a fresh context checks criteria, evidence and risk; findings are resolved or reported |
@@ -103,12 +110,27 @@ keep the change local, and show it failing before the fix.”** A large feature 
 questions and a written spec; a typo does not need the full interview. Acceptance-test
 independence can use one model in separate contexts; multiple models are optional.
 
+For a larger request, `spec` helps uncover missing requirements: current users and behaviour,
+desired outcomes, constraints and consequential assumptions. Interaction changes include the
+relevant journey, errors, refusal, recovery and accessibility needs. Existing answers and design
+conventions keep the interview focused. Proposed assumptions remain visible until resolved.
+
+Try: **“Use spec to clarify this request, then plan it as verifiable increments. Start with
+one complete journey and show where the increments must be checked together.”** The Trial
+`plan` skill extends the existing plan or tracker with criterion mappings, dependencies and
+handoffs. A blocked prerequisite stays blocked; separate passing increments do not prove the
+combined feature. [Planning rationale and limits](planning.md) explain the scope. Staffing
+and release governance stay in your existing process; proposed parallel work starts no workers.
+
 When changing contexts, pass the criteria, files/revision or patch, failing tests and actual
 results. A red acceptance-test handoff is expected. Feature completion needs passing checks;
 a summary saying tests ran is not execution evidence. A failing legacy check is reported,
 not hidden or silently excluded to let the task finish.
 
 You review the final behavior and diff; agent review and green checks support that judgment.
+The delivered change also updates that area's maintained description with verified outcomes,
+source/test links and evidence scope. Proposed changes remain in the spec/plan. Repository
+checks do not prove what is deployed; known differences and unverified areas remain explicit.
 Ask explicitly when you want a commit or push. Deployment, migrations and live settings have
 their own authorization; agreeing to a feature does not authorize them automatically.
 
@@ -129,3 +151,4 @@ the project's requirements do not demand them.
 
 These journeys and `adopt` are new in 0.5. Fixture checks and scenario reviews establish
 limited evidence only. Real-project adoption trials and reassessment remain pending.
+The discovery and increment-planning extensions in 0.6 also await real-project trials.
