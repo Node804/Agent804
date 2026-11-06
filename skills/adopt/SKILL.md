@@ -23,6 +23,7 @@ Read project instructions, relevant ADRs, code/checks/CI and assessment/adoption
 Inspect branch and dirty work; preserve changes and use a task branch (GR-3). Empty projects
 use `start`. Revalidate prior evidence; reuse conventions, working tools and answered questions.
 Inspect enough for this increment, not a full audit.
+Explain applicable protections and consequential choices plainly; no rule/tool study is needed.
 
 Establish missing purpose/impact, prototype or production, stack/host, reviewer, module
 triggers and today's scope. Ask remaining questions one at a time with a default/consequence.
@@ -38,6 +39,8 @@ Application behavior uses `spec`; standalone restructuring uses `refactor` (MT-4
 Use only the relevant section and dependencies:
 
 - **Instructions (IN-1, IN-3, CK-2):** merge `templates/AGENTS.md` into existing authority.
+  Keep the `spec` discovery instruction portable; verify resolution in the selected host
+  without embedding local install/cache paths.
   Put actual check commands first, or say none exists. Remove unimplemented template claims,
   preserve local policy, enforce the budget and verify selected-host discovery. For host work
   read the shared checklist, Claude Code `${CLAUDE_PLUGIN_ROOT}/framework/agents/README.md`,
@@ -65,8 +68,9 @@ Use only the relevant section and dependencies:
   `${CLAUDE_PLUGIN_ROOT}/framework/agents/completion.md`, otherwise
   `../../framework/agents/completion.md`; agree runtime/prerequisites before installation.
   No Stop adapter ships in 0.6; do not recreate withdrawn integrations during setup.
-- **Current behavior (IN-5):** reuse one area guide or `templates/current-behavior.md`, link
-  from instructions and cite inspected sources/tests, revision/patch, scope and gaps. Do not
+- **Current behavior (IN-5):** reuse one area guide or `templates/current-behavior.md`.
+  Replace the instructions' `<path>` with that location. Cite inspected sources/tests,
+  revision/patch, scope and gaps. Do not
   imply deployment or document the whole system before a small increment can proceed.
 - **Other gaps:** use actual code and relevant Check rows: limits/contracts (MT-1, MT-2),
   boundaries (AR-1, AR-3, AR-6), independent acceptance (TS-3), decision evidence (DC-1 to
@@ -83,6 +87,15 @@ for green (TS-4).
 Run relevant checks before/after; distinguish negative fixtures, existing/new failures,
 skips and unavailable services. Preserve commands/results and reproducible revision/patch
 context. Use isolated test data, no production calls or automatic migrations.
+For checks installed or changed in this increment, exercise representative nonzero failures
+through the ordinary project check. Inspect diagnostics for location, violated constraint and
+a concrete correction under the project's declared architecture (CK-4). Show correction passes
+the exercised check; restore fixtures.
+For structural checks in scope, retain available before/after complexity, size, duplication and
+boundary-exception reports in the maintainability template's Measurements index (MS-1): date,
+revision/patch, command/tool version, scope, links and unavailable coverage; exclude fixtures.
+Snapshots approve no exceptions; one is only a baseline. Do not expand a style-only increment
+into a structural audit.
 
 Update the existing plan or `docs/agent804-adoption.md` from `templates/adoption.md` (WK-2):
 one active increment, linked evidence and a proposed next step. Link rather than copy the

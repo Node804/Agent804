@@ -1,12 +1,13 @@
 # Roadmap
 
-**Status:** 0.6.0, preview, not yet released. What is proven and what is only an idea is in
+**Status:** 0.6.1, preview, not yet released. What is proven and what is only an idea is in
 the README's Evidence section; this page is what's next and why things are the way they are.
 
-## Before the 0.6 preview release
+## Before the 0.6.1 preview release
 
-Advance the public preview from 0.4 to 0.6 after review and package verification. Commit,
-push and publication need explicit authorization; the final ZIP is rebuilt from the release commit.
+Advance the public preview from 0.4 to 0.6.1 after review and package verification. Commit
+and push are authorized in chat; tags and release publication remain separate. The final ZIP
+is rebuilt from the release commit. See [release notes](docs/releases/0.6.1.md).
 
 - [x] ChatGPT review of the 0.4 rewrites against 0.3 (2026-11-01); corrected the missing-interface
       test exception, stale gate/lifecycle summaries and conditional Security setup.
@@ -16,7 +17,8 @@ push and publication need explicit authorization; the final ZIP is rebuilt from 
       corrected stale core-hook mappings in profiles and the worktree playbook.
 - [ ] Reassess reference projects separately; do not convert old scores or claim completed trials.
 - [x] Verify a local candidate ZIP and prepare release notes; extraction passes the full check.
-- [ ] After authorization, commit/publish and rebuild `agent804-0.6.0.zip` from that commit.
+- [ ] Verify a fresh 0.6.1 package; the earlier 0.6.0 candidate predates these changes.
+- [ ] Rebuild `agent804-0.6.1.zip` from the release commit; publish after explicit authorization.
 
 ## Trials before 1.0
 
@@ -41,7 +43,9 @@ trial shows is unclear before moving on.
 - [ ] Trial `adopt` on existing code with a developer: missing style/check setup, preservation
       of current tools, one bounded increment, pre-existing failures and continuation on a
       later session. Check whether one assessment action and optional follow-ups reduce
-      overload; validate developer journeys without treating fixture evidence as a field trial.
+      overload; include a beginner who does not know which protections are missing. For a
+      structural-check increment, apply the prevention exercise below; a style-only increment
+      must not expand into a structural audit. Fixture evidence is not a field trial.
 
 - [ ] Install from the release zip on a clean machine, in Claude Code and in Codex, and run
       `assess` once from each. This remains a follow-up, not a blocker to publishing the repo.
@@ -80,7 +84,17 @@ trial shows is unclear before moving on.
       baseline, add immediately passing characterization tests where needed, restructure in
       small steps and verify final preservation/retirement. Exercise a hidden behavior-change
       case and an unknown consumer without claiming equivalence. MT-4 stays a practice.
-- [ ] `start` on an empty repository, through to a green check and a walking skeleton.
+- [ ] Prevention exercise: `start` on a real empty project through a green check and walking
+      skeleton, and a bounded structural-check `adopt` increment on existing code. In isolated
+      fixtures, introduce forbidden dependencies, undeclared cycles, excessive complexity,
+      oversized files and duplication. Each fails nonzero through the ordinary check with
+      location, constraint and concrete correction. Show corrected checks pass, clean fixtures,
+      retain actual structural snapshots and report unsupported mechanisms/unrelated failures.
+- [ ] After setup, give an unfamiliar human or fresh agent context one bounded maintenance
+      task, intended outcome and repository access. Record whether maintained behavior and
+      interfaces can be found, the agreed behavior is preserved and relevant checks pass;
+      retain corrections, outside explanations, before/after structural reports and coverage
+      limits. One success proves only the exercised scope, not general maintainability.
 - [ ] One small change end to end, to prove the light path really is light.
 - [ ] The full flow under Codex: spec, separate test session, build, review, evidence. Work out
       Codex action authorization (GR-2) and truthful completion evidence (GR-4) using direct
@@ -92,8 +106,9 @@ trial shows is unclear before moving on.
 - [ ] Trial two concurrent worktrees with separate databases and ports, an explicit test
       handoff, combined-change verification and cleanup; exercise the strengthened retry
       contract and append evidence without editing an Accepted ADR.
-- [ ] Reassess reference projects against the revised maintainability gates; trial the Django
-      complexity and contract checks, gradual adoption baseline and retirement review.
+- [ ] Reassess reference projects against revised maintainability gates; use the prevention
+      exercise above for Django limits/contracts. Include reviewed gradual-adoption exceptions
+      and retirement review, distinct from measurement snapshots.
 - [ ] Trial SE-1 to SE-6 and revised reference-project scores: versioned requirement mapping,
       scanner detection/error/staleness, dependency trust and isolated builds, secure skeleton,
       abuse tests and expiry-aware human decisions.

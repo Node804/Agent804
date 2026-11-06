@@ -29,6 +29,7 @@ all profiles, templates, host recipes or historical records.
 - Recommend an established typed stack with a profile if no preference exists. If nobody
   can read the code, explain the remaining reviewer need and recommend small red zones.
   Set the target/additions and triggered modules with their cost in two or three sentences.
+  Explain protections and consequential choices plainly; no rule/tool study is prerequisite.
 
 ## 2. Select mechanisms
 
@@ -74,7 +75,9 @@ use `templates/model-routing.md`; setup launches no models or account probes.
    (OP-11); embedded prompts/allowed actions live in the repo and output cannot approve or
    publish (OP-10). Security-triggered projects demonstrate safe defaults (SE-4).
 4. **Instructions:** merge `templates/AGENTS.md` as shared authority (IN-1), actual check
-   first (CK-2), line budget enforced (IN-3). Keep only otherwise-missed guidance; plain
+   first (CK-2), line budget enforced (IN-3). Keep the `spec` discovery instruction portable;
+   verify resolution in the selected host without embedding local install/cache paths.
+   Keep only otherwise-missed guidance; plain
    statements (IN-6), repeated procedures in skills (IN-7), area rules scoped. Preserve dry-run
    scripts (GR-6) and done criteria (WK-5). Link applicable security/worktree/routing records.
    Explain growth: a correction repeated twice becomes guidance; enforceable guidance moves
@@ -95,10 +98,15 @@ use `templates/model-routing.md`; setup launches no models or account probes.
    DC-3); `docs/specs/`, `docs/plans/`, `docs/evidence/` hold later work. Keep ADR/evidence
    templates as `0000-template.md`. Draw `docs/risk-zones.md` with the developer.
    Describe the running skeleton in an existing README/contract or `current-behavior.md`
-   (IN-5), linked from instructions with sources/tests, revision/patch and gaps. Unbuilt
+   (IN-5). Replace the instructions' `<path>` with that location, and cite sources/tests,
+   revision/patch and gaps. Unbuilt
    features stay proposed; local tests do not prove deployment. Add the profile's changelog
    mechanism (WK-4). Create `docs/maintainability.md` with checks, limits, interfaces and
-   exceptions; no invented legacy baseline. Create `docs/security.md` with core scanner/trust
+   exceptions; no invented legacy baseline. Retain initial complexity, size, duplication and
+   boundary-exception reports from installed checks in its Measurements index (MS-1), with
+   date, revision/patch, command/tool version, scope, report links and unavailable coverage.
+   Capture actual skeleton observations after fixture cleanup; snapshots approve no exceptions
+   and do not establish trends. Create `docs/security.md` with core scanner/trust
    evidence and applicable exception/module sections, without secrets or sensitive incidents.
    For concurrent work, copy the worktree playbook to `docs/worktrees.md` and fill actual
    bootstrap/resource/cleanup commands. README links commands, policies, tests and evidence;
@@ -106,12 +114,17 @@ use `templates/model-routing.md`; setup launches no models or account probes.
 
 ## 4. Prove and report
 
-Run bootstrap and the full check; preserve actual output. In isolated fixtures, demonstrate:
+Run bootstrap and the full check; preserve actual output. Exercise negative fixtures through
+the ordinary project check, preserving nonzero failures. In isolation, demonstrate:
 
 - Selected host instruction/skill/resource discovery, effective controls and relevant refusals;
   configuration/fixture success alone cannot establish live host behavior.
 - A missing access rule fails where AR-1 is implemented; each MT-2 violation fails; maintained
-  examples run and unmapped mechanisms remain gaps. Restore fixtures.
+  examples run and unmapped mechanisms remain gaps. Exercise forbidden dependencies and
+  undeclared cycles where AR-3 is implemented. For representative failures, inspect diagnostics
+  for the offending location, violated constraint and concrete correction under the project's
+  declared architecture (CK-4); a rule ID alone is insufficient. Show correction passes the
+  exercised check, restore fixtures and report unrelated failures separately.
 - A representative security detection (SE-2); `.env`/secrets ignored in Git status.
 - A formatting violation fails without rewriting; targeted fix then an idempotent second fix.
 - Test discovery/counts/skips/exclusions, nonzero propagation and unexpected empty-suite

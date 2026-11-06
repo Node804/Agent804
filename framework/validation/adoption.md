@@ -39,3 +39,17 @@ Further review made the practice table the sole gate-to-practice/level mapping a
 host-checklist resource paths explicit in `adopt`. Regressions preserve all 38 gate memberships,
 unique ownership and extractor isolation from prose/other tables. Verified above-target gates
 count toward earned levels; unassessed ones do not. Practice labels never change the level.
+
+## Prevention-first setup refinement (0.6)
+
+The developer requested a beginner-facing path that delivers protections without requiring
+framework study. The README leads with setup; skills exercise actionable diagnostics and
+retain structural snapshots from relevant checks. Measurement snapshots remain separate from
+approved legacy exceptions. One snapshot supplies no trend; changed tools/scope require a
+qualified comparison or separate series. No rule, gate or module trigger changes.
+
+These are local workflow choices, not findings from an external reference. Kit checks can
+establish consistency only. Real-project trials must exercise prevention through the ordinary
+check and an unfamiliar-maintainer change, retaining outcomes, interventions, structural
+reports and coverage limits. The roadmap defines those pending trials; no successful field
+evidence or frozen core is claimed.

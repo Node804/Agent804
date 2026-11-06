@@ -41,8 +41,8 @@ Gate-preservation regressions check all 38 gates, their unique practice ownershi
 They do not prove assessment consistency or real-world effectiveness. Reference-project
 reassessment with fresh agents is pending; previous scores must not be relabelled as levels.
 
-[Guided adoption evidence](validation/adoption.md) records the local design and limits for
-`adopt`, developer journeys and the assessment handoff. Real-project trials remain pending.
+[Guided adoption evidence](validation/adoption.md) records `adopt`, developer journeys, assessment
+handoff and prevention-first setup with structural snapshots. Maintainer and adoption trials remain pending.
 [Discovery/planning](validation/planning.md) and [current behavior](validation/current-behavior.md) record untrialled 0.6 workflows, OpenSpec sources and limits; scoring is unchanged.
 
 The independent repository review reproduced a skipped hook for `.git` files and an unchanged

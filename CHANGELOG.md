@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.6.1 - Preview candidate (publication pending)
+
+- Lead onboarding with new-project setup and guided adoption. Developers can begin without
+  studying the rules or knowing which protections are missing; assessment remains optional.
+- Exercise representative check failures through the ordinary project check, verify actionable
+  diagnostics and show corrections passing. Retain scoped structural snapshots with reproducible
+  context, unavailable coverage and comparable-series limits; snapshots approve no exceptions.
+  Add pending prevention and unfamiliar-maintainer trials without claiming field effectiveness.
+- Require the `spec` workflow even when unnamed, resolving the current installation without
+  storing machine-specific install/cache paths. Update current-behavior guidance before review
+  and correct stale adoption/withdrawn-hook evidence claims.
+
 ## 0.6.0 - Preview candidate (publication pending)
 
 - Withdraw the remaining Claude/Grok Stop runtime, hook starters and adapter fixtures after

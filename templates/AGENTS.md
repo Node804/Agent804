@@ -24,22 +24,26 @@
 
 ## Working here
 
-- Current behavior: <README section or area guide>. Start there and verify affected sources;
-  history explains why. Update the description with verified behavior changes (IN-5).
+- Current behavior: `<path>`. Start there and verify affected sources. History explains why.
+  Before review, update this page to the verified outcome, with sources, tests and gaps (IN-5).
+- Before writing a behavior change, use Agent804's `spec` skill, even when the user does not
+  name it. Resolve it through the host's available skills; for direct-file use, locate the
+  intact kit's `skills/spec/SKILL.md` in the current environment and follow it. If unavailable,
+  report the setup gap before implementation. Criteria come first, then tests in a separate
+  context seen to fail, then the code.
 - Work on a branch. Never commit, push, deploy or migrate unless asked in chat. Only a person
   approves: an approved plan, a tool permission or a green check is not approval. Every merge
   to the main branch has a person's review.
-- New behaviour starts with the `spec` skill: acceptance criteria first, then tests written in
-  a separate context and seen to fail, then the code.
 - Never skip, weaken or delete a failing test to get green. If a test looks wrong, ask.
 - Keep production secrets and sensitive data out of agent sessions; use test credentials.
 - Changes to checks, CI, permissions or this file need a person to review them.
 - Risk zones are in `docs/risk-zones.md`. In a red zone, stop and ask before changing behaviour.
 - Non-trivial work has a plan in `docs/plans/`; keep its progress notes current.
   Use `plan` for several dependent changes: criteria per increment and combined checks.
-- **Done** means: criteria met, tests passing, the check green, a changelog entry, docs and this
-  file updated if behaviour changed. Report the commands you ran and their results; never
-  claim a check you did not run or use stale/partial results as current success (GR-4).
+- **Done** means: criteria met, tests passing, the check green, the current-behavior page
+  above matches the verified outcome, a changelog entry, and this file updated if its rules
+  changed. Report the commands you ran and their results; never claim a check you did not
+  run or use stale/partial results as current success (GR-4).
 
 ## Decisions
 

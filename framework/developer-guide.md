@@ -23,7 +23,13 @@ your coding agent. Ask for the skill by name, or use your host's plugin command.
 | Agreed work spans several changes | `plan` (Trial) | Verifiable increments, dependencies, integration checkpoints and a resume point |
 
 `assess` does not install anything. `adopt` can use its findings, but a full assessment is
-not required to begin. If you already know the missing piece, name it directly.
+not required to begin. For a baseline first, run `assess`, then use `adopt` to act on its
+findings. Assessment also provides a later check-up. If you already know the missing piece,
+name it directly.
+
+The agent selects protections from the project's actual needs and explains consequential
+choices in plain language. You need not learn rule IDs, tools or the module taxonomy first.
+Levels are available to understand progress; you do not need to study the ladder to begin.
 
 ## Starting a new project
 
@@ -41,13 +47,17 @@ review or host controls remain explicit gaps, not an earned level.
 
 Review the commands and evidence before accepting setup. Bootstrap and local checks should
 be reproducible; a CI file alone does not show a successful CI run. Once setup is ready,
-describe a small first feature and use the daily workflow below. Installing the kit and
+ask for `spec` and describe a small first feature, as in the daily workflow below. Installing the kit and
 setting up a project do not give the agent permission to commit, deploy or access production.
 
 ## Bringing an existing codebase into alignment
 
-Try: **“Use adopt on this repository. Help me create the missing check command; keep the
-existing tools and limit today's work to that setup.”**
+Try: **“Use adopt on this existing project. I'm new to this and don't know which protections
+are missing. Inspect what's here, recommend the first useful improvement, and help me put
+it in place.”**
+
+If you know the gap, be specific: **“Use adopt on this repository. Help me create the missing
+check command; keep the existing tools and limit today's work to that setup.”**
 
 The adoption workflow starts with what already works. Existing instructions, formatter
 configuration, test runners and CI can satisfy the framework; their names do not need to
@@ -93,22 +103,25 @@ which can be an existing README section or contract guide. It answers what the a
 without a tour of past changes. History explains how it got there; applicable decisions
 still constrain changes. Adoption can establish one area at a time from inspected sources.
 
-Start from the ordinary work you need to do. Tell the agent the outcome and relevant limits;
-it should size the process to the change. The developer's decisions and handoffs matter more
-than memorizing every skill name.
+Name the skill in the prompt. That is what loads its procedure. Ask by name, or use the host
+command from the [README install table](../README.md#1-install) (`/agent804:spec` on Claude
+Code). Project instructions also require `spec` when the prompt only describes the outcome.
+They resolve the skill in the current environment, rather than storing a machine-specific
+installation path. An unavailable skill is a setup gap to resolve before implementation.
 
 | Work | Your part | Agent work and evidence |
 |---|---|---|
-| Feature or bug fix | Describe the outcome; agree criteria before implementation | `spec` sizes the change; acceptance tests come from a separate context and show the intended failure before implementation |
-| Larger delivery | Agree the outcome and decisions the evidence cannot settle | `plan` maps criteria to ordered increments, shared contracts and combined verification |
+| Feature or bug fix | Ask for `spec`. Describe the outcome; agree criteria before implementation | `spec` sizes the change; acceptance tests come from a separate context and show the intended failure before implementation |
+| Larger delivery | Ask for `plan` once the criteria are agreed | `plan` maps criteria to ordered increments, shared contracts and combined verification |
 | Implementation | Resolve real uncertainties; keep the agreed outcome stable | Build from criteria and tests; preserve existing behavior; run relevant checks and record results |
-| Refactoring | Agree the maintenance problem and preserved behavior | `refactor` traces consumers, captures a baseline and proves the exercised preservation scope |
-| Review | Read and understand the final change before merge | `review` in a fresh context checks criteria, evidence and risk; findings are resolved or reported |
+| Refactoring | Ask for `refactor`. Agree the maintenance problem and preserved behavior | `refactor` traces consumers, captures a baseline and proves the exercised preservation scope |
+| Review | Ask for `review` in a fresh chat, then read the change before merge | `review` checks criteria, evidence and risk; findings are resolved or reported |
 
-A small bug might begin: **“Fix the duplicate reminder. Agree a focused regression case,
-keep the change local, and show it failing before the fix.”** A large feature needs more
-questions and a written spec; a typo does not need the full interview. Acceptance-test
-independence can use one model in separate contexts; multiple models are optional.
+A small bug might begin: **“Use spec. Fix the duplicate reminder. Agree a focused regression
+case, keep the change local, and show it failing before the fix.”** A large feature needs more
+questions and a written spec. A typo still goes through `spec`; the small path stays one or
+two criteria and skips the interview. Acceptance-test independence can use one model in
+separate contexts; multiple models are optional.
 
 For a larger request, `spec` helps uncover missing requirements: current users and behaviour,
 desired outcomes, constraints and consequential assumptions. Interaction changes include the
@@ -122,15 +135,17 @@ handoffs. A blocked prerequisite stays blocked; separate passing increments do n
 combined feature. [Planning rationale and limits](planning.md) explain the scope. Staffing
 and release governance stay in your existing process; proposed parallel work starts no workers.
 
-When changing contexts, pass the criteria, files/revision or patch, failing tests and actual
-results. A red acceptance-test handoff is expected. Feature completion needs passing checks;
+When changing contexts, name the skill again. A new chat does not keep `spec` loaded. Pass
+the criteria, files/revision or patch, failing tests and actual results. A red acceptance-test
+handoff is expected. Feature completion needs passing checks;
 a summary saying tests ran is not execution evidence. A failing legacy check is reported,
 not hidden or silently excluded to let the task finish.
 
-You review the final behavior and diff; agent review and green checks support that judgment.
-The delivered change also updates that area's maintained description with verified outcomes,
-source/test links and evidence scope. Proposed changes remain in the spec/plan. Repository
-checks do not prove what is deployed; known differences and unverified areas remain explicit.
+After the check is green, update that area's maintained description with verified outcomes,
+source/test links and evidence scope. Proposed changes remain in the spec/plan. Then ask for
+`review`. You read the behavior, the diff and that page; agent review and green checks support
+that judgment. Repository checks do not prove what is deployed; known differences and
+unverified areas remain explicit.
 Ask explicitly when you want a commit or push. Deployment, migrations and live settings have
 their own authorization; agreeing to a feature does not authorize them automatically.
 
@@ -139,6 +154,19 @@ established and the developer's chosen risk limits. Missing protections and fail
 remain visible; completing a feature does not make adoption complete.
 
 ## Keeping the protections useful
+
+Checks teach at the point of failure: a useful diagnostic identifies the offending location,
+explains the constraint and suggests a correction that fits the project's architecture.
+For example, a forbidden dependency should name the permitted public interface, rather than
+merely print an architecture rule ID. Setup exercises these failures and their corrections.
+
+Setup also retains structural reports from the checks being installed: complexity, file sizes,
+duplication and boundary exceptions where available. Bounded adoption collects only relevant
+reports, without adding an audit to an unrelated increment. These are observations, not approved
+exceptions. One snapshot establishes a baseline; later comparable reports can reveal drift.
+You need not configure a dashboard or learn a measurement programme before getting protection.
+The outcome is whether someone unfamiliar with the code can locate, change and verify its
+behavior. Metrics help investigate that outcome; smaller numbers alone do not establish it.
 
 A recurring agent mistake is a candidate for `sensor`: turn a known failure into a check
 that explains the fix. `garden` reviews drift and proposes scoped repairs. `measure` reports
@@ -152,3 +180,5 @@ the project's requirements do not demand them.
 These journeys and `adopt` are new in 0.5. Fixture checks and scenario reviews establish
 limited evidence only. Real-project adoption trials and reassessment remain pending.
 The discovery and increment-planning extensions in 0.6 also await real-project trials.
+Prevention diagnostics, early structural snapshots and unfamiliar-maintainer trials are also
+untrialled workflow refinements; they do not change scoring or establish field effectiveness.

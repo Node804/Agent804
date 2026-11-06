@@ -151,6 +151,13 @@ reliability. Record tool versions, scope and baseline changes so numbers are int
 change in a metric is a signal to investigate, not proof of a cause or a developer ranking.
 MS-2 reviews structural drift and retention decisions during gardening.
 
+An initial snapshot makes later drift visible without requiring a measurement programme
+before useful development. File/module sizes and boundary exceptions complement complexity
+and duplication. A snapshot records observations, not approval to retain findings. A smaller
+metric can hide fragmented responsibilities; the outcome remains an unfamiliar maintainer's
+ability to locate, change and verify behavior. Early snapshots and this outcome trial remain
+untrialled workflow refinements, with no change to MS-1's gate or level.
+
 ## References
 
 - [PEP 8 comments and documentation](https://peps.python.org/pep-0008/#comments)

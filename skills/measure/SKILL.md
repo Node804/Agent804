@@ -24,7 +24,7 @@ and environments. Missing data stays missing; retries alone do not turn failure 
 | Escaped defects | Bugs found after merge, from the issue tracker or the log | What review and tests missed |
 | Rollbacks and reverts | `git log --grep=Revert` | |
 | Harness growth | Checks added by `sensor` in the period | Whether mistakes become checks |
-| Structural trends | Comparable complexity, duplication and dependency reports | Whether maintenance costs need investigation, not proof of their cause |
+| Structural trends | Comparable complexity, file/module-size, duplication and dependency reports | Whether maintenance costs need investigation, not proof of their cause |
 | Aging exceptions | Scoped baseline and retention records in `docs/maintainability.md` | Debt awaiting its agreed review condition |
 | Security follow-up | `docs/security.md` and restricted report references | Verification gaps/freshness (SE-2); when Security applies, overdue findings and expired acceptances (SE-6). Counts are not proof of security |
 
@@ -40,7 +40,10 @@ columns: date, what the agent did, what was corrected, rule or check that now pr
 3. Read the interventions log and group it by cause. The largest group is the next `sensor` or
    `AGENTS.md` change.
 4. For structural trends, record tool version, scope, baseline changes and dispositions for
-   threshold findings. Do not compare incompatible reports or rank developers by these metrics.
+   threshold findings. Reuse the maintainability Measurements index; include boundary-exception
+   changes and review conditions. One snapshot means "baseline only", not a trend. Changed tools
+   or scope start a separate series unless comparability is established explicitly. Missing data
+   stays missing; lower numbers alone prove no improvement. Do not rank developers by metrics.
 5. Use the security record's risk categories and deadlines when comparing security follow-up.
    State missing data and changed scan scope; do not rank teams by raw finding count or label
    unavailable scans clean. Metrics do not authorize accepting risk or renewing exceptions.

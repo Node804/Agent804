@@ -1,11 +1,121 @@
 # Agent804
 
-![Public Preview · 0.6.0 — Some features and workflows are still being tested across models and agent hosts. Behavior and rules may change.](assets/preview-banner.svg)
+![Public Preview · 0.6.1 — Some features and workflows are still being tested across models and agent hosts. Behavior and rules may change.](assets/preview-banner.svg)
 
 **Build the harness before the app.** A framework and skill set for working with coding
 agents, from Node 804.
 
-**Why.** Asking an agent to "build me an app, make no mistakes"
+**Where to begin.** After [installing the kit](#1-install), open your project in your coding agent:
+
+| Your situation | Ask for |
+|---|---|
+| Starting a new project | `start` — build a running skeleton with checks and guardrails |
+| Existing code; you want help adding protections | `adopt` — inspect what is there and help put the first useful improvement in place |
+| Existing code; you want a baseline first | `assess` — get a read-only diagnosis, then use `adopt` to act on the findings |
+
+You do not need to know which protections are missing or study the rules before using
+`adopt`. A full assessment is optional; `assess` also provides a later check-up.
+
+**Protections you receive.** Setup builds checks around the project's actual needs: tests,
+style and type checks, structural limits and declared dependency boundaries, plus applicable
+security and action controls. It exercises failures so the check can explain where a problem
+is and how to fix it. Missing or unverified protections remain explicit gaps.
+
+The aim is code that someone unfamiliar with it can locate, change and verify. Structural
+reports provide a starting snapshot and later signals of drift; they do not prove that
+outcome by themselves. These setup refinements await real-project trials.
+
+## Use it
+
+The [developer guide](framework/developer-guide.md) walks through new projects, gradual
+adoption of existing code and daily work, with example requests and responsibilities.
+
+### 1. Install
+
+Until Agent804 is in a plugin marketplace, download it from GitHub: get the latest
+`agent804-<version>.zip` from the [Releases page](https://github.com/Node804/agent804/releases)
+and unzip it somewhere it can
+stay, for example `C:\tools\agent804` or `~/tools/agent804`. Keep the folder whole: skills
+find the templates and tables by relative path, so a skill folder copied on its own breaks.
+
+| Host | Install from the unzipped folder | Run a skill |
+|---|---|---|
+| **Claude Code** (desktop Code tab, terminal, web, IDE) | `/plugin marketplace add C:/tools/agent804`, then `/plugin install agent804@agent804`. The folder carries its own marketplace file | `/agent804:start` |
+| **Codex** (desktop app, terminal, IDE) | Add the folder as a local plugin (it reads the root `plugin.json`), or link its skills into the project's `.agents/skills/`. Not both | Ask for the skill by name |
+| **Grok Build CLI** | Follow the [Grok recipe](framework/agents/grok-build.md); confirm with `grok inspect --json` that the skills are found | Ask for the skill by name |
+| **Cursor and others** | Nothing to install | "Follow `<folder>/skills/start/SKILL.md`" |
+| **ChatGPT or an API chat** | See [chat hosts](framework/agents/chatgpt.md): without tools it can review what you paste, not run the check | — |
+
+To update, replace the folder's contents with the new release (delete the old files first,
+so removed ones do not linger), then in Claude Code run `/plugin marketplace update agent804`.
+Host action-permission settings differ; `start` uses the [host recipes](framework/agents/README.md).
+Core GR-4 requires current check evidence and truthful reporting; CI runs independently.
+The 0.6 preview ships no completion adapter or Stop install recipe. Codex automatic
+continuation failed despite attempted remedies; the shared Claude/Grok engine also had
+known cache/input/process-bound defects. Those implementations and their adapter fixtures
+are withdrawn, while action-permission settings and historical evidence remain.
+
+GR-8 remains an opt-in Trial design for independently supported project integrations,
+not a prerequisite or a shipped runtime. See the [module](framework/modules.md#completion-automation)
+and [criteria](framework/agents/completion.md). Existing handlers copied into projects are
+not uninstalled by updating this kit; review them separately within authorized scope.
+After moving the folder, `python scripts/check_skill_resources.py <folder>` confirms paths.
+
+### 2. First run
+
+**New project:** run `start` in an empty folder. It asks seven questions, one at a time
+(what it is, what happens if it breaks, prototype or production, stack, who reviews, whether
+agents will call it, how many write at once). Then it builds a running skeleton with one check command,
+guardrails, CI, risk zones and a first ADR, and proves each control by making it fail once.
+It asks before the first commit.
+
+**Existing project:** use `adopt` for guided setup, even if you do not know what is missing.
+For a baseline first, use `assess` for a read-only diagnosis, then `adopt` to act on its findings.
+Assessment recommends one bounded next action with optional follow-ups. Adoption walks you
+through the choices and creates missing pieces, such as style conventions or a check command.
+Agree one useful increment, prove what works, then resume later from the project record.
+You can begin before earning Level 1; the full findings are not today's mandatory backlog.
+
+### 3. Every change
+
+Name the skill in the prompt. That is the reliable way to load its procedure. Ask by name, or
+use the host command in the [install table](#1-install) (`/agent804:spec` on Claude Code).
+Project instructions also require `spec` when it is not named, resolving the current installation
+through available skills or the intact kit. They do not store a machine-specific install path.
+
+1. **`spec`** sizes the change. A small fix gets one or two criteria in the plan; a large one
+   gets an interview and a spec. You agree the criteria before any code.
+   Discovery surfaces assumptions, constraints and relevant interaction states. For work
+   spanning several changes, **`plan`** (Trial) divides the agreed outcome into verifiable
+   increments with dependencies and integration checkpoints, using the existing plan/tracker.
+2. **Tests first, in a separate context**: a fresh session or subagent writes the acceptance
+   tests from the criteria and shows them failing.
+3. **Build** in another fresh context until the check is green, without editing those tests.
+4. **Current behavior.** Update the area's page to the verified outcome, with sources, tests,
+   revision and gaps. Pending work stays in the spec. Small projects can use one README section.
+5. **`review`** in a fresh context, from the criteria, the real check output and that page.
+   Then a person reviews before merge.
+
+Start from the area's maintained behavior description, reusing an existing README or contract.
+`spec` records added, changed, removed and preserved behavior. Proposals and history stay
+separate from the current page. Source and test references distinguish repository behavior
+from deployed state. This 0.6 workflow is untrialled; see [limits](framework/validation/current-behavior.md).
+
+Restructuring with no behaviour change uses `refactor` instead of steps 1 and 2.
+
+### 4. Every so often
+
+- A mistake the agent makes twice becomes a check, with `sensor`.
+- `garden` finds stale instructions, drift and overdue follow-ups, and proposes small fixes.
+- `measure` shows whether agent work holds: corrections, rework, escaped defects and test
+  reliability, against the last period.
+
+Optional: `route` when you have several models or an allowance to plan; `context` when a task
+spans many sessions or the evidence is incomplete.
+
+## Why Agent804
+
+Asking an agent to "build me an app, make no mistakes"
 fails for the same reasons every time: the agent has no memory of your standards, no way to
 check its own work, nothing stopping it from doing irreversible things, and it grades its own
 homework. Better prompts do not fix that. A repository that holds the rules, and checks that
@@ -31,6 +141,10 @@ the difference. Every skill, module and mechanism carries one of four marks, and
 | **Idea** | Written and checked for consistency, never used on a real project. Agents may not follow it as written |
 
 ## Core and modules
+
+You can use setup without studying this structure. Levels help explain demonstrated progress
+when you want a broader view; applicable protections still follow the project's actual needs.
+Early structural snapshots do not require reaching Level 4 or establish that level.
 
 **The core is what every project built with agents needs**, grouped into four cumulative
 [levels](framework/levels.md). Each level requires every applicable gate in that level and
@@ -139,87 +253,6 @@ against the real code. A profile joins the kit once it has been used on a real p
 | [`route`](skills/route/SKILL.md) | Optional: which model and effort for each role, without launching anything | Idea |
 | [`context`](skills/context/SKILL.md) | Optional: gathers or recovers the evidence a long task needs, from the repository | Idea |
 
-## Use it
-
-The [developer guide](framework/developer-guide.md) walks through new projects, gradual
-adoption of existing code and daily work, with example requests and responsibilities.
-
-### 1. Install
-
-Until Agent804 is in a plugin marketplace, download it from GitHub: get the latest
-`agent804-<version>.zip` from the [Releases page](https://github.com/Node804/agent804/releases)
-and unzip it somewhere it can
-stay, for example `C:\tools\agent804` or `~/tools/agent804`. Keep the folder whole: skills
-find the templates and tables by relative path, so a skill folder copied on its own breaks.
-
-| Host | Install from the unzipped folder | Run a skill |
-|---|---|---|
-| **Claude Code** (desktop Code tab, terminal, web, IDE) | `/plugin marketplace add C:/tools/agent804`, then `/plugin install agent804@agent804`. The folder carries its own marketplace file | `/agent804:start` |
-| **Codex** (desktop app, terminal, IDE) | Add the folder as a local plugin (it reads the root `plugin.json`), or link its skills into the project's `.agents/skills/`. Not both | Ask for the skill by name |
-| **Grok Build CLI** | Follow the [Grok recipe](framework/agents/grok-build.md); confirm with `grok inspect --json` that the skills are found | Ask for the skill by name |
-| **Cursor and others** | Nothing to install | "Follow `<folder>/skills/start/SKILL.md`" |
-| **ChatGPT or an API chat** | See [chat hosts](framework/agents/chatgpt.md): without tools it can review what you paste, not run the check | — |
-
-To update, replace the folder's contents with the new release (delete the old files first,
-so removed ones do not linger), then in Claude Code run `/plugin marketplace update agent804`.
-Host action-permission settings differ; `start` uses the [host recipes](framework/agents/README.md).
-Core GR-4 requires current check evidence and truthful reporting; CI runs independently.
-The 0.6 preview ships no completion adapter or Stop install recipe. Codex automatic
-continuation failed despite attempted remedies; the shared Claude/Grok engine also had
-known cache/input/process-bound defects. Those implementations and their adapter fixtures
-are withdrawn, while action-permission settings and historical evidence remain.
-
-GR-8 remains an opt-in Trial design for independently supported project integrations,
-not a prerequisite or a shipped runtime. See the [module](framework/modules.md#completion-automation)
-and [criteria](framework/agents/completion.md). Existing handlers copied into projects are
-not uninstalled by updating this kit; review them separately within authorized scope.
-After moving the folder, `python scripts/check_skill_resources.py <folder>` confirms paths.
-
-### 2. First run
-
-**New project:** run `start` in an empty folder. It asks seven questions, one at a time
-(what it is, what happens if it breaks, prototype or production, stack, who reviews, whether
-agents will call it, how many write at once). Then it builds a running skeleton with one check command,
-guardrails, CI, risk zones and a first ADR, and proves each control by making it fail once.
-It asks before the first commit.
-
-**Existing project:** use `adopt` for guided setup, or `assess` for a read-only diagnosis.
-Assessment recommends one bounded next action with optional follow-ups. Adoption walks you
-through the choices and creates missing pieces, such as style conventions or a check command.
-Agree one useful increment, prove what works, then resume later from the project record.
-You can begin before earning Level 1; the full findings are not today's mandatory backlog.
-
-### 3. Every change
-
-1. **`spec`** sizes the change. A small fix gets one or two criteria in the plan; a large one
-   gets an interview and a spec. You agree the criteria before any code.
-   Discovery surfaces assumptions, constraints and relevant interaction states. For work
-   spanning several changes, **`plan`** (Trial) divides the agreed outcome into verifiable
-   increments with dependencies and integration checkpoints, using the existing plan/tracker.
-2. **Tests first, in a separate context**: a fresh session or subagent writes the acceptance
-   tests from the criteria and shows them failing.
-3. **Build** in another fresh context until the check is green, without editing those tests.
-4. **`review`** in a fresh context, from the criteria and the real check output. Then a person
-   reviews before merge.
-
-Start from the area's maintained behavior description, reusing existing README/contract docs.
-`spec` records added, changed, removed and preserved behavior. Verified delivery reconciles
-the description before review; proposals and history remain separate. Small projects can use
-one README section. Source/test references and verification scope distinguish repository
-behavior from deployed state. This 0.6 workflow is untrialled; see [limits](framework/validation/current-behavior.md).
-
-Restructuring with no behaviour change uses `refactor` instead of steps 1 and 2.
-
-### 4. Every so often
-
-- A mistake the agent makes twice becomes a check, with `sensor`.
-- `garden` finds stale instructions, drift and overdue follow-ups, and proposes small fixes.
-- `measure` shows whether agent work holds: corrections, rework, escaped defects and test
-  reliability, against the last period.
-
-Optional: `route` when you have several models or an allowance to plan; `context` when a task
-spans many sessions or the evidence is incomplete.
-
 ## What it does not do
 
 - Decide what is worth building.
@@ -232,7 +265,7 @@ spans many sessions or the evidence is incomplete.
 
 ## Evidence
 
-**Version 0.6.0, preview candidate; publication pending.** Rules still change; see [CHANGELOG.md](CHANGELOG.md)
+**Version 0.6.1, preview candidate; publication pending.** Rules still change; see [CHANGELOG.md](CHANGELOG.md)
 and [ROADMAP.md](ROADMAP.md). The reference projects are real line-of-business applications
 built with coding agents; they are not named here.
 
@@ -251,8 +284,9 @@ built with coding agents; they are not named here.
   failed for the right reason, built with the tests unchanged, reviewed, and recorded the
   evidence back. This ran with the reference project's own playbooks, which the kit's skills
   were written from. **The kit's current skill text has not yet run on a real feature.**
-- **The Claude Code stop hook and permission settings**, in an earlier copy, on one reference
-  project. Green runs are recorded in the real host; a block on a red check is not recorded.
+- **Claude Code permission settings**, used once on a reference project. The stop hook from
+  that earlier copy was withdrawn in 0.6. Green runs of the old hook are recorded; a block on
+  a red check is not. Permission settings remain. Completion is the check and a person.
 - **Model routing:** fast, mid and strongest tiers for search, test writing and design over
   one feature. It found one real problem (the test writer's output did not type-check, which
   led to TS-7); it was not compared with another route, and cost was not measured.
@@ -276,13 +310,15 @@ built with coding agents; they are not named here.
   unresolved; fixture success was not active enforcement.
 
 **Idea**
+- **Prevention-first setup:** actionable failure exercises, structural snapshots during relevant
+  setup and unfamiliar-maintainer outcome trials. No successful field trial yet; see
+  [workflow limits](framework/validation/adoption.md#prevention-first-setup-refinement-06).
 - **0.6 discovery and planning:** stronger requirements and interaction discovery in `spec`,
   plus the Trial `plan` skill for increments and integration. No real-project trial yet;
   [rationale](framework/planning.md) and [validation limits](framework/validation/planning.md).
 - **0.5 guided adoption and developer journeys:** integrity-checked and independently reviewed.
-  An isolated Python exercise created a partial check and resumed to document style;
-  a partial real-project adoption/host trial is recorded below; successful full enforcement
-  setup remains pending.
+  An isolated Python exercise created a partial check and resumed to document style.
+  Successful full enforcement setup remains pending.
 - **0.5 cumulative scoring:** gate mapping is regression-tested; assessment clarity and
   reference-project levels remain untrialled.
 - **Skills not run on real projects:** `start`, `refactor`, `sensor`, `garden`, `measure`, `operate`, `route`

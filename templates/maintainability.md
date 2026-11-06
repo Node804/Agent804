@@ -44,5 +44,18 @@ Preserve old entries when correcting or resolving them. No blanket package exclu
 
 ## Measurements
 
-- Comparable reports: <locations, tool versions, scope and cadence>
+- Retain actual complexity, file/module-size, duplication and boundary-exception reports from
+  installed checks in the setup/increment scope, after removing negative fixtures. Reuse existing
+  evidence locations; no separate dashboard is required. Missing coverage stays explicit.
+
+| Date | Revision or preserved patch | Command and tool version | Scope | Report | Unavailable coverage |
+|---|---|---|---|---|---|
+| <date> | <revision, or patch and base> | <reproducible command/version> | <paths/exclusions> | <link to observations and exception state> | <missing signals or none> |
+
+One snapshot is a measurement baseline, not a trend or an approved legacy exception. Snapshots
+grant no exceptions; approvals remain in Adoption baseline and exceptions above. Preserve earlier
+reports. Changed tools or scope start a separate series unless comparability is established
+explicitly; lower numbers alone do not prove maintainability.
+
+- Comparison cadence: <project-appropriate review; no automation implied>
 - Gardening: <routine, responsible reviewer and exception follow-up>

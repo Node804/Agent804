@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="700" height="100" viewBox="0 0 700 100" role="img" aria-labelledby="title desc">
-  <title id="title">Public Preview · 0.6.0</title>
+  <title id="title">Public Preview · 0.6.1</title>
   <desc id="desc">Some features and workflows are still being tested across models and agent hosts. Behavior and rules may change.</desc>
   <rect width="700" height="100" fill="#0d1117"/>
   <path d="M1 8v84" stroke="#ffa657" stroke-width="2"/>
-  <text x="16" y="30" fill="#ffa657" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="14" font-weight="700">Public Preview · 0.6.0</text>
+  <text x="16" y="30" fill="#ffa657" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="14" font-weight="700">Public Preview · 0.6.1</text>
   <text x="16" y="56" fill="#a5c6e3" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14">
     <tspan x="16">Some features and workflows are still being tested across models and agent hosts.</tspan>
     <tspan x="16" dy="22">Behavior and rules may change.</tspan>
